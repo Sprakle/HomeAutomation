@@ -23,9 +23,9 @@ import utilities.personality.dynamicResponse.DynamicResponder;
 import utilities.personality.dynamicResponse.ResponseType;
 
 public class IntentionDeterminer {
-	public static void determine(Logger logger, ObjectDatabase od, ModuleManager mm, Tagger tagger, Phrase phrase) {
+	public static void determine(Logger logger, Synthesis synth, ObjectDatabase od, ModuleManager mm, Tagger tagger, Phrase phrase) {
 
-		Stack<Determiner> determinerStack = DeterminerFactory.getDeterminers(logger, od, mm, tagger);
+		Stack<Determiner> determinerStack = DeterminerFactory.getDeterminers(logger, synth, od, mm, tagger);
 
 		ArrayList<Determiner> claimers = new ArrayList<Determiner>(); // list of determiners that have claimed the phrase
 
@@ -44,19 +44,19 @@ public class IntentionDeterminer {
 
 			// report to the user that the phrase was indeterminable
 			String reply = DynamicResponder.reply(ResponseType.I_DIDNT_UNDERSTAND);
-			Synthesis.speak(logger, reply);
+			synth.speak(reply);
 
 		} else if (claimers.size() == 1) { // correct determiner intention found!
 			logger.log("Determiner '" + claimers.get(0).getName() + "' is the only claiming determiner. Executing said determiner", LogSource.DETERMINER_INFO, 2);
 			claimers.get(0).execute(phrase);
 
 		} else if (claimers.size() > 1) { // too many claimers! complain to user
-			Synthesis.speak(logger, DynamicResponder.reply(ResponseType.TOO_AMBIGUOUS));
+			synth.speak(DynamicResponder.reply(ResponseType.TOO_AMBIGUOUS));
 			logger.log("Too many determiners claimed the phrase!", LogSource.DETERMINER_INFO, 2);
 
 			// report to the user that too many determiners claimed
 			String reply = DynamicResponder.reply(ResponseType.I_DIDNT_UNDERSTAND);
-			Synthesis.speak(logger, reply);
+			synth.speak(reply);
 		}
 	}
 }

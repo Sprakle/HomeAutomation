@@ -1,6 +1,5 @@
 package utilities.logger;
 
-import speech.synthesis.Synthesis;
 
 public class Logger {
 
@@ -23,7 +22,7 @@ public class Logger {
 
 		// If there is an error, create an alert
 		if (source == LogSource.ERROR) {
-			Synthesis.speak(this, "Fatal Error Occured: " + text);
+			System.exit(1);
 		}
 
 		if (verbosity < verbosityLimit || verbosityLimit == 0) {
@@ -43,7 +42,7 @@ public class Logger {
 
 		// If there is an error, create an alert
 		if (source == LogSource.ERROR) {
-			Synthesis.speak(this, "Fatal Error Occured: " + text);
+			System.exit(1);
 		}
 
 		if (verbosity < verbosityLimit || verbosityLimit == 0) {

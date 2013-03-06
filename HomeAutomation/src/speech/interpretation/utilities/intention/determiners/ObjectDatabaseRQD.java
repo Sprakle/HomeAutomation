@@ -18,12 +18,14 @@ import utilities.logger.Logger;
 
 public class ObjectDatabaseRQD implements Determiner {
 
-	Logger logger;
-	ObjectDatabase od;
-	Tagger tagger;
+	private Logger logger;
+	private Synthesis synth;
+	private ObjectDatabase od;
+	private Tagger tagger;
 
-	ObjectDatabaseRQD(Logger logger, ObjectDatabase od, Tagger tagger) {
+	ObjectDatabaseRQD(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger) {
 		this.logger = logger;
+		this.synth = synth;
 		this.od = od;
 		this.tagger = tagger;
 	}
@@ -57,7 +59,7 @@ public class ObjectDatabaseRQD implements Determiner {
 			if (queryResponse.sucsess()) {
 				targetObject = (DB_Object) queryResponse.component();
 			} else {
-				Synthesis.speak(logger, "That object is not in my database");
+				synth.speak("That object is not in my database");
 				return;
 			}
 
@@ -73,7 +75,7 @@ public class ObjectDatabaseRQD implements Determiner {
 
 					// ensure we got a node
 					if (targetNode == null) {
-						Synthesis.speak(logger, targetObject.getIdentifier() + " does not have an Integer node");
+						synth.speak(targetObject.getIdentifier() + " does not have an Integer node");
 						return;
 					}
 
@@ -83,7 +85,7 @@ public class ObjectDatabaseRQD implements Determiner {
 					else
 						logger.log("Recieved wrong type from generic in ObjectDatabaseRQD", LogSource.ERROR, LogSource.DETERMINER_INFO, 1);
 
-					Synthesis.speak(logger, "The value is " + value);
+					synth.speak("The value is " + value);
 					break;
 				}
 
@@ -92,7 +94,7 @@ public class ObjectDatabaseRQD implements Determiner {
 
 					// ensure we got a node
 					if (targetNode == null) {
-						Synthesis.speak(logger, targetObject.getIdentifier() + " does not have a Binary node");
+						synth.speak(targetObject.getIdentifier() + " does not have a Binary node");
 						return;
 					}
 
@@ -102,7 +104,7 @@ public class ObjectDatabaseRQD implements Determiner {
 					else
 						logger.log("Recieved wrong type from generic in ObjectDatabaseRQD", LogSource.ERROR, LogSource.DETERMINER_INFO, 1);
 
-					Synthesis.speak(logger, "The value is " + value);
+					synth.speak("The value is " + value);
 					break;
 				}
 			}

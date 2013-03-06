@@ -6,48 +6,42 @@
 package speech.synthesis;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import utilities.audio.out.AudioOut;
-import utilities.logger.LogSource;
+import utilities.externalSoftware.ExternalSoftware;
+import utilities.externalSoftware.Software;
 import utilities.logger.Logger;
 
 public class Synthesis {
 
-	private static final Path mp3TempPath = Paths.get("src/speech/synthesis/output/");
+	private static final String path = "synthAudio/speech.wav";
 
-	public static void speak(Logger logger, String phrase) {
+	private Logger logger;
+
+	private ExternalSoftware exs;
+
+	public Synthesis(Logger logger, ExternalSoftware exs) {
+		this.logger = logger;
+		this.exs = exs;
+	}
+
+	public void speak(String phrase) {
 
 		phrase = filterNegatives(phrase);
 
 		// first write the wav file
-		Process process = null;
-		try {
-			process = Runtime.getRuntime().exec("swift -n David \"" + phrase + "\" -o " + mp3TempPath + "/speech.wav");
-			logger.log(phrase, LogSource.SYNTHESIS_OUTPUT, 2);
-
-			try {
-				process.waitFor();
-			} catch (InterruptedException e) {
-				logger.log("Problem accessing Linux Shell!", LogSource.ERROR, LogSource.SYNTHESIS_INFO, 1);
-				e.printStackTrace();
-			}
-		} catch (IOException e) {
-			logger.log("Problem accessing Linux Shell!", LogSource.ERROR, LogSource.SYNTHESIS_INFO, 1);
-			e.printStackTrace();
-		}
+		String[] command = { path, phrase };
+		exs.execute(Software.SWIFT, command);
 
 		// then play it
-		File speechFile = new File(mp3TempPath + "/speech.wav");
+		File speechFile = new File(path);
 		AudioOut.playSound(logger, speechFile);
 	}
 
 	// since swift cannot pronounce numbers like "-67", they must be modified to use the word "negative"
-	private static String filterNegatives(String original) {
+	private String filterNegatives(String original) {
 		String filtered = original;
 
 		String regex = "\\-[0-9]{0,}";

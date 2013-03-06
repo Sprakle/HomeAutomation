@@ -15,15 +15,18 @@ import events.EventType;
 
 public class ObjectDatabase {
 
-	ArrayList<Component> database;
+	private ArrayList<Component> database;
 
-	Logger logger;
+	private Logger logger;
+	private Synthesis synth;
 
 	// arduino is required for some nodes
-	Arduino arduino;
+	private Arduino arduino;
 
-	public ObjectDatabase(Logger logger, Arduino arduino) {
+	public ObjectDatabase(Logger logger, Synthesis synth, Arduino arduino) {
 		this.logger = logger;
+		this.synth = synth;
+
 		this.arduino = arduino;
 
 		buildDatabase();
@@ -164,7 +167,7 @@ public class ObjectDatabase {
 
 	// updates database and alerts listeners
 	public void reloadDatabase() {
-		Synthesis.speak(logger, "Re-loading database");
+		synth.speak("Re-loading database");
 
 		buildDatabase();
 

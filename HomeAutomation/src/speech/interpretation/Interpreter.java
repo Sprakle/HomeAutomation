@@ -7,6 +7,7 @@ import objectDatabase.ObjectDatabase;
 import speech.interpretation.module.ModuleManager;
 import speech.interpretation.utilities.intention.IntentionDeterminer;
 import speech.interpretation.utilities.tagger.Tagger;
+import speech.synthesis.Synthesis;
 import userInterface.speechInput.SpeechInput;
 import userInterface.speechInput.SpeechInputObserver;
 import userInterface.textInput.TextInput;
@@ -18,6 +19,9 @@ public class Interpreter implements TextInputObserver, SpeechInputObserver {
 
 	private final Path tagfilePath = Paths.get("resources/tagger/main.tagList");
 
+	Logger logger;
+	Synthesis synth;
+
 	// used to receive text from user
 	TextInput textInput;
 	SpeechInput speechInput;
@@ -25,16 +29,16 @@ public class Interpreter implements TextInputObserver, SpeechInputObserver {
 	Phrase currentPhrase;
 
 	ObjectDatabase od;
-	Logger logger;
 
 	ModuleManager moduleManager;
 	Tagger tagger;
 
-	public Interpreter(Logger logger, ObjectDatabase od, TextInput textInput, SpeechInput speechInput) {
+	public Interpreter(Logger logger, Synthesis synth, ObjectDatabase od, TextInput textInput, SpeechInput speechInput) {
 		this.logger = logger;
+		this.synth = synth;
 		this.od = od;
 
-		this.tagger = new Tagger(logger, tagfilePath);
+		this.tagger = new Tagger(logger, synth, tagfilePath);
 		this.moduleManager = new ModuleManager(logger, od, tagger);
 
 		this.textInput = textInput;
@@ -65,7 +69,7 @@ public class Interpreter implements TextInputObserver, SpeechInputObserver {
 			/* get the intention of the phrase. If an intention was found,
 			 * the determiner will execute the intention
 			 */
-			IntentionDeterminer.determine(logger, od, moduleManager, tagger, phrase);
+			IntentionDeterminer.determine(logger, synth, od, moduleManager, tagger, phrase);
 		}
 	}
 

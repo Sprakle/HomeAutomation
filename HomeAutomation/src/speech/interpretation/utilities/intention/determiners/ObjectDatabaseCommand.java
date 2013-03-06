@@ -21,12 +21,14 @@ import utilities.personality.dynamicResponse.ResponseType;
 
 public class ObjectDatabaseCommand implements Determiner {
 
-	Logger logger;
-	ObjectDatabase od;
-	Tagger tagger;
+	private Logger logger;
+	private Synthesis synth;
+	private ObjectDatabase od;
+	private Tagger tagger;
 
-	ObjectDatabaseCommand(Logger logger, ObjectDatabase od, Tagger tagger) {
+	ObjectDatabaseCommand(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger) {
 		this.logger = logger;
+		this.synth = synth;
 		this.od = od;
 		this.tagger = tagger;
 	}
@@ -97,12 +99,12 @@ public class ObjectDatabaseCommand implements Determiner {
 		// make sure we got a usable object
 		if (queryResponse.noObjectsFound()) {
 			// no objects found
-			Synthesis.speak(logger, name + " seems to be tagged but not in my database");
+			synth.speak(name + " seems to be tagged but not in my database");
 			return;
 
 		} else if (queryResponse.notSpecificEnough()) {
 			// not specific enough
-			Synthesis.speak(logger, DynamicResponder.reply(ResponseType.TOO_AMBIGUOUS));
+			synth.speak(DynamicResponder.reply(ResponseType.TOO_AMBIGUOUS));
 			return;
 
 		} else if (queryResponse.sucsess()) {
@@ -115,7 +117,7 @@ public class ObjectDatabaseCommand implements Determiner {
 		DB_Node node = (DB_Node) target.getChild(logger, nodeName);
 
 		if (node == null) {
-			Synthesis.speak(logger, "The object " + name + " does not have the node " + nodeName);
+			synth.speak("The object " + name + " does not have the node " + nodeName);
 		} else {
 			int command = Integer.parseInt(commandTag.getValue());
 			System.out.println("Executing binary command '" + (command == 1) + "' on node '" + node.getAbsolutePath() + "'");
@@ -141,12 +143,12 @@ public class ObjectDatabaseCommand implements Determiner {
 		// make sure we got a usable object
 		if (queryResponse.noObjectsFound()) {
 			// no objects found
-			Synthesis.speak(logger, name + " seems to be tagged but not in my database");
+			synth.speak(name + " seems to be tagged but not in my database");
 			return;
 
 		} else if (queryResponse.notSpecificEnough()) {
 			// not specific enough
-			Synthesis.speak(logger, DynamicResponder.reply(ResponseType.TOO_AMBIGUOUS));
+			synth.speak(DynamicResponder.reply(ResponseType.TOO_AMBIGUOUS));
 			return;
 
 		} else if (queryResponse.sucsess()) {
@@ -159,7 +161,7 @@ public class ObjectDatabaseCommand implements Determiner {
 		DB_Node node = (DB_Node) target.getChild(logger, nodeName);
 
 		if (node == null) {
-			Synthesis.speak(logger, "The object " + name + " does not have the node " + nodeName);
+			synth.speak("The object " + name + " does not have the node " + nodeName);
 		} else {
 			int command = Integer.parseInt(commandTag.getValue());
 			node.writeValue(command);

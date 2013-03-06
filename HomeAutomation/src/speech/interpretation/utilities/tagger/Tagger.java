@@ -26,12 +26,14 @@ import events.EventType;
 public class Tagger {
 
 	Logger logger;
+	Synthesis synth;
 
 	Path tagFile;
 	private List<String> lines = null;
 
-	public Tagger(Logger logger, Path tagFile) {
+	public Tagger(Logger logger, Synthesis synth, Path tagFile) {
 		this.logger = logger;
+		this.synth = synth;
 		this.tagFile = tagFile;
 
 		lines = LineByLine.read(logger, tagFile); // read lines from file
@@ -195,7 +197,7 @@ public class Tagger {
 	}
 
 	public void reloadTaglist() {
-		Synthesis.speak(logger, "Re-loading tag list");
+		synth.speak("Re-loading tag list");
 
 		loadTaglist();
 

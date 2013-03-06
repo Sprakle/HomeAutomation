@@ -54,19 +54,21 @@ public class Arduino implements EventListener {
 	public static final Technology ANALOGUE_READ = Technology.ANALOGUE_READ;
 	public static final Technology ANALOGUE_WRITE = Technology.ANALOGUE_WRITE;
 
-	Logger logger;
+	private Logger logger;
+	private Synthesis synth;
 
 	// assignments for each pin
-	int[] digitalReadAssignments;
-	int[] digitalWriteAssignments;
-	int[] analogueReadAssignments;
-	int[] analogueWriteAssignments;
+	private int[] digitalReadAssignments;
+	private int[] digitalWriteAssignments;
+	private int[] analogueReadAssignments;
+	private int[] analogueWriteAssignments;
 
 	// cache line from db_org file
-	List<String> lines;
+	private List<String> lines;
 
-	public Arduino(Logger logger) {
+	public Arduino(Logger logger, Synthesis synth) {
 		this.logger = logger;
+		this.synth = synth;
 
 		// event listener for updates to the database file
 		EventManager em = EventManager.getInstance(logger);
@@ -109,7 +111,7 @@ public class Arduino implements EventListener {
 
 				// since this error can be user-generated and is not fatal, just warn the user
 				String error = "Pin " + pin + " is not assigned for Technology " + tech.name();
-				Synthesis.speak(logger, error);
+				synth.speak(error);
 			}
 		}
 
@@ -119,16 +121,16 @@ public class Arduino implements EventListener {
 
 			case DIGITAL_WRITE:
 				if (interaction == 1)
-					Synthesis.speak(logger, DynamicResponder.reply(ResponseType.ACTIVATED) + " the " + pinToDevice(tech, pin) + " " + pinToNode(tech, pin));
+					synth.speak(DynamicResponder.reply(ResponseType.ACTIVATED) + " the " + pinToDevice(tech, pin) + " " + pinToNode(tech, pin));
 				else
-					Synthesis.speak(logger, DynamicResponder.reply(ResponseType.DEACTIVATED) + " the " + pinToDevice(tech, pin) + " " + pinToNode(tech, pin));
+					synth.speak(DynamicResponder.reply(ResponseType.DEACTIVATED) + " the " + pinToDevice(tech, pin) + " " + pinToNode(tech, pin));
 				break;
 
 			case ANALOGUE_READ:
 				break;
 
 			case ANALOGUE_WRITE:
-				Synthesis.speak(logger, "Set " + pinToDevice(tech, pin) + " " + pinToNode(tech, pin) + " to " + interaction);
+				synth.speak("Set " + pinToDevice(tech, pin) + " " + pinToNode(tech, pin) + " to " + interaction);
 				break;
 		}
 
