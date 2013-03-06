@@ -1,0 +1,34 @@
+{Object} "rooms"
+    {Object} "bedroom"
+        {Object} "backlight" -def_node_int brightness -def_node_bin power
+            {Node} "brightness"
+                {NodeBehaviour} "ARDUINO_DEVICE" -tech aw -pin 4
+            {Node} "power"
+                {NodeBehaviour} "ARDUINO_DEVICE" -tech dw -pin 5
+        {Object} "light"
+            {Node} "power"
+                {NodeBehaviour} "ARDUINO_DEVICE" -tech dw -pin 11
+        {Object} "projector"
+            {Node} "power"
+            {Node} "power"
+                {NodeBehaviour} "ARDUINO_DEVICE" -tech dw -pin 13
+        {Object} "stereo"
+            {Node} "power"
+                {NodeBehaviour} "ARDUINO_DEVICE" -tech dw -pin 12
+            {Node} "volume"
+        {Object} "temperatureSensor"
+            {Node} "temperature"
+    {Object} "living room"
+        {Object} "heater"
+            {Node} "power"
+                {NodeBehaviour} "ARDUINO_DEVICE" -tech dw -pin 14
+        {Object} "lamp"
+            {Node} "power"
+{Object} "weather"
+    {Object} "current"
+        {Object} "condition"
+            {Node} "condition"
+                {NodeBehaviour} "WEATHER" -time current -type condition
+        {Object} "temperature"
+            {Node} "temperature"
+                {NodeBehaviour} "WEATHER" -time current -type temperature

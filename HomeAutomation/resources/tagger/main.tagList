@@ -1,0 +1,32 @@
+"stereo"		{OD_OBJECT/stereo}
+"light"			{OD_OBJECT/light}
+"lights"		{OD_OBJECT/light}
+"projector"		{OD_OBJECT/projector}
+"backlight"		{OD_OBJECT/backlight}
+
+"on"		{POWER_OPTION/1}
+"enable"		{POWER_OPTION/1}
+"activate"		{POWER_OPTION/1}
+"lock"			{POWER_OPTION/1}
+"deactivate"	{POWER_OPTION/0}
+"disable"		{POWER_OPTION/0}
+"off"		{POWER_OPTION/0}
+"unlock"		{POWER_OPTION/0}
+
+"volume"		{NODE/volume}
+"brightness"	{NODE/brightness}
+"temperature"	{NODE/temp}
+
+"set"			{SETTER/i} // IDEA: instead if 'i', use +/-/=
+"turn up"		{SETTER/i}
+"turn down"		{SETTER/i}
+"increase"		{SETTER/i}
+"decrease"		{SETTER/i}
+
+"degrees"		{UNIT/degree}
+"degree"		{UNIT/degree}
+"percent"		{UNIT/percent}
+
+"what"			{QUESTION/generic}
+"how"			{QUESTION/integer}
+"is the"		{QUESTION/binary}
