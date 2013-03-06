@@ -1,4 +1,4 @@
-package net.sprakle.homeAutomation.speech.interpretation.utilities.intention.determiners;
+package net.sprakle.homeAutomation.speech.interpretation.module.modules.objectDatabaseCommand;
 
 import java.util.ArrayList;
 
@@ -9,41 +9,34 @@ import net.sprakle.homeAutomation.objectDatabase.componentTree.Component;
 import net.sprakle.homeAutomation.objectDatabase.componentTree.components.DB_Node;
 import net.sprakle.homeAutomation.objectDatabase.componentTree.components.DB_Object;
 import net.sprakle.homeAutomation.speech.interpretation.Phrase;
-import net.sprakle.homeAutomation.speech.interpretation.utilities.tagger.ParseHelpers;
-import net.sprakle.homeAutomation.speech.interpretation.utilities.tagger.Tagger;
-import net.sprakle.homeAutomation.speech.interpretation.utilities.tagger.tags.Tag;
-import net.sprakle.homeAutomation.speech.interpretation.utilities.tagger.tags.TagType;
+import net.sprakle.homeAutomation.speech.interpretation.module.InterpretationModule;
+import net.sprakle.homeAutomation.speech.interpretation.tagger.ParseHelpers;
+import net.sprakle.homeAutomation.speech.interpretation.tagger.Tagger;
+import net.sprakle.homeAutomation.speech.interpretation.tagger.tags.Tag;
+import net.sprakle.homeAutomation.speech.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.speech.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.DynamicResponder;
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.ResponseType;
 
-
-public class ObjectDatabaseCommand implements Determiner {
+public class ObjectDatabaseCommand extends InterpretationModule {
 
 	private Logger logger;
 	private Synthesis synth;
 	private ObjectDatabase od;
 	private Tagger tagger;
 
-	ObjectDatabaseCommand(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger) {
+	public ObjectDatabaseCommand(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger) {
 		this.logger = logger;
 		this.synth = synth;
 		this.od = od;
 		this.tagger = tagger;
 	}
 
-	String name = "Object database command";
-
-	@Override
-	public String getName() {
-		return name;
-	}
-
 	// returns true if a phrase applies to this determiner
 	@Override
-	public Boolean determine(Phrase phrase) {
+	public Boolean claim(Phrase phrase) {
 		Boolean result = false;
 
 		NodeType type = interpretNodeType(phrase);
@@ -67,12 +60,12 @@ public class ObjectDatabaseCommand implements Determiner {
 
 		switch (type) {
 			case BINARY:
-				logger.log("Executing " + this.getName() + "for a binary command", LogSource.DETERMINER_INFO, 2);
+				logger.log("Executing " + NAME + "for a binary command", LogSource.DETERMINER_INFO, 2);
 				executeForBinary(od, tagger, phrase, nodeName);
 				break;
 
 			case INTEGER:
-				logger.log("Executing " + this.getName() + "for an integer command command", LogSource.DETERMINER_INFO, 2);
+				logger.log("Executing " + NAME + "for an integer command command", LogSource.DETERMINER_INFO, 2);
 				executeForInteger(od, phrase, nodeName);
 				break;
 
@@ -100,7 +93,7 @@ public class ObjectDatabaseCommand implements Determiner {
 		// make sure we got a usable object
 		if (queryResponse.noObjectsFound()) {
 			// no objects found
-			synth.speak(name + " seems to be tagged but not in my database");
+			synth.speak(NAME + " seems to be tagged but not in my database");
 			return;
 
 		} else if (queryResponse.notSpecificEnough()) {
@@ -118,7 +111,7 @@ public class ObjectDatabaseCommand implements Determiner {
 		DB_Node node = (DB_Node) target.getChild(logger, nodeName);
 
 		if (node == null) {
-			synth.speak("The object " + name + " does not have the node " + nodeName);
+			synth.speak("The object " + NAME + " does not have the node " + nodeName);
 		} else {
 			int command = Integer.parseInt(commandTag.getValue());
 			System.out.println("Executing binary command '" + (command == 1) + "' on node '" + node.getAbsolutePath() + "'");
@@ -144,7 +137,7 @@ public class ObjectDatabaseCommand implements Determiner {
 		// make sure we got a usable object
 		if (queryResponse.noObjectsFound()) {
 			// no objects found
-			synth.speak(name + " seems to be tagged but not in my database");
+			synth.speak(NAME + " seems to be tagged but not in my database");
 			return;
 
 		} else if (queryResponse.notSpecificEnough()) {
@@ -162,7 +155,7 @@ public class ObjectDatabaseCommand implements Determiner {
 		DB_Node node = (DB_Node) target.getChild(logger, nodeName);
 
 		if (node == null) {
-			synth.speak("The object " + name + " does not have the node " + nodeName);
+			synth.speak("The object " + NAME + " does not have the node " + nodeName);
 		} else {
 			int command = Integer.parseInt(commandTag.getValue());
 			node.writeValue(command);

@@ -4,19 +4,19 @@ import java.util.ArrayList;
 
 import net.sprakle.homeAutomation.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.speech.interpretation.Phrase;
-import net.sprakle.homeAutomation.speech.interpretation.utilities.tagger.Tagger;
+import net.sprakle.homeAutomation.speech.interpretation.tagger.Tagger;
+import net.sprakle.homeAutomation.speech.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
-
 
 public class ModuleManager {
 	ArrayList<InterpretationModule> modules;
 
 	Logger logger;
 
-	public ModuleManager(Logger logger, ObjectDatabase od, Tagger tagger) {
+	public ModuleManager(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger) {
 		this.logger = logger;
 
-		modules = ModuleFactory.getModules(logger, od, tagger);
+		modules = ModuleFactory.getModules(logger, synth, od, tagger);
 	}
 
 	// checks each module for a claim on the given phrase

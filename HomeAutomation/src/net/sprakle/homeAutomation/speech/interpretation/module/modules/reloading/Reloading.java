@@ -3,10 +3,10 @@ package net.sprakle.homeAutomation.speech.interpretation.module.modules.reloadin
 import net.sprakle.homeAutomation.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.speech.interpretation.Phrase;
 import net.sprakle.homeAutomation.speech.interpretation.module.InterpretationModule;
-import net.sprakle.homeAutomation.speech.interpretation.utilities.tagger.Tagger;
+import net.sprakle.homeAutomation.speech.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-public class Reloading implements InterpretationModule {
+public class Reloading extends InterpretationModule {
 
 	//TODO: Not a real module. uses "dumb" interpretation
 

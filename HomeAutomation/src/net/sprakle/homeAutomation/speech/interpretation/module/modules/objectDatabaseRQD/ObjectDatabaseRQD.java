@@ -1,4 +1,4 @@
-package net.sprakle.homeAutomation.speech.interpretation.utilities.intention.determiners;
+package net.sprakle.homeAutomation.speech.interpretation.module.modules.objectDatabaseRQD;
 
 import java.util.ArrayList;
 
@@ -8,38 +8,31 @@ import net.sprakle.homeAutomation.objectDatabase.ObjectDatabase.QueryResponse;
 import net.sprakle.homeAutomation.objectDatabase.componentTree.components.DB_Node;
 import net.sprakle.homeAutomation.objectDatabase.componentTree.components.DB_Object;
 import net.sprakle.homeAutomation.speech.interpretation.Phrase;
-import net.sprakle.homeAutomation.speech.interpretation.utilities.tagger.ParseHelpers;
-import net.sprakle.homeAutomation.speech.interpretation.utilities.tagger.Tagger;
-import net.sprakle.homeAutomation.speech.interpretation.utilities.tagger.tags.Tag;
-import net.sprakle.homeAutomation.speech.interpretation.utilities.tagger.tags.TagType;
+import net.sprakle.homeAutomation.speech.interpretation.module.InterpretationModule;
+import net.sprakle.homeAutomation.speech.interpretation.tagger.ParseHelpers;
+import net.sprakle.homeAutomation.speech.interpretation.tagger.Tagger;
+import net.sprakle.homeAutomation.speech.interpretation.tagger.tags.Tag;
+import net.sprakle.homeAutomation.speech.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.speech.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-
-public class ObjectDatabaseRQD implements Determiner {
+public class ObjectDatabaseRQD extends InterpretationModule {
 
 	private Logger logger;
 	private Synthesis synth;
 	private ObjectDatabase od;
 	private Tagger tagger;
 
-	ObjectDatabaseRQD(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger) {
+	public ObjectDatabaseRQD(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger) {
 		this.logger = logger;
 		this.synth = synth;
 		this.od = od;
 		this.tagger = tagger;
 	}
 
-	String name = "Object database request for data";
-
 	@Override
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public Boolean determine(Phrase phrase) {
+	public Boolean claim(Phrase phrase) {
 		return isQuestion(phrase);
 	}
 

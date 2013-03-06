@@ -4,9 +4,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import net.sprakle.homeAutomation.objectDatabase.ObjectDatabase;
+import net.sprakle.homeAutomation.speech.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.speech.interpretation.module.ModuleManager;
-import net.sprakle.homeAutomation.speech.interpretation.utilities.intention.IntentionDeterminer;
-import net.sprakle.homeAutomation.speech.interpretation.utilities.tagger.Tagger;
+import net.sprakle.homeAutomation.speech.interpretation.module.ModuleManager.ClaimResponse;
+import net.sprakle.homeAutomation.speech.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.speech.synthesis.Synthesis;
 import net.sprakle.homeAutomation.userInterface.speechInput.SpeechInput;
 import net.sprakle.homeAutomation.userInterface.speechInput.SpeechInputObserver;
@@ -14,7 +15,8 @@ import net.sprakle.homeAutomation.userInterface.textInput.TextInput;
 import net.sprakle.homeAutomation.userInterface.textInput.TextInputObserver;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
-
+import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.DynamicResponder;
+import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.ResponseType;
 
 public class Interpreter implements TextInputObserver, SpeechInputObserver {
 
@@ -40,7 +42,7 @@ public class Interpreter implements TextInputObserver, SpeechInputObserver {
 		this.od = od;
 
 		this.tagger = new Tagger(logger, synth, tagfilePath);
-		this.moduleManager = new ModuleManager(logger, od, tagger);
+		this.moduleManager = new ModuleManager(logger, synth, od, tagger);
 
 		this.textInput = textInput;
 		this.speechInput = speechInput;
@@ -70,7 +72,18 @@ public class Interpreter implements TextInputObserver, SpeechInputObserver {
 			/* get the intention of the phrase. If an intention was found,
 			 * the determiner will execute the intention
 			 */
-			IntentionDeterminer.determine(logger, synth, od, moduleManager, tagger, phrase);
+			ClaimResponse response = moduleManager.submitForClaiming(phrase);
+			if (response.notClaimed) {
+				synth.speak(DynamicResponder.reply(ResponseType.I_DIDNT_UNDERSTAND));
+				return;
+			}
+			if (response.toManyClaimed) {
+				synth.speak(DynamicResponder.reply(ResponseType.TOO_AMBIGUOUS));
+				return;
+			}
+
+			InterpretationModule target = response.module;
+			target.execute(phrase);
 		}
 	}
 

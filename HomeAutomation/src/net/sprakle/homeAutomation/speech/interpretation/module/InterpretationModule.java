@@ -6,8 +6,13 @@ package net.sprakle.homeAutomation.speech.interpretation.module;
 
 import net.sprakle.homeAutomation.speech.interpretation.Phrase;
 
-public interface InterpretationModule {
-	public Boolean claim(Phrase phrase);
+public abstract class InterpretationModule {
 
-	public void execute(Phrase phrase);
+	protected final String NAME;
+	public InterpretationModule() {
+		this.NAME = this.getClass().getSimpleName();
+	}
+
+	public abstract Boolean claim(Phrase phrase);
+	public abstract void execute(Phrase phrase);
 }
