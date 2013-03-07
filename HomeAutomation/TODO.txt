@@ -18,4 +18,3 @@ Features:
 - math using math keywords to wolfram alpha
 - change ALL settings to use global XML file - likely any final variables
 - change databases to use XML files
-- Turn RQD and similar into modules
