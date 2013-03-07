@@ -15,7 +15,6 @@ import java.util.List;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-
 public class LineByLine {
 	final static Charset ENCODING = StandardCharsets.UTF_8;
 

@@ -1,6 +1,5 @@
 package net.sprakle.homeAutomation.utilities.logger;
 
-
 public class Logger {
 
 	LoggerGUI gui;
@@ -20,11 +19,6 @@ public class Logger {
 
 		text = text.trim();
 
-		// If there is an error, create an alert
-		if (source == LogSource.ERROR) {
-			System.exit(1);
-		}
-
 		if (verbosity < verbosityLimit || verbosityLimit == 0) {
 			// print '>' to signal it's coming from the logger
 			String time = addLeadingZeros(Math.round(System.currentTimeMillis() - initialTime), 8);
@@ -39,11 +33,6 @@ public class Logger {
 	public void log(String text, LogSource source, LogSource secondarySource, int verbosity) {
 
 		text = "(" + secondarySource + ") " + text.trim();
-
-		// If there is an error, create an alert
-		if (source == LogSource.ERROR) {
-			System.exit(1);
-		}
 
 		if (verbosity < verbosityLimit || verbosityLimit == 0) {
 			// print '>' to signal it's coming from the logger

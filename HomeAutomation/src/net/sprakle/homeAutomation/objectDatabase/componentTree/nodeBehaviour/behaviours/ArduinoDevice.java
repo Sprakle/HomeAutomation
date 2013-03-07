@@ -4,7 +4,6 @@
 
 package net.sprakle.homeAutomation.objectDatabase.componentTree.nodeBehaviour.behaviours;
 
-
 import java.util.HashMap;
 
 import net.sprakle.homeAutomation.interaction.arduino.Arduino;
@@ -14,7 +13,6 @@ import net.sprakle.homeAutomation.objectDatabase.componentTree.components.DB_Nod
 import net.sprakle.homeAutomation.objectDatabase.componentTree.nodeBehaviour.NodeBehaviour;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
-
 
 public class ArduinoDevice extends NodeBehaviour {
 	Arduino arduino;
@@ -30,19 +28,19 @@ public class ArduinoDevice extends NodeBehaviour {
 		//get technology
 		String techString = args.get(Arduino.ArgumentMappings.TECHNOLOGY);
 		switch (techString) {
-			case "dr":
+			case "digital_read":
 				technology = Arduino.DIGITAL_READ;
 				break;
 
-			case "dw":
+			case "digital_write":
 				technology = Arduino.DIGITAL_WRITE;
 				break;
 
-			case "ar":
+			case "analogue_read":
 				technology = Arduino.ANALOGUE_READ;
 				break;
 
-			case "aw":
+			case "analogue_write":
 				technology = Arduino.ANALOGUE_WRITE;
 				break;
 

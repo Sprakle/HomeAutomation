@@ -1,13 +1,10 @@
 package net.sprakle.homeAutomation.objectDatabase.componentTree.components;
 
-import java.util.HashMap;
-
 import net.sprakle.homeAutomation.objectDatabase.ComponentType;
 import net.sprakle.homeAutomation.objectDatabase.NodeType;
 import net.sprakle.homeAutomation.objectDatabase.componentTree.Component;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
-
 
 public class DB_Object extends Component {
 
@@ -16,8 +13,8 @@ public class DB_Object extends Component {
 	DB_Node defaultNodeInt;
 	DB_Node defaultNodeStr;
 
-	public DB_Object(Logger logger, Component parent, int depth, String identifier, HashMap<String, String> args, String originalDefinition) {
-		super(logger, parent, depth, identifier, args, originalDefinition);
+	public DB_Object(Logger logger, Component parent, String identifier) {
+		super(logger, parent, identifier);
 
 		this.componentType = ComponentType.DB_OBJECT;
 	}

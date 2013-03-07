@@ -12,8 +12,8 @@ import java.util.regex.Pattern;
 import net.sprakle.homeAutomation.utilities.audio.out.AudioOut;
 import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.utilities.externalSoftware.Software;
+import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
-
 
 public class Synthesis {
 
@@ -29,6 +29,8 @@ public class Synthesis {
 	}
 
 	public void speak(String phrase) {
+
+		logger.log(phrase, LogSource.SYNTHESIS_OUTPUT, 1);
 
 		phrase = filterNegatives(phrase);
 

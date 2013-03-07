@@ -9,42 +9,27 @@
 package net.sprakle.homeAutomation.objectDatabase.componentTree;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import net.sprakle.homeAutomation.main.Constants;
 import net.sprakle.homeAutomation.objectDatabase.ComponentType;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-
 public abstract class Component {
 	protected Logger logger;
 
 	protected ComponentType componentType;
 
-	// original string from database organization file that defines this component
-	protected String originalDefinition;
-
 	// name of component on OD
 	protected String identifier;
-
-	// objects in the database can have arguments for later use
-	protected HashMap<String, String> args;
-
-	// depth in OD
-	protected int depth;
 
 	protected ArrayList<Component> children;
 	protected Component parent;
 
-	// IDEA: maybe parse parent, depth, and id from originalDefinition?
-	public Component(Logger logger, Component parent, int depth, String identifier, HashMap<String, String> args, String originalDefinition) {
+	public Component(Logger logger, Component parent, String identifier) {
 		this.logger = logger;
 		this.parent = parent;
-		this.depth = depth;
 		this.identifier = identifier;
-		this.args = args;
-		this.originalDefinition = originalDefinition;
 
 		children = new ArrayList<Component>();
 	}
@@ -69,10 +54,6 @@ public abstract class Component {
 
 	public Component getParent() {
 		return parent;
-	}
-
-	public HashMap<String, String> getArgs() {
-		return args;
 	}
 
 	public ComponentType getComponentType() {
@@ -153,26 +134,32 @@ public abstract class Component {
 	public String getIdentifier() {
 		return identifier;
 	}
-
-	public int getDepth() {
-		return depth;
-	}
-
-	public String getOriginalDefinition() {
-		return originalDefinition;
-	}
-
 	public Boolean hasChildren() {
 		return !children.isEmpty();
+	}
+
+	public int getDepth() {
+		int count = 0;
+
+		Component parent = this.getParent();
+		while (parent != null) {
+			count++;
+			parent = parent.getParent();
+		}
+
+		return count;
 	}
 
 	// return pull path on object database
 	public String getAbsolutePath() {
 		String path = "";
 
+		/*
 		for (int i = depth; i >= 0; i--) {
 			path += "/" + traverseUp(i).getIdentifier();
 		}
+		*/
+		System.err.println("getting abs depth unsupported");
 
 		return path;
 	}

@@ -7,9 +7,8 @@ import net.sprakle.homeAutomation.objectDatabase.componentTree.Component;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-
 public class DepthFirstSearcher {
-	public static ArrayList<Component> depthFirstSearch(Logger logger, ArrayList<Component> tree, String query) {
+	public static ArrayList<Component> depthFirstSearch(Logger logger, Component root, String query) {
 		logger.log("Quering database via DFS for string '" + query + "'", LogSource.OD_DFS_INFO, 2);
 
 		ArrayList<Component> foundComponents = new ArrayList<Component>();
@@ -21,7 +20,7 @@ public class DepthFirstSearcher {
 		Stack<Component> stack = new Stack<Component>();
 
 		// get root component
-		stack.push(tree.get(0));
+		stack.push(root);
 
 		// execute while still looking for correct object
 		while (!stack.isEmpty()) {

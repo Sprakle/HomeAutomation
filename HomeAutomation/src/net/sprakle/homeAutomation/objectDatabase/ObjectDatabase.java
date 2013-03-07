@@ -1,6 +1,5 @@
 package net.sprakle.homeAutomation.objectDatabase;
 
-
 import java.util.ArrayList;
 
 import net.sprakle.homeAutomation.events.EventManager;
@@ -13,22 +12,20 @@ import net.sprakle.homeAutomation.speech.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-
 public class ObjectDatabase {
 
-	private ArrayList<Component> database;
+	private Component databaseRoot;
 
 	private Logger logger;
 	private Synthesis synth;
 
-	// arduino is required for some nodes
-	private Arduino arduino;
+	ObjectCreator oc;
 
 	public ObjectDatabase(Logger logger, Synthesis synth, Arduino arduino) {
 		this.logger = logger;
 		this.synth = synth;
 
-		this.arduino = arduino;
+		oc = new ObjectCreator(logger, arduino);
 
 		buildDatabase();
 	}
@@ -49,7 +46,7 @@ public class ObjectDatabase {
 
 		// will be shortened with the process of elimination
 		// start it with all objects that have the first degree of specificity as their identifier
-		ArrayList<Component> remainingComponents = DepthFirstSearcher.depthFirstSearch(logger, database, query[0]);
+		ArrayList<Component> remainingComponents = DepthFirstSearcher.depthFirstSearch(logger, databaseRoot, query[0]);
 
 		// only do this if there is more than one string in the query
 		if (query.length > 1) {
@@ -145,7 +142,7 @@ public class ObjectDatabase {
 		logger.log("Searching database for all components of type '" + type.name(), LogSource.OD_BASE_INFO, 3);
 
 		// index of all component in database
-		ArrayList<Component> index = database.get(0).getChildrenRecursive();
+		ArrayList<Component> index = databaseRoot.getChildrenRecursive();
 
 		// compare
 		for (Component c : index) {
@@ -163,7 +160,8 @@ public class ObjectDatabase {
 
 	private void buildDatabase() {
 		logger.log("Building Database", LogSource.OD_OBJECT_CREATION_INFO, 2);
-		database = ObjectCreator.readDatabaseFile(logger, arduino);
+
+		databaseRoot = oc.createObjectTree();
 	}
 
 	// updates database and alerts listeners
