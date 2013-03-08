@@ -25,23 +25,25 @@ public class ArduinoDevice extends NodeBehaviour {
 		super(logger, parent, args);
 		this.arduino = arduino;
 
+		System.out.println("set arduino");
+
 		//get technology
-		String techString = args.get(Arduino.ArgumentMappings.TECHNOLOGY);
+		String techString = args.get(arduino.ARG_TECHNOLOGY);
 		switch (techString) {
 			case "digital_read":
-				technology = Arduino.DIGITAL_READ;
+				technology = arduino.DIGITAL_READ;
 				break;
 
 			case "digital_write":
-				technology = Arduino.DIGITAL_WRITE;
+				technology = arduino.DIGITAL_WRITE;
 				break;
 
 			case "analogue_read":
-				technology = Arduino.ANALOGUE_READ;
+				technology = arduino.ANALOGUE_READ;
 				break;
 
 			case "analogue_write":
-				technology = Arduino.ANALOGUE_WRITE;
+				technology = arduino.ANALOGUE_WRITE;
 				break;
 
 			default:
@@ -51,7 +53,7 @@ public class ArduinoDevice extends NodeBehaviour {
 
 		// get pin number
 		try {
-			pin = Integer.parseInt(args.get(Arduino.ArgumentMappings.PIN));
+			pin = Integer.parseInt(args.get(arduino.ARG_PIN));
 		} catch (NumberFormatException e) {
 			logger.log("Invalid arguments in database orginization for node behaviour of arduino device '" + parent.getParent().getIdentifier() + "'", LogSource.ERROR, LogSource.OD_NODE_BEHAVIOUR, 1);
 		}
@@ -61,13 +63,13 @@ public class ArduinoDevice extends NodeBehaviour {
 	// integer reads will always be analogue
 	@Override
 	public Integer readInteger() {
-		return arduino.interact(Arduino.ANALOGUE_READ, pin, -1);
+		return arduino.interact(arduino.ANALOGUE_READ, pin, -1);
 	}
 
 	// integer writes will always be analogue
 	@Override
 	public void writeInteger(Integer write) {
-		Technology tech = Arduino.ANALOGUE_WRITE;
+		Technology tech = arduino.ANALOGUE_WRITE;
 		arduino.interact(tech, pin, write);
 	}
 
@@ -79,12 +81,12 @@ public class ArduinoDevice extends NodeBehaviour {
 		else
 			binary = 0;
 
-		arduino.interact(Arduino.DIGITAL_WRITE, pin, binary);
+		arduino.interact(arduino.DIGITAL_WRITE, pin, binary);
 	}
 
 	@Override
 	public Boolean readBinary() {
-		return arduino.interact(Arduino.DIGITAL_READ, pin, -1) == 1; // returns true if 1, false if 0
+		return arduino.interact(arduino.DIGITAL_READ, pin, -1) == 1; // returns true if 1, false if 0
 	}
 
 	@Override
@@ -107,22 +109,21 @@ public class ArduinoDevice extends NodeBehaviour {
 	@Override
 	protected NodeType getNodeType() {
 		// find out what we accepts based on the args from the database file
-		String techArg = args.get(Arduino.ArgumentMappings.TECHNOLOGY);
+		String techArg = args.get(Arduino.ARG_TECHNOLOGY);
 		switch (techArg) {
-			case "dr":
+			case "digital_read":
 				return NodeType.BINARY;
 
-			case "dw":
+			case "digital_write":
 				return NodeType.BINARY;
 
-			case "ar":
+			case "analogue_read":
 				return NodeType.INTEGER;
 
-			case "aw":
+			case "analogue_write":
 				return NodeType.INTEGER;
 		}
 
 		return null;
 	}
-
 }

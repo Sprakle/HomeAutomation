@@ -10,7 +10,6 @@ package net.sprakle.homeAutomation.objectDatabase.componentTree;
 
 import java.util.ArrayList;
 
-import net.sprakle.homeAutomation.main.Constants;
 import net.sprakle.homeAutomation.objectDatabase.ComponentType;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
@@ -58,7 +57,7 @@ public abstract class Component {
 
 	public ComponentType getComponentType() {
 		if (componentType == null) {
-			logger.log("No component type set for component '" + this.getIdentifier() + "'. This is a problem in the programming of " + Constants.name, LogSource.ERROR, LogSource.OD_COMPONENT_INFO, 1);
+			logger.log("No component type set for component '" + this.getIdentifier() + "'. This is a problem in the programminh", LogSource.ERROR, LogSource.OD_COMPONENT_INFO, 1);
 		}
 
 		return componentType;

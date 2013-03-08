@@ -11,9 +11,8 @@ import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
-import net.sprakle.homeAutomation.main.Constants;
+import net.sprakle.homeAutomation.main.Config;
 import net.sprakle.homeAutomation.userInterface.textInput.Window;
-
 
 public class LoggerGUI {
 	Window logWindow;
@@ -22,7 +21,9 @@ public class LoggerGUI {
 	JScrollPane scrollPane;
 
 	LoggerGUI() {
-		logWindow = new Window(Constants.name + " v" + Constants.version + "- Log", 600, 800);
+		String name = Config.getString("config/system/name");
+		String version = Config.getString("config/system/version");
+		logWindow = new Window(name + " v" + version + "- Log", 600, 800);
 
 		Container cp = logWindow.getContentPane();
 

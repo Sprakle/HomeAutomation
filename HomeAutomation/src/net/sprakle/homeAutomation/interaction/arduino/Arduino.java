@@ -14,6 +14,7 @@ import net.sprakle.homeAutomation.events.Event;
 import net.sprakle.homeAutomation.events.EventListener;
 import net.sprakle.homeAutomation.events.EventManager;
 import net.sprakle.homeAutomation.events.EventType;
+import net.sprakle.homeAutomation.main.Config;
 import net.sprakle.homeAutomation.speech.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
@@ -21,27 +22,25 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 public class Arduino implements EventListener {
 
 	// public db file argument mappings
-	public static class ArgumentMappings {
-		public static final String TECHNOLOGY = "tech";
-		public static final String PIN = "pin";
-	}
+	public static final String ARG_TECHNOLOGY = "tech";
+	public static final String ARG_PIN = "pin";
 
 	// public constraints (MIN SHOULD ALWAYS BE ZERO)
-	public static final int MIN_DIGITAL_READ_PIN = 0;
-	public static final int MAX_DIGITAL_READ_PIN = 7;
-	public static final int MIN_DIGITAL_WRITE_PIN = 0;
-	public static final int MAX_DIGITAL_WRITE_PIN = 15;
+	public final int MIN_DIGITAL_READ_PIN;
+	public final int MAX_DIGITAL_READ_PIN;
+	public final int MIN_DIGITAL_WRITE_PIN;
+	public final int MAX_DIGITAL_WRITE_PIN;
 
-	public static final int MIN_ANALOGUE_READ_PIN = 0;
-	public static final int MAX_ANALOGUE_READ_PIN = 5;
-	public static final int MIN_ANALOGUE_WRITE_PIN = 0;
-	public static final int MAX_ANALOGUE_WRITE_PIN = 5;
+	public final int MIN_ANALOGUE_READ_PIN;
+	public final int MAX_ANALOGUE_READ_PIN;
+	public final int MIN_ANALOGUE_WRITE_PIN;
+	public final int MAX_ANALOGUE_WRITE_PIN;
 
 	// public technologies
-	public static final Technology DIGITAL_READ = Technology.DIGITAL_READ;
-	public static final Technology DIGITAL_WRITE = Technology.DIGITAL_WRITE;
-	public static final Technology ANALOGUE_READ = Technology.ANALOGUE_READ;
-	public static final Technology ANALOGUE_WRITE = Technology.ANALOGUE_WRITE;
+	public final Technology DIGITAL_READ = Technology.DIGITAL_READ;
+	public final Technology DIGITAL_WRITE = Technology.DIGITAL_WRITE;
+	public final Technology ANALOGUE_READ = Technology.ANALOGUE_READ;
+	public final Technology ANALOGUE_WRITE = Technology.ANALOGUE_WRITE;
 
 	private Logger logger;
 	private Synthesis synth;
@@ -49,6 +48,17 @@ public class Arduino implements EventListener {
 	public Arduino(Logger logger, Synthesis synth) {
 		this.logger = logger;
 		this.synth = synth;
+
+		// apply configuration
+		MIN_DIGITAL_READ_PIN = Config.getInt("config/arduino/min_digital_read_pin");
+		MAX_DIGITAL_READ_PIN = Config.getInt("config/arduino/max_digital_read_pin");
+		MIN_DIGITAL_WRITE_PIN = Config.getInt("config/arduino/min_digital_write_pin");
+		MAX_DIGITAL_WRITE_PIN = Config.getInt("config/arduino/max_digital_write_pin");
+
+		MIN_ANALOGUE_READ_PIN = Config.getInt("config/arduino/min_analogue_read_pin");
+		MAX_ANALOGUE_READ_PIN = Config.getInt("config/arduino/max_analogue_read_pin");
+		MIN_ANALOGUE_WRITE_PIN = Config.getInt("config/arduino/min_analogue_write_pin");
+		MAX_ANALOGUE_WRITE_PIN = Config.getInt("config/arduino/max_analogue_write_pin");
 
 		// event listener for updates to the database file
 		EventManager em = EventManager.getInstance(logger);

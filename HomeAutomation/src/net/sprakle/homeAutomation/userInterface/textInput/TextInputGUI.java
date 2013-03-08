@@ -8,8 +8,8 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import net.sprakle.homeAutomation.main.Constants;
-
+import net.sprakle.homeAutomation.main.Config;
+import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class TextInputGUI {
 
@@ -17,9 +17,11 @@ public class TextInputGUI {
 
 	JPanel p;
 
-	public TextInputGUI() {
+	public TextInputGUI(Logger logger) {
 		//create main window
-		window = new Window(Constants.name + " v" + Constants.version + "- Input", 800, 400);
+		String name = Config.getString("config/system/name");
+		String version = Config.getString("config/system/version");
+		window = new Window(name + " v" + version + "- Input", 800, 400);
 
 		p = new JPanel();
 

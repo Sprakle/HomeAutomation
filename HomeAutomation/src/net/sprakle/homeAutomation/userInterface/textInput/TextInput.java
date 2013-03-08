@@ -17,7 +17,6 @@ import net.sprakle.homeAutomation.timer.LogicTimer;
 import net.sprakle.homeAutomation.timer.interfaces.observer.LogicTimerObserver;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-
 public class TextInput implements LogicTimerObserver {
 
 	// classes to update with input
@@ -31,7 +30,7 @@ public class TextInput implements LogicTimerObserver {
 
 	public TextInput(Logger logger) {
 		textInputListener = new TextInputListener(logger);
-		textInputGUI = new TextInputGUI();
+		textInputGUI = new TextInputGUI(logger);
 
 		observers = new ArrayList<TextInputObserver>();
 

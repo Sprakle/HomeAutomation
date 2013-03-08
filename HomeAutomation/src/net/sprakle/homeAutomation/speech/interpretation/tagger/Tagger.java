@@ -11,11 +11,13 @@
 package net.sprakle.homeAutomation.speech.interpretation.tagger;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import net.sprakle.homeAutomation.events.EventManager;
 import net.sprakle.homeAutomation.events.EventType;
+import net.sprakle.homeAutomation.main.Config;
 import net.sprakle.homeAutomation.speech.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.speech.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.speech.interpretation.tagger.tags.TagUtilities;
@@ -23,20 +25,19 @@ import net.sprakle.homeAutomation.speech.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.fileAccess.read.LineByLine;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-
 public class Tagger {
 
-	Logger logger;
-	Synthesis synth;
+	private Logger logger;
+	private Synthesis synth;
 
-	Path tagFile;
+	private Path tagFile;
 	private List<String> lines = null;
 
-	public Tagger(Logger logger, Synthesis synth, Path tagFile) {
+	public Tagger(Logger logger, Synthesis synth) {
 		this.logger = logger;
 		this.synth = synth;
-		this.tagFile = tagFile;
 
+		tagFile = Paths.get(Config.getString("config/files/taglist"));
 		lines = LineByLine.read(logger, tagFile); // read lines from file
 	}
 

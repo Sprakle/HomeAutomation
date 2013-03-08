@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<OBJECT name="root">
+	<OBJECT name="rooms">
+		<OBJECT name="bedroom">
+			<OBJECT name="backlight">
+				<NODE name="brightness" defaultOf="INTEGER">
+					<NODE_BEHAVIOUR type="ARDUINO_DEVICE">
+						<tech>analogue_write</tech>
+						<pin>4</pin>
+					</NODE_BEHAVIOUR>
+				</NODE>
+				<NODE name="power" defaultOf="BINARY">
+					<NODE_BEHAVIOUR type="ARDUINO_DEVICE">
+						<tech>digital_write</tech>
+						<pin>5</pin>
+					</NODE_BEHAVIOUR>
+				</NODE>
+			</OBJECT>
+			<OBJECT name="light">
+				<NODE name="power">
+					<NODE_BEHAVIOUR type="ARDUINO_DEVICE">
+						<tech>digital_write</tech>
+						<pin>11</pin>
+					</NODE_BEHAVIOUR>
+				</NODE>
+			</OBJECT>
+			<OBJECT name="projector">
+				<NODE name="power">
+					<NODE_BEHAVIOUR type="ARDUINO_DEVICE">
+						<tech>digital_write</tech>
+						<pin>13</pin>
+					</NODE_BEHAVIOUR>
+				</NODE>
+			</OBJECT>
+			<OBJECT name="stereo">
+				<NODE name="power">
+					<NODE_BEHAVIOUR type="ARDUINO_DEVICE">
+						<tech>digital_write</tech>
+						<pin>12</pin>
+					</NODE_BEHAVIOUR>
+				</NODE>
+			</OBJECT>
+			<OBJECT name="room temerature sensor">
+				<NODE name="room temerature">
+					<NODE_BEHAVIOUR type="ARDUINO_DEVICE">
+						<tech>analogue_read</tech>
+						<pin>0</pin>
+					</NODE_BEHAVIOUR>
+				</NODE>
+			</OBJECT>	
+			<OBJECT name="heater">
+				<NODE name="power">
+					<NODE_BEHAVIOUR type="ARDUINO_DEVICE">
+						<tech>digital_write</tech>
+						<pin>6</pin>
+					</NODE_BEHAVIOUR>
+				</NODE>
+			</OBJECT>
+		</OBJECT>
+		<OBJECT name="living room">
+			<OBJECT name="heater">
+				<NODE name="power">
+					<NODE_BEHAVIOUR type="ARDUINO_DEVICE">
+						<tech>digital_write</tech>
+						<pin>0</pin>
+					</NODE_BEHAVIOUR>
+				</NODE>
+			</OBJECT>
+			<OBJECT name="lamp">
+				<NODE name="power">
+					<NODE_BEHAVIOUR type="ARDUINO_DEVICE">
+						<tech>digital_write</tech>
+						<pin>1</pin>
+					</NODE_BEHAVIOUR>
+				</NODE>
+			</OBJECT>
+		</OBJECT>
+	</OBJECT>
+	<OBJECT name="weather">
+		<OBJECT name="current">
+			<NODE name="conditions">
+				<NODE_BEHAVIOUR type="WEATHER">
+					<time>current</time>
+					<type>condition</type>
+				</NODE_BEHAVIOUR>
+			</NODE>
+			<NODE name="temperature">
+				<NODE_BEHAVIOUR type="WEATHER">
+					<time>current</time>
+					<type>temperature</type>
+				</NODE_BEHAVIOUR>
+			</NODE>
+		</OBJECT>
+	</OBJECT>
+</OBJECT>

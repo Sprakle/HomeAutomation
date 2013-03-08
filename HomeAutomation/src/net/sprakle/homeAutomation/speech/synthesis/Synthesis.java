@@ -9,6 +9,7 @@ import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.sprakle.homeAutomation.main.Config;
 import net.sprakle.homeAutomation.utilities.audio.out.AudioOut;
 import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.utilities.externalSoftware.Software;
@@ -17,7 +18,7 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class Synthesis {
 
-	private static final String path = "synthAudio/speech.wav";
+	private static final String path = Config.getString("config/files/synthesis_output");
 
 	private Logger logger;
 

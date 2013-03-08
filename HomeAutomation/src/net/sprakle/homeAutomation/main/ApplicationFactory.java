@@ -19,7 +19,7 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 public class ApplicationFactory {
 	private static ApplicationFactory instance;
 
-	private final String startupSpeech = "Initializing " + Constants.name + " version " + Constants.version;
+	private final String STARTUP_SPEECH;
 
 	private Logger logger;
 	private ExternalSoftware exs;
@@ -38,15 +38,21 @@ public class ApplicationFactory {
 	}
 
 	private ApplicationFactory() {
+
+		// set startup speech
+		String name = Config.getString("config/system/name");
+		String version = Config.getString("config/system/version");
+		STARTUP_SPEECH = "Initializing " + name + " version " + version;
+
 		// create logger
 		logger = new Logger();
-		logger.log(Constants.name + " v" + Constants.version + " initiated.", LogSource.APPLICATION_EVENT, 1);
+		logger.log(name + " v" + version + " initiated.", LogSource.APPLICATION_EVENT, 1);
 
 		// initialize external software, used by synth to access swift
 		exs = new ExternalSoftware(logger);
 
 		synth = new Synthesis(logger, exs);
-		synth.speak(startupSpeech);
+		synth.speak(STARTUP_SPEECH);
 
 		// initialize UI
 		textInput = new TextInput(logger);

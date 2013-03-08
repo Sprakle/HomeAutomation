@@ -17,4 +17,3 @@ Features:
 - Use dynamic keywords to check for commands vs regular speech
 - math using math keywords to wolfram alpha
 - change ALL settings to use global XML file - likely any final variables
-- change databases to use XML files

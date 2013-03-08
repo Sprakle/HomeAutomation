@@ -1,8 +1,5 @@
 package net.sprakle.homeAutomation.speech.interpretation;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import net.sprakle.homeAutomation.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.speech.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.speech.interpretation.module.ModuleManager;
@@ -19,8 +16,6 @@ import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.DynamicR
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.ResponseType;
 
 public class Interpreter implements TextInputObserver, SpeechInputObserver {
-
-	private final Path tagfilePath = Paths.get("resources/tagger/main.tagList");
 
 	Logger logger;
 	Synthesis synth;
@@ -41,7 +36,7 @@ public class Interpreter implements TextInputObserver, SpeechInputObserver {
 		this.synth = synth;
 		this.od = od;
 
-		this.tagger = new Tagger(logger, synth, tagfilePath);
+		this.tagger = new Tagger(logger, synth);
 		this.moduleManager = new ModuleManager(logger, synth, od, tagger);
 
 		this.textInput = textInput;

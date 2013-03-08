@@ -1,6 +1,7 @@
 package net.sprakle.homeAutomation.objectDatabase.utilities;
 
 import net.sprakle.homeAutomation.interaction.arduino.Arduino;
+import net.sprakle.homeAutomation.main.Config;
 import net.sprakle.homeAutomation.objectDatabase.componentTree.Component;
 import net.sprakle.homeAutomation.objectDatabase.componentTree.components.DB_Placeholder;
 import net.sprakle.homeAutomation.objectDatabase.componentTree.nodeBehaviour.NodeBehaviourFactory;
@@ -41,12 +42,11 @@ public class ObjectCreator {
 	public void reloadDatabase() {
 		SAXReader reader = new SAXReader();
 		try {
-			doc = reader.read("resources/objectDatabase/database.xml");
+			doc = reader.read(Config.getString("config/files/object_database"));
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
 	}
-
 	public Component createObjectTree() {
 		root = new DB_Placeholder(logger, null, "root");
 

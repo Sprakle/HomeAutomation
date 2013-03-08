@@ -1,43 +1,34 @@
 package net.sprakle.homeAutomation.timer;
 
-
+import net.sprakle.homeAutomation.main.Config;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 /**
- * @author  The Deadbot Guy
+ * @author The Deadbot Guy
  */
 public class MainTimer extends Thread {
 	static boolean running = true;
-	
-	/**
-	 * @uml.property  name="logicTimer"
-	 * @uml.associationEnd  
-	 */
+
 	Timer logicTimer;
-	
-	/**
-	 * @uml.property  name="logger"
-	 * @uml.associationEnd  
-	 */
 	Logger logger;
 
 	public MainTimer(Logger logger) {
 		this.logger = logger;
-	
+
 		logicTimer = LogicTimer.getLogicTimer();
-		
+
 		logger.log("Started Main Timer", LogSource.APPLICATION_EVENT, 1);
-		
+
 		run();
 	}
 
 	// desired fps
-	private final static int MAX_FPS = 30;
+	private final static int MAX_FPS = Config.getInt("config/system/timing/max_fps");
 	// maximum number of frames to be skipped
-	private final static int MAX_FRAME_SKIPS = 5;
+	private final static int MAX_FRAME_SKIPS = Config.getInt("config/system/timing/max_frame_skips");
 	// the frame period
-	private final static int FRAME_PERIOD = 1000 / MAX_FPS;
+	private final static int FRAME_PERIOD = Config.getInt("config/system/timing/max_frame_skips") / MAX_FPS;
 
 	@Override
 	public void run() {
@@ -83,11 +74,11 @@ public class MainTimer extends Thread {
 			}
 		}
 	}
-	
+
 	//stop the game loop
 	public void superStop() {
 		running = false;
-		
+
 		logger.log("Stopped Main Timer", LogSource.APPLICATION_EVENT, 1);
 	}
 }
