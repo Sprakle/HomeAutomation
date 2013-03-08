@@ -8,10 +8,6 @@ import javax.swing.JTextField;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-
-/**
- * @author The Deadbot Guy
- */
 public class TextInputListener extends KeyAdapter {
 	// timer for detecting if speech is done
 	int timer = 0;
@@ -23,10 +19,6 @@ public class TextInputListener extends KeyAdapter {
 	JTextField textField;
 	String text = "";
 
-	/**
-	 * @uml.property name="logger"
-	 * @uml.associationEnd
-	 */
 	Logger logger;
 
 	public TextInputListener(Logger logger) {

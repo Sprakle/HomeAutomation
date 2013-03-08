@@ -28,7 +28,7 @@ public class MainTimer extends Thread {
 	// maximum number of frames to be skipped
 	private final static int MAX_FRAME_SKIPS = Config.getInt("config/system/timing/max_frame_skips");
 	// the frame period
-	private final static int FRAME_PERIOD = Config.getInt("config/system/timing/max_frame_skips") / MAX_FPS;
+	private final static int FRAME_PERIOD = Config.getInt("config/system/timing/frame_period") / MAX_FPS;
 
 	@Override
 	public void run() {
