@@ -41,6 +41,7 @@ public class Synthesis {
 
 		// then play it
 		File speechFile = new File(path);
+		speechFile.deleteOnExit();
 		AudioOut.playSound(logger, speechFile);
 	}
 
