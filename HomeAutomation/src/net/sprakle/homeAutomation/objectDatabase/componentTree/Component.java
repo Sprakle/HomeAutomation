@@ -153,12 +153,9 @@ public abstract class Component {
 	public String getAbsolutePath() {
 		String path = "";
 
-		/*
-		for (int i = depth; i >= 0; i--) {
+		for (int i = getDepth(); i >= 0; i--) {
 			path += "/" + traverseUp(i).getIdentifier();
 		}
-		*/
-		System.err.println("getting abs depth unsupported");
 
 		return path;
 	}
