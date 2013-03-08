@@ -56,21 +56,6 @@ public class ObjectDatabaseUtilities {
 					list.add(c.getDepth() + " " + indent + "    BEHAVIOUR: " + node.getBehaviour().getClass().getSimpleName() + behaviourArgs);
 				}
 			}
-
-			/*															// ALREADY ACOMPLISHED BY LISTING ARGUMENTS
-			// if it's a DB_Object and has a default node, list it
-			if (c.getComponentType() == ComponentType.DB_OBJECT) {
-				DB_Object object = (DB_Object) c;
-
-				// for each node type...
-				for (NodeType nt : NodeType.values()) {
-					if (object.getDefaultNode(nt) != null) {
-						System.out.println(">>>> getting default node");
-						list.add(c.getDepth() + " " + indent + "    DEFAULT NODE: " + object.getDefaultNode(nt).getIdentifier());
-					}
-				}
-			}
-			*/
 		}
 
 		return list;

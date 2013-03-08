@@ -54,10 +54,6 @@ public class ObjectCreator {
 
 		treeWalk(doc.getRootElement());
 
-		for (Component c : root.getChildrenRecursive()) {
-			System.out.println(c.getIdentifier());
-		}
-
 		return root;
 	}
 

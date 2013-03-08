@@ -52,11 +52,9 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 
 		// what type of node is the user attempting to effect?
 		NodeType type = interpretNodeType(phrase);
-		System.out.println(">>>> Type wanted: " + type);
 
 		// what type of node should the command be applied to?
 		String nodeName = interpretNode(phrase, type);
-		System.out.println(">>>> Node found: " + nodeName);
 
 		switch (type) {
 			case BINARY:
@@ -114,7 +112,6 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 			synth.speak("The object " + NAME + " does not have the node " + nodeName);
 		} else {
 			int command = Integer.parseInt(commandTag.getValue());
-			System.out.println("Executing binary command '" + (command == 1) + "' on node '" + node.getAbsolutePath() + "'");
 			node.writeValue(command == 1); // returns true of the command is 1, false if otherwise
 		}
 	}

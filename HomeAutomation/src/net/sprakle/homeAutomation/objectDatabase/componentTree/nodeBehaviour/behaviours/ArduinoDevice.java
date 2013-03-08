@@ -25,8 +25,6 @@ public class ArduinoDevice extends NodeBehaviour {
 		super(logger, parent, args);
 		this.arduino = arduino;
 
-		System.out.println("set arduino");
-
 		//get technology
 		String techString = args.get(arduino.ARG_TECHNOLOGY);
 		switch (techString) {

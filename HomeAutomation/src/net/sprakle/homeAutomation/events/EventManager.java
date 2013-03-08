@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-
 public class EventManager {
 	private static EventManager instance = null;
 	public static EventManager getInstance(Logger logger) {
@@ -74,7 +73,6 @@ public class EventManager {
 		logger.log("Event called: " + eType, LogSource.EVENT_INFO, 1);
 
 		for (EventRelationship er : relationships) {
-			System.out.println("iterating");
 			if (er.getEventType().equals(eType)) {
 				er.call(e);
 				return;
