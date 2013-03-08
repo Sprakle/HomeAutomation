@@ -10,16 +10,17 @@
 
 package net.sprakle.homeAutomation.interaction.arduino;
 
-import net.sprakle.homeAutomation.events.Event;
-import net.sprakle.homeAutomation.events.EventListener;
-import net.sprakle.homeAutomation.events.EventManager;
-import net.sprakle.homeAutomation.events.EventType;
+import net.sprakle.arduinoInterface.ArduinoInterface;
 import net.sprakle.homeAutomation.main.Config;
 import net.sprakle.homeAutomation.speech.synthesis.Synthesis;
+import net.sprakle.homeAutomation.timer.LogicTimer;
+import net.sprakle.homeAutomation.timer.interfaces.observer.LogicTimerObserver;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
+import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.DynamicResponder;
+import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.ResponseType;
 
-public class Arduino implements EventListener {
+public class Arduino implements LogicTimerObserver {
 
 	// public db file argument mappings
 	public static final String ARG_TECHNOLOGY = "tech";
@@ -45,6 +46,8 @@ public class Arduino implements EventListener {
 	private Logger logger;
 	private Synthesis synth;
 
+	private ArduinoInterface ai;
+
 	public Arduino(Logger logger, Synthesis synth) {
 		this.logger = logger;
 		this.synth = synth;
@@ -60,14 +63,10 @@ public class Arduino implements EventListener {
 		MIN_ANALOGUE_WRITE_PIN = Config.getInt("config/arduino/min_analogue_write_pin");
 		MAX_ANALOGUE_WRITE_PIN = Config.getInt("config/arduino/max_analogue_write_pin");
 
-		// event listener for updates to the database file
-		EventManager em = EventManager.getInstance(logger);
-		em.addListener(EventType.DB_FILE_UPDATED, this);
-	}
+		ai = new ArduinoInterface();
 
-	@Override
-	public void call(Event e) {
-		// database file updated
+		LogicTimer timer = LogicTimer.getLogicTimer();
+		timer.addObserver(this);
 	}
 
 	/*
@@ -94,19 +93,19 @@ public class Arduino implements EventListener {
 
 		switch (tech) {
 			case DIGITAL_READ:
-				synth.speak("Digital read from pin " + pin);
+				ai.sendString("dr-" + String.format("%02d", pin));
 				break;
 
 			case DIGITAL_WRITE:
-				synth.speak("Digital write " + interaction + " to pin " + pin);
+				ai.sendString("dw-" + String.format("%02d", pin) + "-" + interaction);
 				break;
 
 			case ANALOGUE_READ:
-				synth.speak("Digital read from pin " + pin);
+				ai.sendString("ar-" + String.format("%02d", pin));
 				break;
 
 			case ANALOGUE_WRITE:
-				synth.speak("Analogue write " + interaction + " to pin " + pin);
+				ai.sendString("aw-" + String.format("%02d", pin) + "-" + interaction);
 				break;
 		}
 
@@ -117,7 +116,6 @@ public class Arduino implements EventListener {
 		logger.log("Completed interaction with Arduino", LogSource.ARDUINO, 1);
 		return response;
 	}
-
 	// checks if it is possible to have a specific pin, and then if the interaction to said pin is possible
 	public Boolean isPossible(Technology tech, int pin, int interaction, Boolean checkInteraction) {
 
@@ -159,11 +157,90 @@ public class Arduino implements EventListener {
 		return possible;
 	}
 
+	private void serialUpdate(String msg) {
+
+		logger.log("Recieved serial data from ardiono: '" + msg + "'", LogSource.ARDUINO, 2);
+
+		if (isSerialAcceptable(msg) && msg.length() < 4) {
+			logger.log("Received invalid message from arduino", LogSource.ERROR, LogSource.ARDUINO, 1);
+			return;
+		}
+
+		String mode = msg.substring(0, 2);
+		String pin = msg.substring(3, 5);
+		String data = msg.substring(6);
+
+		switch (mode) {
+			case "cn":
+				String reply = null;
+
+				if (data.equals("1"))
+					reply = DynamicResponder.reply(ResponseType.ACTIVATED) + " pin " + pin;
+				else if (data.equals("0"))
+					reply = DynamicResponder.reply(ResponseType.DEACTIVATED) + " pin " + pin;
+
+				synth.speak(reply);
+				break;
+
+			case "va":
+				synth.speak(data);
+				break;
+
+			case "xx":
+				synth.speak("Arduino encountered a critical error");
+				logger.log("Arduino encountered a critical error", LogSource.ERROR, LogSource.ARDUINO, 1);
+				break;
+
+			case "db":
+				logger.log("Arduino debug: " + data, LogSource.ARDUINO, 2);
+				break;
+		}
+	}
+
+	boolean isSerialAcceptable(String msg) {
+
+		// initial sanity check
+		if (msg.length() < 4) {
+			return false;
+		}
+
+		String a = msg.substring(0, 2);
+		char b = msg.charAt(2);
+		char c = msg.charAt(5);
+		String d = msg.substring(6);
+
+		// should be a mode
+		if (a != "cn" && a != "va" && a != "xx" && a != "db") {
+			return false;
+		}
+
+		// should be a dash
+		if (b != '-') {
+			return false;
+		}
+
+		// should be dash if data follows
+		if (d != "" && c != '-') {
+			return false;
+		}
+
+		return true;
+		// after index 5 can be anything
+	}
+
 	// different technologies used for real-word interaction by the arduino
 	public enum Technology {
 		DIGITAL_READ,
 		DIGITAL_WRITE,
 		ANALOGUE_READ,
 		ANALOGUE_WRITE;
+	}
+
+	@Override
+	public void advanceLogic() {
+		String input = ai.getInput();
+		if (input != null) {
+			serialUpdate(input);
+		}
 	}
 }
