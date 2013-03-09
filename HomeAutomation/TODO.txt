@@ -16,4 +16,3 @@ Features:
 - Use 'pactl set-sink-volume 3 35%' to set volume
 - Use dynamic keywords to check for commands vs regular speech
 - math using math keywords to wolfram alpha
-- change ALL settings to use global XML file - likely any final variables

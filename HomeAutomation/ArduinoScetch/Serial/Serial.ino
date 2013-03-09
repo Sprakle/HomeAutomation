@@ -1,5 +1,5 @@
 #include <ShiftOut.h>
-//#include <SerialComms.h>
+#include <ShiftIn.h>
 
 /*******Serial Commands********
  * TO ARDUINO:
@@ -75,8 +75,11 @@
  * PC requests assignment of read to digital pin 09, arduino confirms
  */
 
+// latchPin, clockPin, dataPin, numRegisters
+ShiftOut myShiftOut(6, 7, 8, 3);
 
-ShiftOut myShiftOut(8, 12, 11, 3);
+// latchPin, clockPin, dataPin, numRegisters
+ShiftIn myShiftIn(3, 4, 5, 3);
 
 const float MIN_DIGI_PIN = 0;
 const float MAX_DIGI_PIN = 23;
@@ -85,8 +88,8 @@ const float MAX_ANA_PIN = 5;
 
 void setup(){
   Serial.begin(9600);
-  Serial.println("db-00-Started");
-  
+  Serial.println("db-00-ready");
+
   // flush shift registers, as they can carry data from the last run
   myShiftOut.shiftUpdate();
 }
@@ -167,7 +170,8 @@ void interpretCommand(String mode, int pin, String data) {
 
   // digital read
   if (mode == "dr") {
-    // read shift register
+    int result = myShiftIn.shiftRead(pin);
+    Serial.println(String(result));
     return;
   }
 
@@ -269,4 +273,5 @@ boolean isAcceptable(String command) {
   return true;
   // after index 5 can be anything
 }
+
 
