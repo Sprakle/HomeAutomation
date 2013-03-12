@@ -4,6 +4,8 @@
  * "turn on" {COMMAND/Activate}
  * "turn off" {COMMAND/Deactivate}
  * 
+ * "trigger phrase" {tag type/value}
+ * 
  * If a tag has a value of 'i', it means a value should be filled in at runtime based on other words given in the phrase.
  * 		EX: phrase.rawText: "set the lights to 50 percent" tagged: {SETTER/50} {UNIT/percent} {OD_OBJECT/light}
  */

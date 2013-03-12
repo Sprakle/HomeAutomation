@@ -16,3 +16,5 @@ Features:
 - Use 'pactl set-sink-volume 3 35%' to set volume
 - Use dynamic keywords to check for commands vs regular speech
 - math using math keywords to wolfram alpha
+- add capabilities in taglist to have word types. ex: "\NUMBER times \NUMBER" ex2: "turn on \DB_OBJECT". Most word types will be based on other tags, bu some such as \number will have special definitions
+	possibility: use a mix of teglist items and regex. ex: "set \-DB_OBJECT -d" would turn into "set light|stereo|heater -d" then checked with regex

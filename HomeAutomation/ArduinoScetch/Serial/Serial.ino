@@ -76,10 +76,10 @@
  */
 
 // latchPin, clockPin, dataPin, numRegisters
-ShiftOut myShiftOut(6, 7, 8, 3);
+ShiftOut myShiftOut(6, 7, 8, 1);
 
 // latchPin, clockPin, dataPin, numRegisters
-ShiftIn myShiftIn(3, 4, 5, 3);
+ShiftIn myShiftIn(3, 4, 5, 1);
 
 const float MIN_DIGI_PIN = 0;
 const float MAX_DIGI_PIN = 23;
