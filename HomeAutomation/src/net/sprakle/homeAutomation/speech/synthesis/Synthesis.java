@@ -49,7 +49,7 @@ public class Synthesis {
 	private String filterNegatives(String original) {
 		String filtered = original;
 
-		String regex = "\\-[0-9]{0,}";
+		String regex = "-[0-9]{1,}";
 
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(filtered);
