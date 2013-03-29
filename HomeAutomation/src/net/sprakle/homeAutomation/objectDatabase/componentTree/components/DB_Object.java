@@ -12,6 +12,7 @@ public class DB_Object extends Component {
 	DB_Node defaultNodeBin;
 	DB_Node defaultNodeInt;
 	DB_Node defaultNodeStr;
+	DB_Node defaultDefault;
 
 	public DB_Object(Logger logger, Component parent, String identifier) {
 		super(logger, parent, identifier);
@@ -20,7 +21,6 @@ public class DB_Object extends Component {
 	}
 
 	public void setDefaultNode(NodeType nodeType, DB_Node node) {
-
 		String error = "DefaultNode already set for object '" + this.identifier;
 
 		switch (nodeType) {
@@ -44,6 +44,14 @@ public class DB_Object extends Component {
 				else
 					logger.log(error, LogSource.ERROR, LogSource.OD_COMPONENT_INFO, 1);
 				break;
+
+			case DEFAULT:
+				if (defaultDefault == null) {
+					defaultDefault = node;
+				} else {
+					logger.log(error, LogSource.ERROR, LogSource.OD_COMPONENT_INFO, 1);
+				}
+				break;
 		}
 	}
 
@@ -60,6 +68,10 @@ public class DB_Object extends Component {
 
 			case STRING:
 				targetDefaultNode = defaultNodeStr;
+				break;
+
+			case DEFAULT:
+				targetDefaultNode = defaultDefault;
 				break;
 		}
 

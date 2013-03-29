@@ -71,8 +71,8 @@ public class ComponentFactory {
 				objParent.setDefaultNode(NodeType.STRING, node);
 				break;
 
-			case "ALL":
-				objParent.setDefaultNode(NodeType.ALL, node);
+			case "DEFAULT":
+				objParent.setDefaultNode(NodeType.DEFAULT, node);
 				break;
 
 			default:

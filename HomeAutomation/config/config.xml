@@ -17,14 +17,16 @@
 		<data_rate>9600</data_rate>
 		
 		<min_digital_read_pin>0</min_digital_read_pin>
-		<max_digital_read_pin>7</max_digital_read_pin>
+		<max_digital_read_pin>15</max_digital_read_pin>
 		<min_digital_write_pin>0</min_digital_write_pin>
 		<max_digital_write_pin>15</max_digital_write_pin>
 		
 		<min_analogue_read_pin>0</min_analogue_read_pin>
-		<max_analogue_read_pin>5</max_analogue_read_pin>
+		<max_analogue_read_pin>11</max_analogue_read_pin>
 		<min_analogue_write_pin>0</min_analogue_write_pin>
-		<max_analogue_write_pin>5</max_analogue_write_pin>
+		<max_analogue_write_pin>11</max_analogue_write_pin>
+		
+		<serial_timeout>1000</serial_timeout>
 	</arduino>
 	
 	<files>

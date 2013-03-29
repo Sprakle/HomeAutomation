@@ -61,11 +61,27 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 			Tag questionTag = ParseHelpers.getTagOfType(logger, tagger, TagType.QUESTION, phrase);
 			switch (questionTag.getValue()) {
 				case "generic": {
+					DB_Node targetNode = targetObject.getDefaultNode(NodeType.DEFAULT);
+
+					// ensure we got a node
+					if (targetNode == null) {
+						synth.speak(targetObject.getIdentifier() + " does not have a default-default node");
+						return;
+					}
+
+					synth.speak(targetNode.readValue().toString());
+
 					break;
 				}
 
 				case "integer": {
 					DB_Node targetNode = targetObject.getDefaultNode(NodeType.INTEGER);
+
+					// if there is no integer node, get the default-default node
+					if (targetNode == null) {
+						System.out.println("looking for def-def");
+						targetNode = targetObject.getDefaultNode(NodeType.DEFAULT);
+					}
 
 					// ensure we got a node
 					if (targetNode == null) {
@@ -74,17 +90,23 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 					}
 
 					int value = -1;
-					if (targetNode.readValue() instanceof Integer)
-						value = targetNode.readValue();
+					Object readValue = targetNode.readValue();
+					if (readValue instanceof Integer)
+						value = (Integer) readValue;
 					else
 						logger.log("Recieved wrong type from generic in ObjectDatabaseRQD", LogSource.ERROR, LogSource.DETERMINER_INFO, 1);
 
-					synth.speak("The value is " + value);
+					synth.speak(String.valueOf(value));
 					break;
 				}
 
 				case "binary": {
 					DB_Node targetNode = targetObject.getDefaultNode(NodeType.BINARY);
+
+					// if there is no binary node, get the default-default node
+					if (targetNode == null) {
+						targetObject.getDefaultNode(NodeType.DEFAULT);
+					}
 
 					// ensure we got a node
 					if (targetNode == null) {
@@ -93,8 +115,9 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 					}
 
 					Boolean value = null;
-					if (targetNode.readValue() instanceof Boolean)
-						value = targetNode.readValue();
+					Object readValue = targetNode.readValue();
+					if (readValue instanceof Boolean)
+						value = (Boolean) readValue;
 					else
 						logger.log("Recieved wrong type from generic in ObjectDatabaseRQD", LogSource.ERROR, LogSource.DETERMINER_INFO, 1);
 

@@ -77,6 +77,7 @@ class Interface implements SerialPortEventListener {
 
 		} catch (Exception e) {
 			System.err.println(e.toString());
+			System.err.println("Problem interfacing with arduino");
 		}
 
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
@@ -109,6 +110,7 @@ class Interface implements SerialPortEventListener {
 			//System.out.print("<- " + msg);//output for debugging
 		} catch (Exception e) {
 			System.err.println(e.toString());
+			System.err.println("Problem interfacing with arduino");
 		}
 	}
 
@@ -141,6 +143,7 @@ class Interface implements SerialPortEventListener {
 				}
 			} catch (Exception e) {
 				System.err.println(e.toString());
+				System.err.println("Problem interfacing with arduino");
 			}
 		}
 	}

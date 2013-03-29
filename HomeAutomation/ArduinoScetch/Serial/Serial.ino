@@ -7,7 +7,6 @@
  * {mode}-{pin}-{data}
  * mode:
  *   SENT STRING: DEFINITION   - SERIAL RESPONSE
- *   pa: pin assign digital  - confirmation // pins can only be assigned once
  *   dr: digital read        - value
  *   dw: digital write       - confirmation
  *   ar: analogue read       - value
@@ -19,7 +18,6 @@
  * 
  * data:
  *   MODE:        - SENT STRING
- *   pin assign digital:  r|w // read / write
  *   digital read:        null
  *   digital write:       1|0
  *   analogue read:       null
@@ -75,23 +73,94 @@
  * PC requests assignment of read to digital pin 09, arduino confirms
  */
 
+/*
+ * OBJECT CREATION
+ */
 // latchPin, clockPin, dataPin, numRegisters
-ShiftOut myShiftOut(6, 7, 8, 1);
+ShiftOut myShiftOut(3, 2, 4, 2);
 
 // latchPin, clockPin, dataPin, numRegisters
-ShiftIn myShiftIn(3, 4, 5, 1);
+ShiftIn myShiftIn(6, 7, 5, 2);
 
+
+/*
+ * PIZEO TONES
+ */
+int waitingTones[] = {500};
+int waitingTiming[] = {60};
+int waitingLength = 1;
+ 
+int startTones[] = {400, 0, 450, 0, 500, 0, 500};
+int startTiming[] = {70, 40, 70, 40, 70, 40, 70};
+int startLength = 7;
+
+int devOnTones[] = {400, 600};
+int devOnTiming[] = {100, 100};
+int devOnLength = 2;
+
+int devOffTones[] = {600, 400};
+int devOffTiming[] = {100, 100};
+int devOffLength = 2;
+
+int errTones[] = {300, 0, 300, 0, 300, 0, 300, 0, 300, 0, 300};
+int errTiming[] = {600, 300, 600, 300, 600, 300, 600, 300, 600, 300, 600};
+int errLength = 11;
+
+
+/*
+ * PIN ASSIGNMENTS
+ */
+int onPin = 12;
+int pizeoPin = 11;
+
+
+/*
+ * PIN CONSTRAINTS
+ */
 const float MIN_DIGI_PIN = 0;
-const float MAX_DIGI_PIN = 23;
+const float MAX_DIGI_PIN = 15;
 const float MIN_ANA_PIN = 0;
-const float MAX_ANA_PIN = 5;
+const float MAX_ANA_PIN = 11;
+
 
 void setup(){
+  pinMode(onPin, OUTPUT);
+  pinMode(pizeoPin, OUTPUT);
+  
   Serial.begin(9600);
+  
+  // waiting for serial
+  boolean waitOn = false; // blinking the on LED
+  boolean waiting = true;
+  while(waiting) {
+    
+    if (waitOn) {
+      digitalWrite(onPin, LOW);
+      waitOn = false;
+    } else {
+      digitalWrite(onPin, HIGH);
+      waitOn = true;
+    }
+    
+    pizeoNoise(pizeoPin, waitingTones, waitingTiming, waitingLength);
+    delay(1500);
+    
+    while (Serial.available() > 0){
+      Serial.read();
+      waiting = false;
+    }
+  }
+  
   Serial.println("db-00-ready");
 
   // flush shift registers, as they can carry data from the last run
   myShiftOut.shiftUpdate();
+  
+  // signal ready 
+  digitalWrite(onPin, HIGH);
+  
+  // make ready sound
+  pizeoNoise(pizeoPin, startTones, startTiming, startLength);
 }
 
 char serialReadString[50];//stores the recieved characters
@@ -99,7 +168,6 @@ int stringPosition=-1;//stores the current position of my serialReadString
 
 
 void loop(){
-
   // check for commands over serial
   while (Serial.available() > 0){
     int inByte = Serial.read();
@@ -127,6 +195,7 @@ void loop(){
 void parseCommand(String command) {
   if (! isAcceptable(command)) {
     Serial.println("xx-00-Serial command invalid: '" + command + "'");
+    pizeoNoise(pizeoPin, errTones, errTiming, errLength);
     return;
   }
 
@@ -148,30 +217,39 @@ void parseCommand(String command) {
 
 void interpretCommand(String mode, int pin, String data) {
 
-  // pin assign
-  if (mode == "pa") {
-    if (data == "r") {
-      pinMode(pin,INPUT);
-    }
-    else if (data == "w") {
-      pinMode(pin, OUTPUT);
-    }
-    return;
-  }
-
   // digital write
   if (mode == "dw") {
     int value = data.toInt();
     myShiftOut.shiftWrite(pin, value);
     myShiftOut.shiftUpdate();
-    Serial.println("cn-" + String(pin) + "-" + String(value));
+    
+    if (value == 1) {
+      pizeoNoise(pizeoPin, devOnTones, devOnTiming, devOnLength);
+    } else {
+      pizeoNoise(pizeoPin, devOffTones, devOffTiming, devOffLength);
+    }
+    
+    // add leading zeroes if neccesary
+    String sPin = String(pin);
+    if (pin < 10) {
+      sPin = "0" + sPin;
+    }
+    
+    Serial.println("cn-" + sPin + "-" + String(value));
     return;
   }
 
   // digital read
   if (mode == "dr") {
     int result = myShiftIn.shiftRead(pin);
-    Serial.println(String(result));
+    
+    // add leading zeroes if neccesary
+    String sPin = String(pin);
+    if (pin < 10) {
+      sPin = "0" + sPin;
+    }
+    
+    Serial.println("va-" + sPin + "-" + String(result));
     return;
   }
 
@@ -179,14 +257,28 @@ void interpretCommand(String mode, int pin, String data) {
   if (mode == "aw") {
     int value = data.toInt();
     analogWrite(pin, value);
-    Serial.println("cn-" + String(pin) + "-" + String(value));
+    
+    // add leading zeroes if neccesary
+    String sPin = String(pin);
+    if (pin < 10) {
+      sPin = "0" + sPin;
+    }
+    
+    Serial.println("cn-" + sPin + "-" + String(value));
     return;
   }
 
   // analogue read
   if (mode == "ar") {
     int value = analogRead(pin);
-    Serial.println("va-" + String(pin) + "-" + String(value));
+    
+    // add leading zeroes if neccesary
+    String sPin = String(pin);
+    if (pin < 10) {
+      sPin = "0" + sPin;
+    }
+    
+    Serial.println("va-" + sPin + "-" + String(value));
     return;
   }
 
@@ -274,4 +366,24 @@ boolean isAcceptable(String command) {
   // after index 5 can be anything
 }
 
+/*
+ * tones[] is an ordered array of frequencies. use 0 for rest
+ * timing[] is the time each frequency shoul be played for
+ * length is how many tones should be played
+ */
+void pizeoNoise(int pin, int tones[], int timing[], int length) {
+  for (int i = 0; i < length; i++) {
+    int freq = tones[i];
+    int time = timing[i];
+
+    if (freq == 0) {
+      delay(time);
+      
+    } else {
+      tone(pin, freq);
+      delay(time);
+      noTone(pin);
+    }
+  }
+}
 

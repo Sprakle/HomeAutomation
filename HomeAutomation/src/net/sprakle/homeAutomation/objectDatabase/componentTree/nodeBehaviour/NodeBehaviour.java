@@ -7,7 +7,6 @@ import net.sprakle.homeAutomation.objectDatabase.componentTree.components.DB_Nod
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-
 public abstract class NodeBehaviour {
 	protected Logger logger;
 

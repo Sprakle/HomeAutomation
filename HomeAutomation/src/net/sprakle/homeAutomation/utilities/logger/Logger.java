@@ -17,6 +17,9 @@ public class Logger {
 	// used for only one source
 	public void log(String text, LogSource source, int verbosity) {
 
+		if (text == null)
+			return;
+
 		text = text.trim();
 
 		if (verbosity < verbosityLimit || verbosityLimit == 0) {
@@ -28,9 +31,11 @@ public class Logger {
 			gui.println(text, source);
 		}
 	}
-
 	// used to provide more details on log. EX: log("Something bad happened!", LogSource.ERROR, LogSource.DATABASE, 1);
 	public void log(String text, LogSource source, LogSource secondarySource, int verbosity) {
+
+		if (text == null)
+			return;
 
 		text = "(" + secondarySource + ") " + text.trim();
 

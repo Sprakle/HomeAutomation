@@ -1,8 +1,13 @@
-"stereo"		{OD_OBJECT/stereo}
-"light"			{OD_OBJECT/light}
-"lights"		{OD_OBJECT/light}
-"projector"		{OD_OBJECT/projector}
-"backlight"		{OD_OBJECT/backlight}
+"backlight"			{OD_OBJECT/backlight}
+"lamp"				{OD_OBJECT/loftbed lamp}
+"fan"				{OD_OBJECT/fan}
+"printer"			{OD_OBJECT/printer}
+"battery charger"	{OD_OBJECT/drill battery charger}
+"ambient light"		{OD_OBJECT/ambient light sensor}
+"ambient brightness"{OD_OBJECT/ambient light sensor}
+"bright"			{OD_OBJECT/ambient light sensor}
+"temperature"		{OD_OBJECT/room temperature sensor}
+"hot"				{OD_OBJECT/room temperature sensor}
 
 "on"			{POWER_OPTION/1}
 "enable"		{POWER_OPTION/1}
@@ -15,7 +20,6 @@
 
 "volume"		{NODE/volume}
 "brightness"	{NODE/brightness}
-"temperature"	{NODE/temp}
 
 "set"			{SETTER/i} // IDEA: instead if 'i', use +/-/=
 "turn up"		{SETTER/i}
@@ -29,4 +33,3 @@
 
 "what"			{QUESTION/generic}
 "how"			{QUESTION/integer}
-"is the"		{QUESTION/binary}

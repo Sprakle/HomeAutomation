@@ -11,7 +11,6 @@ import net.sprakle.homeAutomation.speech.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.speech.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-
 public class ParseHelpers {
 
 	/*

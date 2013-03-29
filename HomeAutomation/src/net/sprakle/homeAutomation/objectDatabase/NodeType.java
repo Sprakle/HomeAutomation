@@ -4,5 +4,5 @@ public enum NodeType {
 	BINARY,
 	INTEGER,
 	STRING,
-	ALL;
+	DEFAULT;
 }

@@ -8,6 +8,8 @@
  * 		Analogue Read / Write:	0-5
  */
 
+//TODO: Create a method of getting device names from a pin number
+
 package net.sprakle.homeAutomation.interaction.arduino;
 
 import net.sprakle.arduinoInterface.ArduinoInterface;
@@ -48,6 +50,9 @@ public class Arduino implements LogicTimerObserver {
 
 	private ArduinoInterface ai;
 
+	// max time to wait for serial response
+	private final int SERIAL_TIMEOUT;
+
 	public Arduino(Logger logger, Synthesis synth) {
 		this.logger = logger;
 		this.synth = synth;
@@ -62,6 +67,8 @@ public class Arduino implements LogicTimerObserver {
 		MAX_ANALOGUE_READ_PIN = Config.getInt("config/arduino/max_analogue_read_pin");
 		MIN_ANALOGUE_WRITE_PIN = Config.getInt("config/arduino/min_analogue_write_pin");
 		MAX_ANALOGUE_WRITE_PIN = Config.getInt("config/arduino/max_analogue_write_pin");
+
+		SERIAL_TIMEOUT = Config.getInt("config/arduino/serial_timeout");
 
 		ai = new ArduinoInterface();
 
@@ -94,18 +101,51 @@ public class Arduino implements LogicTimerObserver {
 		switch (tech) {
 			case DIGITAL_READ:
 				ai.sendString("dr-" + String.format("%02d", pin));
+
+				// wait for response
+				response = waitForSerialValue(pin);
+
 				break;
 
 			case DIGITAL_WRITE:
 				ai.sendString("dw-" + String.format("%02d", pin) + "-" + interaction);
+
+				// wait for confirmation
+				if (waitForSerialConfirm(pin, interaction)) {
+					String reply = null;
+
+					if (interaction == 1)
+						reply = DynamicResponder.reply(ResponseType.ACTIVATED) + " pin " + pin;
+					else if (interaction == 0)
+						reply = DynamicResponder.reply(ResponseType.DEACTIVATED) + " pin " + pin;
+
+					synth.speak(reply);
+				} else {
+					logger.log("Unable to confirm digital write", LogSource.ERROR, LogSource.ARDUINO, 1);
+				}
+
 				break;
 
 			case ANALOGUE_READ:
 				ai.sendString("ar-" + String.format("%02d", pin));
+
+				// wait for response
+				System.out.println("reading");
+				response = waitForSerialValue(pin);
+
 				break;
 
 			case ANALOGUE_WRITE:
 				ai.sendString("aw-" + String.format("%02d", pin) + "-" + interaction);
+
+				// wait for confirmation
+				if (waitForSerialConfirm(pin, interaction)) {
+					String reply = "set pin " + pin + " to " + interaction;
+					synth.speak(reply);
+				} else {
+					logger.log("Unable to confirm digital write", LogSource.ERROR, LogSource.ARDUINO, 1);
+				}
+
 				break;
 		}
 
@@ -157,35 +197,108 @@ public class Arduino implements LogicTimerObserver {
 		return possible;
 	}
 
+	// used by digital and analogue read
+	private int waitForSerialValue(int pin) {
+		int response = -1;
+
+		long startTime = System.currentTimeMillis();
+		while (true) {
+
+			String input = ai.getInput();
+			if (input != null) {
+
+				if (!isSerialAcceptable(input)) {
+					logger.log("Recieved invalid response from arduino", LogSource.ERROR, LogSource.ARDUINO, 1);
+				}
+
+				String replyMode = input.substring(0, 2);
+				Integer replyPin = Integer.parseInt(input.substring(3, 5));
+				Integer replyData = Integer.parseInt(input.substring(6));
+
+				// ensure it's the info we requested
+				if (replyMode.equals("va") && replyPin == pin) {
+					response = replyData;
+				} else {
+					logger.log("Got unexpected serial message while expecting value", LogSource.ERROR, LogSource.ARDUINO, 1);
+				}
+
+				break;
+			}
+
+			long currTime = System.currentTimeMillis();
+			if (currTime - startTime > SERIAL_TIMEOUT) {
+				logger.log("Serial response timed out!", LogSource.ERROR, LogSource.ARDUINO, 1);
+				break;
+			}
+
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return response;
+	}
+
+	// used by digital and analogue write. returns true of confirmation was successful
+	private boolean waitForSerialConfirm(int pin, int interaction) {
+		boolean response = false;
+
+		long startTime = System.currentTimeMillis();
+		while (true) {
+
+			String input = ai.getInput();
+			if (input != null) {
+
+				if (!isSerialAcceptable(input)) {
+					logger.log("Recieved invalid response from arduino", LogSource.ERROR, LogSource.ARDUINO, 1);
+				}
+
+				String replyMode = input.substring(0, 2);
+				Integer replyPin = Integer.parseInt(input.substring(3, 5));
+				Integer replyData = Integer.parseInt(input.substring(6));
+
+				// ensure it's the info we requested
+				if (replyMode.equals("cn") && replyPin == pin && replyData == interaction) {
+					response = true;
+				} else {
+					logger.log("Got unexpected serial message while expecting confirmation", LogSource.ERROR, LogSource.ARDUINO, 1);
+				}
+
+				break;
+			}
+
+			long currTime = System.currentTimeMillis();
+			if (currTime - startTime > SERIAL_TIMEOUT) {
+				logger.log("Serial response timed out!", LogSource.ERROR, LogSource.ARDUINO, 1);
+				break;
+			}
+
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return response;
+	}
+
+	// called if an unexpected serial string is received
 	private void serialUpdate(String msg) {
 
-		logger.log("Recieved serial data from ardiono: '" + msg + "'", LogSource.ARDUINO, 2);
+		logger.log("Recieved unexpected serial message: " + msg, LogSource.WARNING, LogSource.ARDUINO, 1);
 
-		if (isSerialAcceptable(msg) && msg.length() < 4) {
+		if (!isSerialAcceptable(msg)) {
 			logger.log("Received invalid message from arduino", LogSource.ERROR, LogSource.ARDUINO, 1);
 			return;
 		}
 
 		String mode = msg.substring(0, 2);
-		String pin = msg.substring(3, 5);
 		String data = msg.substring(6);
 
 		switch (mode) {
-			case "cn":
-				String reply = null;
-
-				if (data.equals("1"))
-					reply = DynamicResponder.reply(ResponseType.ACTIVATED) + " pin " + pin;
-				else if (data.equals("0"))
-					reply = DynamicResponder.reply(ResponseType.DEACTIVATED) + " pin " + pin;
-
-				synth.speak(reply);
-				break;
-
-			case "va":
-				synth.speak(data);
-				break;
-
 			case "xx":
 				synth.speak("Arduino encountered a critical error");
 				logger.log("Arduino encountered a critical error", LogSource.ERROR, LogSource.ARDUINO, 1);
@@ -198,7 +311,6 @@ public class Arduino implements LogicTimerObserver {
 	}
 
 	boolean isSerialAcceptable(String msg) {
-
 		// initial sanity check
 		if (msg.length() < 4) {
 			return false;
@@ -206,21 +318,14 @@ public class Arduino implements LogicTimerObserver {
 
 		String a = msg.substring(0, 2);
 		char b = msg.charAt(2);
-		char c = msg.charAt(5);
-		String d = msg.substring(6);
 
 		// should be a mode
-		if (a != "cn" && a != "va" && a != "xx" && a != "db") {
+		if (!a.equals("cn") && !a.equals("va") && !a.equals("xx") && !a.equals("db")) {
 			return false;
 		}
 
 		// should be a dash
 		if (b != '-') {
-			return false;
-		}
-
-		// should be dash if data follows
-		if (d != "" && c != '-') {
 			return false;
 		}
 
