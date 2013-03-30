@@ -112,7 +112,7 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 			synth.speak("The object " + NAME + " does not have the node " + nodeName);
 		} else {
 			int command = Integer.parseInt(commandTag.getValue());
-			node.writeValue(command == 1); // returns true of the command is 1, false if otherwise
+			node.writeValue(NodeType.BINARY, command == 1); // returns true of the command is 1, false if otherwise
 		}
 	}
 
@@ -155,7 +155,7 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 			synth.speak("The object " + NAME + " does not have the node " + nodeName);
 		} else {
 			int command = Integer.parseInt(commandTag.getValue());
-			node.writeValue(command);
+			node.writeValue(NodeType.INTEGER, command);
 		}
 	}
 

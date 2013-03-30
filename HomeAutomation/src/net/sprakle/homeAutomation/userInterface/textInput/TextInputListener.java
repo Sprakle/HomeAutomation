@@ -13,7 +13,7 @@ public class TextInputListener extends KeyAdapter {
 	int timer = 0;
 
 	// time to wait for more characters (smaller number = less time to type)
-	int timerLimit = 15;
+	int timerLimit = 30;
 
 	// information gained from text box
 	JTextField textField;

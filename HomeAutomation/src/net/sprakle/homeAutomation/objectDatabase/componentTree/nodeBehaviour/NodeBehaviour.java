@@ -48,22 +48,33 @@ public abstract class NodeBehaviour {
 		return null;
 	}
 
-	public final <T> void writeValue(T value) {
-		if (value instanceof String || nodeType == NodeType.STRING) {
-			writeString((String) value);
-			logger.log("Nodebehaviour '" + getClass().getSimpleName() + "' recieved String write request", LogSource.OD_NODE_BEHAVIOUR, 3);
+	public final <T> void writeValue(NodeType type, T value) {
 
-		} else if (value instanceof Integer || nodeType == NodeType.INTEGER) {
-			writeInteger((Integer) value);
-			logger.log("Nodebehaviour '" + getClass().getSimpleName() + "' recieved Integer write request", LogSource.OD_NODE_BEHAVIOUR, 3);
-
-		} else if (value instanceof Boolean || nodeType == NodeType.BINARY) {
-			writeBinary((Boolean) value);
-			logger.log("Nodebehaviour '" + getClass().getSimpleName() + "' recieved Binary write request", LogSource.OD_NODE_BEHAVIOUR, 3);
-
-		} else {
+		if (type != this.nodeType) {
 			String error = "Node Behaviour '" + getClass().getSimpleName() + " does not accept the given generic type";
 			logger.log(error, LogSource.ERROR, LogSource.OD_NODE_BEHAVIOUR, 1);
+		}
+
+		try {
+			switch (this.nodeType) {
+				case STRING:
+					writeString((String) value);
+					logger.log("Nodebehaviour '" + getClass().getSimpleName() + "' recieved String write request", LogSource.OD_NODE_BEHAVIOUR, 3);
+					break;
+
+				case INTEGER:
+					writeInteger((Integer) value);
+					logger.log("Nodebehaviour '" + getClass().getSimpleName() + "' recieved Integer write request", LogSource.OD_NODE_BEHAVIOUR, 3);
+					break;
+
+				case BINARY:
+					writeBinary((Boolean) value);
+					logger.log("Nodebehaviour '" + getClass().getSimpleName() + "' recieved Binary write request", LogSource.OD_NODE_BEHAVIOUR, 3);
+					break;
+			}
+		} catch (ClassCastException e) {
+			logger.log("Given nodetype doe not match the given value", LogSource.ERROR, LogSource.OD_NODE_BEHAVIOUR, 1);
+			e.printStackTrace();
 		}
 	}
 

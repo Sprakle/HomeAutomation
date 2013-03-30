@@ -1,6 +1,7 @@
 package net.sprakle.homeAutomation.objectDatabase.componentTree.components;
 
 import net.sprakle.homeAutomation.objectDatabase.ComponentType;
+import net.sprakle.homeAutomation.objectDatabase.NodeType;
 import net.sprakle.homeAutomation.objectDatabase.componentTree.Component;
 import net.sprakle.homeAutomation.objectDatabase.componentTree.nodeBehaviour.NodeBehaviour;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
@@ -54,9 +55,9 @@ public class DB_Node extends Component {
 	}
 
 	// a node can only have one of these work
-	public <T> void writeValue(T value) {
+	public <T> void writeValue(NodeType type, T value) {
 		if (this.behaviour != null) {
-			behaviour.writeValue(value);
+			behaviour.writeValue(type, value);
 		} else {
 			logger.log("No behaviour set! Node: " + this.getIdentifier(), LogSource.ERROR, LogSource.OD_COMPONENT_INFO, 1);
 		}

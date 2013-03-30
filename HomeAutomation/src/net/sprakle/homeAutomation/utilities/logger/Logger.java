@@ -1,5 +1,7 @@
 package net.sprakle.homeAutomation.utilities.logger;
 
+import net.sprakle.homeAutomation.main.Config;
+
 public class Logger {
 
 	LoggerGUI gui;
@@ -7,8 +9,8 @@ public class Logger {
 	Long initialTime = System.currentTimeMillis();
 	Long prevTime = System.currentTimeMillis();
 
-	// limit to the detail of log printing. 0 is infinite. Must be >= 0 || <= 3
-	int verbosityLimit = 0;
+	// limit to the detail of log printing. 0 is infinite
+	final int VERBOSITY = Config.getInt("config/logger/verbosity");;
 
 	public Logger() {
 		gui = new LoggerGUI();
@@ -16,37 +18,51 @@ public class Logger {
 
 	// used for only one source
 	public void log(String text, LogSource source, int verbosity) {
-
-		if (text == null)
+		if (!checkLogCall(text, source, null, verbosity))
 			return;
 
 		text = text.trim();
 
-		if (verbosity < verbosityLimit || verbosityLimit == 0) {
-			// print '>' to signal it's coming from the logger
-			String time = addLeadingZeros(Math.round(System.currentTimeMillis() - initialTime), 8);
-			System.out.println(time + " > " + text);
+		executeLog(text, source, null, verbosity);
+	}
+
+	// used to provide more details on log. EX: log("Something bad happened!", LogSource.ERROR, LogSource.DATABASE, 1);
+	public void log(String text, LogSource source, LogSource secondarySource, int verbosity) {
+		if (!checkLogCall(text, source, secondarySource, verbosity))
+			return;
+
+		text = "(" + secondarySource + ") " + text.trim();
+
+		executeLog(text, source, null, verbosity);
+	}
+
+	// sanity check + check if error
+	private boolean checkLogCall(String text, LogSource source, LogSource secondarySource, int verbosity) {
+		if (text == null)
+			return false;
+
+		if (source == LogSource.ERROR) {
+			executeLog(text, source, secondarySource, verbosity);
+			printToConsole("Fatal error (" + secondarySource + "): " + text);
+			System.exit(1);
+		}
+
+		return true;
+	}
+
+	private void executeLog(String text, LogSource source, LogSource secondarySource, int verbosity) {
+		if (verbosity < VERBOSITY || VERBOSITY == 0) {
+			printToConsole(text);
 
 			// print to GUI
 			gui.println(text, source);
 		}
 	}
-	// used to provide more details on log. EX: log("Something bad happened!", LogSource.ERROR, LogSource.DATABASE, 1);
-	public void log(String text, LogSource source, LogSource secondarySource, int verbosity) {
 
-		if (text == null)
-			return;
-
-		text = "(" + secondarySource + ") " + text.trim();
-
-		if (verbosity < verbosityLimit || verbosityLimit == 0) {
-			// print '>' to signal it's coming from the logger
-			String time = addLeadingZeros(Math.round(System.currentTimeMillis() - initialTime), 8);
-			System.out.println(time + " > " + text);
-
-			// print to GUI
-			gui.println(text, source);
-		}
+	private void printToConsole(String text) {
+		// print '>' to signal it's coming from the logger
+		String time = addLeadingZeros(Math.round(System.currentTimeMillis() - initialTime), 8);
+		System.out.println(time + " > " + text);
 	}
 
 	private String addLeadingZeros(int number, int targetLength) {

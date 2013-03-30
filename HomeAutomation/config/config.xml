@@ -47,4 +47,9 @@
 		<record_end_rms_threshold>2</record_end_rms_threshold>
 		<record_end_time_threshold>250</record_end_time_threshold> <!-- milliseconds RMS must be below threshold for -->
 	</speech_recognition>
+	
+	<logger>
+		<!-- Higher number is more verbose. 0 is infinite -->
+		<verbosity>0</verbosity>
+	</logger>
 </config>
