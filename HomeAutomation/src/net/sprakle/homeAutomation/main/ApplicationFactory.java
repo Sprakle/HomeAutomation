@@ -5,9 +5,9 @@
 package net.sprakle.homeAutomation.main;
 
 import net.sprakle.homeAutomation.interaction.arduino.Arduino;
+import net.sprakle.homeAutomation.interpretation.Interpreter;
 import net.sprakle.homeAutomation.objectDatabase.ObjectDatabase;
-import net.sprakle.homeAutomation.speech.interpretation.Interpreter;
-import net.sprakle.homeAutomation.speech.synthesis.Synthesis;
+import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.timer.MainTimer;
 import net.sprakle.homeAutomation.userInterface.speechInput.SpeechInput;
 import net.sprakle.homeAutomation.userInterface.textInput.TextInput;

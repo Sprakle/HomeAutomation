@@ -3,7 +3,7 @@
  * the mp3 is then played.
  */
 
-package net.sprakle.homeAutomation.speech.synthesis;
+package net.sprakle.homeAutomation.synthesis;
 
 import java.io.File;
 import java.util.regex.Matcher;

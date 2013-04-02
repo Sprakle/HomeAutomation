@@ -2,11 +2,11 @@
  * Takes a line of text (usually from the tagList file) and creates a tag based on it.
  */
 
-package net.sprakle.homeAutomation.speech.interpretation.tagger;
+package net.sprakle.homeAutomation.interpretation.tagger;
 
-import net.sprakle.homeAutomation.speech.interpretation.tagger.tags.Tag;
-import net.sprakle.homeAutomation.speech.interpretation.tagger.tags.TagType;
-import net.sprakle.homeAutomation.speech.interpretation.tagger.tags.TagUtilities;
+import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
+import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
+import net.sprakle.homeAutomation.interpretation.tagger.tags.TagUtilities;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class TagFactory {

@@ -10,7 +10,7 @@
  * 		EX: phrase.rawText: "set the lights to 50 percent" tagged: {SETTER/50} {UNIT/percent} {OD_OBJECT/light}
  */
 
-package net.sprakle.homeAutomation.speech.interpretation.tagger;
+package net.sprakle.homeAutomation.interpretation.tagger;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,11 +19,11 @@ import java.util.List;
 
 import net.sprakle.homeAutomation.events.EventManager;
 import net.sprakle.homeAutomation.events.EventType;
+import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
+import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
+import net.sprakle.homeAutomation.interpretation.tagger.tags.TagUtilities;
 import net.sprakle.homeAutomation.main.Config;
-import net.sprakle.homeAutomation.speech.interpretation.tagger.tags.Tag;
-import net.sprakle.homeAutomation.speech.interpretation.tagger.tags.TagType;
-import net.sprakle.homeAutomation.speech.interpretation.tagger.tags.TagUtilities;
-import net.sprakle.homeAutomation.speech.synthesis.Synthesis;
+import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.fileAccess.read.LineByLine;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 

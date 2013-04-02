@@ -2,13 +2,13 @@
  * This class helps with the understanding of strings of tags.
  */
 
-package net.sprakle.homeAutomation.speech.interpretation.tagger;
+package net.sprakle.homeAutomation.interpretation.tagger;
 
 import java.util.ArrayList;
 
-import net.sprakle.homeAutomation.speech.interpretation.Phrase;
-import net.sprakle.homeAutomation.speech.interpretation.tagger.tags.Tag;
-import net.sprakle.homeAutomation.speech.interpretation.tagger.tags.TagType;
+import net.sprakle.homeAutomation.interpretation.Phrase;
+import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
+import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class ParseHelpers {

@@ -1,6 +1,6 @@
-package net.sprakle.homeAutomation.speech.interpretation.tagger;
+package net.sprakle.homeAutomation.interpretation.tagger;
 
-import net.sprakle.homeAutomation.speech.interpretation.tagger.tags.TagType;
+import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 

@@ -1,15 +1,15 @@
 // initializes all modules
 
-package net.sprakle.homeAutomation.speech.interpretation.module;
+package net.sprakle.homeAutomation.interpretation.module;
 
 import java.util.ArrayList;
 
+import net.sprakle.homeAutomation.interpretation.module.modules.objectDatabaseCommand.ObjectDatabaseCommand;
+import net.sprakle.homeAutomation.interpretation.module.modules.objectDatabaseRQD.ObjectDatabaseRQD;
+import net.sprakle.homeAutomation.interpretation.module.modules.reloading.Reloading;
+import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.objectDatabase.ObjectDatabase;
-import net.sprakle.homeAutomation.speech.interpretation.module.modules.objectDatabaseCommand.ObjectDatabaseCommand;
-import net.sprakle.homeAutomation.speech.interpretation.module.modules.objectDatabaseRQD.ObjectDatabaseRQD;
-import net.sprakle.homeAutomation.speech.interpretation.module.modules.reloading.Reloading;
-import net.sprakle.homeAutomation.speech.interpretation.tagger.Tagger;
-import net.sprakle.homeAutomation.speech.synthesis.Synthesis;
+import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class ModuleFactory {

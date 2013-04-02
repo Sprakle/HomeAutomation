@@ -1,4 +1,4 @@
-package net.sprakle.homeAutomation.speech.interpretation.tagger.tags;
+package net.sprakle.homeAutomation.interpretation.tagger.tags;
 
 import java.util.ArrayList;
 import java.util.Collections;

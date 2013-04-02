@@ -1,9 +1,9 @@
-package net.sprakle.homeAutomation.speech.interpretation;
+package net.sprakle.homeAutomation.interpretation;
 
 import java.util.ArrayList;
 
-import net.sprakle.homeAutomation.speech.interpretation.tagger.Tagger;
-import net.sprakle.homeAutomation.speech.interpretation.tagger.tags.Tag;
+import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
+import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 

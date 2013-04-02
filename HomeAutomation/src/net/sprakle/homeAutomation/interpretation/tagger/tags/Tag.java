@@ -4,7 +4,7 @@
  * 
  */
 
-package net.sprakle.homeAutomation.speech.interpretation.tagger.tags;
+package net.sprakle.homeAutomation.interpretation.tagger.tags;
 
 public class Tag {
 	private TagType type;

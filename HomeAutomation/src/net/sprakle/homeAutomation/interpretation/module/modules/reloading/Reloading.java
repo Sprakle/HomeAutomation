@@ -1,9 +1,9 @@
-package net.sprakle.homeAutomation.speech.interpretation.module.modules.reloading;
+package net.sprakle.homeAutomation.interpretation.module.modules.reloading;
 
+import net.sprakle.homeAutomation.interpretation.Phrase;
+import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
+import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.objectDatabase.ObjectDatabase;
-import net.sprakle.homeAutomation.speech.interpretation.Phrase;
-import net.sprakle.homeAutomation.speech.interpretation.module.InterpretationModule;
-import net.sprakle.homeAutomation.speech.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class Reloading extends InterpretationModule {

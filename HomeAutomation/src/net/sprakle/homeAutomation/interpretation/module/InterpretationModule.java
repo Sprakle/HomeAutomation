@@ -2,9 +2,9 @@
  * on the said phrase
  */
 
-package net.sprakle.homeAutomation.speech.interpretation.module;
+package net.sprakle.homeAutomation.interpretation.module;
 
-import net.sprakle.homeAutomation.speech.interpretation.Phrase;
+import net.sprakle.homeAutomation.interpretation.Phrase;
 
 public abstract class InterpretationModule {
 

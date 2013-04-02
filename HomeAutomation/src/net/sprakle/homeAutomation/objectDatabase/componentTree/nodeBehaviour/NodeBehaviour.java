@@ -10,6 +10,8 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 public abstract class NodeBehaviour {
 	protected Logger logger;
 
+	// FIXME: next: allow turning on and off analog nodes
+
 	public static final NodeBehaviourType ARDUINO_DEVICE = NodeBehaviourType.ARDUINO_DEVICE;
 	public static final NodeBehaviourType WEATHER = NodeBehaviourType.WEATHER;
 

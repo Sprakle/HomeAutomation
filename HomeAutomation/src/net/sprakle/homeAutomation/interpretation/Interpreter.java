@@ -1,11 +1,11 @@
-package net.sprakle.homeAutomation.speech.interpretation;
+package net.sprakle.homeAutomation.interpretation;
 
+import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
+import net.sprakle.homeAutomation.interpretation.module.ModuleManager;
+import net.sprakle.homeAutomation.interpretation.module.ModuleManager.ClaimResponse;
+import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.objectDatabase.ObjectDatabase;
-import net.sprakle.homeAutomation.speech.interpretation.module.InterpretationModule;
-import net.sprakle.homeAutomation.speech.interpretation.module.ModuleManager;
-import net.sprakle.homeAutomation.speech.interpretation.module.ModuleManager.ClaimResponse;
-import net.sprakle.homeAutomation.speech.interpretation.tagger.Tagger;
-import net.sprakle.homeAutomation.speech.synthesis.Synthesis;
+import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.userInterface.speechInput.SpeechInput;
 import net.sprakle.homeAutomation.userInterface.speechInput.SpeechInputObserver;
 import net.sprakle.homeAutomation.userInterface.textInput.TextInput;

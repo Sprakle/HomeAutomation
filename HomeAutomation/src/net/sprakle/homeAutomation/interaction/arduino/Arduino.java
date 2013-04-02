@@ -14,7 +14,7 @@ package net.sprakle.homeAutomation.interaction.arduino;
 
 import net.sprakle.arduinoInterface.ArduinoInterface;
 import net.sprakle.homeAutomation.main.Config;
-import net.sprakle.homeAutomation.speech.synthesis.Synthesis;
+import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.timer.LogicTimer;
 import net.sprakle.homeAutomation.timer.interfaces.observer.LogicTimerObserver;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;

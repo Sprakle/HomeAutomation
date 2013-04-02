@@ -1,4 +1,4 @@
-package net.sprakle.homeAutomation.speech.interpretation;
+package net.sprakle.homeAutomation.interpretation;
 
 public enum PipelineStatus {
 	INITIALIZED,
