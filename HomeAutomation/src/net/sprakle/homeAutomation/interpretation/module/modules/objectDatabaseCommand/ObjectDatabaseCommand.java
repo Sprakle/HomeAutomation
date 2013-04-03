@@ -22,6 +22,8 @@ import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.Response
 
 public class ObjectDatabaseCommand extends InterpretationModule {
 
+	private final String NAME = "Object Database Command";
+
 	private Logger logger;
 	private Synthesis synth;
 	private ObjectDatabase od;
@@ -261,5 +263,10 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public String getName() {
+		return NAME;
 	}
 }
