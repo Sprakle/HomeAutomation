@@ -8,31 +8,31 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
-import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import net.sprakle.homeAutomation.events.EventManager;
+import net.sprakle.homeAutomation.events.EventType;
 import net.sprakle.homeAutomation.timer.LogicTimer;
 import net.sprakle.homeAutomation.timer.interfaces.observer.LogicTimerObserver;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class TextInput implements LogicTimerObserver {
 
-	// classes to update with input
-	ArrayList<TextInputObserver> observers;
-
-	TextInputListener textInputListener;
-	TextInputGUI textInputGUI;
+	private TextInputListener textInputListener;
+	private TextInputGUI textInputGUI;
 
 	// text box
-	JTextField txt;
+	private JTextField txt;
+
+	private Logger logger;
 
 	public TextInput(Logger logger) {
+		this.logger = logger;
+
 		textInputListener = new TextInputListener(logger);
 		textInputGUI = new TextInputGUI(logger);
-
-		observers = new ArrayList<TextInputObserver>();
 
 		LogicTimer.getLogicTimer().addObserver(this);
 
@@ -67,18 +67,11 @@ public class TextInput implements LogicTimerObserver {
 		txt.setText(s);
 	}
 
-	public void addObserver(TextInputObserver observer) {
-		observers.add(observer);
-	}
-
-	public void removeObserver(TextInputObserver observer) {
-		observers.remove(observer);
-	}
-
 	public void updateObservers(String input) {
-		for (TextInputObserver t : observers) {
-			t.textInputUpdate(input);
-		}
+		UserTextRecievedEvent utre = new UserTextRecievedEvent(input);
+
+		EventManager em = EventManager.getInstance(logger);
+		em.call(EventType.USER_TEXT_RECIEVED, utre);
 	}
 
 	@Override

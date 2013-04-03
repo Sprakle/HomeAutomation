@@ -65,7 +65,7 @@ public class ApplicationFactory {
 		objectDatabase = new ObjectDatabase(logger, synth, arduino);
 
 		// initialize interpretation
-		interpreter = new Interpreter(logger, synth, objectDatabase, textInput, speechInput);
+		interpreter = new Interpreter(logger, synth, objectDatabase);
 
 		// must be called last, as it creates an infinite timer loop
 		mainTimer = new MainTimer(logger);

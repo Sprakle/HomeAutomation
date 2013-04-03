@@ -1,7 +1,7 @@
 package net.sprakle.homeAutomation.userInterface.speechInput;
 
-import java.util.ArrayList;
-
+import net.sprakle.homeAutomation.events.EventManager;
+import net.sprakle.homeAutomation.events.EventType;
 import net.sprakle.homeAutomation.main.Config;
 import net.sprakle.homeAutomation.timer.LogicTimer;
 import net.sprakle.homeAutomation.timer.interfaces.observer.LogicTimerObserver;
@@ -30,8 +30,6 @@ public class SpeechInput implements LogicTimerObserver {
 
 	GoogleSpeech gs;
 
-	ArrayList<SpeechInputObserver> observers;
-
 	public SpeechInput(Logger logger) {
 		this.logger = logger;
 
@@ -44,8 +42,6 @@ public class SpeechInput implements LogicTimerObserver {
 		Output output = new Output();
 		gs = new GoogleSpeech(output, thresholds, SAMPLE_RATE);
 		gs.listenForSpeech();
-
-		observers = new ArrayList<SpeechInputObserver>();
 
 		LogicTimer.getLogicTimer().addObserver(this);
 	}
@@ -71,17 +67,10 @@ public class SpeechInput implements LogicTimerObserver {
 		}
 	}
 
-	public void addObserver(SpeechInputObserver observer) {
-		observers.add(observer);
-	}
-
-	public void removeObserver(SpeechInputObserver observer) {
-		observers.remove(observer);
-	}
-
 	private void updateObservers(String input) {
-		for (SpeechInputObserver sio : observers) {
-			sio.speechInputUpdate(input);
-		}
+		UserSpeechRecievedEvent sre = new UserSpeechRecievedEvent(input);
+
+		EventManager em = EventManager.getInstance(logger);
+		em.call(EventType.USER_SPEECH_RECIEVED, sre);
 	}
 }

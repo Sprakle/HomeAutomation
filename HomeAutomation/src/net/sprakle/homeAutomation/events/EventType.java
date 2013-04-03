@@ -5,6 +5,8 @@
 package net.sprakle.homeAutomation.events;
 
 public enum EventType {
+	USER_SPEECH_RECIEVED,
+	USER_TEXT_RECIEVED,
 	DB_FILE_UPDATED,
 	TAGLIST_FILE_UPDATED;
 }

@@ -1,5 +1,9 @@
 package net.sprakle.homeAutomation.interpretation;
 
+import net.sprakle.homeAutomation.events.Event;
+import net.sprakle.homeAutomation.events.EventListener;
+import net.sprakle.homeAutomation.events.EventManager;
+import net.sprakle.homeAutomation.events.EventType;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.module.ModuleManager;
 import net.sprakle.homeAutomation.interpretation.module.ModuleManager.ClaimResponse;
@@ -7,15 +11,15 @@ import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.userInterface.speechInput.SpeechInput;
-import net.sprakle.homeAutomation.userInterface.speechInput.SpeechInputObserver;
+import net.sprakle.homeAutomation.userInterface.speechInput.UserSpeechRecievedEvent;
 import net.sprakle.homeAutomation.userInterface.textInput.TextInput;
-import net.sprakle.homeAutomation.userInterface.textInput.TextInputObserver;
+import net.sprakle.homeAutomation.userInterface.textInput.UserTextRecievedEvent;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.DynamicResponder;
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.ResponseType;
 
-public class Interpreter implements TextInputObserver, SpeechInputObserver {
+public class Interpreter implements EventListener {
 
 	Logger logger;
 	Synthesis synth;
@@ -31,7 +35,7 @@ public class Interpreter implements TextInputObserver, SpeechInputObserver {
 	ModuleManager moduleManager;
 	Tagger tagger;
 
-	public Interpreter(Logger logger, Synthesis synth, ObjectDatabase od, TextInput textInput, SpeechInput speechInput) {
+	public Interpreter(Logger logger, Synthesis synth, ObjectDatabase od) {
 		this.logger = logger;
 		this.synth = synth;
 		this.od = od;
@@ -39,20 +43,9 @@ public class Interpreter implements TextInputObserver, SpeechInputObserver {
 		this.tagger = new Tagger(logger, synth);
 		this.moduleManager = new ModuleManager(logger, synth, od, tagger);
 
-		this.textInput = textInput;
-		this.speechInput = speechInput;
-		textInput.addObserver(this);
-		speechInput.addObserver(this);
-	}
-
-	@Override
-	public void textInputUpdate(String input) {
-		recievedUserInput(input);
-	}
-
-	@Override
-	public void speechInputUpdate(String input) {
-		recievedUserInput(input);
+		EventManager em = EventManager.getInstance(logger);
+		em.addListener(EventType.USER_SPEECH_RECIEVED, this);
+		em.addListener(EventType.USER_TEXT_RECIEVED, this);
 	}
 
 	private void recievedUserInput(String input) {
@@ -98,5 +91,20 @@ public class Interpreter implements TextInputObserver, SpeechInputObserver {
 		}
 
 		return ready;
+	}
+
+	@Override
+	public void call(EventType et, Event e) {
+		switch (et) {
+			case USER_SPEECH_RECIEVED:
+				UserSpeechRecievedEvent sre = (UserSpeechRecievedEvent) e;
+				recievedUserInput(sre.speech);
+				break;
+
+			case USER_TEXT_RECIEVED:
+				UserTextRecievedEvent utre = (UserTextRecievedEvent) e;
+				recievedUserInput(utre.speech);
+				break;
+		}
 	}
 }

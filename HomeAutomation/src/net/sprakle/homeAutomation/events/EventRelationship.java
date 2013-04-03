@@ -18,7 +18,7 @@ public class EventRelationship {
 
 	void call(Event e) {
 		for (EventListener el : listeners) {
-			el.call(e);
+			el.call(eventType, e);
 		}
 	}
 
