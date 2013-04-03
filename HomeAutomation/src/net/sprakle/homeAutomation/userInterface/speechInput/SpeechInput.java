@@ -74,7 +74,6 @@ public class SpeechInput implements LogicTimerObserver {
 		}
 
 		// check if visual should still be displaying
-		System.out.println(displayTimeRemaining);
 		if (displayTimeRemaining > 0) {
 			displayTimeRemaining--;
 
