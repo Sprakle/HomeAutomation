@@ -46,6 +46,8 @@
 		<!-- RMS of audio that must be less than to end recording -->
 		<record_end_rms_threshold>2</record_end_rms_threshold>
 		<record_end_time_threshold>250</record_end_time_threshold> <!-- milliseconds RMS must be below threshold for -->
+		
+		<visual_display_time>70</visual_display_time> <!-- time to display recognized speech -->
 	</speech_recognition>
 	
 	<logger>

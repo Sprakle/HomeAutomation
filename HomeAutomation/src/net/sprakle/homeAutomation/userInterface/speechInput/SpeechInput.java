@@ -30,6 +30,11 @@ public class SpeechInput implements LogicTimerObserver {
 
 	GoogleSpeech gs;
 
+	// shows the user what speech was detected
+	Visual visual;
+	final int DISPLAY_TIME = Config.getInt("config/speech_recognition/visual_display_time");
+	int displayTimeRemaining = 0;
+
 	public SpeechInput(Logger logger) {
 		this.logger = logger;
 
@@ -44,6 +49,8 @@ public class SpeechInput implements LogicTimerObserver {
 		gs.listenForSpeech();
 
 		LogicTimer.getLogicTimer().addObserver(this);
+
+		visual = new Visual(logger);
 	}
 
 	class Output implements net.sprakle.jGoogleSpeech.Logger {
@@ -65,6 +72,16 @@ public class SpeechInput implements LogicTimerObserver {
 			// continue listening
 			gs.listenForSpeech();
 		}
+
+		// check if visual should still be displaying
+		System.out.println(displayTimeRemaining);
+		if (displayTimeRemaining > 0) {
+			displayTimeRemaining--;
+
+			if (displayTimeRemaining == 0) {
+				visual.setText("");
+			}
+		}
 	}
 
 	private void updateObservers(String input) {
@@ -72,5 +89,12 @@ public class SpeechInput implements LogicTimerObserver {
 
 		EventManager em = EventManager.getInstance(logger);
 		em.call(EventType.USER_SPEECH_RECIEVED, sre);
+
+		setVisual(input);
+	}
+
+	private void setVisual(String text) {
+		visual.setText(text);
+		displayTimeRemaining = DISPLAY_TIME;
 	}
 }

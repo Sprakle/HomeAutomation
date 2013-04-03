@@ -38,7 +38,6 @@ public class TextInput implements LogicTimerObserver {
 
 		JPanel panel;
 		panel = textInputGUI.getPanel();
-
 		createTextBox(panel);
 	}
 
