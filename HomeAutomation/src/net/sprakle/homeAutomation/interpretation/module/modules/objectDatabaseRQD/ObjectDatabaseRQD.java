@@ -71,7 +71,7 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 						return;
 					}
 
-					synth.speak(targetNode.readValue().toString());
+					synth.speak(targetNode.readValue(NodeType.STRING).toString());
 
 					break;
 				}
@@ -92,7 +92,7 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 					}
 
 					int value = -1;
-					Object readValue = targetNode.readValue();
+					Object readValue = targetNode.readValue(NodeType.INTEGER);
 					if (readValue instanceof Integer)
 						value = (Integer) readValue;
 					else
@@ -117,7 +117,7 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 					}
 
 					Boolean value = null;
-					Object readValue = targetNode.readValue();
+					Object readValue = targetNode.readValue(NodeType.BINARY);
 					if (readValue instanceof Boolean)
 						value = (Boolean) readValue;
 					else

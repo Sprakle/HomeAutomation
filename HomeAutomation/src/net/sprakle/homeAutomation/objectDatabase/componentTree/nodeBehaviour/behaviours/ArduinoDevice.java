@@ -4,6 +4,7 @@
 
 package net.sprakle.homeAutomation.objectDatabase.componentTree.nodeBehaviour.behaviours;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.sprakle.homeAutomation.interaction.arduino.Arduino;
@@ -105,23 +106,53 @@ public class ArduinoDevice extends NodeBehaviour {
 	}
 
 	@Override
-	protected NodeType getNodeType() {
-		// find out what we accepts based on the args from the database file
+	protected ArrayList<NodeType> getAcceptedNodeReadTypes() {
+		ArrayList<NodeType> acceptedTypes = new ArrayList<NodeType>();
+
+		// find out what we accept based on the args from the database file
 		String techArg = args.get(Arduino.ARG_TECHNOLOGY);
 		switch (techArg) {
 			case "digital_read":
-				return NodeType.BINARY;
+				acceptedTypes.add(NodeType.BINARY);
+				break;
 
 			case "digital_write":
-				return NodeType.BINARY;
+				break;
 
 			case "analogue_read":
-				return NodeType.INTEGER;
+				acceptedTypes.add(NodeType.INTEGER);
+				break;
 
 			case "analogue_write":
-				return NodeType.INTEGER;
+				break;
 		}
 
-		return null;
+		return acceptedTypes;
+	}
+
+	@Override
+	protected ArrayList<NodeType> getAcceptedNodeWriteTypes() {
+		ArrayList<NodeType> acceptedTypes = new ArrayList<NodeType>();
+
+		// find out what we accept based on the args from the database file
+		String techArg = args.get(Arduino.ARG_TECHNOLOGY);
+		switch (techArg) {
+			case "digital_read":
+				break;
+
+			case "digital_write":
+				acceptedTypes.add(NodeType.BINARY);
+				break;
+
+			case "analogue_read":
+				break;
+
+			case "analogue_write":
+				acceptedTypes.add(NodeType.INTEGER);
+				acceptedTypes.add(NodeType.BINARY); // analogue can also be set to 1 or 0
+				break;
+		}
+
+		return acceptedTypes;
 	}
 }

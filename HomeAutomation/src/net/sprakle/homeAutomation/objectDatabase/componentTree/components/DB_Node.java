@@ -45,9 +45,9 @@ public class DB_Node extends Component {
 	}
 
 	// a node can only have one of these work
-	public <T> T readValue() {
+	public <T> T readValue(NodeType type) {
 		if (this.behaviour != null) {
-			return behaviour.readValue();
+			return behaviour.readValue(type);
 		} else {
 			logger.log("No behaviour set! Node: " + this.getIdentifier(), LogSource.ERROR, LogSource.OD_COMPONENT_INFO, 1);
 		}

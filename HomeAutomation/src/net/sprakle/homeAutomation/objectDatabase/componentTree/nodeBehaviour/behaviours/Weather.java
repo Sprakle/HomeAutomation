@@ -1,12 +1,12 @@
 package net.sprakle.homeAutomation.objectDatabase.componentTree.nodeBehaviour.behaviours;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.sprakle.homeAutomation.objectDatabase.NodeType;
 import net.sprakle.homeAutomation.objectDatabase.componentTree.components.DB_Node;
 import net.sprakle.homeAutomation.objectDatabase.componentTree.nodeBehaviour.NodeBehaviour;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
-
 
 public class Weather extends NodeBehaviour {
 
@@ -15,8 +15,12 @@ public class Weather extends NodeBehaviour {
 	}
 
 	@Override
-	protected NodeType getNodeType() {
-		// find out what part of the weather system we are at (temp, condition, etc)
+	protected ArrayList<NodeType> getAcceptedNodeReadTypes() {
+		return null;
+	}
+
+	@Override
+	protected ArrayList<NodeType> getAcceptedNodeWriteTypes() {
 		return null;
 	}
 }

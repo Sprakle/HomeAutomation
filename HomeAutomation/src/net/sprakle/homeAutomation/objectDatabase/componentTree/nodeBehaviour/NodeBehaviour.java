@@ -1,5 +1,6 @@
 package net.sprakle.homeAutomation.objectDatabase.componentTree.nodeBehaviour;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.sprakle.homeAutomation.objectDatabase.NodeType;
@@ -10,13 +11,12 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 public abstract class NodeBehaviour {
 	protected Logger logger;
 
-	// FIXME: next: allow turning on and off analog nodes
-
 	public static final NodeBehaviourType ARDUINO_DEVICE = NodeBehaviourType.ARDUINO_DEVICE;
 	public static final NodeBehaviourType WEATHER = NodeBehaviourType.WEATHER;
 
 	// these must be set by the extending class
-	protected NodeType nodeType;
+	protected ArrayList<NodeType> acceptedReadTypes;
+	protected ArrayList<NodeType> acceptedWriteTypes;
 
 	protected DB_Node parent;
 
@@ -28,15 +28,23 @@ public abstract class NodeBehaviour {
 		this.parent = parent;
 		this.args = args;
 
-		nodeType = getNodeType();
+		acceptedReadTypes = getAcceptedNodeReadTypes();
+		acceptedWriteTypes = getAcceptedNodeWriteTypes();
 	}
 
 	// extending classes must give the type they accept
-	protected abstract NodeType getNodeType();
+	protected abstract ArrayList<NodeType> getAcceptedNodeReadTypes();
+	protected abstract ArrayList<NodeType> getAcceptedNodeWriteTypes();
 
 	@SuppressWarnings("unchecked")
-	public final <T> T readValue() {
-		switch (nodeType) {
+	public final <T> T readValue(NodeType readType) {
+		// ensure this behaviour supports the requested type
+		if (!acceptedReadTypes.contains(readType)) {
+			logger.log("This node bahaviour cannot give the requested type of data", LogSource.ERROR, LogSource.OD_NODE_BEHAVIOUR, 1);
+			return null;
+		}
+
+		switch (readType) {
 			case STRING:
 				return (T) readString();
 
@@ -50,15 +58,16 @@ public abstract class NodeBehaviour {
 		return null;
 	}
 
-	public final <T> void writeValue(NodeType type, T value) {
+	public final <T> void writeValue(NodeType writeType, T value) {
 
-		if (type != this.nodeType) {
+		// ensure this behaviour supports the given type
+		if (!acceptedWriteTypes.contains(writeType)) {
 			String error = "Node Behaviour '" + getClass().getSimpleName() + " does not accept the given generic type";
 			logger.log(error, LogSource.ERROR, LogSource.OD_NODE_BEHAVIOUR, 1);
 		}
 
 		try {
-			switch (this.nodeType) {
+			switch (writeType) {
 				case STRING:
 					writeString((String) value);
 					logger.log("Nodebehaviour '" + getClass().getSimpleName() + "' recieved String write request", LogSource.OD_NODE_BEHAVIOUR, 3);
