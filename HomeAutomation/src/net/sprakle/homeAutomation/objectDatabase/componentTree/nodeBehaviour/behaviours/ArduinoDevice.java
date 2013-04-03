@@ -80,7 +80,11 @@ public class ArduinoDevice extends NodeBehaviour {
 		else
 			binary = 0;
 
-		arduino.interact(arduino.DIGITAL_WRITE, pin, binary);
+		if (technology == Technology.DIGITAL_WRITE)
+			arduino.interact(arduino.DIGITAL_WRITE, pin, binary);
+
+		else if (technology == Technology.ANALOGUE_WRITE) // if a binary signal is sent to an analogue device, it will go full on (255) of full off (0)
+			arduino.interact(arduino.ANALOGUE_WRITE, pin, binary * 255);
 	}
 
 	@Override

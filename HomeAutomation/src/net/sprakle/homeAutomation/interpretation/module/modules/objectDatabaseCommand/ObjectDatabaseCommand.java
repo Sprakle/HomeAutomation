@@ -11,7 +11,6 @@ import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.objectDatabase.NodeType;
 import net.sprakle.homeAutomation.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.objectDatabase.ObjectDatabase.QueryResponse;
-import net.sprakle.homeAutomation.objectDatabase.componentTree.Component;
 import net.sprakle.homeAutomation.objectDatabase.componentTree.components.DB_Node;
 import net.sprakle.homeAutomation.objectDatabase.componentTree.components.DB_Object;
 import net.sprakle.homeAutomation.synthesis.Synthesis;
@@ -88,7 +87,7 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 		QueryResponse queryResponse = od.query(logger, new String[] { targetName });
 
 		// will contain a usable component if successful
-		Component target = null;
+		DB_Object target = null;
 
 		// make sure we got a usable object
 		if (queryResponse.noObjectsFound()) {
@@ -103,12 +102,22 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 
 		} else if (queryResponse.sucsess()) {
 			// we got a usable object!
-			target = queryResponse.component();
+			target = (DB_Object) queryResponse.component();
 		}
 
 		// apply the command to the target
 		// first get the correct node to apply the command to (power, volume, brightness, etc) based on the command
 		DB_Node node = (DB_Node) target.getChild(logger, nodeName);
+
+		// if null, try to get the default node
+		if (node == null) {
+			node = target.getDefaultNode(NodeType.BINARY);
+		}
+
+		// if still null, get the default-default node
+		if (node == null) {
+			node = target.getDefaultNode(NodeType.DEFAULT);
+		}
 
 		if (node == null) {
 			synth.speak("The object " + NAME + " does not have the node " + nodeName);
@@ -131,7 +140,7 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 		QueryResponse queryResponse = od.query(logger, new String[] { targetName });
 
 		// will contain a usable component if successful
-		Component target = null;
+		DB_Object target = null;
 
 		// make sure we got a usable object
 		if (queryResponse.noObjectsFound()) {
@@ -146,12 +155,22 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 
 		} else if (queryResponse.sucsess()) {
 			// we got a usable object!
-			target = queryResponse.component();
+			target = (DB_Object) queryResponse.component();
 		}
 
 		// apply the command to the target
 		// first get the correct node to apply the command to (power, volume, brightness, etc) based on the command
 		DB_Node node = (DB_Node) target.getChild(logger, nodeName);
+
+		// if null, try to get the default node
+		if (node == null) {
+			node = target.getDefaultNode(NodeType.BINARY);
+		}
+
+		// if still null, get the default-default node
+		if (node == null) {
+			node = target.getDefaultNode(NodeType.DEFAULT);
+		}
 
 		if (node == null) {
 			synth.speak("The object " + NAME + " does not have the node " + nodeName);
