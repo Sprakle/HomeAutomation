@@ -19,6 +19,8 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class ObjectDatabaseRQD extends InterpretationModule {
 
+	private final String NAME = "Object Database RQD";
+
 	private Logger logger;
 	private Synthesis synth;
 	private ObjectDatabase od;
@@ -94,7 +96,7 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 					if (readValue instanceof Integer)
 						value = (Integer) readValue;
 					else
-						logger.log("Recieved wrong type from generic in ObjectDatabaseRQD", LogSource.ERROR, LogSource.DETERMINER_INFO, 1);
+						logger.log("Recieved wrong type from generic in " + NAME, LogSource.ERROR, LogSource.DETERMINER_INFO, 1);
 
 					synth.speak(String.valueOf(value));
 					break;
@@ -119,7 +121,7 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 					if (readValue instanceof Boolean)
 						value = (Boolean) readValue;
 					else
-						logger.log("Recieved wrong type from generic in ObjectDatabaseRQD", LogSource.ERROR, LogSource.DETERMINER_INFO, 1);
+						logger.log("Recieved wrong type from generic in " + NAME, LogSource.ERROR, LogSource.DETERMINER_INFO, 1);
 
 					synth.speak("The value is " + value);
 					break;
@@ -151,5 +153,10 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public String getName() {
+		return NAME;
 	}
 }

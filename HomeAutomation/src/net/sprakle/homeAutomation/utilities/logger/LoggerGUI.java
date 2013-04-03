@@ -12,7 +12,8 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
 import net.sprakle.homeAutomation.main.Config;
-import net.sprakle.homeAutomation.userInterface.textInput.Window;
+import net.sprakle.homeAutomation.userInterface.Window.Window;
+import net.sprakle.homeAutomation.userInterface.Window.WindowPosition;
 
 public class LoggerGUI {
 	Window logWindow;
@@ -23,7 +24,8 @@ public class LoggerGUI {
 	LoggerGUI() {
 		String name = Config.getString("config/system/name");
 		String version = Config.getString("config/system/version");
-		logWindow = new Window(name + " v" + version + "- Log", 600, 800);
+		String title = name + " v" + version + "- Log";
+		logWindow = new Window(title, 600, 800, WindowPosition.NORTHWEST);
 
 		Container cp = logWindow.getContentPane();
 

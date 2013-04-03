@@ -6,9 +6,9 @@ import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
+//TODO: Not a real module. uses "dumb" interpretation
 public class Reloading extends InterpretationModule {
-
-	//TODO: Not a real module. uses "dumb" interpretation
+	private final String NAME = "Reloader";
 
 	Logger logger;
 	ObjectDatabase od;
@@ -41,6 +41,11 @@ public class Reloading extends InterpretationModule {
 		if (phrase.getRawText().equals("reload tag list")) {
 			tagger.reloadTaglist();
 		}
+	}
+
+	@Override
+	public String getName() {
+		return NAME;
 	}
 
 }

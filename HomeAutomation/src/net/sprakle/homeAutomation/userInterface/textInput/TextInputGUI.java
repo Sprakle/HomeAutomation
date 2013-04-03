@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import net.sprakle.homeAutomation.main.Config;
+import net.sprakle.homeAutomation.userInterface.Window.Window;
+import net.sprakle.homeAutomation.userInterface.Window.WindowPosition;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class TextInputGUI {
@@ -21,7 +23,8 @@ public class TextInputGUI {
 		//create main window
 		String name = Config.getString("config/system/name");
 		String version = Config.getString("config/system/version");
-		window = new Window(name + " v" + version + "- Input", 800, 400);
+		String title = name + " v" + version + "- Input";
+		window = new Window(title, 800, 400, WindowPosition.CENTER);
 
 		p = new JPanel();
 

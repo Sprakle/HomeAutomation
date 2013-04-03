@@ -8,11 +8,8 @@ import net.sprakle.homeAutomation.interpretation.Phrase;
 
 public abstract class InterpretationModule {
 
-	protected final String NAME;
-	public InterpretationModule() {
-		this.NAME = this.getClass().getSimpleName();
-	}
-
 	public abstract Boolean claim(Phrase phrase);
 	public abstract void execute(Phrase phrase);
+
+	public abstract String getName();
 }
