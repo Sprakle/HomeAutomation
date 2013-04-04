@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
+import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
@@ -189,16 +190,14 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 
 		// binary
 		{
-			// tag outline
-			ArrayList<Tag> possibility1 = new ArrayList<Tag>();
-			possibility1.add(new Tag(TagType.POWER_OPTION, null, -1));
-			possibility1.add(new Tag(TagType.OD_OBJECT, null, -1));
+			PhraseOutline possibility1 = new PhraseOutline(logger, tagger, 0);
+			possibility1.addTag(new Tag(TagType.POWER_OPTION, null, null, -1));
+			possibility1.addTag(new Tag(TagType.OD_OBJECT, null, null, -1));
 
-			// tag outlines
-			ArrayList<ArrayList<Tag>> binArray = new ArrayList<ArrayList<Tag>>();
+			ArrayList<PhraseOutline> binArray = new ArrayList<PhraseOutline>();
 			binArray.add(possibility1);
 
-			if (ParseHelpers.match(logger, tagger, binArray, phrase) != null) {
+			if (ParseHelpers.match(logger, binArray, phrase) != null) {
 				types.add(NodeType.BINARY);
 			}
 		}
@@ -206,15 +205,15 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 		// integer
 		{
 			// tag outline
-			ArrayList<Tag> possibility1 = new ArrayList<Tag>();
-			possibility1.add(new Tag(TagType.SETTER, null, -1));
-			possibility1.add(new Tag(TagType.OD_OBJECT, null, -1));
+			PhraseOutline possibility1 = new PhraseOutline(logger, tagger, 0);
+			possibility1.addTag(new Tag(TagType.SETTER, null, null, -1));
+			possibility1.addTag(new Tag(TagType.OD_OBJECT, null, null, -1));
 
 			// tag outlines
-			ArrayList<ArrayList<Tag>> setArray = new ArrayList<ArrayList<Tag>>();
+			ArrayList<PhraseOutline> setArray = new ArrayList<PhraseOutline>();
 			setArray.add(possibility1);
 
-			if (ParseHelpers.match(logger, tagger, setArray, phrase) != null) {
+			if (ParseHelpers.match(logger, setArray, phrase) != null) {
 				// make sure the setter has a value
 				Tag setter = ParseHelpers.getTagOfType(logger, tagger, TagType.SETTER, phrase);
 

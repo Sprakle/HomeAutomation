@@ -29,6 +29,8 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class Tagger {
 
+	// TODO: add tags to phrase instead of generating them each time
+
 	private Logger logger;
 	private Synthesis synth;
 
@@ -68,7 +70,6 @@ public class Tagger {
 		/*
 		 * TAG NUMBERS
 		 */
-
 		// holds each word that was separated by whitespace
 		String[] words = text.split(" ");
 
@@ -123,7 +124,7 @@ public class Tagger {
 						Tag oldNumber = tags.get(currentIndex);
 
 						// create the new SETTER tag with the value of the NUMBER tag
-						Tag newSetter = new Tag(TagType.SETTER, oldNumber.getValue(), oldSetter.getPosition());
+						Tag newSetter = new Tag(TagType.SETTER, oldNumber.getValue(), oldNumber.getOriginalText(), oldSetter.getPosition());
 
 						// remove the old NUMBER tag
 						//tags.remove(oldNumber);
@@ -152,12 +153,35 @@ public class Tagger {
 			tags.add(index, t);
 		}
 
+		/*
+		 * Tag remaining untagged text
+		 */
+		// find untagged text
+		String untagged = text;
+		for (Tag t : tags) {
+			untagged = untagged.replace(t.getOriginalText(), "*");
+		}
+		untagged.replaceAll(" ", "");
+
+		// create tags based off untagged text
+		String untaggedArray[] = untagged.split("\\*");
+		for (int i = 0; i < untaggedArray.length; i++) {
+			String value = untaggedArray[i].trim();
+
+			if (value.equals(""))
+				continue;
+
+			int position = text.indexOf(value);
+			Tag t = new Tag(TagType.UNKOWN_TEXT, value, value, position);
+
+			tags.add(t);
+		}
+
 		// sort tags back into order in rawText
 		tags = TagUtilities.orderTags(tags);
 
 		return tags;
 	}
-
 	private Boolean shouldTag(String text, String trigger) {
 		Boolean result = true;
 

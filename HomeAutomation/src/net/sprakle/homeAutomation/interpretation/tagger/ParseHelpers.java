@@ -23,35 +23,14 @@ public class ParseHelpers {
 	 * 
 	 * This should return the phrase outline arraylist of the matching outline
 	 */
-	public static ArrayList<Tag> match(Logger logger, Tagger tagger, ArrayList<ArrayList<Tag>> array, Phrase phrase) {
+	public static PhraseOutline match(Logger logger, ArrayList<PhraseOutline> phraseOutlines, Phrase phrase) {
+
+		// TODO: check for conflicts and use priority number to deal with them
+
 		// for every 1 dimensional array AKA phrase outline
-		for (ArrayList<Tag> at : array) {
+		for (PhraseOutline at : phraseOutlines) {
 
-			int tagMatches = 0;
-			int required = at.size();
-
-			int lastPosition = -1;
-
-			// for every phrase outline
-			System.out.println("checking possibility");
-			for (Tag t : at) {
-				if (hasTagOfType(logger, tagger, t.getType(), phrase)) {
-					System.out.println("   working with tag: " + t.getFormattedAsText());
-
-					// make sure it comes after the last tag
-					Tag phraseTag = getTagOfType(logger, tagger, t.getType(), phrase);
-					int position = phraseTag.getPosition();
-					System.out.println("  position: " + position);
-					if (position <= lastPosition)
-						continue;
-
-					lastPosition = position;
-					tagMatches++;
-					System.out.println("   match");
-				}
-			}
-
-			if (tagMatches >= required) {
+			if (at.match(phrase)) {
 				return at;
 			}
 		}

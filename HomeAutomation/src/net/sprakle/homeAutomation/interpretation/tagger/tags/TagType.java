@@ -1,6 +1,7 @@
 package net.sprakle.homeAutomation.interpretation.tagger.tags;
 
 public enum TagType {
+	UNKOWN_TEXT, // text that has not been tagged
 	POWER_OPTION, // EX: "Activate". // IDEA: make '-1' toggle it
 	OD_OBJECT, // EX: "kitchen", "heater"
 	NODE,

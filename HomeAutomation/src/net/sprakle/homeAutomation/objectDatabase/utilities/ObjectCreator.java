@@ -115,7 +115,6 @@ public class ObjectCreator {
 
 		} else {
 			logger.log("Object dadabase file formatted incorectly! Tab length out of range!", LogSource.ERROR, LogSource.OD_OBJECT_CREATION_INFO, 1);
-			System.exit(1);
 		}
 
 		// current depth (it will later be the previous depth)

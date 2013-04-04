@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
+import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
@@ -37,30 +38,38 @@ public class Media extends InterpretationModule {
 		// play music (playback, media)
 		// play X (playback) + leven check
 
-		System.out.println("MEDIA CHECK");
+		// first tag possibilities - next/last song
+		PhraseOutline posibility0 = new PhraseOutline(logger, tagger, 0);
+		posibility0.addTag(new Tag(TagType.TIME_CHANGE, null, null, -1));
+		posibility0.addTag(new Tag(TagType.MEDIA, null, null, -1));
 
-		// first tag possibilities
-		ArrayList<Tag> posibility1 = new ArrayList<Tag>();
-		posibility1.add(new Tag(TagType.TIME_CHANGE, null, -1));
-		posibility1.add(new Tag(TagType.MEDIA, null, -1));
+		// second tag possibilities - play/pause
+		PhraseOutline posibility1 = new PhraseOutline(logger, tagger, 1);
+		posibility1.addTag(new Tag(TagType.PLAYBACK, null, null, -1));
+		posibility1.addTag(new Tag(TagType.MEDIA, null, null, -1));
 
-		// second tag possibilities
-		ArrayList<Tag> posibility2 = new ArrayList<Tag>();
-		posibility2.add(new Tag(TagType.PLAYBACK, null, -1));
-		posibility2.add(new Tag(TagType.MEDIA, null, -1));
+		// fourth tag possibilities - enqueue song
+		PhraseOutline posibility2 = new PhraseOutline(logger, tagger, 2);
+		posibility2.addTag(new Tag(TagType.PLAYBACK, null, null, -1));
+		posibility2.addTag(new Tag(TagType.UNKOWN_TEXT, null, null, -1));
+		posibility2.addTag(new Tag(TagType.TIME_CHANGE, null, null, -1));
 
-		// TODO: add ability to play specific song
+		// third tag possibilities - playing specific song
+		PhraseOutline posibility3 = new PhraseOutline(logger, tagger, 3);
+		posibility3.addTag(new Tag(TagType.PLAYBACK, null, null, -1));
+		posibility3.addTag(new Tag(TagType.UNKOWN_TEXT, null, null, -1));
 
 		// 2D
-		ArrayList<ArrayList<Tag>> tags = new ArrayList<ArrayList<Tag>>();
-		tags.add(posibility1);
-		tags.add(posibility2);
+		ArrayList<PhraseOutline> possibilities = new ArrayList<PhraseOutline>();
+		possibilities.add(posibility0);
+		possibilities.add(posibility1);
+		possibilities.add(posibility2);
+		possibilities.add(posibility3);
 
-		if (ParseHelpers.match(logger, tagger, tags, phrase) != null) {
+		PhraseOutline result = ParseHelpers.match(logger, possibilities, phrase);
+		if (result != null) {
 			claim = true;
 		}
-
-		System.out.println("FINISHED MEDIA CHECK");
 
 		return claim;
 	}

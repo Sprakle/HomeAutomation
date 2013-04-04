@@ -10,12 +10,14 @@ public class Tag {
 	private TagType type;
 
 	private String value;
+	private String originalText;
 
 	private int position;
 
-	public Tag(TagType type, String value, int position) {
+	public Tag(TagType type, String value, String originalText, int position) {
 		this.type = type;
 		this.value = value;
+		this.originalText = originalText;
 		this.position = position;
 	}
 
@@ -25,6 +27,10 @@ public class Tag {
 
 	public String getValue() {
 		return value;
+	}
+
+	public String getOriginalText() {
+		return originalText;
 	}
 
 	public int getPosition() {

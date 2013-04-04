@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
+import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
@@ -81,7 +82,6 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 
 					// if there is no integer node, get the default-default node
 					if (targetNode == null) {
-						System.out.println("looking for def-def");
 						targetNode = targetObject.getDefaultNode(NodeType.DEFAULT);
 					}
 
@@ -136,15 +136,15 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 		 */
 
 		// tag outline
-		ArrayList<Tag> possibility1 = new ArrayList<Tag>();
-		possibility1.add(new Tag(TagType.QUESTION, null, -1));
-		possibility1.add(new Tag(TagType.OD_OBJECT, null, -1));
+		PhraseOutline possibility1 = new PhraseOutline(logger, tagger, 0);
+		possibility1.addTag(new Tag(TagType.QUESTION, null, null, -1));
+		possibility1.addTag(new Tag(TagType.OD_OBJECT, null, null, -1));
 
 		// tag outlines
-		ArrayList<ArrayList<Tag>> sentence = new ArrayList<ArrayList<Tag>>();
+		ArrayList<PhraseOutline> sentence = new ArrayList<PhraseOutline>();
 		sentence.add(possibility1);
 
-		if (ParseHelpers.match(logger, tagger, sentence, phrase) != null) {
+		if (ParseHelpers.match(logger, sentence, phrase) != null) {
 			return true;
 		} else {
 			return false;

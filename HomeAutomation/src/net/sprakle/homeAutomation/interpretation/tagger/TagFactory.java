@@ -17,7 +17,7 @@ public class TagFactory {
 		String trigger = TagFileParser.getTrigger(logger, s);
 		int position = TagUtilities.getPosition(logger, trigger, rawText);
 
-		Tag tag = new Tag(type, value, position);
+		Tag tag = new Tag(type, value, trigger, position);
 
 		return tag;
 	}
