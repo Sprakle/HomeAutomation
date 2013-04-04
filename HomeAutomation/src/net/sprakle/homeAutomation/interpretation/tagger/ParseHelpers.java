@@ -30,11 +30,24 @@ public class ParseHelpers {
 			int tagMatches = 0;
 			int required = at.size();
 
+			int lastPosition = -1;
+
 			// for every phrase outline
-			// TODO: make tag order matter
+			System.out.println("checking possibility");
 			for (Tag t : at) {
 				if (hasTagOfType(logger, tagger, t.getType(), phrase)) {
+					System.out.println("   working with tag: " + t.getFormattedAsText());
+
+					// make sure it comes after the last tag
+					Tag phraseTag = getTagOfType(logger, tagger, t.getType(), phrase);
+					int position = phraseTag.getPosition();
+					System.out.println("  position: " + position);
+					if (position <= lastPosition)
+						continue;
+
+					lastPosition = position;
 					tagMatches++;
+					System.out.println("   match");
 				}
 			}
 

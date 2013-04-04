@@ -37,6 +37,8 @@ public class Media extends InterpretationModule {
 		// play music (playback, media)
 		// play X (playback) + leven check
 
+		System.out.println("MEDIA CHECK");
+
 		// first tag possibilities
 		ArrayList<Tag> posibility1 = new ArrayList<Tag>();
 		posibility1.add(new Tag(TagType.TIME_CHANGE, null, -1));
@@ -55,6 +57,8 @@ public class Media extends InterpretationModule {
 		if (ParseHelpers.match(logger, tagger, tags, phrase) != null) {
 			claim = true;
 		}
+
+		System.out.println("FINISHED MEDIA CHECK");
 
 		return claim;
 	}
