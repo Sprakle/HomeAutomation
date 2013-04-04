@@ -1,19 +1,23 @@
 package net.sprakle.homeAutomation.utilities.externalSoftware;
 
-import java.util.HashMap;
-
 import net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.CommandLineInterface;
 import net.sprakle.homeAutomation.utilities.externalSoftware.software.SoftwareInterface;
-import net.sprakle.homeAutomation.utilities.externalSoftware.software.Swift;
+import net.sprakle.homeAutomation.utilities.externalSoftware.software.rhythmbox.Rhythmbox;
+import net.sprakle.homeAutomation.utilities.externalSoftware.software.swift.Swift;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-
 public class SoftwareFactory {
-	public static HashMap<Software, SoftwareInterface> getSoftware(Logger logger, CommandLineInterface cli) {
-		HashMap<Software, SoftwareInterface> software;
-		software = new HashMap<Software, SoftwareInterface>();
+	public static SoftwareInterface getSoftware(Logger logger, CommandLineInterface cli, SoftwareName name) {
+		SoftwareInterface software = null;
 
-		software.put(Software.SWIFT, new Swift(logger, cli));
+		switch (name) {
+			case RHYTHMBOX:
+				software = new Rhythmbox(logger, cli);
+				break;
+			case SWIFT:
+				software = new Swift(logger, cli);
+				break;
+		}
 
 		return software;
 	}

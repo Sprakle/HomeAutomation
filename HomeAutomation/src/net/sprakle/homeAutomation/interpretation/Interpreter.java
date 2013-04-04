@@ -14,6 +14,7 @@ import net.sprakle.homeAutomation.userInterface.speechInput.SpeechInput;
 import net.sprakle.homeAutomation.userInterface.speechInput.UserSpeechRecievedEvent;
 import net.sprakle.homeAutomation.userInterface.textInput.TextInput;
 import net.sprakle.homeAutomation.userInterface.textInput.UserTextRecievedEvent;
+import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.DynamicResponder;
@@ -35,13 +36,13 @@ public class Interpreter implements EventListener {
 	ModuleManager moduleManager;
 	Tagger tagger;
 
-	public Interpreter(Logger logger, Synthesis synth, ObjectDatabase od) {
+	public Interpreter(Logger logger, Synthesis synth, ObjectDatabase od, ExternalSoftware exs) {
 		this.logger = logger;
 		this.synth = synth;
 		this.od = od;
 
 		this.tagger = new Tagger(logger, synth);
-		this.moduleManager = new ModuleManager(logger, synth, od, tagger);
+		this.moduleManager = new ModuleManager(logger, synth, od, tagger, exs);
 
 		EventManager em = EventManager.getInstance(logger);
 		em.addListener(EventType.USER_SPEECH_RECIEVED, this);

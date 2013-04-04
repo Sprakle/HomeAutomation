@@ -7,9 +7,11 @@
  * These swift commands happen to work on BOTH windows and linux
  */
 
-package net.sprakle.homeAutomation.utilities.externalSoftware.software;
+package net.sprakle.homeAutomation.utilities.externalSoftware.software.swift;
 
+import net.sprakle.homeAutomation.utilities.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.CommandLineInterface;
+import net.sprakle.homeAutomation.utilities.externalSoftware.software.SoftwareInterface;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class Swift extends SoftwareInterface {
@@ -18,12 +20,13 @@ public class Swift extends SoftwareInterface {
 		super(logger, cli);
 	}
 
-	@Override
-	public void execute(String[] args) {
-		String path = args[0];
-		String phrase = args[1];
-
+	public void writeSpeechFile(String path, String phrase) {
 		String command = "swift -n David \"" + phrase + "\" -o " + path;
 		cli.execute(logger, command);
+	}
+
+	@Override
+	public SoftwareName getSoftwareName() {
+		return SoftwareName.SWIFT;
 	}
 }

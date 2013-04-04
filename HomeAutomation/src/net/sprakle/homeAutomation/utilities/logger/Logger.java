@@ -44,6 +44,13 @@ public class Logger {
 		if (source == LogSource.ERROR) {
 			executeLog(text, source, secondarySource, verbosity);
 			printToConsole("Fatal error (" + secondarySource + "): " + text);
+
+			try {
+				throw new Exception();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 			System.exit(1);
 		}
 

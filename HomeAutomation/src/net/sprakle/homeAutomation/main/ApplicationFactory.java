@@ -12,6 +12,7 @@ import net.sprakle.homeAutomation.timer.MainTimer;
 import net.sprakle.homeAutomation.userInterface.speechInput.SpeechInput;
 import net.sprakle.homeAutomation.userInterface.textInput.TextInput;
 import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
+import net.sprakle.homeAutomation.utilities.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
@@ -50,9 +51,12 @@ public class ApplicationFactory {
 
 		// initialize external software, used by synth to access swift
 		exs = new ExternalSoftware(logger);
+		exs.initSoftware(SoftwareName.SWIFT);
 
 		synth = new Synthesis(logger, exs);
 		synth.speak(STARTUP_SPEECH);
+
+		exs.initSoftware(SoftwareName.RHYTHMBOX);
 
 		// initialize UI
 		textInput = new TextInput(logger);
@@ -65,7 +69,9 @@ public class ApplicationFactory {
 		objectDatabase = new ObjectDatabase(logger, synth, arduino);
 
 		// initialize interpretation
-		interpreter = new Interpreter(logger, synth, objectDatabase);
+		interpreter = new Interpreter(logger, synth, objectDatabase, exs);
+
+		synth.speak("ready");
 
 		// must be called last, as it creates an infinite timer loop
 		mainTimer = new MainTimer(logger);

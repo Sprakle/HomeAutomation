@@ -12,7 +12,8 @@ import java.util.regex.Pattern;
 import net.sprakle.homeAutomation.main.Config;
 import net.sprakle.homeAutomation.utilities.audio.out.AudioOut;
 import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
-import net.sprakle.homeAutomation.utilities.externalSoftware.Software;
+import net.sprakle.homeAutomation.utilities.externalSoftware.SoftwareName;
+import net.sprakle.homeAutomation.utilities.externalSoftware.software.swift.Swift;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
@@ -36,8 +37,8 @@ public class Synthesis {
 		phrase = filterNegatives(phrase);
 
 		// first write the wav file
-		String[] command = { path, phrase };
-		exs.execute(Software.SWIFT, command);
+		Swift swift = (Swift) exs.getSoftware(SoftwareName.SWIFT);
+		swift.writeSpeechFile(path, phrase);
 
 		// then play it
 		File speechFile = new File(path);

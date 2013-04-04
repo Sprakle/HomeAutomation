@@ -9,27 +9,47 @@
 "temperature"		{OD_OBJECT/room temperature sensor}
 "hot"				{OD_OBJECT/room temperature sensor}
 
-"on"			{POWER_OPTION/1}
-"enable"		{POWER_OPTION/1}
-"activate"		{POWER_OPTION/1}
-"lock"			{POWER_OPTION/1}
-"deactivate"	{POWER_OPTION/0}
-"disable"		{POWER_OPTION/0}
-"off"			{POWER_OPTION/0}
-"unlock"		{POWER_OPTION/0}
+"on"				{POWER_OPTION/1}
+"enable"			{POWER_OPTION/1}
+"activate"			{POWER_OPTION/1}
+"lock"				{POWER_OPTION/1}
+"deactivate"		{POWER_OPTION/0}
+"disable"			{POWER_OPTION/0}
+"off"				{POWER_OPTION/0}
+"unlock"			{POWER_OPTION/0}
 
-"volume"		{NODE/volume}
-"brightness"	{NODE/brightness}
+"volume"			{NODE/volume}
+"brightness"		{NODE/brightness}
 
-"set"			{SETTER/i} // IDEA: instead if 'i', use +/-/=
-"turn up"		{SETTER/i}
-"turn down"		{SETTER/i}
-"increase"		{SETTER/i}
-"decrease"		{SETTER/i}
+"set"				{SETTER/i} // IDEA: instead if 'i', use +/-/=
+"turn up"			{SETTER/i}
+"turn down"			{SETTER/i}
+"increase"			{SETTER/i}
+"decrease"			{SETTER/i}
 
-"degrees"		{UNIT/degree}
-"degree"		{UNIT/degree}
-"percent"		{UNIT/percent}
+"play"				{PLAYBACK/play}
+"start"				{PLAYBACK/play}
+"pause"				{PLAYBACK/pause}
+"stop"				{PLAYBACK/pause}
 
-"what"			{QUESTION/generic}
-"how"			{QUESTION/integer}
+"next"				{TIME_CHANGE/next}
+"after"				{TIME_CHANGE/next}
+"last"				{TIME_CHANGE/prev}
+"before"			{TIME_CHANGE/prev}
+"previous"			{TIME_CHANGE/prev}
+"restart"			{TIME_CHANGE/restart}
+"replay"			{TIME_CHANGE/restart}
+"random"			{TIME_CHANGE/?}
+
+"song"				{MEDIA/track}
+"track"				{MEDIA/track}
+"music"				{MEDIA/track}
+
+"by"				{POSSESSION/owned}
+
+"degrees"			{UNIT/degree}
+"degree"			{UNIT/degree}
+"percent"			{UNIT/percent}
+
+"what"				{QUESTION/generic}
+"how"				{QUESTION/integer}

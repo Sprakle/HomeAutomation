@@ -4,26 +4,40 @@
 
 package net.sprakle.homeAutomation.utilities.externalSoftware;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 import net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.CommandLineFactory;
 import net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.CommandLineInterface;
 import net.sprakle.homeAutomation.utilities.externalSoftware.software.SoftwareInterface;
+import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-
 public class ExternalSoftware {
+	Logger logger;
+	CommandLineInterface cli;
 
-	HashMap<Software, SoftwareInterface> softwareInterfaces;
+	ArrayList<SoftwareInterface> software;
 
 	public ExternalSoftware(Logger logger) {
-		CommandLineInterface cli = CommandLineFactory.getCommandLine(logger);
+		this.logger = logger;
+		this.cli = CommandLineFactory.getCommandLine(logger);
 
-		softwareInterfaces = SoftwareFactory.getSoftware(logger, cli);
+		software = new ArrayList<SoftwareInterface>();
 	}
 
-	public void execute(Software software, String[] args) {
-		SoftwareInterface targetSoftware = softwareInterfaces.get(software);
-		targetSoftware.execute(args);
+	public void initSoftware(SoftwareName name) {
+		software.add(SoftwareFactory.getSoftware(logger, cli, name));
+	}
+
+	public SoftwareInterface getSoftware(SoftwareName name) {
+		for (SoftwareInterface si : software) {
+			if (si.getSoftwareName() == name) {
+				return si;
+			}
+		}
+
+		logger.log(name + " not yet initialized", LogSource.ERROR, LogSource.EXTERNAL_SOFTWARE, 1);
+
+		return null;
 	}
 }

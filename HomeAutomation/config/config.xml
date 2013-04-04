@@ -12,6 +12,10 @@
 		</timing>
 	</system>
 	
+	<local>
+		<user_directory>/home/ben/</user_directory> <!-- there is probably a way to get this automaticcaly -->
+	</local>
+	
 	<arduino>
 		<timeout>2000</timeout>
 		<data_rate>9600</data_rate>
@@ -49,6 +53,12 @@
 		
 		<visual_display_time>70</visual_display_time> <!-- time to display recognized speech -->
 	</speech_recognition>
+	
+	<external_software>
+		<rhythmbox>
+			<relative_directory>.local/share/rhythmbox/rhythmdb.xml</relative_directory>
+		</rhythmbox>
+	</external_software>
 	
 	<logger>
 		<!-- Higher number is more verbose. 0 is infinite -->

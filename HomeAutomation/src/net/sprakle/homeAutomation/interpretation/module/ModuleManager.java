@@ -10,6 +10,7 @@ import net.sprakle.homeAutomation.interpretation.module.GUI.ModuleGUI;
 import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.synthesis.Synthesis;
+import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class ModuleManager {
@@ -19,10 +20,10 @@ public class ModuleManager {
 
 	ModuleGUI moduleGUI;
 
-	public ModuleManager(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger) {
+	public ModuleManager(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger, ExternalSoftware exs) {
 		this.logger = logger;
 
-		modules = ModuleFactory.getModules(logger, synth, od, tagger);
+		modules = ModuleFactory.getModules(logger, synth, od, tagger, exs);
 
 		ArrayList<JCheckBox> checkboxes = new ArrayList<JCheckBox>();
 		checkboxes.addAll(modules.keySet());
