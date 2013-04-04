@@ -15,43 +15,36 @@ public class ParseHelpers {
 
 	/*
 	 * accepts a 2D array of tags , and and a phrase. Return's true if the phrase can be described by the array of ---
-	 * EX: Array: (POWER_OPTION / SET_VALUE) (OD_OBJECT)    Phrase.rawText: "turn on the lamp"
+	 * EX: Array: (POWER_OPTION) (OD_OBJECT) || (SET_VALUE) (OD_OBJECT)    Phrase.rawText: "turn on the lamp"
 	 * 		This will return true
 	 * 
-	 * EX: Array: (POWER_OPTION / SET_VALUE) (OD_OBJECT)    Phrase.rawText: "turn on the light"
+	 * EX: Array: (POWER_OPTION) (OD_OBJECT) || (SET_VALUE) (OD_OBJECT)    Phrase.rawText: "turn on the light"
 	 * 		This will return true7
 	 * 
-	 * if there are too many of a tag, it will return false
+	 * This should return the phrase outline arraylist of the matching outline
 	 */
-	public static Boolean match(Logger logger, Tagger tagger, ArrayList<ArrayList<Tag>> array, Phrase phrase) {
-		Boolean result = true;
-
-		// for every 1 dimensional array AKA individual list of possibilities 
+	public static ArrayList<Tag> match(Logger logger, Tagger tagger, ArrayList<ArrayList<Tag>> array, Phrase phrase) {
+		// for every 1 dimensional array AKA phrase outline
 		for (ArrayList<Tag> at : array) {
 
-			// check to see if there are any matches
-			ArrayList<Tag> matches = new ArrayList<Tag>();
+			int tagMatches = 0;
+			int required = at.size();
 
-			// for every individual tag in the 1D array
+			// for every phrase outline
+			// TODO: make tag order matter
 			for (Tag t : at) {
-
 				if (hasTagOfType(logger, tagger, t.getType(), phrase)) {
-					// we found a match! add it too the list!
-					matches.add(t);
+					tagMatches++;
 				}
 			}
 
-			// how many matches did we find?
-			if (matches.size() == 0) {
-				// no matches!
-				result = false;
-				return result;
+			if (tagMatches >= required) {
+				return at;
 			}
 		}
 
-		// if it got this far, each 1D array had a match
-
-		return result;
+		// if it got this far, there are no matches
+		return null;
 	}
 
 	public static Boolean hasTagOfType(Logger logger, Tagger tagger, TagType queryType, Phrase phrase) {

@@ -135,20 +135,16 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 		 * First check if it's a question at all
 		 */
 
-		// 1D a
-		ArrayList<Tag> wordsA = new ArrayList<Tag>();
-		wordsA.add(new Tag(TagType.QUESTION, null, -1));
+		// tag outline
+		ArrayList<Tag> possibility1 = new ArrayList<Tag>();
+		possibility1.add(new Tag(TagType.QUESTION, null, -1));
+		possibility1.add(new Tag(TagType.OD_OBJECT, null, -1));
 
-		// 1D b
-		ArrayList<Tag> wordsB = new ArrayList<Tag>();
-		wordsB.add(new Tag(TagType.OD_OBJECT, null, -1));
-
-		// 2D
+		// tag outlines
 		ArrayList<ArrayList<Tag>> sentence = new ArrayList<ArrayList<Tag>>();
-		sentence.add(wordsA);
-		sentence.add(wordsB);
+		sentence.add(possibility1);
 
-		if (ParseHelpers.match(logger, tagger, sentence, phrase)) {
+		if (ParseHelpers.match(logger, tagger, sentence, phrase) != null) {
 			return true;
 		} else {
 			return false;

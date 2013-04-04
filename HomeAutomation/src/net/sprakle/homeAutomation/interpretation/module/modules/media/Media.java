@@ -33,21 +33,26 @@ public class Media extends InterpretationModule {
 	public Boolean claim(Phrase phrase) {
 		boolean claim = false;
 
+		// next song (timechange, media)
+		// play music (playback, media)
+		// play X (playback) + leven check
+
 		// first tag possibilities
-		ArrayList<Tag> tagArray1 = new ArrayList<Tag>();
-		tagArray1.add(new Tag(TagType.TIME_CHANGE, null, -1));
-		tagArray1.add(new Tag(TagType.PLAYBACK, null, -1));
+		ArrayList<Tag> posibility1 = new ArrayList<Tag>();
+		posibility1.add(new Tag(TagType.TIME_CHANGE, null, -1));
+		posibility1.add(new Tag(TagType.MEDIA, null, -1));
 
 		// second tag possibilities
-		ArrayList<Tag> tagArray2 = new ArrayList<Tag>();
-		tagArray2.add(new Tag(TagType.MEDIA, null, -1));
+		ArrayList<Tag> posibility2 = new ArrayList<Tag>();
+		posibility2.add(new Tag(TagType.PLAYBACK, null, -1));
+		posibility2.add(new Tag(TagType.MEDIA, null, -1));
 
 		// 2D
 		ArrayList<ArrayList<Tag>> tags = new ArrayList<ArrayList<Tag>>();
-		tags.add(tagArray1);
-		tags.add(tagArray2);
+		tags.add(posibility1);
+		tags.add(posibility2);
 
-		if (ParseHelpers.match(logger, tagger, tags, phrase)) {
+		if (ParseHelpers.match(logger, tagger, tags, phrase) != null) {
 			claim = true;
 		}
 

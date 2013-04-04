@@ -187,52 +187,40 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 		// list types found in user's phrase. we only want one
 		ArrayList<NodeType> types = new ArrayList<NodeType>();
 
-		/*
-		 * Check first for Binary - A turn on or off command. EX: turn off projector
-		
-		 * Create a 2D array. Each 1 dimensional array lists possible choices (kind of like synonyms) and the 2 dimensional
-		 * array combines them all into a "sentence"
-		 * 
-		 * The final array basically translates into this: (POWER_OPTION || SETTER) + (OD_OBJECT)
-		 */
-		// 1D a
-		ArrayList<Tag> binArrayA = new ArrayList<Tag>();
-		binArrayA.add(new Tag(TagType.POWER_OPTION, null, -1));
+		// binary
+		{
+			// tag outline
+			ArrayList<Tag> possibility1 = new ArrayList<Tag>();
+			possibility1.add(new Tag(TagType.POWER_OPTION, null, -1));
+			possibility1.add(new Tag(TagType.OD_OBJECT, null, -1));
 
-		// 1D b
-		ArrayList<Tag> binArrayB = new ArrayList<Tag>();
-		binArrayB.add(new Tag(TagType.OD_OBJECT, null, -1));
+			// tag outlines
+			ArrayList<ArrayList<Tag>> binArray = new ArrayList<ArrayList<Tag>>();
+			binArray.add(possibility1);
 
-		// 2D
-		ArrayList<ArrayList<Tag>> binArray = new ArrayList<ArrayList<Tag>>();
-		binArray.add(binArrayA);
-		binArray.add(binArrayB);
-
-		if (ParseHelpers.match(logger, tagger, binArray, phrase)) {
-			types.add(NodeType.BINARY);
+			if (ParseHelpers.match(logger, tagger, binArray, phrase) != null) {
+				types.add(NodeType.BINARY);
+			}
 		}
 
-		/*
-		 * Now check for Integer - A set command. EX: set lights to 50 percent
-		 */
-		ArrayList<Tag> setArrayA = new ArrayList<Tag>();
-		setArrayA.add(new Tag(TagType.SETTER, null, -1));
+		// integer
+		{
+			// tag outline
+			ArrayList<Tag> possibility1 = new ArrayList<Tag>();
+			possibility1.add(new Tag(TagType.SETTER, null, -1));
+			possibility1.add(new Tag(TagType.OD_OBJECT, null, -1));
 
-		// 1D b
-		ArrayList<Tag> setArrayB = new ArrayList<Tag>();
-		setArrayB.add(new Tag(TagType.OD_OBJECT, null, -1));
+			// tag outlines
+			ArrayList<ArrayList<Tag>> setArray = new ArrayList<ArrayList<Tag>>();
+			setArray.add(possibility1);
 
-		// 2D
-		ArrayList<ArrayList<Tag>> setArray = new ArrayList<ArrayList<Tag>>();
-		setArray.add(setArrayA);
-		setArray.add(setArrayB);
+			if (ParseHelpers.match(logger, tagger, setArray, phrase) != null) {
+				// make sure the setter has a value
+				Tag setter = ParseHelpers.getTagOfType(logger, tagger, TagType.SETTER, phrase);
 
-		if (ParseHelpers.match(logger, tagger, setArray, phrase)) {
-			// make sure the setter has a value
-			Tag setter = ParseHelpers.getTagOfType(logger, tagger, TagType.SETTER, phrase);
-
-			if (setter.getValue().matches("-?\\d+(\\.\\d+)?")) {
-				types.add(NodeType.INTEGER);
+				if (setter.getValue().matches("-?\\d+(\\.\\d+)?")) {
+					types.add(NodeType.INTEGER);
+				}
 			}
 		}
 
