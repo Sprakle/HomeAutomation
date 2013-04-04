@@ -1,4 +1,4 @@
-package net.sprakle.homeAutomation.utilities.externalSoftware.software.rhythmbox;
+package net.sprakle.homeAutomation.utilities.externalSoftware.software.media;
 
 import java.io.File;
 import java.net.URI;

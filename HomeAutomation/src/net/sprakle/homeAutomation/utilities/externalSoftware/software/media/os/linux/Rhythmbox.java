@@ -1,40 +1,47 @@
-package net.sprakle.homeAutomation.utilities.externalSoftware.software.rhythmbox;
+package net.sprakle.homeAutomation.utilities.externalSoftware.software.media.os.linux;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import net.sprakle.homeAutomation.main.Config;
-import net.sprakle.homeAutomation.utilities.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.CommandLineInterface;
-import net.sprakle.homeAutomation.utilities.externalSoftware.software.SoftwareInterface;
+import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.PlaybackCommand;
+import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.SystemCommand;
+import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.Track;
+import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.TrackFactory;
+import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.os.MediaController;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-public class Rhythmbox extends SoftwareInterface {
-	// rhythmbox database: /home/ben/.local/share/rhythmbox
-	// '%20' must be removed and replaced with ' ', and '/' added to the beginning
-
+public class Rhythmbox implements MediaController {
 	private final String CLIENT = "rhythmbox-client";
+
+	Logger logger;
+	CommandLineInterface cli;
 
 	private ArrayList<Track> tracks;
 
 	public Rhythmbox(Logger logger, CommandLineInterface cli) {
-		super(logger, cli);
+		this.logger = logger;
+		this.cli = cli;
 
-		String userDir = Config.getString("config/local/user_directory");
+		String userDir = System.getProperty("user.home") + "/";
 		String rhythmFile = Config.getString("config/external_software/rhythmbox/relative_directory");
 		File xmlFile = new File(userDir + rhythmFile);
 		tracks = TrackFactory.getTracks(logger, xmlFile);
 	}
 
+	@Override
 	public ArrayList<Track> getTracks() {
 		return tracks;
 	}
 
+	@Override
 	public void playbackCommand(PlaybackCommand pc) {
 		String command = CLIENT + " " + pc.getCommand();
 		cli.execute(logger, command);
 	}
 
+	@Override
 	public void systemCommand(SystemCommand sc, String arguments) {
 		startIfStopped();
 
@@ -45,11 +52,6 @@ public class Rhythmbox extends SoftwareInterface {
 	private void startIfStopped() {
 		String command = CLIENT + " --no-present";
 		cli.execute(logger, command);
-	}
-
-	@Override
-	public SoftwareName getSoftwareName() {
-		return SoftwareName.RHYTHMBOX;
 	}
 
 	// Get info on track

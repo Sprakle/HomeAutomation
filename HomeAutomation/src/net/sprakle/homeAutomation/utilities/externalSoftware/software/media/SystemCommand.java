@@ -1,4 +1,4 @@
-package net.sprakle.homeAutomation.utilities.externalSoftware.software.rhythmbox;
+package net.sprakle.homeAutomation.utilities.externalSoftware.software.media;
 
 public enum SystemCommand {
 	PLAY_TRACK("--play-uri"),

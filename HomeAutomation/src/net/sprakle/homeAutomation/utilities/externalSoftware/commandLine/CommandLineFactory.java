@@ -1,7 +1,10 @@
 package net.sprakle.homeAutomation.utilities.externalSoftware.commandLine;
 
-import net.sprakle.homeAutomation.utilities.OS.DetermineOS;
-import net.sprakle.homeAutomation.utilities.OS.OperatingSystem;
+import net.sprakle.homeAutomation.main.Config;
+import net.sprakle.homeAutomation.main.OS;
+import net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.os.LinuxCLI;
+import net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.os.MacCLI;
+import net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.os.WindowsCLI;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
@@ -9,17 +12,21 @@ public class CommandLineFactory {
 	public static CommandLineInterface getCommandLine(Logger logger) {
 		CommandLineInterface cli = null;
 
-		OperatingSystem os = DetermineOS.determine();
+		OS os = Config.getOS();
 		switch (os) {
 			case LINUX:
-				cli = new Linux();
+				cli = new LinuxCLI();
 				break;
 
 			case WINDOWS:
-				cli = new Windows();
+				cli = new WindowsCLI();
 				break;
 
-			case OTHER:
+			case MAC:
+				cli = new MacCLI();
+				break;
+
+			default:
 				logger.log("Operating system not supported", LogSource.ERROR, 1);
 				break;
 		}

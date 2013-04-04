@@ -1,15 +1,17 @@
-package net.sprakle.homeAutomation.utilities.externalSoftware.commandLine;
+package net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.os;
 
 import java.io.IOException;
 
+import net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.CommandLineInterface;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-
-public class Linux implements CommandLineInterface {
+public class LinuxCLI implements CommandLineInterface {
 
 	@Override
 	public void execute(Logger logger, String command) {
+		logger.log("Executing Linux CLI command: " + command, LogSource.EXTERNAL_SOFTWARE, 2);
+
 		// first write the wav file
 		Process process = null;
 		try {

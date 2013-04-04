@@ -12,10 +12,6 @@
 		</timing>
 	</system>
 	
-	<local>
-		<user_directory>/home/ben/</user_directory> <!-- there is probably a way to get this automaticcaly -->
-	</local>
-	
 	<arduino>
 		<timeout>2000</timeout>
 		<data_rate>9600</data_rate>

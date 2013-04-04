@@ -10,8 +10,8 @@ import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.utilities.externalSoftware.SoftwareName;
-import net.sprakle.homeAutomation.utilities.externalSoftware.software.rhythmbox.PlaybackCommand;
-import net.sprakle.homeAutomation.utilities.externalSoftware.software.rhythmbox.Rhythmbox;
+import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.MediaCentre;
+import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.PlaybackCommand;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class Media extends InterpretationModule {
@@ -49,6 +49,8 @@ public class Media extends InterpretationModule {
 		posibility2.add(new Tag(TagType.PLAYBACK, null, -1));
 		posibility2.add(new Tag(TagType.MEDIA, null, -1));
 
+		// TODO: add ability to play specific song
+
 		// 2D
 		ArrayList<ArrayList<Tag>> tags = new ArrayList<ArrayList<Tag>>();
 		tags.add(posibility1);
@@ -65,16 +67,18 @@ public class Media extends InterpretationModule {
 
 	@Override
 	public void execute(Phrase phrase) {
+		MediaCentre mc = (MediaCentre) exs.getSoftware(SoftwareName.MEDIA_CENTRE);
+
 		if (ParseHelpers.hasTagOfType(logger, tagger, TagType.PLAYBACK, phrase)) {
-			executePlayback(phrase);
+			executePlayback(phrase, mc);
 		}
 
 		if (ParseHelpers.hasTagOfType(logger, tagger, TagType.TIME_CHANGE, phrase)) {
-			executeTimeChange(phrase);
+			executeTimeChange(phrase, mc);
 		}
 	}
 
-	private void executePlayback(Phrase phrase) {
+	private void executePlayback(Phrase phrase, MediaCentre mc) {
 		Tag tag = ParseHelpers.getTagOfType(logger, tagger, TagType.PLAYBACK, phrase);
 		String commandString = tag.getValue();
 
@@ -89,11 +93,10 @@ public class Media extends InterpretationModule {
 				break;
 		}
 
-		Rhythmbox rhythmbox = (Rhythmbox) exs.getSoftware(SoftwareName.RHYTHMBOX);
-		rhythmbox.playbackCommand(command);
+		mc.playbackCommand(command);
 	}
 
-	private void executeTimeChange(Phrase phrase) {
+	private void executeTimeChange(Phrase phrase, MediaCentre mc) {
 		Tag tag = ParseHelpers.getTagOfType(logger, tagger, TagType.TIME_CHANGE, phrase);
 		String commandString = tag.getValue();
 
@@ -112,12 +115,11 @@ public class Media extends InterpretationModule {
 				break;
 		}
 
-		Rhythmbox rhythmbox = (Rhythmbox) exs.getSoftware(SoftwareName.RHYTHMBOX);
-		rhythmbox.playbackCommand(command);
+		mc.playbackCommand(command);
 
 		// execute back twice
 		if (commandString.equals("prev"))
-			rhythmbox.playbackCommand(command);
+			mc.playbackCommand(command);
 	}
 
 	@Override

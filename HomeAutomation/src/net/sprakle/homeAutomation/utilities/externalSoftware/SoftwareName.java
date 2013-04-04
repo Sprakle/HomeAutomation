@@ -2,5 +2,5 @@ package net.sprakle.homeAutomation.utilities.externalSoftware;
 
 public enum SoftwareName {
 	SWIFT,
-	RHYTHMBOX,
+	MEDIA_CENTRE,
 }
