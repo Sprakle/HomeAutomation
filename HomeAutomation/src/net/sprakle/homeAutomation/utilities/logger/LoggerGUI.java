@@ -89,6 +89,11 @@ public class LoggerGUI {
 
 		// scroll down
 		JScrollBar vertical = scrollPane.getVerticalScrollBar();
-		vertical.setValue(vertical.getMaximum());
+
+		try {
+			vertical.setValue(vertical.getMaximum());
+		} catch (NullPointerException e) {
+			// sometimes throws an exception, it seems to be only when the window is minimised
+		}
 	}
 }

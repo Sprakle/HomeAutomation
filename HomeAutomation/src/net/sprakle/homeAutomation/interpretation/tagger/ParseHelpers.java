@@ -5,6 +5,7 @@
 package net.sprakle.homeAutomation.interpretation.tagger;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
@@ -23,34 +24,27 @@ public class ParseHelpers {
 	 * 
 	 * This should return the phrase outline arraylist of the matching outline
 	 */
+
 	public static PhraseOutline match(Logger logger, ArrayList<PhraseOutline> phraseOutlines, Phrase phrase) {
 
-		// TODO: check for conflicts and use priority number to deal with them
+		// used to sort outlines by their confidence rating
+		TreeMap<Integer, PhraseOutline> matches = new TreeMap<Integer, PhraseOutline>();
 
 		// for every 1 dimensional array AKA phrase outline
 		for (PhraseOutline at : phraseOutlines) {
 
-			if (at.match(phrase)) {
-				return at;
+			int outlineConfidence = at.match(phrase);
+			if (outlineConfidence > 0) {
+				matches.put(outlineConfidence, at);
 			}
 		}
 
-		// if it got this far, there are no matches
-		return null;
-	}
+		// return null if no matches
+		if (matches.size() == 0)
+			return null;
 
-	public static Boolean hasTagOfType(Logger logger, Tagger tagger, TagType queryType, Phrase phrase) {
-		Boolean result = false;
-
-		ArrayList<Tag> tags = tagger.tagText(phrase.getRawText());
-
-		for (Tag t : tags) {
-			if (t.getType() == queryType) {
-				result = true;
-			}
-		}
-
-		return result;
+		// get the most confident entry
+		return matches.lastEntry().getValue();
 	}
 
 	/*
@@ -74,5 +68,26 @@ public class ParseHelpers {
 		}
 
 		return result;
+	}
+
+	// similar to other getTagOfType(), but searches after a specific index - returns first one fond at the given index 
+	public static Tag getTagOfType(Logger logger, Tagger tagger, TagType queryType, Phrase phrase, int startIndex) {
+
+		// replace up to startIndex with whitespace
+		String whitespace = "";
+		for (int i = 0; i < startIndex; i++) {
+			whitespace += " ";
+		}
+
+		String text = whitespace + phrase.getRawText().substring(startIndex);
+		ArrayList<Tag> tagsInPhrase = tagger.tagText(text);
+
+		for (Tag t : tagsInPhrase) {
+			if (t.getType() == queryType) {
+				return t;
+			}
+		}
+
+		return null;
 	}
 }

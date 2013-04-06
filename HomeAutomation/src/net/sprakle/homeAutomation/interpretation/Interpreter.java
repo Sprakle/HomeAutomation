@@ -18,7 +18,7 @@ import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.DynamicResponder;
-import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.ResponseType;
+import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.Response;
 
 public class Interpreter implements EventListener {
 
@@ -63,11 +63,11 @@ public class Interpreter implements EventListener {
 			 */
 			ClaimResponse response = moduleManager.submitForClaiming(phrase);
 			if (response.notClaimed) {
-				synth.speak(DynamicResponder.reply(ResponseType.I_DIDNT_UNDERSTAND));
+				synth.speak(DynamicResponder.reply(Response.I_DIDNT_UNDERSTAND));
 				return;
 			}
 			if (response.toManyClaimed) {
-				synth.speak(DynamicResponder.reply(ResponseType.TOO_AMBIGUOUS));
+				synth.speak(DynamicResponder.reply(Response.TOO_AMBIGUOUS));
 				return;
 			}
 

@@ -15,15 +15,15 @@ public class CommandLineFactory {
 		OS os = Config.getOS();
 		switch (os) {
 			case LINUX:
-				cli = new LinuxCLI();
+				cli = new LinuxCLI(logger);
 				break;
 
 			case WINDOWS:
-				cli = new WindowsCLI();
+				cli = new WindowsCLI(logger);
 				break;
 
 			case MAC:
-				cli = new MacCLI();
+				cli = new MacCLI(logger);
 				break;
 
 			default:

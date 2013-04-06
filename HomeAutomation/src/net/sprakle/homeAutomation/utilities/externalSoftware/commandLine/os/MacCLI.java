@@ -6,9 +6,16 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class MacCLI implements CommandLineInterface {
 
+	private Logger logger;
+
+	public MacCLI(Logger logger) {
+		this.logger = logger;
+	}
+
 	@Override
-	public void execute(Logger logger, String command) {
+	public void execute(String command) {
 		logger.log("CLI not supported in this operating system", LogSource.ERROR, LogSource.EXTERNAL_SOFTWARE, 1);
+
 	}
 
 }

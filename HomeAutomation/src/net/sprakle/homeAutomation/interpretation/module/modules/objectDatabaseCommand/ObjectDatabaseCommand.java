@@ -18,7 +18,7 @@ import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.DynamicResponder;
-import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.ResponseType;
+import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.Response;
 
 public class ObjectDatabaseCommand extends InterpretationModule {
 
@@ -98,7 +98,7 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 
 		} else if (queryResponse.notSpecificEnough()) {
 			// not specific enough
-			synth.speak(DynamicResponder.reply(ResponseType.TOO_AMBIGUOUS));
+			synth.speak(DynamicResponder.reply(Response.TOO_AMBIGUOUS));
 			return;
 
 		} else if (queryResponse.sucsess()) {
@@ -151,7 +151,7 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 
 		} else if (queryResponse.notSpecificEnough()) {
 			// not specific enough
-			synth.speak(DynamicResponder.reply(ResponseType.TOO_AMBIGUOUS));
+			synth.speak(DynamicResponder.reply(Response.TOO_AMBIGUOUS));
 			return;
 
 		} else if (queryResponse.sucsess()) {
@@ -190,7 +190,7 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 
 		// binary
 		{
-			PhraseOutline possibility1 = new PhraseOutline(logger, tagger, 0);
+			PhraseOutline possibility1 = new PhraseOutline(logger, tagger, getName());
 			possibility1.addTag(new Tag(TagType.POWER_OPTION, null, null, -1));
 			possibility1.addTag(new Tag(TagType.OD_OBJECT, null, null, -1));
 
@@ -205,7 +205,7 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 		// integer
 		{
 			// tag outline
-			PhraseOutline possibility1 = new PhraseOutline(logger, tagger, 0);
+			PhraseOutline possibility1 = new PhraseOutline(logger, tagger, getName());
 			possibility1.addTag(new Tag(TagType.SETTER, null, null, -1));
 			possibility1.addTag(new Tag(TagType.OD_OBJECT, null, null, -1));
 
@@ -236,12 +236,12 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 	private String interpretNode(Phrase phrase, NodeType nodeType) {
 		String result = "unknown";
 
-		Boolean hasPwrOpt = ParseHelpers.hasTagOfType(logger, tagger, TagType.POWER_OPTION, phrase); // it needs either a POWER_OPTION or SETTER
-		Boolean hasSet = ParseHelpers.hasTagOfType(logger, tagger, TagType.SETTER, phrase);
+		Boolean hasPwrOpt = ParseHelpers.getTagOfType(logger, tagger, TagType.POWER_OPTION, phrase) != null; // it needs either a POWER_OPTION or SETTER
+		Boolean hasSet = ParseHelpers.getTagOfType(logger, tagger, TagType.SETTER, phrase) != null;
 		if (hasPwrOpt || hasSet) {
 
 			// if there isn't a tag, try to find the object's default node
-			Boolean hasNode = ParseHelpers.hasTagOfType(logger, tagger, TagType.NODE, phrase); // it must not have a NODE, as that means it's talking about something besides power
+			Boolean hasNode = ParseHelpers.getTagOfType(logger, tagger, TagType.NODE, phrase) != null; // it must not have a NODE, as that means it's talking about something besides power
 			if (!hasNode) {
 				// if the user has not specified a node, get the Object's default node
 				String[] query = { ParseHelpers.getTagOfType(logger, tagger, TagType.OD_OBJECT, phrase).getValue() };

@@ -22,7 +22,7 @@ public class Swift extends SoftwareInterface {
 
 	public void writeSpeechFile(String path, String phrase) {
 		String command = "swift -n David \"" + phrase + "\" -o " + path;
-		cli.execute(logger, command);
+		cli.execute(command);
 	}
 
 	@Override

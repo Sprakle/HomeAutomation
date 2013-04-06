@@ -136,7 +136,7 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 		 */
 
 		// tag outline
-		PhraseOutline possibility1 = new PhraseOutline(logger, tagger, 0);
+		PhraseOutline possibility1 = new PhraseOutline(logger, tagger, getName());
 		possibility1.addTag(new Tag(TagType.QUESTION, null, null, -1));
 		possibility1.addTag(new Tag(TagType.OD_OBJECT, null, null, -1));
 

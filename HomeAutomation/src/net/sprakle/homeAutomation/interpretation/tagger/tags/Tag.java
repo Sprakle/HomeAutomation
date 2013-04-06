@@ -37,8 +37,14 @@ public class Tag {
 		return position;
 	}
 
+	// TODO: remove this in favour of toString()
 	public String getFormattedAsText() {
-		return "{" + type + "/" + value + "} ";
+		return "{" + type + "/" + value + "}-[" + position + "]";
+	}
+
+	@Override
+	public String toString() {
+		return "{" + type + "/" + value + "}-[" + position + "]";
 	}
 
 	// checks if this tag should be sorted before another
@@ -51,4 +57,5 @@ public class Tag {
 
 		return null;
 	}
+
 }

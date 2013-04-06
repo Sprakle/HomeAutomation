@@ -47,14 +47,8 @@ public class MediaCentre extends SoftwareInterface {
 		controller.playbackCommand(pc);
 	}
 
-	public void systemCommand(SystemCommand sc, String arguments) {
-		logger.log("Media systen command " + sc + " recieved", LogSource.EXTERNAL_SOFTWARE, 2);
-		controller.systemCommand(sc, arguments);
-	}
-
 	@Override
 	public SoftwareName getSoftwareName() {
 		return SoftwareName.MEDIA_CENTRE;
 	}
-
 }

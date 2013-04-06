@@ -56,7 +56,7 @@ public class ApplicationFactory {
 		synth = new Synthesis(logger, exs);
 		synth.speak(STARTUP_SPEECH);
 
-		exs.initSoftware(SoftwareName.MEDIA_CENTRE);
+		//exs.initSoftware(SoftwareName.MEDIA_CENTRE);
 
 		// initialize UI
 		textInput = new TextInput(logger);

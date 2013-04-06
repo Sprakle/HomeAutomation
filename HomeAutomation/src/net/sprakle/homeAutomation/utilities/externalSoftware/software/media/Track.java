@@ -3,6 +3,7 @@ package net.sprakle.homeAutomation.utilities.externalSoftware.software.media;
 import java.io.File;
 import java.io.IOException;
 
+import net.sprakle.homeAutomation.utilities.levenshtein.Levenshtein;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
@@ -31,26 +32,47 @@ public class Track {
 			return;
 		}
 
-		AbstractMP3Tag tag = null;
+		AbstractMP3Tag tagV2 = null;
+		AbstractMP3Tag tagV1 = null;
 
-		if (mp3file.hasID3v1Tag()) {
-			tag = mp3file.getID3v1Tag();
+		String v2Title = "";
+		String v2Artist = "";
 
-		} else if (mp3file.hasID3v2Tag()) {
-			tag = mp3file.getID3v2Tag();
+		String v1Title = "";
+		String v1Artist = "";
 
-		} else {
-			logger.log("Unable to get tag for track: " + sourceFile.getAbsolutePath(), LogSource.WARNING, LogSource.EXTERNAL_SOFTWARE, 1);
+		if (mp3file.hasID3v2Tag()) {
+			tagV2 = mp3file.getID3v2Tag();
+
+			v2Title = tagV2.getSongTitle();
+			v2Artist = tagV2.getLeadArtist();
 		}
 
-		title = tag.getSongTitle();
-		artist = tag.getLeadArtist();
+		if (mp3file.hasID3v1Tag()) {
+			tagV1 = mp3file.getID3v1Tag();
+
+			v1Title = tagV1.getSongTitle();
+			v1Artist = tagV1.getLeadArtist();
+		}
 
 		// clean
-		title = title.replaceAll("[^\\x20-\\x7e]", "");
-		artist = artist.replaceAll("[^\\x20-\\x7e]", "");
+		v2Title = v2Title.replaceAll("[^\\x20-\\x7e]", "");
+		v2Artist = v2Artist.replaceAll("[^\\x20-\\x7e]", "");
+		v1Title = v1Title.replaceAll("[^\\x20-\\x7e]", "");
+		v1Artist = v1Artist.replaceAll("[^\\x20-\\x7e]", "");
 
-		//use filename for title if there is no metadata
+		// get as much data as possible from tags
+		if (v2Title != "")
+			title = v2Title;
+		else
+			title = v1Title;
+
+		if (v2Artist != "")
+			artist = v2Artist;
+		else
+			artist = v1Artist;
+
+		// use filename for title if there is no tag
 		if (title.equals("")) {
 			String filename = sourceFile.getName();
 			filename = filename.substring(0, filename.lastIndexOf('.'));
@@ -58,12 +80,21 @@ public class Track {
 			title = filename;
 		}
 
-		if (title.equals("") && artist.equals("")) {
-			logger.log("Unable to get metadata for " + sourceFile.getAbsolutePath(), LogSource.WARNING, LogSource.EXTERNAL_SOFTWARE, 2);
+		if (title.equals("") || artist.equals("")) {
+			logger.log("Unable to get complete metadata for " + sourceFile.getAbsolutePath() + " (Tag support is minimal at this time - try converting your tags)", LogSource.WARNING, LogSource.EXTERNAL_SOFTWARE, 2);
 		}
 
 		sourceFile = null;
 		mp3file = null;
+
+		logger.log("Track loaded: '" + title + "' - '" + artist + "'", LogSource.EXTERNAL_SOFTWARE, 5);
+	}
+	public int levenshteinDistanceTitle(String target) {
+		return Levenshtein.getDistance(target, title);
+	}
+
+	public int levenshteinDistanceArtist(String target) {
+		return Levenshtein.getDistance(target, artist);
 	}
 
 	public File getSourceFile() {

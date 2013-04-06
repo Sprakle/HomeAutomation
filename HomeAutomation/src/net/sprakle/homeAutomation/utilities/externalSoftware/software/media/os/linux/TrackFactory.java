@@ -1,10 +1,11 @@
-package net.sprakle.homeAutomation.utilities.externalSoftware.software.media;
+package net.sprakle.homeAutomation.utilities.externalSoftware.software.media.os.linux;
 
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.Track;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
@@ -64,6 +65,9 @@ public class TrackFactory {
 					tracks.add(track);
 				}
 			}
+
+			if (i > 50)
+				break;
 		}
 
 		System.gc();

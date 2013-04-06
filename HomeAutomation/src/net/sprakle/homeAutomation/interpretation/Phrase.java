@@ -7,7 +7,6 @@ import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-
 public class Phrase {
 	// original text from input
 	String rawText;
@@ -26,7 +25,7 @@ public class Phrase {
 		ArrayList<Tag> tags = tagger.tagText(rawText);
 		String tagString = "";
 		for (Tag t : tags) {
-			tagString += t.getFormattedAsText();
+			tagString += t.getFormattedAsText() + " ";
 		}
 		logger.log(tagString, LogSource.PHRASE_INFO, 2);
 	}

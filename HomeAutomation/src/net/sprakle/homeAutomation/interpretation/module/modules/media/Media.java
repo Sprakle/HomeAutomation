@@ -4,6 +4,12 @@ import java.util.ArrayList;
 
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
+import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.ChangePlaybackState;
+import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.EnqueueSong;
+import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.IncrementalTrackChange;
+import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.PlayRandomSong;
+import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.PlayRandomSongByArtist;
+import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.PlaySong;
 import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
@@ -15,79 +21,73 @@ import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.Medi
 import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.PlaybackCommand;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
+// IDEA: run claimers each on their own thread
+
 public class Media extends InterpretationModule {
 	private final String NAME = "Media";
 
-	Logger logger;
-	Tagger tagger;
+	private ArrayList<MediaAction> mediaActions;
 
-	ExternalSoftware exs;
+	private Logger logger;
+	private Tagger tagger;
+	private MediaCentre mc;
 
 	public Media(Logger logger, Tagger tagger, ExternalSoftware exs) {
 		this.logger = logger;
 		this.tagger = tagger;
 
-		this.exs = exs;
+		exs.initSoftware(SoftwareName.MEDIA_CENTRE);
+		mc = (MediaCentre) exs.getSoftware(SoftwareName.MEDIA_CENTRE);
+
+		mediaActions = new ArrayList<MediaAction>();
+		mediaActions.add(new ChangePlaybackState(logger, mc, tagger));
+		mediaActions.add(new EnqueueSong(logger, mc, tagger));
+		mediaActions.add(new IncrementalTrackChange(logger, mc, tagger));
+		mediaActions.add(new PlayRandomSong(logger, mc, tagger));
+		mediaActions.add(new PlayRandomSongByArtist(logger, mc, tagger));
+		mediaActions.add(new PlaySong(logger, mc, tagger));
 	}
+
+	// TODO: check project for accidentally autoboxed primitives
 
 	@Override
 	public Boolean claim(Phrase phrase) {
-		boolean claim = false;
-
-		// next song (timechange, media)
-		// play music (playback, media)
-		// play X (playback) + leven check
-
-		// first tag possibilities - next/last song
-		PhraseOutline posibility0 = new PhraseOutline(logger, tagger, 0);
-		posibility0.addTag(new Tag(TagType.TIME_CHANGE, null, null, -1));
-		posibility0.addTag(new Tag(TagType.MEDIA, null, null, -1));
-
-		// second tag possibilities - play/pause
-		PhraseOutline posibility1 = new PhraseOutline(logger, tagger, 1);
-		posibility1.addTag(new Tag(TagType.PLAYBACK, null, null, -1));
-		posibility1.addTag(new Tag(TagType.MEDIA, null, null, -1));
-
-		// fourth tag possibilities - enqueue song
-		PhraseOutline posibility2 = new PhraseOutline(logger, tagger, 2);
-		posibility2.addTag(new Tag(TagType.PLAYBACK, null, null, -1));
-		posibility2.addTag(new Tag(TagType.UNKOWN_TEXT, null, null, -1));
-		posibility2.addTag(new Tag(TagType.TIME_CHANGE, null, null, -1));
-
-		// third tag possibilities - playing specific song
-		PhraseOutline posibility3 = new PhraseOutline(logger, tagger, 3);
-		posibility3.addTag(new Tag(TagType.PLAYBACK, null, null, -1));
-		posibility3.addTag(new Tag(TagType.UNKOWN_TEXT, null, null, -1));
-
-		// 2D
-		ArrayList<PhraseOutline> possibilities = new ArrayList<PhraseOutline>();
-		possibilities.add(posibility0);
-		possibilities.add(posibility1);
-		possibilities.add(posibility2);
-		possibilities.add(posibility3);
-
-		PhraseOutline result = ParseHelpers.match(logger, possibilities, phrase);
-		if (result != null) {
-			claim = true;
-		}
-
-		return claim;
+		MediaAction result = selectExecution(phrase);
+		System.out.println("    claim: " + result != null);
+		return result != null;
 	}
 
 	@Override
 	public void execute(Phrase phrase) {
-		MediaCentre mc = (MediaCentre) exs.getSoftware(SoftwareName.MEDIA_CENTRE);
 
-		if (ParseHelpers.hasTagOfType(logger, tagger, TagType.PLAYBACK, phrase)) {
-			executePlayback(phrase, mc);
-		}
+		System.out.println("executing");
 
-		if (ParseHelpers.hasTagOfType(logger, tagger, TagType.TIME_CHANGE, phrase)) {
-			executeTimeChange(phrase, mc);
-		}
+		MediaAction result = selectExecution(phrase);
+		result.execute(phrase);
 	}
 
-	private void executePlayback(Phrase phrase, MediaCentre mc) {
+	private MediaAction selectExecution(Phrase phrase) {
+
+		MediaAction maResult = null;
+
+		// add all phrase outlines from media actions
+		ArrayList<PhraseOutline> phraseOutlines = new ArrayList<PhraseOutline>();
+		for (MediaAction ma : mediaActions) {
+			phraseOutlines.addAll(ma.getPhraseOutlines());
+		}
+
+		PhraseOutline poResult = ParseHelpers.match(logger, phraseOutlines, phrase);
+
+		// get the media action that had the resulting phrase outline
+		for (MediaAction ma : mediaActions) {
+			if (ma.getPhraseOutlines().contains(poResult))
+				maResult = ma;
+		}
+
+		return maResult;
+	}
+
+	private void playbackCommand(Phrase phrase, MediaCentre mc) {
 		Tag tag = ParseHelpers.getTagOfType(logger, tagger, TagType.PLAYBACK, phrase);
 		String commandString = tag.getValue();
 
@@ -105,7 +105,7 @@ public class Media extends InterpretationModule {
 		mc.playbackCommand(command);
 	}
 
-	private void executeTimeChange(Phrase phrase, MediaCentre mc) {
+	private void timeChangeCommand(Phrase phrase, MediaCentre mc) {
 		Tag tag = ParseHelpers.getTagOfType(logger, tagger, TagType.TIME_CHANGE, phrase);
 		String commandString = tag.getValue();
 
@@ -121,6 +121,9 @@ public class Media extends InterpretationModule {
 
 			case "restart":
 				command = PlaybackCommand.BACK;
+				break;
+
+			case "random":
 				break;
 		}
 

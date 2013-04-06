@@ -20,7 +20,7 @@ import net.sprakle.homeAutomation.timer.interfaces.observer.LogicTimerObserver;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.DynamicResponder;
-import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.ResponseType;
+import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.Response;
 
 public class Arduino implements LogicTimerObserver {
 
@@ -115,9 +115,9 @@ public class Arduino implements LogicTimerObserver {
 					String reply = null;
 
 					if (interaction == 1)
-						reply = DynamicResponder.reply(ResponseType.ACTIVATED) + " pin " + pin;
+						reply = DynamicResponder.reply(Response.ACTIVATED) + " pin " + pin;
 					else if (interaction == 0)
-						reply = DynamicResponder.reply(ResponseType.DEACTIVATED) + " pin " + pin;
+						reply = DynamicResponder.reply(Response.DEACTIVATED) + " pin " + pin;
 
 					synth.speak(reply);
 				} else {

@@ -39,7 +39,7 @@
 "previous"			{TIME_CHANGE/prev}
 "restart"			{TIME_CHANGE/restart}
 "replay"			{TIME_CHANGE/restart}
-"random"			{TIME_CHANGE/?}
+"random"			{TIME_CHANGE/random}
 
 "song"				{MEDIA/track}
 "track"				{MEDIA/track}
