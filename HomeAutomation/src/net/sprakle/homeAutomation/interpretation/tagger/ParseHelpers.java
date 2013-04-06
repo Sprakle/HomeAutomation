@@ -54,7 +54,7 @@ public class ParseHelpers {
 	public static Tag getTagOfType(Logger logger, Tagger tagger, TagType queryType, Phrase phrase) {
 		Tag result = null;
 
-		ArrayList<Tag> tagsInPhrase = tagger.tagText(phrase.getRawText());
+		ArrayList<Tag> tagsInPhrase = phrase.getTags();
 
 		ArrayList<Tag> matchingTags = new ArrayList<Tag>();
 		for (Tag t : tagsInPhrase) {

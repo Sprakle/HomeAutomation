@@ -31,8 +31,6 @@ public class PhraseOutline {
 	// Confidence = total matches + total specific tags (tags with their type AND value defined) - total unexpected NON-UNKOWN_TEXT tags
 	public int match(Phrase phrase) {
 
-		System.out.println("Matching phrase: " + phrase.getRawText());
-
 		int confidence = 0;
 
 		int mininumExpectedTags = outlineTags.size();
@@ -49,21 +47,16 @@ public class PhraseOutline {
 		int lastOutlineTagPos = -1;
 
 		// for every tag in the phrase
-		ArrayList<Tag> phraseTags = tagger.tagText(phrase.getRawText());
-		System.out.println("== " + this + " ==");
+		ArrayList<Tag> phraseTags = phrase.getTags();
 		for (Tag phraseTag : phraseTags) {
-			System.out.println("  Phrase tag: " + phraseTag);
 
 			// is it in the outline?
 			Tag outlineTag = null;
 			for (Tag t : outlineTags)
 				if (t.getType().equals(phraseTag.getType())) {
-					System.out.println("    checking position");
 
 					// make sure this phrase is in the right order, by checking if the matching outline tag came after the last one, but not too far ahead
 					int outlineTagPos = outlineTags.indexOf(t);
-					System.out.println("      outline position: " + outlineTagPos + " (" + t + ")");
-					System.out.println("      last outline position: " + lastOutlineTagPos);
 
 					int difference = outlineTagPos - lastOutlineTagPos;
 					if (difference > 0 && difference < 3) {
@@ -79,25 +72,20 @@ public class PhraseOutline {
 
 				// if the outline tag has a value, make sure the phrase tag has a matching one
 				String value = outlineTag.getValue();
-				System.out.println("    outline tag had value: " + value);
 				if (value != null) {
 					if (!phraseTag.getValue().equals(value)) {
 						// fail
 						unexpectedTags += unexpectedTagWeight;
-						System.out.println("    phrase tag failed due to no value match against " + outlineTag);
 						continue;
 					} else {
-						System.out.println("    phrase was specific against " + outlineTag);
 						specificTags += specificTagWeight; // this tag specified a value. add to confidence
 					}
 				}
 
-				System.out.println("    phrase tag sucseeded against " + outlineTag);
 				lastOutlineTagPos++;
 				expectedTags += expectedTagWeight;
 
 			} else {
-				System.out.println("    tag was not in the outline");
 
 				// this is an unexpected tag. add to count if this is not an UNKOWN_TEXT tag
 				if (!phraseTag.getType().equals(TagType.UNKOWN_TEXT)) {
@@ -106,19 +94,11 @@ public class PhraseOutline {
 			}
 		}
 
-		System.out.println("  results:");
-		System.out.println("    expected tags: " + expectedTags);
-		System.out.println("    minimum tags: " + mininumExpectedTags);
-		System.out.println("    specific tags: " + specificTags);
-		System.out.println("    unexpected tags: " + unexpectedTags);
-
 		confidence = expectedTags + specificTags - unexpectedTags;
 
 		// confidence is zero if there were not enough matches
 		if (expectedTags < mininumExpectedTags)
 			confidence = 0;
-
-		System.out.println("    TOTAL CONFIDENCE: " + confidence);
 
 		return confidence;
 	}

@@ -53,14 +53,11 @@ public class Media extends InterpretationModule {
 	@Override
 	public Boolean claim(Phrase phrase) {
 		MediaAction result = selectExecution(phrase);
-		System.out.println("    claim: " + result != null);
 		return result != null;
 	}
 
 	@Override
 	public void execute(Phrase phrase) {
-
-		System.out.println("executing");
 
 		MediaAction result = selectExecution(phrase);
 		result.execute(phrase);

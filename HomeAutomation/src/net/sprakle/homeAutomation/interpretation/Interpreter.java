@@ -82,13 +82,6 @@ public class Interpreter implements EventListener {
 		// if the phrase doesn't yet exist, the program has only just been started
 		if (currentPhrase == null) {
 			ready = true;
-		} else {
-
-			// the phrase may also simply be set to 'complete'
-			PipelineStatus status = currentPhrase.getPipelineStatus();
-			if (status == PipelineStatus.COMPLETE) {
-				ready = true;
-			}
 		}
 
 		return ready;

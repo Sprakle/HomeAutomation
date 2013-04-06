@@ -28,8 +28,7 @@ import net.sprakle.homeAutomation.utilities.fileAccess.read.LineByLine;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class Tagger {
-
-	// TODO: add tags to phrase instead of generating them each time
+	// FIXME: bug: in a phrase like: "play alchemy by alchemy" the tags are out of order
 
 	private Logger logger;
 	private Synthesis synth;

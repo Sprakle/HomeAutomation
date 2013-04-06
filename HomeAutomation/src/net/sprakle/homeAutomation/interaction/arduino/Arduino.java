@@ -130,7 +130,6 @@ public class Arduino implements LogicTimerObserver {
 				ai.sendString("ar-" + String.format("%02d", pin));
 
 				// wait for response
-				System.out.println("reading");
 				response = waitForSerialValue(pin);
 
 				break;
