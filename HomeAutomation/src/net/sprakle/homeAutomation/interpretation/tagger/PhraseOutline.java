@@ -92,7 +92,6 @@ public class PhraseOutline {
 
 		confidence = expectedTags + specificTags - unexpectedTags;
 
-		// TODO: don't trim text sent to logger
 		logger.log("  Phrase Outline: " + this, LogSource.PHRASE_INFO, 5);
 		logger.log("    expected tags: " + expectedTags, LogSource.PHRASE_INFO, 5);
 		logger.log("    minimum tags: " + mininumExpectedTags, LogSource.PHRASE_INFO, 5);

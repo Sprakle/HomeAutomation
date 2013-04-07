@@ -21,8 +21,6 @@ public class Logger {
 		if (!checkLogCall(text, source, null, verbosity))
 			return;
 
-		text = text.trim();
-
 		executeLog(text, source, null, verbosity);
 	}
 
@@ -31,7 +29,7 @@ public class Logger {
 		if (!checkLogCall(text, source, secondarySource, verbosity))
 			return;
 
-		text = "(" + secondarySource + ") " + text.trim();
+		text = "(" + secondarySource + ") " + text;
 
 		executeLog(text, source, null, verbosity);
 	}
