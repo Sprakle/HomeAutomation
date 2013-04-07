@@ -23,7 +23,7 @@ public class Phrase {
 		logger.log("Tagging phrase:", LogSource.PHRASE_INFO, 2);
 		String tagString = "";
 		for (Tag t : tags) {
-			tagString += t.getFormattedAsText() + " ";
+			tagString += t + " ";
 		}
 		logger.log(tagString, LogSource.PHRASE_INFO, 2);
 	}
