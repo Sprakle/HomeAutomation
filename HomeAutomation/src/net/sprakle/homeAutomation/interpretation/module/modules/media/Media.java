@@ -43,8 +43,6 @@ public class Media extends InterpretationModule {
 		mediaActions.add(new PlaySong(logger, mc, tagger));
 	}
 
-	// TODO: check project for accidentally autoboxed primitives
-
 	@Override
 	public boolean claim(Phrase phrase) {
 		MediaAction result = selectExecution(phrase);

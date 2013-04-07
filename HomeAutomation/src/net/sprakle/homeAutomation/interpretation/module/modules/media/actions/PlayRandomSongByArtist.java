@@ -16,7 +16,6 @@ public class PlayRandomSongByArtist extends MediaAction {
 
 	public PlayRandomSongByArtist(Logger logger, MediaCentre mc, Tagger tagger) {
 		super(logger, mc, tagger);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

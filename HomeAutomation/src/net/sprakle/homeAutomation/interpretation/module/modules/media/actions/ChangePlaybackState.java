@@ -18,7 +18,6 @@ public class ChangePlaybackState extends MediaAction {
 
 	public ChangePlaybackState(Logger logger, MediaCentre mc, Tagger tagger) {
 		super(logger, mc, tagger);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
