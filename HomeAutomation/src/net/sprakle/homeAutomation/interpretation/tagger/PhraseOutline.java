@@ -9,17 +9,11 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class PhraseOutline {
 
-	private Logger logger;
-	private Tagger tagger;
-
 	private String description;
 
 	private ArrayList<Tag> outlineTags;
 
 	public PhraseOutline(Logger logger, Tagger tagger, String description) {
-		this.logger = logger;
-		this.tagger = tagger;
-
 		this.description = description;
 
 		outlineTags = new ArrayList<Tag>();

@@ -38,7 +38,6 @@ public class LinuxCLI implements CommandLineInterface {
 		}
 
 		OutputStream stdin = process.getOutputStream();
-		InputStream stderr = process.getErrorStream();
 		InputStream stdout = process.getInputStream();
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(stdout));

@@ -82,7 +82,7 @@ public class NodeBehaviourFactory {
 		HashMap<String, String> result = new HashMap<String, String>();
 
 		// iterate through child elements of root
-		for (Iterator i = e.elementIterator(); i.hasNext();) {
+		for (Iterator<?> i = e.elementIterator(); i.hasNext();) {
 			Element element = (Element) i.next();
 
 			String flag = element.getName();

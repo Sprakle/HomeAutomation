@@ -26,12 +26,10 @@ public class Media extends InterpretationModule {
 	private ArrayList<MediaAction> mediaActions;
 
 	private Logger logger;
-	private Tagger tagger;
 	private MediaCentre mc;
 
 	public Media(Logger logger, Tagger tagger, ExternalSoftware exs) {
 		this.logger = logger;
-		this.tagger = tagger;
 
 		exs.initSoftware(SoftwareName.MEDIA_CENTRE);
 		mc = (MediaCentre) exs.getSoftware(SoftwareName.MEDIA_CENTRE);

@@ -99,6 +99,9 @@ public class Interpreter implements EventListener {
 				UserTextRecievedEvent utre = (UserTextRecievedEvent) e;
 				recievedUserInput(utre.speech);
 				break;
+			default:
+				// not applicable
+				break;
 		}
 	}
 }

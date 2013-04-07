@@ -65,6 +65,9 @@ public class TrackFactory {
 					tracks.add(track);
 				}
 			}
+
+			if (i > 50)
+				break;
 		}
 
 		System.gc();

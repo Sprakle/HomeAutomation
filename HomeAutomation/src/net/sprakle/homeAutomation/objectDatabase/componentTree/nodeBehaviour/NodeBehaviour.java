@@ -53,6 +53,10 @@ public abstract class NodeBehaviour {
 
 			case BINARY:
 				return (T) readBinary();
+
+			default:
+				// not applicable
+				break;
 		}
 
 		return null;
@@ -81,6 +85,9 @@ public abstract class NodeBehaviour {
 				case BINARY:
 					writeBinary((Boolean) value);
 					logger.log("Nodebehaviour '" + getClass().getSimpleName() + "' recieved Binary write request", LogSource.OD_NODE_BEHAVIOUR, 3);
+					break;
+				default:
+					// not appicable
 					break;
 			}
 		} catch (ClassCastException e) {

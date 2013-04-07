@@ -4,28 +4,8 @@ import java.util.ArrayList;
 
 import net.sprakle.homeAutomation.objectDatabase.componentTree.Component;
 import net.sprakle.homeAutomation.objectDatabase.componentTree.components.DB_Node;
-import net.sprakle.homeAutomation.utilities.logger.LogSource;
-import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class ObjectDatabaseUtilities {
-
-	// gets the depth of a component in the database organization file
-	private static int getDepth(Logger logger, String line) {
-
-		float depth = 0;
-
-		float whitespace = line.indexOf('{'); // amount of whitespace before
-												// start
-		depth = whitespace / 4; // there are 4 spaces in each tab
-
-		// if there was a tab that wasn'texactly 4 spaces, this will discover it
-		if (Math.round(depth) != depth) {
-			logger.log("Object dadabase file formatted incorectly! Incorrect tab length: " + line, LogSource.ERROR, LogSource.OD_OBJECT_CREATION_INFO, 1);
-		}
-
-		// add one, because root is already 0
-		return Math.round(depth + 1);
-	}
 
 	// returns an unsorted list containing the identifiers and types of all objects in the tree
 	public static ArrayList<String> listObjects(ArrayList<Component> database) {

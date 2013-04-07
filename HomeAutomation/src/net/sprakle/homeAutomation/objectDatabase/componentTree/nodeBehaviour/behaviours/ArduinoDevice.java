@@ -27,7 +27,7 @@ public class ArduinoDevice extends NodeBehaviour {
 		this.arduino = arduino;
 
 		//get technology
-		String techString = args.get(arduino.ARG_TECHNOLOGY);
+		String techString = args.get(Arduino.ARG_TECHNOLOGY);
 		switch (techString) {
 			case "digital_read":
 				technology = arduino.DIGITAL_READ;
@@ -52,7 +52,7 @@ public class ArduinoDevice extends NodeBehaviour {
 
 		// get pin number
 		try {
-			pin = Integer.parseInt(args.get(arduino.ARG_PIN));
+			pin = Integer.parseInt(args.get(Arduino.ARG_PIN));
 		} catch (NumberFormatException e) {
 			logger.log("Invalid arguments in database orginization for node behaviour of arduino device '" + parent.getParent().getIdentifier() + "'", LogSource.ERROR, LogSource.OD_NODE_BEHAVIOUR, 1);
 		}
