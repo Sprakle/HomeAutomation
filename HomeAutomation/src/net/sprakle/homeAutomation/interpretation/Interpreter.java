@@ -76,8 +76,8 @@ public class Interpreter implements EventListener {
 		}
 	}
 
-	private Boolean readyForNextPhrase() {
-		Boolean ready = false;
+	private boolean readyForNextPhrase() {
+		boolean ready = false;
 
 		// if the phrase doesn't yet exist, the program has only just been started
 		if (currentPhrase == null) {

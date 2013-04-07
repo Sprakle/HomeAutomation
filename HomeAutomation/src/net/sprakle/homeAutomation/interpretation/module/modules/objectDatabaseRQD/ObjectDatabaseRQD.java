@@ -35,7 +35,7 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 	}
 
 	@Override
-	public Boolean claim(Phrase phrase) {
+	public boolean claim(Phrase phrase) {
 		return isQuestion(phrase);
 	}
 
@@ -116,7 +116,7 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 						return;
 					}
 
-					Boolean value = null;
+					boolean value = false;
 					Object readValue = targetNode.readValue(NodeType.BINARY);
 					if (readValue instanceof Boolean)
 						value = (Boolean) readValue;

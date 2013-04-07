@@ -156,9 +156,9 @@ public class Arduino implements LogicTimerObserver {
 		return response;
 	}
 	// checks if it is possible to have a specific pin, and then if the interaction to said pin is possible
-	public Boolean isPossible(Technology tech, int pin, int interaction, Boolean checkInteraction) {
+	public boolean isPossible(Technology tech, int pin, int interaction, boolean checkInteraction) {
 
-		Boolean possible = true;
+		boolean possible = true;
 		switch (tech) {
 			case DIGITAL_READ:
 				if (pin < MIN_DIGITAL_READ_PIN || pin > MAX_DIGITAL_READ_PIN)

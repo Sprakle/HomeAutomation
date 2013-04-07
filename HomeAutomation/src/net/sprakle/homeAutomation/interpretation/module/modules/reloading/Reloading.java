@@ -21,7 +21,7 @@ public class Reloading extends InterpretationModule {
 	}
 
 	@Override
-	public Boolean claim(Phrase phrase) {
+	public boolean claim(Phrase phrase) {
 
 		if (phrase.getRawText().equals("reload database") || phrase.getRawText().equals("reload tag list")) {
 			return true;

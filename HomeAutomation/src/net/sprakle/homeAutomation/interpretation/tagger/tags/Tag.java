@@ -48,14 +48,14 @@ public class Tag {
 	}
 
 	// checks if this tag should be sorted before another
-	public Boolean comesBefore(Tag t) {
+	public boolean comesBefore(Tag t) {
 		if (position < t.getPosition()) {
 			return true;
 		} else if (position > t.getPosition()) {
 			return false;
 		}
 
-		return null;
+		return false;
 	}
 
 }

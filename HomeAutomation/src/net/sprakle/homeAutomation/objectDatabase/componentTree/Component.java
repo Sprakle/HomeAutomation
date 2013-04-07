@@ -133,7 +133,7 @@ public abstract class Component {
 	public String getIdentifier() {
 		return identifier;
 	}
-	public Boolean hasChildren() {
+	public boolean hasChildren() {
 		return !children.isEmpty();
 	}
 

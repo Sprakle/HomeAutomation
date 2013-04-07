@@ -62,7 +62,7 @@ public class NodeBehaviourFactory {
 		String type = e.attributeValue("type");
 
 		// make sure it's a real type
-		Boolean isRealType = false;
+		boolean isRealType = false;
 		for (NodeBehaviourType nbt : NodeBehaviourType.values()) {
 			if (type.equals(nbt.name())) {
 				isRealType = true;

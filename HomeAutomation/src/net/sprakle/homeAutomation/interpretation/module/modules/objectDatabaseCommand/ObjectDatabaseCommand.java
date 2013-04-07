@@ -38,8 +38,8 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 
 	// returns true if a phrase applies to this determiner
 	@Override
-	public Boolean claim(Phrase phrase) {
-		Boolean result = false;
+	public boolean claim(Phrase phrase) {
+		boolean result = false;
 
 		NodeType type = interpretNodeType(phrase);
 		if (type != null) {
@@ -236,12 +236,12 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 	private String interpretNode(Phrase phrase, NodeType nodeType) {
 		String result = "unknown";
 
-		Boolean hasPwrOpt = ParseHelpers.getTagOfType(logger, tagger, TagType.POWER_OPTION, phrase) != null; // it needs either a POWER_OPTION or SETTER
-		Boolean hasSet = ParseHelpers.getTagOfType(logger, tagger, TagType.SETTER, phrase) != null;
+		boolean hasPwrOpt = ParseHelpers.getTagOfType(logger, tagger, TagType.POWER_OPTION, phrase) != null; // it needs either a POWER_OPTION or SETTER
+		boolean hasSet = ParseHelpers.getTagOfType(logger, tagger, TagType.SETTER, phrase) != null;
 		if (hasPwrOpt || hasSet) {
 
 			// if there isn't a tag, try to find the object's default node
-			Boolean hasNode = ParseHelpers.getTagOfType(logger, tagger, TagType.NODE, phrase) != null; // it must not have a NODE, as that means it's talking about something besides power
+			boolean hasNode = ParseHelpers.getTagOfType(logger, tagger, TagType.NODE, phrase) != null; // it must not have a NODE, as that means it's talking about something besides power
 			if (!hasNode) {
 				// if the user has not specified a node, get the Object's default node
 				String[] query = { ParseHelpers.getTagOfType(logger, tagger, TagType.OD_OBJECT, phrase).getValue() };

@@ -109,7 +109,7 @@ public class Tagger {
 
 				int currentIndex = tags.indexOf(t) + 1; // look for the number
 
-				Boolean searching = true;
+				boolean searching = true;
 				while (searching) {
 
 					// quit when reaching the end of the arrayList in case there is no NUMBER
@@ -181,8 +181,8 @@ public class Tagger {
 
 		return tags;
 	}
-	private Boolean shouldTag(String text, String trigger) {
-		Boolean result = true;
+	private boolean shouldTag(String text, String trigger) {
+		boolean result = true;
 
 		// first see if the trigger is even there
 		if (text.contains(trigger)) {

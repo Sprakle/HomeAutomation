@@ -94,21 +94,21 @@ public class ObjectDatabase {
 
 	// used to hold data when querying database for an object 
 	public class QueryResponse {
-		private Boolean noObjectsFound = false;
-		private Boolean notSpecificEnough = false;
-		private Boolean sucsess = false;
+		private boolean noObjectsFound = false;
+		private boolean notSpecificEnough = false;
+		private boolean sucsess = false;
 		private Component component = null;
 
 		// setters
-		void setNoObjectsFound(Boolean b) {
+		void setNoObjectsFound(boolean b) {
 			noObjectsFound = b;
 		}
 
-		void setNotSpecificEnough(Boolean b) {
+		void setNotSpecificEnough(boolean b) {
 			notSpecificEnough = b;
 		}
 
-		void setSucsess(Boolean b) {
+		void setSucsess(boolean b) {
 			sucsess = b;
 		}
 
@@ -117,15 +117,15 @@ public class ObjectDatabase {
 		}
 
 		// getters
-		public Boolean noObjectsFound() {
+		public boolean noObjectsFound() {
 			return noObjectsFound;
 		}
 
-		public Boolean notSpecificEnough() {
+		public boolean notSpecificEnough() {
 			return notSpecificEnough;
 		}
 
-		public Boolean sucsess() {
+		public boolean sucsess() {
 			return sucsess;
 		}
 

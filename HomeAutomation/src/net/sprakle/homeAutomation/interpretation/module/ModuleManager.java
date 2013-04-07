@@ -74,7 +74,7 @@ public class ModuleManager {
 	// used to return data about claims
 	public class ClaimResponse {
 		public InterpretationModule module = null;
-		public Boolean toManyClaimed = null;
-		public Boolean notClaimed = null;
+		public boolean toManyClaimed = false;
+		public boolean notClaimed = false;
 	}
 }

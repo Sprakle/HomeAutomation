@@ -50,7 +50,7 @@ public class EventManager {
 
 		EventRelationship targetRelationship = null;
 
-		Boolean alreadyExists = false;
+		boolean alreadyExists = false;
 		for (EventRelationship er : relationships) {
 			if (er.getEventType().equals(eType))
 			{

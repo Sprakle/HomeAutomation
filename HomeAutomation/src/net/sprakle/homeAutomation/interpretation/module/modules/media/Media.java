@@ -48,7 +48,7 @@ public class Media extends InterpretationModule {
 	// TODO: check project for accidentally autoboxed primitives
 
 	@Override
-	public Boolean claim(Phrase phrase) {
+	public boolean claim(Phrase phrase) {
 		MediaAction result = selectExecution(phrase);
 		return result != null;
 	}

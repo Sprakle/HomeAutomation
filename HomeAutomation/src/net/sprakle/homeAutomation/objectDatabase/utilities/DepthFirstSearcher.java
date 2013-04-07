@@ -57,10 +57,10 @@ public class DepthFirstSearcher {
 		return foundComponents;
 	}
 
-	private static Boolean allChildrenVisited(Component parent, ArrayList<Component> visited) {
+	private static boolean allChildrenVisited(Component parent, ArrayList<Component> visited) {
 
 		// assume true
-		Boolean allVisited = true;
+		boolean allVisited = true;
 
 		// break assumption if the child list doesn't contain a visited child
 		for (Component child : parent.getChildren()) {
