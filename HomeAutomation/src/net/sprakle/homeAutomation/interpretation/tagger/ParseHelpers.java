@@ -82,7 +82,7 @@ public class ParseHelpers {
 			whitespace += " ";
 		}
 
-		String text = whitespace + phrase.getRawText().substring(startIndex);
+		String text = whitespace + phrase.toString().substring(startIndex);
 		ArrayList<Tag> tagsInPhrase = tagger.tagText(text);
 
 		for (Tag t : tagsInPhrase) {

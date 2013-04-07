@@ -232,7 +232,6 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 	}
 
 	//Used to find out what node the command should be applied to. EX: power, volume, temperature, etc
-	//IDEA: if too many different options come here, consider abstracting them into other classes
 	private String interpretNode(Phrase phrase, NodeType nodeType) {
 		String result = "unknown";
 

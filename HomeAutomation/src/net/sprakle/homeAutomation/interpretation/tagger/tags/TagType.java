@@ -2,7 +2,7 @@ package net.sprakle.homeAutomation.interpretation.tagger.tags;
 
 public enum TagType {
 	UNKOWN_TEXT, // text that has not been tagged
-	POWER_OPTION, // EX: "Activate". // IDEA: make '-1' toggle it
+	POWER_OPTION, // EX: "Activate".
 	OD_OBJECT, // EX: "kitchen", "heater"
 	NODE,
 	QUESTION, // EX: "what", "who". Will likely result in a RQD phrase
