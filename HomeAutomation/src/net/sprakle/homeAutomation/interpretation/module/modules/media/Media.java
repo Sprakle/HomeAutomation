@@ -13,12 +13,9 @@ import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.Pl
 import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
-import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
-import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.utilities.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.MediaCentre;
-import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.PlaybackCommand;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 // IDEA: run claimers each on their own thread
@@ -82,53 +79,6 @@ public class Media extends InterpretationModule {
 		}
 
 		return maResult;
-	}
-
-	private void playbackCommand(Phrase phrase, MediaCentre mc) {
-		Tag tag = ParseHelpers.getTagOfType(logger, tagger, TagType.PLAYBACK, phrase);
-		String commandString = tag.getValue();
-
-		PlaybackCommand command = null;
-		switch (commandString) {
-			case "play":
-				command = PlaybackCommand.PLAY;
-				break;
-
-			case "pause":
-				command = PlaybackCommand.PAUSE;
-				break;
-		}
-
-		mc.playbackCommand(command);
-	}
-
-	private void timeChangeCommand(Phrase phrase, MediaCentre mc) {
-		Tag tag = ParseHelpers.getTagOfType(logger, tagger, TagType.TIME_CHANGE, phrase);
-		String commandString = tag.getValue();
-
-		PlaybackCommand command = null;
-		switch (commandString) {
-			case "next":
-				command = PlaybackCommand.NEXT;
-				break;
-
-			case "prev":
-				command = PlaybackCommand.BACK;
-				break;
-
-			case "restart":
-				command = PlaybackCommand.BACK;
-				break;
-
-			case "random":
-				break;
-		}
-
-		mc.playbackCommand(command);
-
-		// execute back twice
-		if (commandString.equals("prev"))
-			mc.playbackCommand(command);
 	}
 
 	@Override

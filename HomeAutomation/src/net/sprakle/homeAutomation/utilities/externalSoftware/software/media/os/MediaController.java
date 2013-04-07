@@ -43,7 +43,7 @@ public abstract class MediaController {
 	 * ENQUEUE TRACK
 	 */
 	public void enqueueTrack(String title, String artist) {
-		Track result = levenGet(title, artist, 0);
+		Track result = levenGet(title, artist, 20);
 
 		if (result == null) {
 			logger.log("Unable to find requested track", LogSource.EXTERNAL_SOFTWARE, 2);

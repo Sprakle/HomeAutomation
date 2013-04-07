@@ -25,8 +25,6 @@ public class PhraseOutline {
 		outlineTags = new ArrayList<Tag>();
 	}
 
-	// FIXME: lower confidence if there are extra IDENTIFIED tags
-
 	// return an integer of the confidence of the match. 0 is no confidence
 	// Confidence = total matches + total specific tags (tags with their type AND value defined) - total unexpected NON-UNKOWN_TEXT tags
 	public int match(Phrase phrase) {

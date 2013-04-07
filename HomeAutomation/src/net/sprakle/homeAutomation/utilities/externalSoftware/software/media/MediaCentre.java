@@ -6,6 +6,7 @@ import net.sprakle.homeAutomation.main.Config;
 import net.sprakle.homeAutomation.main.OS;
 import net.sprakle.homeAutomation.utilities.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.CommandLineInterface;
+import net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.os.LinuxCLI;
 import net.sprakle.homeAutomation.utilities.externalSoftware.software.SoftwareInterface;
 import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.os.MediaController;
 import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.os.linux.Rhythmbox;
@@ -35,7 +36,44 @@ public class MediaCentre extends SoftwareInterface {
 			case WINDOWS:
 				controller = new MacMediaController(logger, cli);
 				break;
+
+			default:
+				logger.log("Unsupported operating system", LogSource.ERROR, LogSource.EXTERNAL_SOFTWARE, 1);
+				break;
 		}
+
+	}
+
+	/**
+	 * 
+	 * @param title
+	 *            must be given
+	 * @param artist
+	 *            if null, a track will be searched for using just the title
+	 */
+	public void playTrack(String title, String artist) {
+		controller.playTrack(title, artist);
+	}
+
+	/**
+	 * 
+	 * @param title
+	 *            must be given
+	 * @param artist
+	 *            if null, a track will be searched for using just the title
+	 */
+	public void enqueueTrack(String title, String artist) {
+		controller.enqueueTrack(title, artist);
+	}
+
+	/**
+	 * 
+	 * @param artist
+	 *            If null, will play a completely random track. If not null,
+	 *            will play a random track by the given artist
+	 */
+	public void playRandomTrack(String artist) {
+		controller.playRandomTrack(artist);
 	}
 
 	public ArrayList<Track> getTracks() {
@@ -50,5 +88,13 @@ public class MediaCentre extends SoftwareInterface {
 	@Override
 	public SoftwareName getSoftwareName() {
 		return SoftwareName.MEDIA_CENTRE;
+	}
+
+	public static void main(String args[]) {
+		Logger logger = new Logger();
+
+		MediaCentre mc = new MediaCentre(logger, new LinuxCLI(logger));
+
+		mc.playRandomTrack("poets of the fall");
 	}
 }

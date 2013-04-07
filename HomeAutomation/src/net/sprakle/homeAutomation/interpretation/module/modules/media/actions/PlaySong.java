@@ -9,6 +9,7 @@ import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.MediaCentre;
+import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class PlaySong extends MediaAction {
@@ -36,8 +37,30 @@ public class PlaySong extends MediaAction {
 
 	@Override
 	public void doExecute(Phrase phrase) {
-		// TODO Auto-generated method stub
+		// get the {UNKOWN_TEXT} tag value after the {POSSESION/BY} tag
+		ArrayList<Tag> tags = phrase.getTags();
 
+		int ownedTagIndex = -1;
+		for (Tag t : tags) {
+
+			if (t.getType() == TagType.POSSESSION && t.getValue().equals("owned"))
+				ownedTagIndex = tags.indexOf(t);
+		}
+
+		Tag titleTag = tags.get(ownedTagIndex - 1);
+		Tag artistTag = tags.get(ownedTagIndex + 1);
+
+		String title = null;
+		String artist = null;
+
+		if (titleTag != null & artistTag != null) {
+			title = titleTag.getValue();
+			artist = artistTag.getValue();
+		} else {
+			logger.log("Unable to determine track from phrase", LogSource.ERROR, LogSource.EXTERNAL_SOFTWARE, 1);
+		}
+
+		mc.playTrack(title, artist);
 	}
 
 	@Override

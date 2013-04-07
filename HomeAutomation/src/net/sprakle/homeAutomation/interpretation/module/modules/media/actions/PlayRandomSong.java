@@ -35,8 +35,7 @@ public class PlayRandomSong extends MediaAction {
 
 	@Override
 	public void doExecute(Phrase phrase) {
-		// TODO Auto-generated method stub
-
+		mc.playRandomTrack(null);
 	}
 
 	@Override

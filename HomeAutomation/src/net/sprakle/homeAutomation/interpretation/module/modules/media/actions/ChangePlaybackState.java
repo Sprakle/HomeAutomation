@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.MediaAction;
+import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.MediaCentre;
+import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.PlaybackCommand;
+import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class ChangePlaybackState extends MediaAction {
@@ -34,8 +37,25 @@ public class ChangePlaybackState extends MediaAction {
 
 	@Override
 	public void doExecute(Phrase phrase) {
-		// TODO Auto-generated method stub
+		Tag commandTag = ParseHelpers.getTagOfType(logger, tagger, TagType.PLAYBACK, phrase);
+		String commandString = commandTag.getValue();
 
+		PlaybackCommand command = null;
+		switch (commandString) {
+			case "play":
+				command = PlaybackCommand.PLAY;
+				break;
+
+			case "pause":
+				command = PlaybackCommand.PAUSE;
+				break;
+
+			default:
+				logger.log("Unable to choose playback command from phrase", LogSource.ERROR, LogSource.EXTERNAL_SOFTWARE, 1);
+				break;
+		}
+
+		mc.playbackCommand(command);
 	}
 
 	@Override

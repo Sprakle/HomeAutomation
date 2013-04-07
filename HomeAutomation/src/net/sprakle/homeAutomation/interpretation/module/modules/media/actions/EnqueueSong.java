@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.MediaAction;
+import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
@@ -13,9 +14,10 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class EnqueueSong extends MediaAction {
 
+	// TODO: support artist names
+
 	public EnqueueSong(Logger logger, MediaCentre mc, Tagger tagger) {
 		super(logger, mc, tagger);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -35,10 +37,11 @@ public class EnqueueSong extends MediaAction {
 
 	@Override
 	public void doExecute(Phrase phrase) {
-		// TODO Auto-generated method stub
+		Tag titleTag = ParseHelpers.getTagOfType(logger, tagger, TagType.UNKOWN_TEXT, phrase);
+		String titleString = titleTag.getValue();
 
+		mc.enqueueTrack(titleString, null);
 	}
-
 	@Override
 	public String getName() {
 		return "Enqueue song";
