@@ -17,8 +17,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sprakle.homeAutomation.events.Event;
+import net.sprakle.homeAutomation.events.EventListener;
 import net.sprakle.homeAutomation.events.EventManager;
 import net.sprakle.homeAutomation.events.EventType;
+import net.sprakle.homeAutomation.interpretation.module.modules.reloading.ReloadEvent;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagUtilities;
@@ -27,7 +30,7 @@ import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.fileAccess.read.LineByLine;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-public class Tagger {
+public class Tagger implements EventListener {
 	// FIXME: bug: in a phrase like: "play alchemy by alchemy" the tags are out of order
 
 	private Logger logger;
@@ -42,6 +45,8 @@ public class Tagger {
 
 		tagFile = Paths.get(Config.getString("config/files/taglist"));
 		lines = LineByLine.read(logger, tagFile); // read lines from file
+
+		EventManager.getInstance(logger).addListener(EventType.RELOAD, this);
 	}
 
 	public ArrayList<Tag> tagText(String text) {
@@ -230,5 +235,21 @@ public class Tagger {
 
 		EventManager em = EventManager.getInstance(logger);
 		em.call(EventType.TAGLIST_FILE_UPDATED, null);
+	}
+
+	@Override
+	public void call(EventType et, Event e) {
+		if (et != EventType.RELOAD) {
+			return; // not applicable
+		}
+
+		ReloadEvent reloadEvent = (ReloadEvent) e;
+		Tag tag = reloadEvent.getTag();
+
+		if (!tag.getValue().equals("tagger")) {
+			return;
+		}
+
+		reloadTaglist();
 	}
 }

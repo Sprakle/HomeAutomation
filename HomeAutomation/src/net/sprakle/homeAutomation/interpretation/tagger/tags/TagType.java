@@ -13,4 +13,5 @@ public enum TagType {
 	MEDIA, // commands to control music and other media
 	POSSESSION, // by (Maybe change this?)
 	PLAYBACK,
+	INTERNALS,
 }

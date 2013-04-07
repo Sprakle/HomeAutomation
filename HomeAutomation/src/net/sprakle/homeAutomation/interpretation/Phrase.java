@@ -28,7 +28,13 @@ public class Phrase {
 		logger.log(tagString, LogSource.PHRASE_INFO, 2);
 	}
 
+	// TODO: use toString() instead
 	public String getRawText() {
+		return rawText;
+	}
+
+	@Override
+	public String toString() {
 		return rawText;
 	}
 

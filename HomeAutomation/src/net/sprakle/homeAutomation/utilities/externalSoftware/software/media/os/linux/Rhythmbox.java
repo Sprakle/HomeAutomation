@@ -19,7 +19,10 @@ public class Rhythmbox extends MediaController {
 
 		this.logger = logger;
 		this.cli = cli;
+	}
 
+	@Override
+	public void loadTracks() {
 		String userDir = System.getProperty("user.home") + "/";
 		String rhythmFile = Config.getString("config/external_software/rhythmbox/relative_directory");
 		File xmlFile = new File(userDir + rhythmFile);

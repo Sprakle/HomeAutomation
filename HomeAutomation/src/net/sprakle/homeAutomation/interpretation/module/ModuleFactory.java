@@ -26,8 +26,8 @@ public class ModuleFactory {
 
 		moduleArray.add(new ObjectDatabaseCommand(logger, synth, od, tagger));
 		moduleArray.add(new ObjectDatabaseRQD(logger, synth, od, tagger));
-		moduleArray.add(new Reloading(logger, od, tagger));
 		moduleArray.add(new Media(logger, tagger, exs));
+		moduleArray.add(new Reloading(logger, tagger));
 
 		// add module and checkbox
 		for (InterpretationModule im : moduleArray) {

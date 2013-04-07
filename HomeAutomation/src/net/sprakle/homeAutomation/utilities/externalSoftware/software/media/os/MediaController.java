@@ -17,6 +17,8 @@ public abstract class MediaController {
 		this.logger = logger;
 	}
 
+	public abstract void loadTracks();
+
 	public ArrayList<Track> getTracks() {
 		return tracks;
 	}

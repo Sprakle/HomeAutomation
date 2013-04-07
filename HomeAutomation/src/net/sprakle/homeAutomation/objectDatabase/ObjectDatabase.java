@@ -2,9 +2,13 @@ package net.sprakle.homeAutomation.objectDatabase;
 
 import java.util.ArrayList;
 
+import net.sprakle.homeAutomation.events.Event;
+import net.sprakle.homeAutomation.events.EventListener;
 import net.sprakle.homeAutomation.events.EventManager;
 import net.sprakle.homeAutomation.events.EventType;
 import net.sprakle.homeAutomation.interaction.arduino.Arduino;
+import net.sprakle.homeAutomation.interpretation.module.modules.reloading.ReloadEvent;
+import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.objectDatabase.componentTree.Component;
 import net.sprakle.homeAutomation.objectDatabase.utilities.DepthFirstSearcher;
 import net.sprakle.homeAutomation.objectDatabase.utilities.ObjectCreator;
@@ -12,7 +16,7 @@ import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-public class ObjectDatabase {
+public class ObjectDatabase implements EventListener {
 
 	private Component databaseRoot;
 
@@ -28,6 +32,8 @@ public class ObjectDatabase {
 		oc = new ObjectCreator(logger, arduino);
 
 		buildDatabase();
+
+		EventManager.getInstance(logger).addListener(EventType.RELOAD, this);
 	}
 
 	/* Used to search the database with varying degrees of specificity.
@@ -172,5 +178,21 @@ public class ObjectDatabase {
 
 		EventManager em = EventManager.getInstance(logger);
 		em.call(EventType.DB_FILE_UPDATED, null);
+	}
+
+	@Override
+	public void call(EventType et, Event e) {
+		if (et != EventType.RELOAD) {
+			return; // not applicable
+		}
+
+		ReloadEvent reloadEvent = (ReloadEvent) e;
+		Tag tag = reloadEvent.getTag();
+
+		if (!tag.getValue().equals("object database")) {
+			return;
+		}
+
+		reloadDatabase();
 	}
 }

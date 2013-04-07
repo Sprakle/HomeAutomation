@@ -34,4 +34,9 @@ public class WindowsMediaController extends MediaController {
 		logger.log("Windows Media Controller not yet implemented!", LogSource.ERROR, LogSource.EXTERNAL_SOFTWARE, 1);
 	}
 
+	@Override
+	public void loadTracks() {
+		logger.log("Windows Media Controller not yet implemented!", LogSource.ERROR, LogSource.EXTERNAL_SOFTWARE, 1);
+	}
+
 }

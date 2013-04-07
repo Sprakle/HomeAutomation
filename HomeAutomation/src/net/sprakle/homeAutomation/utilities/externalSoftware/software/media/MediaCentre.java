@@ -2,6 +2,12 @@ package net.sprakle.homeAutomation.utilities.externalSoftware.software.media;
 
 import java.util.ArrayList;
 
+import net.sprakle.homeAutomation.events.Event;
+import net.sprakle.homeAutomation.events.EventListener;
+import net.sprakle.homeAutomation.events.EventManager;
+import net.sprakle.homeAutomation.events.EventType;
+import net.sprakle.homeAutomation.interpretation.module.modules.reloading.ReloadEvent;
+import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.main.Config;
 import net.sprakle.homeAutomation.main.OS;
 import net.sprakle.homeAutomation.utilities.externalSoftware.SoftwareName;
@@ -15,7 +21,7 @@ import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.os.w
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-public class MediaCentre extends SoftwareInterface {
+public class MediaCentre extends SoftwareInterface implements EventListener {
 
 	MediaController controller;
 
@@ -42,6 +48,9 @@ public class MediaCentre extends SoftwareInterface {
 				break;
 		}
 
+		controller.loadTracks();
+
+		EventManager.getInstance(logger).addListener(EventType.RELOAD, this);
 	}
 
 	/**
@@ -96,5 +105,21 @@ public class MediaCentre extends SoftwareInterface {
 		MediaCentre mc = new MediaCentre(logger, new LinuxCLI(logger));
 
 		mc.playRandomTrack("poets of the fall");
+	}
+
+	@Override
+	public void call(EventType et, Event e) {
+		if (et != EventType.RELOAD) {
+			return; // not applicable
+		}
+
+		ReloadEvent reloadEvent = (ReloadEvent) e;
+		Tag tag = reloadEvent.getTag();
+
+		if (!tag.getValue().equals("media")) {
+			return;
+		}
+
+		controller.loadTracks();
 	}
 }

@@ -5,15 +5,19 @@ import java.util.ArrayList;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
+import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class PhraseOutline {
+
+	private Logger logger;
 
 	private String description;
 
 	private ArrayList<Tag> outlineTags;
 
 	public PhraseOutline(Logger logger, Tagger tagger, String description) {
+		this.logger = logger;
 		this.description = description;
 
 		outlineTags = new ArrayList<Tag>();
@@ -87,6 +91,14 @@ public class PhraseOutline {
 		}
 
 		confidence = expectedTags + specificTags - unexpectedTags;
+
+		// TODO: don't trim text sent to logger
+		logger.log("  Phrase Outline: " + this, LogSource.PHRASE_INFO, 5);
+		logger.log("    expected tags: " + expectedTags, LogSource.PHRASE_INFO, 5);
+		logger.log("    minimum tags: " + mininumExpectedTags, LogSource.PHRASE_INFO, 5);
+		logger.log("    specific tags: " + specificTags, LogSource.PHRASE_INFO, 5);
+		logger.log("    unexpected tags " + unexpectedTags, LogSource.PHRASE_INFO, 5);
+		logger.log("    total confidence: " + confidence, LogSource.PHRASE_INFO, 5);
 
 		// confidence is zero if there were not enough matches
 		if (expectedTags < mininumExpectedTags)

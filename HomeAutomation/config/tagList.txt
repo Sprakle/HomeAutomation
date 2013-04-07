@@ -39,6 +39,7 @@
 "previous"			{TIME_CHANGE/prev}
 "restart"			{TIME_CHANGE/restart}
 "replay"			{TIME_CHANGE/restart}
+"reload"			{TIME_CHANGE/restart}
 "random"			{TIME_CHANGE/random}
 
 "song"				{MEDIA/track}
@@ -53,3 +54,9 @@
 
 "what"				{QUESTION/generic}
 "how"				{QUESTION/integer}
+
+"taglist"			{INTERNALS/tagger}
+"tag list"			{INTERNALS/tagger}
+"tagger"			{INTERNALS/tagger}
+"media"				{INTERNALS/media}
+"database"			{INTERNALS/object database}
