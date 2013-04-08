@@ -40,6 +40,12 @@ public class Config {
 		return f;
 	}
 
+	public static boolean getBinary(String xPath) {
+		String original = getOriginal(xPath);
+
+		return original.equals("true");
+	}
+
 	private static String getOriginal(String xPath) {
 		String result = null;
 

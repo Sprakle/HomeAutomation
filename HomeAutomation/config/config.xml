@@ -10,6 +10,8 @@
 			<max_frame_skips>5</max_frame_skips>
 			<frame_period>1000</frame_period>
 		</timing>
+		
+		<crash_on_error>false</crash_on_error>
 	</system>
 	
 	<arduino>

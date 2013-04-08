@@ -9,11 +9,15 @@ public class Logger {
 	Long initialTime = System.currentTimeMillis();
 	Long prevTime = System.currentTimeMillis();
 
+	boolean crashOnError = false;
+
 	// limit to the detail of log printing. 0 is infinite
 	final int VERBOSITY = Config.getInt("config/logger/verbosity");;
 
 	public Logger() {
 		gui = new LoggerGUI();
+
+		crashOnError = Config.getBinary("config/system/crash_on_error");
 	}
 
 	// used for only one source
@@ -49,7 +53,8 @@ public class Logger {
 				e.printStackTrace();
 			}
 
-			System.exit(1);
+			if (crashOnError)
+				System.exit(1);
 		}
 
 		return true;
