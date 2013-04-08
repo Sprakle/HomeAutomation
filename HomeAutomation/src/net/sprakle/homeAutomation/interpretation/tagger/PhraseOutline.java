@@ -5,19 +5,15 @@ import java.util.ArrayList;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
-import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class PhraseOutline {
-
-	private Logger logger;
 
 	private String description;
 
 	private ArrayList<Tag> outlineTags;
 
 	public PhraseOutline(Logger logger, Tagger tagger, String description) {
-		this.logger = logger;
 		this.description = description;
 
 		outlineTags = new ArrayList<Tag>();
@@ -48,7 +44,7 @@ public class PhraseOutline {
 
 			// is it in the outline?
 			Tag outlineTag = null;
-			for (Tag t : outlineTags)
+			for (Tag t : outlineTags) {
 				if (t.getType().equals(phraseTag.getType())) {
 
 					// make sure this phrase is in the right order, by checking if the matching outline tag came after the last one, but not too far ahead
@@ -62,6 +58,7 @@ public class PhraseOutline {
 						break;
 					}
 				}
+			}
 
 			if (outlineTag != null) {
 				// the phrase tag was contained within the outline, and at the correct position
@@ -92,19 +89,13 @@ public class PhraseOutline {
 
 		confidence = expectedTags + specificTags - unexpectedTags;
 
-		logger.log("  Phrase Outline: " + this, LogSource.PHRASE_INFO, 5);
-		logger.log("    expected tags: " + expectedTags, LogSource.PHRASE_INFO, 5);
-		logger.log("    minimum tags: " + mininumExpectedTags, LogSource.PHRASE_INFO, 5);
-		logger.log("    specific tags: " + specificTags, LogSource.PHRASE_INFO, 5);
-		logger.log("    unexpected tags " + unexpectedTags, LogSource.PHRASE_INFO, 5);
-		logger.log("    total confidence: " + confidence, LogSource.PHRASE_INFO, 5);
-
 		// confidence is zero if there were not enough matches
 		if (expectedTags < mininumExpectedTags)
 			confidence = 0;
 
 		return confidence;
 	}
+
 	public void addTag(Tag t) {
 		outlineTags.add(t);
 	}

@@ -10,7 +10,6 @@ import java.util.TreeMap;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
-import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class ParseHelpers {
@@ -27,7 +26,6 @@ public class ParseHelpers {
 	 */
 
 	public static PhraseOutline match(Logger logger, ArrayList<PhraseOutline> phraseOutlines, Phrase phrase) {
-
 		// used to sort outlines by their confidence rating
 		TreeMap<Integer, PhraseOutline> matches = new TreeMap<Integer, PhraseOutline>();
 
@@ -45,11 +43,11 @@ public class ParseHelpers {
 			return null;
 
 		PhraseOutline match = matches.lastEntry().getValue();
-		logger.log("      Matching Phrase Outline: " + match, LogSource.PHRASE_INFO, 4);
 
 		// get the most confident entry
 		return match;
 	}
+
 	/*
 	 *  when given a shell tag (Only the TagType is set) it will return the full tag from a phrase
 	 *  If there are multiple tags found, or no tags found, null will be returned

@@ -44,12 +44,7 @@ public class ModuleManager {
 
 		// list of all modules that claimed the phrase. Ideally only one module will be in this list
 		ClaimResponse response = new ClaimResponse();
-		ArrayList<InterpretationModule> claimers = new ArrayList<InterpretationModule>();
-		for (InterpretationModule m : enabledModules) {
-			if (m.claim(phrase)) {
-				claimers.add(m);
-			}
-		}
+		ArrayList<InterpretationModule> claimers = getClaimers(enabledModules, phrase);
 
 		// did we get too many claims?
 		if (claimers.size() > 1) {
@@ -74,6 +69,66 @@ public class ModuleManager {
 		logger.log("Checked all modules for claimed in " + totalTime + " ms", LogSource.INTERPRETER_INFO, 2);
 
 		return response;
+	}
+
+	private ArrayList<InterpretationModule> getClaimers(ArrayList<InterpretationModule> modules, final Phrase phrase) {
+		final ArrayList<InterpretationModule> resultingClaimers = new ArrayList<InterpretationModule>();
+
+		final ArrayList<ClaimerThread> threads = new ArrayList<ClaimerThread>();
+
+		// create a thread for each claimer
+		for (InterpretationModule m : modules) {
+			ClaimerThread thread = new ClaimerThread(phrase, m);
+			threads.add(thread);
+		}
+
+		// start each thread
+		for (ClaimerThread t : threads) {
+			t.start();
+		}
+
+		// wait for each
+		for (ClaimerThread t : threads) {
+			try {
+				t.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+			if (t.getResult() == true)
+				resultingClaimers.add(t.getModule());
+		}
+
+		return resultingClaimers;
+	}
+
+	private class ClaimerThread extends Thread {
+
+		private Phrase phrase;
+		private InterpretationModule module;
+		private boolean result;
+
+		public ClaimerThread(Phrase phrase, InterpretationModule module) {
+			this.phrase = phrase;
+			this.module = module;
+		}
+
+		@Override
+		public synchronized void run() {
+			long startTime = System.currentTimeMillis();
+			if (module.claim(phrase))
+				result = true;
+			long totalTime = System.currentTimeMillis() - startTime;
+			System.err.println("Time for " + module.getName() + ": " + totalTime + "ms");
+		}
+
+		public boolean getResult() {
+			return result;
+		}
+
+		public InterpretationModule getModule() {
+			return module;
+		}
 	}
 
 	// used to return data about claims
