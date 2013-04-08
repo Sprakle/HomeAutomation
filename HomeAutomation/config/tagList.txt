@@ -60,3 +60,35 @@
 "tagger"			{INTERNALS/tagger}
 "media"				{INTERNALS/media}
 "database"			{INTERNALS/object database}
+
+"plus"				{MATH_OPERATOR/+}
+"minus"				{MATH_OPERATOR/-}
+"times"				{MATH_OPERATOR/*}
+"devided"			{MATH_OPERATOR//}
+"left bracket"		{MATH_OPERATOR/(}
+"right bracket"		{MATH_OPERATOR/)}
+"to the power of"	{MATH_OPERATOR/^}
+"squared"			{MATH_OPERATOR/^2}
+"cubed"				{MATH_OPERATOR/^3}
+
+"arc cosine"		{MATH_FUNCTION/acos}
+"inverse cosine"	{MATH_FUNCTION/acos}
+"arc sine"			{MATH_FUNCTION/asin}
+"inverse sine"		{MATH_FUNCTION/asin}
+"arc tan"			{MATH_FUNCTION/atan}
+"arc tangent"		{MATH_FUNCTION/atan}
+"inverse tan"		{MATH_FUNCTION/atan}
+"inverse tangent"	{MATH_FUNCTION/atan}
+"cosine"			{MATH_FUNCTION/cos}
+"sine"				{MATH_FUNCTION/sin}
+"tan"				{MATH_FUNCTION/tan}
+"tangent"			{MATH_FUNCTION/tan}
+"square root"		{MATH_FUNCTION/sqrt}
+"cubic root"		{MATH_FUNCTION/cbrt}
+"cube root"			{MATH_FUNCTION/cbrt}
+
+"round to"			{MATH_TERM/round}
+"decimals"			{MATH_TERM/decimal}
+"decimal"			{MATH_TERM/decimal}
+
+"pi"				{NUMBER/3.14159}

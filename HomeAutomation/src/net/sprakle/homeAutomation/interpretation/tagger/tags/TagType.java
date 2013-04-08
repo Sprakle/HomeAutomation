@@ -14,4 +14,7 @@ public enum TagType {
 	POSSESSION, // by (Maybe change this?)
 	PLAYBACK,
 	INTERNALS,
+	MATH_TERM,
+	MATH_OPERATOR,
+	MATH_FUNCTION,
 }

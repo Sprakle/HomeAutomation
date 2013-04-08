@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import javax.swing.JCheckBox;
 
+import net.sprakle.homeAutomation.interpretation.module.modules.math.Math;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.Media;
 import net.sprakle.homeAutomation.interpretation.module.modules.objectDatabaseCommand.ObjectDatabaseCommand;
 import net.sprakle.homeAutomation.interpretation.module.modules.objectDatabaseRQD.ObjectDatabaseRQD;
@@ -27,6 +28,7 @@ public class ModuleFactory {
 		moduleArray.add(new ObjectDatabaseCommand(logger, synth, od, tagger));
 		moduleArray.add(new ObjectDatabaseRQD(logger, synth, od, tagger));
 		moduleArray.add(new Media(logger, tagger, exs));
+		moduleArray.add(new Math(logger, tagger, synth));
 		moduleArray.add(new Reloading(logger, tagger));
 
 		// add module and checkbox

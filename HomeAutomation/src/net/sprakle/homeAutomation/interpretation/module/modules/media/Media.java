@@ -18,8 +18,6 @@ import net.sprakle.homeAutomation.utilities.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.MediaCentre;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-// IDEA: run claimers each on their own thread
-
 public class Media extends InterpretationModule {
 	private final String NAME = "Media";
 

@@ -11,6 +11,7 @@ import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
+import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class ModuleManager {
@@ -32,6 +33,7 @@ public class ModuleManager {
 
 	// checks each module for a claim on the given phrase
 	public ClaimResponse submitForClaiming(Phrase phrase) {
+		long startTime = System.currentTimeMillis();
 
 		// create module arraylist containing only ones whose checkbox is selected
 		ArrayList<InterpretationModule> enabledModules = new ArrayList<InterpretationModule>();
@@ -67,6 +69,9 @@ public class ModuleManager {
 		if (!response.notClaimed && !response.toManyClaimed) {
 			response.module = claimers.get(0);
 		}
+
+		long totalTime = System.currentTimeMillis() - startTime;
+		logger.log("Checked all modules for claimed in " + totalTime + " ms", LogSource.INTERPRETER_INFO, 2);
 
 		return response;
 	}

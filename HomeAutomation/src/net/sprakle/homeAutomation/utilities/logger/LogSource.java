@@ -24,6 +24,7 @@ public enum LogSource {
 	EVENT_INFO(80, 255, 80),
 	GOOGLE_SPEECH_INFO(100, 255, 0),
 	EXTERNAL_SOFTWARE(20, 20, 20),
+	MATH(100, 100, 255),
 	FILE_ACCES(100, 100, 0);
 	private final Color color;
 
