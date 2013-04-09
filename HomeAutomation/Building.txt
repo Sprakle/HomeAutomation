@@ -1,0 +1,4 @@
+- Export /src to a non executable jar
+- Get all libraries used by the system, each in their own jar
+- Get all natives
+- Use jarsplice to combine main jar, library jars, and natives
