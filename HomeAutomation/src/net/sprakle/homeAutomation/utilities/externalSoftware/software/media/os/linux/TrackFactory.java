@@ -16,6 +16,9 @@ import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 
 public class TrackFactory {
+
+	private static int ALERT_FREQUENCY = 50;
+
 	public static ArrayList<Track> getTracks(Logger logger, File file) {
 		ArrayList<Track> tracks = new ArrayList<Track>();
 
@@ -31,6 +34,9 @@ public class TrackFactory {
 		}
 
 		System.gc();
+
+		// can't use i, as not all elements are tracks
+		int tracksAdded = 0;
 
 		Element root = doc.getRootElement();
 		for (int i = 0, size = root.nodeCount(); i < size; i++) {
@@ -63,11 +69,13 @@ public class TrackFactory {
 
 					Track track = new Track(logger, trackFile);
 					tracks.add(track);
+
+					tracksAdded++;
+					if (tracksAdded % ALERT_FREQUENCY == 0) {
+						logger.log("Added " + tracksAdded + " tracks so far", LogSource.EXTERNAL_SOFTWARE, 3);
+					}
 				}
 			}
-
-			if (i > 50)
-				break;
 		}
 
 		System.gc();

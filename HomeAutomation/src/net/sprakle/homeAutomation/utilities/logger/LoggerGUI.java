@@ -3,23 +3,27 @@ package net.sprakle.homeAutomation.utilities.logger;
 import java.awt.BorderLayout;
 import java.awt.Container;
 
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 import net.sprakle.homeAutomation.main.Config;
 import net.sprakle.homeAutomation.userInterface.Window.Window;
 import net.sprakle.homeAutomation.userInterface.Window.WindowPosition;
 
 public class LoggerGUI {
-	Window logWindow;
+	private final int MINIMUM_INDENT = 25;
 
-	JTextPane textPane;
-	JScrollPane scrollPane;
+	private Window logWindow;
+
+	private JTextPane textPane;
+	private JScrollPane scrollPane;
+
+	private StyledDocument doc;
+	private Style style;
 
 	LoggerGUI() {
 		String name = Config.getString("config/system/name");
@@ -36,64 +40,30 @@ public class LoggerGUI {
 		cp.add(scrollPane, BorderLayout.CENTER);
 
 		logWindow.validate();
+
+		doc = textPane.getStyledDocument();
+		style = textPane.addStyle("", null);
+		StyleConstants.setFontFamily(style, "Courier New");
 	}
 
 	void println(String text, LogSource source) {
+		StyleConstants.setForeground(style, source.getColor());
 
-		/*********** Prefix ***********/
+		String sourceText = "(" + source + ") ";
+		String indent = "";
 
-		// create attribute
-		SimpleAttributeSet prefixAttributes = new SimpleAttributeSet();
-		prefixAttributes = new SimpleAttributeSet();
+		int toIndent = MINIMUM_INDENT - sourceText.length();
+		for (int i = 0; i < toIndent; i++) {
+			indent += " ";
+		}
 
-		// set attribute color
-		StyleConstants.setForeground(prefixAttributes, source.getColor());
+		String printText = sourceText + indent + text + "\n";
 
-		// set bold (for prefix)
-		StyleConstants.setBold(prefixAttributes, true);
-
-		// get doc to apply attribute
-		Document prefixDoc = textPane.getStyledDocument();
-
-		// set prefix
-		String prefix = source + ": ";
-
-		// append the line
 		try {
-			prefixDoc.insertString(prefixDoc.getLength(), prefix, prefixAttributes);
+			doc.insertString(doc.getLength(), printText, style);
 		} catch (BadLocationException e) {
-			e.printStackTrace();
 		}
 
-		/*********** Text ***********/
-
-		// create attribute
-		SimpleAttributeSet attributes = new SimpleAttributeSet();
-		attributes = new SimpleAttributeSet();
-
-		// set attribute color
-		StyleConstants.setForeground(attributes, source.getColor());
-
-		// get doc to apply attribute
-		Document doc = textPane.getStyledDocument();
-
-		// apply new line
-		text += "\n";
-
-		// append the line
-		try {
-			doc.insertString(doc.getLength(), text, attributes);
-		} catch (BadLocationException e) {
-			e.printStackTrace();
-		}
-
-		// scroll down
-		JScrollBar vertical = scrollPane.getVerticalScrollBar();
-
-		try {
-			vertical.setValue(vertical.getMaximum());
-		} catch (NullPointerException e) {
-			// sometimes throws an exception, it seems to be only when the window is minimised
-		}
+		textPane.setCaretPosition(textPane.getDocument().getLength());
 	}
 }

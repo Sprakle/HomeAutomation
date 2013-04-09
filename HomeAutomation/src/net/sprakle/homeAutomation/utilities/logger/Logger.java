@@ -2,14 +2,21 @@ package net.sprakle.homeAutomation.utilities.logger;
 
 import net.sprakle.homeAutomation.main.Config;
 
+/**
+ * Logging is resource intensive, taking from 1 - 10 ms on average. Do not call
+ * log() if your process must be executed quickly or many times
+ * 
+ * @author ben
+ * 
+ */
 public class Logger {
 
-	LoggerGUI gui;
+	private LoggerGUI gui;
 
-	Long initialTime = System.currentTimeMillis();
-	Long prevTime = System.currentTimeMillis();
+	private Long initialTime = System.currentTimeMillis();
 
-	boolean crashOnError = false;
+	private boolean shouldLog = false;
+	private boolean crashOnError = false;
 
 	// limit to the detail of log printing. 0 is infinite
 	final int VERBOSITY = Config.getInt("config/logger/verbosity");;
@@ -17,11 +24,15 @@ public class Logger {
 	public Logger() {
 		gui = new LoggerGUI();
 
+		shouldLog = Config.getBinary("config/system/enable_logging");
 		crashOnError = Config.getBinary("config/system/crash_on_error");
 	}
 
 	// used for only one source
-	public void log(String text, LogSource source, int verbosity) {
+	public synchronized void log(String text, LogSource source, int verbosity) {
+		if (!shouldLog)
+			return;
+
 		if (!checkLogCall(text, source, null, verbosity))
 			return;
 
@@ -29,7 +40,10 @@ public class Logger {
 	}
 
 	// used to provide more details on log. EX: log("Something bad happened!", LogSource.ERROR, LogSource.DATABASE, 1);
-	public void log(String text, LogSource source, LogSource secondarySource, int verbosity) {
+	public synchronized void log(String text, LogSource source, LogSource secondarySource, int verbosity) {
+		if (!shouldLog)
+			return;
+
 		if (!checkLogCall(text, source, secondarySource, verbosity))
 			return;
 

@@ -12,6 +12,7 @@
 		</timing>
 		
 		<crash_on_error>false</crash_on_error>
+		<enable_logging>true</enable_logging> <!-- Logging is resource intensive, taking from 1 - 10 ms on average -->
 	</system>
 	
 	<arduino>

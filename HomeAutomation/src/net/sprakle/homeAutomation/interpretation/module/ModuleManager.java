@@ -115,11 +115,8 @@ public class ModuleManager {
 
 		@Override
 		public synchronized void run() {
-			long startTime = System.currentTimeMillis();
 			if (module.claim(phrase))
 				result = true;
-			long totalTime = System.currentTimeMillis() - startTime;
-			System.err.println("Time for " + module.getName() + ": " + totalTime + "ms");
 		}
 
 		public boolean getResult() {

@@ -24,14 +24,6 @@ public class DB_Node extends Component {
 
 			// set the new one
 			this.behaviour = behaviour;
-			logger.log("Added behaviour '" + behaviour.getClass().getSimpleName() + "' to Node '" + this.getIdentifier() + "' Arguments:", LogSource.OD_COMPONENT_INFO, 3);
-
-			for (String s : behaviour.getArgs().keySet()) {
-				String flag = s;
-				String value = behaviour.getArgs().get(s);
-
-				logger.log("    -" + flag + " " + value, LogSource.OD_COMPONENT_INFO, 3);
-			}
 
 		} else {
 

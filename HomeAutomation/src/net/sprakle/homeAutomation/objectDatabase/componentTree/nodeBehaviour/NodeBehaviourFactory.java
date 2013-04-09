@@ -23,7 +23,6 @@ public class NodeBehaviourFactory {
 	}
 
 	public NodeBehaviour createBehaviour(Logger logger, DB_Node parent, Element behaviourElement) {
-		logger.log("Creating new behaviour", LogSource.OD_NODE_BEHAVIOUR, 2);
 
 		// ensure we are parsing a  node behaviour
 		if (!behaviourElement.getName().equals("NODE_BEHAVIOUR")) {
@@ -38,12 +37,10 @@ public class NodeBehaviourFactory {
 		// which type of behaviour should we create?
 		switch (type) {
 			case ARDUINO_DEVICE:
-				logger.log("behaviour was of type ARDUINO_DEVICE. Creating...", LogSource.OD_NODE_BEHAVIOUR, 3);
 				behaviour = new ArduinoDevice(logger, arduino, parent, args);
 				break;
 
 			case WEATHER:
-				logger.log("behaviour was of type WEATHER. Creating...", LogSource.OD_NODE_BEHAVIOUR, 3);
 				behaviour = new Weather(logger, parent, args);
 				break;
 
@@ -51,8 +48,6 @@ public class NodeBehaviourFactory {
 				logger.log("No logic defined for BehaviourType '" + type + "'. Get the programmer to add that logic.", LogSource.ERROR, LogSource.OD_NODE_BEHAVIOUR, 1);
 				break;
 		}
-
-		logger.log("Finished creating new behaviour", LogSource.OD_NODE_BEHAVIOUR, 2);
 		return behaviour;
 	}
 

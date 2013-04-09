@@ -86,8 +86,6 @@ public class Track {
 
 		sourceFile = null;
 		mp3file = null;
-
-		logger.log("Track loaded: '" + title + "' - '" + artist + "'", LogSource.EXTERNAL_SOFTWARE, 5);
 	}
 	public int levenshteinDistanceTitle(String target) {
 		return Levenshtein.getDistance(target, title);
