@@ -16,6 +16,7 @@ import net.sprakle.homeAutomation.events.EventManager;
 import net.sprakle.homeAutomation.events.EventType;
 import net.sprakle.homeAutomation.timer.LogicTimer;
 import net.sprakle.homeAutomation.timer.interfaces.observer.LogicTimerObserver;
+import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class TextInput implements LogicTimerObserver {
@@ -23,25 +24,29 @@ public class TextInput implements LogicTimerObserver {
 	private TextInputListener textInputListener;
 	private TextInputGUI textInputGUI;
 
-	// text box
-	private JTextField txt;
-
 	private Logger logger;
 
 	public TextInput(Logger logger) {
 		this.logger = logger;
-
-		textInputListener = new TextInputListener(logger);
 		textInputGUI = new TextInputGUI(logger);
 
 		LogicTimer.getLogicTimer().addObserver(this);
 
 		JPanel panel;
 		panel = textInputGUI.getPanel();
-		createTextBox(panel);
+
+		JTextField textField = createTextBox(panel);
+
+		textInputListener = new TextInputListener(textField);
+		textField.addActionListener(textInputListener);
+		textField.addMouseListener(textInputListener);
+
+		textField.requestFocusInWindow();
 	}
 
-	private void createTextBox(JPanel p) {
+	private JTextField createTextBox(JPanel p) {
+		JTextField txt;
+
 		GridBagConstraints inputCon = new GridBagConstraints();
 		inputCon.gridx = 1;
 		inputCon.gridy = 2;
@@ -58,12 +63,7 @@ public class TextInput implements LogicTimerObserver {
 
 		p.revalidate();
 
-		txt.addKeyListener(textInputListener);
-		txt.requestFocusInWindow();
-	}
-
-	public void setBox(String s) {
-		txt.setText(s);
+		return txt;
 	}
 
 	public void updateObservers(String input) {
@@ -75,11 +75,10 @@ public class TextInput implements LogicTimerObserver {
 
 	@Override
 	public void advanceLogic() {
-		String input = textInputListener.update();
-
-		// if something was received...
-		if (input != null) {
-			updateObservers(input);
+		String text = textInputListener.getText();
+		if (text != null) {
+			logger.log(text, LogSource.USER_INPUT, 1);
+			updateObservers(text.toLowerCase());
 		}
 	}
 }

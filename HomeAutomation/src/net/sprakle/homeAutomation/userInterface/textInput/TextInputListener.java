@@ -1,62 +1,58 @@
 package net.sprakle.homeAutomation.userInterface.textInput;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JTextField;
 
-import net.sprakle.homeAutomation.utilities.logger.LogSource;
-import net.sprakle.homeAutomation.utilities.logger.Logger;
+public class TextInputListener implements ActionListener, MouseListener {
 
-public class TextInputListener extends KeyAdapter {
-	// timer for detecting if speech is done
-	int timer = 0;
-
-	// time to wait for more characters (smaller number = less time to type)
-	int timerLimit = 30;
-
-	// information gained from text box
 	JTextField textField;
-	String text = "";
 
-	Logger logger;
+	String text = null;
 
-	public TextInputListener(Logger logger) {
-		this.logger = logger;
+	String emptyText = "";
+	String promptText = "Enter Command";
+
+	public TextInputListener(JTextField textField) {
+		this.textField = textField;
+		textField.setText(promptText);
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
-		textField = (JTextField) e.getSource();
+	public void actionPerformed(ActionEvent e) {
+		JTextField textField = (JTextField) e.getSource();
 		text = textField.getText();
-
-		// a letter has been typed, reset the timer
-		timer = 0;
+		textField.setText("");
 	}
 
-	public String update() {
-		String input = null;
+	public String getText() {
+		String tempText = text;
+		text = null;
+		return tempText;
+	}
 
-		timer++;
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+	}
 
-		// if a letter has not been typed in a few ms, and there is something in
-		// the text box...
-		if (timer > timerLimit && text.length() > 2) {
-			text = text.toLowerCase(); // convert all to lower case
-			text = text.trim(); // remove whitespace characters
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		textField.setText(emptyText);
+	}
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		if (textField.getText().equals(""))
+			textField.setText(promptText);
+	}
 
-			logger.log(text, LogSource.USER_INPUT, 1);
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+	}
 
-			// blank out text field
-			textField.setText("");
-
-			input = text;
-
-			// reset the text field for the next phrase
-			text = "";
-			timer = 0;
-		}
-
-		return input;
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
 	}
 }
