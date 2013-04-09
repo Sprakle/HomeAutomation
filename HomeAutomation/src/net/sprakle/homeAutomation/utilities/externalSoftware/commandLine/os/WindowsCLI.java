@@ -9,6 +9,7 @@ public class WindowsCLI implements CommandLineInterface {
 	private Logger logger;
 
 	public WindowsCLI(Logger logger) {
+		this.logger = logger;
 	}
 
 	@Override

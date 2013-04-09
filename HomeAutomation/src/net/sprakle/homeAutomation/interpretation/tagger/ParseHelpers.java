@@ -48,6 +48,8 @@ public class ParseHelpers {
 		return match;
 	}
 
+	// TODO: allow for checking of value
+	// TODO: make parsehelpers work without tagger, only using the tag in the phrase
 	/*
 	 *  when given a shell tag (Only the TagType is set) it will return the full tag from a phrase
 	 *  If there are multiple tags found, or no tags found, null will be returned

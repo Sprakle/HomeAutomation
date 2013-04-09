@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.MediaAction;
+import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
@@ -43,7 +44,28 @@ public class EnqueueSong extends MediaAction {
 
 	@Override
 	public void doExecute(Phrase phrase) {
-		// get the {UNKOWN_TEXT} tag value after the {POSSESION/BY} tag
+		Tag byTag = ParseHelpers.getTagOfType(logger, tagger, TagType.POSSESSION, phrase);
+		if (byTag == null)
+			executeTitleOnly(phrase);
+		else
+			executeTitleAndArtist(phrase);
+	}
+
+	private void executeTitleOnly(Phrase phrase) {
+		String title = null;
+
+		ArrayList<Tag> tags = phrase.getTags();
+		for (Tag t : tags) {
+			if (t.getType() == TagType.UNKOWN_TEXT) {
+				title = t.getValue();
+				break;
+			}
+		}
+
+		mc.enqueueTrack(title, null);
+	}
+
+	private void executeTitleAndArtist(Phrase phrase) {
 		ArrayList<Tag> tags = phrase.getTags();
 
 		int ownedTagIndex = -1;
@@ -68,6 +90,7 @@ public class EnqueueSong extends MediaAction {
 
 		mc.enqueueTrack(title, artist);
 	}
+
 	@Override
 	public String getName() {
 		return "Enqueue song";
