@@ -60,14 +60,13 @@ public class Reloading extends InterpretationModule {
 		if (poMatch != poA)
 			return null;
 
-		Tag reloadTag = phrase.getTagOfType(TagType.TIME_CHANGE);
+		Tag reloadTag = phrase.getTag(new Tag(TagType.TIME_CHANGE, null));
 
 		int index = tags.indexOf(reloadTag);
-		Tag tagMatch = phrase.getTagOfType(TagType.INTERNALS, index);
+		Tag tagMatch = phrase.getTag(new Tag(TagType.INTERNALS, null), index);
 
 		return tagMatch;
 	}
-
 	@Override
 	public String getName() {
 		return NAME;

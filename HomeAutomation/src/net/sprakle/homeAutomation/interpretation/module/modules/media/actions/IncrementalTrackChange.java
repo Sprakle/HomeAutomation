@@ -39,7 +39,7 @@ public class IncrementalTrackChange extends MediaAction {
 
 	@Override
 	public void doExecute(Phrase phrase) {
-		Tag tag = phrase.getTagOfType(TagType.TIME_CHANGE);
+		Tag tag = phrase.getTag(new Tag(TagType.TIME_CHANGE, null));
 		String commandString = tag.getValue();
 
 		PlaybackCommand command = null;

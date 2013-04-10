@@ -75,10 +75,10 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 	// called when a binary change is requested. EX: turn on the light
 	private void executeForBinary(ObjectDatabase od, Phrase phrase, String nodeName) {
 		// get the tag describing the target to execute the command on
-		Tag targetTag = phrase.getTagOfType(TagType.OD_OBJECT);
+		Tag targetTag = phrase.getTag(new Tag(TagType.OD_OBJECT, null));
 
 		// get the tag describing the command
-		Tag commandTag = phrase.getTagOfType(TagType.POWER_OPTION);
+		Tag commandTag = phrase.getTag(new Tag(TagType.POWER_OPTION, null));
 
 		String targetName = targetTag.getValue();
 
@@ -128,8 +128,8 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 	// called when an integer change is requested. EX: set light to 50 percent
 	private void executeForInteger(ObjectDatabase od, Phrase phrase, String nodeName) {
 		// get the tag describing the target to execute the command on
-		Tag targetTag = phrase.getTagOfType(TagType.OD_OBJECT);
-		Tag numberTag = phrase.getRelativeTag(TagType.NUMBER, targetTag, -1);
+		Tag targetTag = phrase.getTag(new Tag(TagType.OD_OBJECT, null));
+		Tag numberTag = phrase.getRelativeTag(targetTag, new Tag(TagType.NUMBER, null), 1);
 
 		String targetName = targetTag.getValue();
 
@@ -201,8 +201,8 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 		{
 			PhraseOutline poA = new PhraseOutline(logger, getName());
 			poA.addTag(new Tag(TagType.SETTER, null));
-			poA.addTag(new Tag(TagType.NUMBER, null));
 			poA.addTag(new Tag(TagType.OD_OBJECT, null));
+			poA.addTag(new Tag(TagType.NUMBER, null));
 
 			PhraseOutline poB = new PhraseOutline(logger, getName());
 			poB.addTag(new Tag(TagType.SETTER, null));
@@ -216,8 +216,8 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 
 			if (ParseHelpers.match(logger, setArray, phrase) != null) {
 				// make sure the setter has a value
-				Tag setter = phrase.getTagOfType(TagType.SETTER);
-				Tag number = phrase.getRelativeTag(TagType.NUMBER, setter, 1);
+				Tag setter = phrase.getTag(new Tag(TagType.SETTER, null));
+				Tag number = phrase.getRelativeTag(setter, new Tag(TagType.NUMBER, null), 1);
 
 				if (number.getValue().matches("-?\\d+(\\.\\d+)?")) {
 					types.add(NodeType.INTEGER);
@@ -237,15 +237,15 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 	private String interpretNode(Phrase phrase, NodeType nodeType) {
 		String result = "unknown";
 
-		boolean hasPwrOpt = phrase.getTagOfType(TagType.POWER_OPTION) != null; // it needs either a POWER_OPTION or SETTER
-		boolean hasSet = phrase.getTagOfType(TagType.SETTER) != null;
+		boolean hasPwrOpt = phrase.getTag(new Tag(TagType.POWER_OPTION, null)) != null; // it needs either a POWER_OPTION or SETTER
+		boolean hasSet = phrase.getTag(new Tag(TagType.SETTER, null)) != null;
 		if (hasPwrOpt || hasSet) {
 
 			// if there isn't a tag, try to find the object's default node
-			boolean hasNode = phrase.getTagOfType(TagType.NODE) != null; // it must not have a NODE, as that means it's talking about something besides power
+			boolean hasNode = phrase.getTag(new Tag(TagType.NODE, null)) != null; // it must not have a NODE, as that means it's talking about something besides power
 			if (!hasNode) {
 				// if the user has not specified a node, get the Object's default node
-				String[] query = { phrase.getTagOfType(TagType.OD_OBJECT).getValue() };
+				String[] query = { phrase.getTag(new Tag(TagType.OD_OBJECT, null)).getValue() };
 				QueryResponse queryResponse = od.query(logger, query);
 
 				DB_Node defaultNode = null;
@@ -265,13 +265,12 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 			} else {
 
 				// the user defined a specific node. use that:
-				Tag nodeTag = phrase.getTagOfType(TagType.NODE);
+				Tag nodeTag = phrase.getTag(new Tag(TagType.NODE, null));
 				result = nodeTag.getValue();
 			}
 		}
 		return result;
 	}
-
 	@Override
 	public String getName() {
 		return NAME;

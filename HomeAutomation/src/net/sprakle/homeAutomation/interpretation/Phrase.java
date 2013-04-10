@@ -33,24 +33,26 @@ public class Phrase {
 		logger.log(tagString, LogSource.PHRASE_INFO, 2);
 	}
 
-	public int getTagIndex(Tag t) {
+	public int getIndexOfTag(Tag t) {
 		return tags.indexOf(t);
 	}
 
-	// TODO: instead of a tagtype, allow passing of a shell tag, whitch can include a value
+	public Tag getTag(int index) {
+		return tags.get(index);
+	}
 
 	/*
 	 *  when given a shell tag (Only the TagType is set) it will return the full tag from a phrase
 	 *  If there are multiple tags found, or no tags found, null will be returned
 	 */
-	public Tag getTagOfType(TagType queryType) {
+	public Tag getTag(Tag shellTag) {
 		Tag result = null;
 
 		ArrayList<Tag> matchingTags = new ArrayList<Tag>();
 		for (Tag t : tags) {
-			if (t.getType() == queryType) {
+
+			if (match(shellTag, t))
 				matchingTags.add(t);
-			}
 		}
 
 		if (matchingTags.size() == 1) {
@@ -61,13 +63,12 @@ public class Phrase {
 	}
 
 	// similar to other getTagOfType(), but searches after a specific index - returns first one fond at the given index 
-	public Tag getTagOfType(TagType queryType, int startIndex) {
+	public Tag getTag(Tag shellTag, int startIndex) {
 		ArrayList<Tag> releventTags = new ArrayList<Tag>(tags.subList(startIndex, tags.size()));
 
 		for (Tag t : releventTags) {
-			if (t.getType() == queryType) {
+			if (match(shellTag, t))
 				return t;
-			}
 		}
 
 		return null;
@@ -106,11 +107,12 @@ public class Phrase {
 	 *            amount to traverse. 0 = the tag passed, 1 = the tag after
 	 * @return
 	 */
-	public Tag getRelativeTag(TagType type, Tag absolute, int delta) {
+	public Tag getRelativeTag(Tag absolute, Tag shellTag, int delta) {
+
 		while (delta > 0 && delta < tags.size()) {
 			Tag t = getRelativeTag(absolute, delta);
 
-			if (t.getType() == type)
+			if (match(shellTag, t))
 				return t;
 
 			// wrong type. find the next in line
@@ -121,6 +123,28 @@ public class Phrase {
 		}
 
 		return null;
+	}
+
+	private boolean match(Tag shell, Tag target) {
+		TagType type = shell.getType();
+		String value = shell.getValue();
+
+		boolean mustMatchType = type != null;
+		boolean mustMatchValue = value != null;
+
+		boolean typeMatched = true;
+		boolean valueMatched = true;
+
+		if (mustMatchType && target.getType() != type)
+			typeMatched = false;
+
+		if (mustMatchValue && !target.getValue().equals(value))
+			valueMatched = false;
+
+		if (typeMatched && valueMatched)
+			return true;
+
+		return false;
 	}
 
 	@Override

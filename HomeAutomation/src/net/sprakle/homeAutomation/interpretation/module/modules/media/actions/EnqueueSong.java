@@ -42,7 +42,7 @@ public class EnqueueSong extends MediaAction {
 
 	@Override
 	public void doExecute(Phrase phrase) {
-		Tag byTag = phrase.getTagOfType(TagType.POSSESSION);
+		Tag byTag = phrase.getTag(new Tag(TagType.POSSESSION, "by"));
 		if (byTag == null)
 			executeTitleOnly(phrase);
 		else
@@ -52,10 +52,8 @@ public class EnqueueSong extends MediaAction {
 	private void executeTitleOnly(Phrase phrase) {
 		String title = null;
 
-		Tag playTag = phrase.getTagOfType(TagType.PLAYBACK);
-		Tag titleTag = phrase.getRelativeTag(TagType.UNKOWN_TEXT, playTag, 1);
-		System.out.println("playTag: " + playTag);
-		System.out.println("titleTag: " + titleTag);
+		Tag playTag = phrase.getTag(new Tag(TagType.PLAYBACK, "play"));
+		Tag titleTag = phrase.getRelativeTag(playTag, new Tag(TagType.UNKOWN_TEXT, null), 1);
 		title = titleTag.getValue();
 
 		mc.enqueueTrack(title, null);

@@ -34,7 +34,7 @@ public class ChangePlaybackState extends MediaAction {
 
 	@Override
 	public void doExecute(Phrase phrase) {
-		Tag commandTag = phrase.getTagOfType(TagType.PLAYBACK);
+		Tag commandTag = phrase.getTag(new Tag(TagType.PLAYBACK, null));
 		String commandString = commandTag.getValue();
 
 		PlaybackCommand command = null;
