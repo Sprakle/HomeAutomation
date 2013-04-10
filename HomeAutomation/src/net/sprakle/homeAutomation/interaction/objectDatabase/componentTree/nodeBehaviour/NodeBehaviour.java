@@ -1,10 +1,10 @@
-package net.sprakle.homeAutomation.objectDatabase.componentTree.nodeBehaviour;
+package net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.nodeBehaviour;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import net.sprakle.homeAutomation.objectDatabase.NodeType;
-import net.sprakle.homeAutomation.objectDatabase.componentTree.components.DB_Node;
+import net.sprakle.homeAutomation.interaction.objectDatabase.NodeType;
+import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.components.DB_Node;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 

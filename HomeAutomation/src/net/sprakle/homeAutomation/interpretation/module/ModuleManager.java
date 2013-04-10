@@ -5,10 +5,10 @@ import java.util.HashMap;
 
 import javax.swing.JCheckBox;
 
+import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.GUI.ModuleGUI;
 import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
-import net.sprakle.homeAutomation.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;

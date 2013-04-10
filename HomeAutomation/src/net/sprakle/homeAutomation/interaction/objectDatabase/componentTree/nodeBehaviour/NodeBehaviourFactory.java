@@ -1,13 +1,13 @@
-package net.sprakle.homeAutomation.objectDatabase.componentTree.nodeBehaviour;
+package net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.nodeBehaviour;
 
 import java.util.HashMap;
 import java.util.Iterator;
 
 import net.sprakle.homeAutomation.interaction.arduino.Arduino;
-import net.sprakle.homeAutomation.objectDatabase.componentTree.components.DB_Node;
-import net.sprakle.homeAutomation.objectDatabase.componentTree.nodeBehaviour.NodeBehaviour.NodeBehaviourType;
-import net.sprakle.homeAutomation.objectDatabase.componentTree.nodeBehaviour.behaviours.ArduinoDevice;
-import net.sprakle.homeAutomation.objectDatabase.componentTree.nodeBehaviour.behaviours.Weather;
+import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.components.DB_Node;
+import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.nodeBehaviour.NodeBehaviour.NodeBehaviourType;
+import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.nodeBehaviour.behaviours.ArduinoDevice;
+import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.nodeBehaviour.behaviours.Weather;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 

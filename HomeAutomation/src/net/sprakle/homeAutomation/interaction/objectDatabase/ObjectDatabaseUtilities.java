@@ -1,9 +1,9 @@
-package net.sprakle.homeAutomation.objectDatabase;
+package net.sprakle.homeAutomation.interaction.objectDatabase;
 
 import java.util.ArrayList;
 
-import net.sprakle.homeAutomation.objectDatabase.componentTree.Component;
-import net.sprakle.homeAutomation.objectDatabase.componentTree.components.DB_Node;
+import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.Component;
+import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.components.DB_Node;
 
 public class ObjectDatabaseUtilities {
 

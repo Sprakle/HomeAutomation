@@ -1,9 +1,9 @@
-package net.sprakle.homeAutomation.objectDatabase.utilities;
+package net.sprakle.homeAutomation.interaction.objectDatabase.utilities;
 
 import java.util.ArrayList;
 
 import net.sprakle.homeAutomation.interaction.arduino.Arduino;
-import net.sprakle.homeAutomation.objectDatabase.componentTree.Component;
+import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.Component;
 
 import org.dom4j.Document;
 

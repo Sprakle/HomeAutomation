@@ -1,4 +1,4 @@
-package net.sprakle.homeAutomation.objectDatabase;
+package net.sprakle.homeAutomation.interaction.objectDatabase;
 
 import java.util.ArrayList;
 
@@ -7,11 +7,11 @@ import net.sprakle.homeAutomation.events.EventListener;
 import net.sprakle.homeAutomation.events.EventManager;
 import net.sprakle.homeAutomation.events.EventType;
 import net.sprakle.homeAutomation.interaction.arduino.Arduino;
+import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.Component;
+import net.sprakle.homeAutomation.interaction.objectDatabase.utilities.DepthFirstSearcher;
+import net.sprakle.homeAutomation.interaction.objectDatabase.utilities.ObjectCreator;
 import net.sprakle.homeAutomation.interpretation.module.modules.reloading.ReloadEvent;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
-import net.sprakle.homeAutomation.objectDatabase.componentTree.Component;
-import net.sprakle.homeAutomation.objectDatabase.utilities.DepthFirstSearcher;
-import net.sprakle.homeAutomation.objectDatabase.utilities.ObjectCreator;
 import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;

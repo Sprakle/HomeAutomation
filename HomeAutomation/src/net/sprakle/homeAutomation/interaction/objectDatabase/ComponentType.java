@@ -1,4 +1,4 @@
-package net.sprakle.homeAutomation.objectDatabase;
+package net.sprakle.homeAutomation.interaction.objectDatabase;
 
 public enum ComponentType {
 	DB_ROOT,

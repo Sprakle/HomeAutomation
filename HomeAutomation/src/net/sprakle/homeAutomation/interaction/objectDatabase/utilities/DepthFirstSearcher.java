@@ -1,9 +1,9 @@
-package net.sprakle.homeAutomation.objectDatabase.utilities;
+package net.sprakle.homeAutomation.interaction.objectDatabase.utilities;
 
 import java.util.ArrayList;
 import java.util.Stack;
 
-import net.sprakle.homeAutomation.objectDatabase.componentTree.Component;
+import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.Component;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 

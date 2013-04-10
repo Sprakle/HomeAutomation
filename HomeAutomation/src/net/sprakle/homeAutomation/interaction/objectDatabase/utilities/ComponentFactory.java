@@ -1,11 +1,11 @@
-package net.sprakle.homeAutomation.objectDatabase.utilities;
+package net.sprakle.homeAutomation.interaction.objectDatabase.utilities;
 
-import net.sprakle.homeAutomation.objectDatabase.NodeType;
-import net.sprakle.homeAutomation.objectDatabase.componentTree.Component;
-import net.sprakle.homeAutomation.objectDatabase.componentTree.components.DB_Node;
-import net.sprakle.homeAutomation.objectDatabase.componentTree.components.DB_Object;
-import net.sprakle.homeAutomation.objectDatabase.componentTree.nodeBehaviour.NodeBehaviour;
-import net.sprakle.homeAutomation.objectDatabase.componentTree.nodeBehaviour.NodeBehaviourFactory;
+import net.sprakle.homeAutomation.interaction.objectDatabase.NodeType;
+import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.Component;
+import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.components.DB_Node;
+import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.components.DB_Object;
+import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.nodeBehaviour.NodeBehaviour;
+import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.nodeBehaviour.NodeBehaviourFactory;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 

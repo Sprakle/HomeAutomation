@@ -6,11 +6,11 @@
  * DB_NodeBehaviour: defines what a node should do when it's value is changed
  */
 
-package net.sprakle.homeAutomation.objectDatabase.componentTree;
+package net.sprakle.homeAutomation.interaction.objectDatabase.componentTree;
 
 import java.util.ArrayList;
 
-import net.sprakle.homeAutomation.objectDatabase.ComponentType;
+import net.sprakle.homeAutomation.interaction.objectDatabase.ComponentType;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
