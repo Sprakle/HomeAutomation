@@ -12,7 +12,6 @@ import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.Pl
 import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.PlaySong;
 import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
-import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.utilities.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.MediaCentre;
@@ -26,19 +25,19 @@ public class Media extends InterpretationModule {
 	private Logger logger;
 	private MediaCentre mc;
 
-	public Media(Logger logger, Tagger tagger, ExternalSoftware exs) {
+	public Media(Logger logger, ExternalSoftware exs) {
 		this.logger = logger;
 
 		exs.initSoftware(SoftwareName.MEDIA_CENTRE);
 		mc = (MediaCentre) exs.getSoftware(SoftwareName.MEDIA_CENTRE);
 
 		mediaActions = new ArrayList<MediaAction>();
-		mediaActions.add(new ChangePlaybackState(logger, mc, tagger));
-		mediaActions.add(new EnqueueSong(logger, mc, tagger));
-		mediaActions.add(new IncrementalTrackChange(logger, mc, tagger));
-		mediaActions.add(new PlayRandomSong(logger, mc, tagger));
-		mediaActions.add(new PlayRandomSongByArtist(logger, mc, tagger));
-		mediaActions.add(new PlaySong(logger, mc, tagger));
+		mediaActions.add(new ChangePlaybackState(logger, mc));
+		mediaActions.add(new EnqueueSong(logger, mc));
+		mediaActions.add(new IncrementalTrackChange(logger, mc));
+		mediaActions.add(new PlayRandomSong(logger, mc));
+		mediaActions.add(new PlayRandomSongByArtist(logger, mc));
+		mediaActions.add(new PlaySong(logger, mc));
 	}
 
 	@Override

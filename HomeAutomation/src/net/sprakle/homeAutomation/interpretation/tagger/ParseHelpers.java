@@ -48,13 +48,11 @@ public class ParseHelpers {
 		return match;
 	}
 
-	// TODO: allow for checking of value
-	// TODO: make parsehelpers work without tagger, only using the tag in the phrase
 	/*
 	 *  when given a shell tag (Only the TagType is set) it will return the full tag from a phrase
 	 *  If there are multiple tags found, or no tags found, null will be returned
 	 */
-	public static Tag getTagOfType(Logger logger, Tagger tagger, TagType queryType, Phrase phrase) {
+	public static Tag getTagOfType(Logger logger, TagType queryType, Phrase phrase) {
 		Tag result = null;
 
 		ArrayList<Tag> tagsInPhrase = phrase.getTags();
@@ -74,18 +72,11 @@ public class ParseHelpers {
 	}
 
 	// similar to other getTagOfType(), but searches after a specific index - returns first one fond at the given index 
-	public static Tag getTagOfType(Logger logger, Tagger tagger, TagType queryType, Phrase phrase, int startIndex) {
+	public static Tag getTagOfType(Logger logger, TagType queryType, Phrase phrase, int startIndex) {
+		ArrayList<Tag> tagsInPhrase = phrase.getTags();
+		ArrayList<Tag> releventTags = new ArrayList<Tag>(tagsInPhrase.subList(startIndex, tagsInPhrase.size()));
 
-		// replace up to startIndex with whitespace
-		String whitespace = "";
-		for (int i = 0; i < startIndex; i++) {
-			whitespace += " ";
-		}
-
-		String text = whitespace + phrase.toString().substring(startIndex);
-		ArrayList<Tag> tagsInPhrase = tagger.tagText(text);
-
-		for (Tag t : tagsInPhrase) {
+		for (Tag t : releventTags) {
 			if (t.getType() == queryType) {
 				return t;
 			}

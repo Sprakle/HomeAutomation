@@ -8,7 +8,6 @@ import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
-import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
@@ -18,11 +17,9 @@ public class Reloading extends InterpretationModule {
 	private final String NAME = "Reloader";
 
 	private Logger logger;
-	private Tagger tagger;
 
-	public Reloading(Logger logger, Tagger tagger) {
+	public Reloading(Logger logger) {
 		this.logger = logger;
-		this.tagger = tagger;
 	}
 
 	@Override
@@ -49,11 +46,15 @@ public class Reloading extends InterpretationModule {
 		em.call(EventType.RELOAD, event);
 	}
 
+	// TODO: phrase method: return index of tag for sorting purposes
+	// TODO: add getTagOfType to phrase
 	private Tag selectExecution(Phrase phrase) {
+		ArrayList<Tag> tags = phrase.getTags();
+
 		ArrayList<PhraseOutline> outlines = new ArrayList<PhraseOutline>();
-		PhraseOutline poA = new PhraseOutline(logger, tagger, getName());
-		poA.addTag(new Tag(TagType.TIME_CHANGE, "restart", null, -1));
-		poA.addTag(new Tag(TagType.INTERNALS, null, null, -1));
+		PhraseOutline poA = new PhraseOutline(logger, getName());
+		poA.addTag(new Tag(TagType.TIME_CHANGE, "restart"));
+		poA.addTag(new Tag(TagType.INTERNALS, null));
 		outlines.add(poA);
 
 		PhraseOutline poMatch = ParseHelpers.match(logger, outlines, phrase);
@@ -61,8 +62,10 @@ public class Reloading extends InterpretationModule {
 		if (poMatch != poA)
 			return null;
 
-		Tag reloadTag = ParseHelpers.getTagOfType(logger, tagger, TagType.TIME_CHANGE, phrase);
-		Tag tagMatch = ParseHelpers.getTagOfType(logger, tagger, TagType.INTERNALS, phrase, reloadTag.getPosition());
+		Tag reloadTag = ParseHelpers.getTagOfType(logger, TagType.TIME_CHANGE, phrase);
+
+		int index = tags.indexOf(reloadTag);
+		Tag tagMatch = ParseHelpers.getTagOfType(logger, TagType.INTERNALS, phrase, index);
 
 		return tagMatch;
 	}

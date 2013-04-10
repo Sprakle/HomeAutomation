@@ -8,7 +8,6 @@ import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
-import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.synthesis.Synthesis;
@@ -22,15 +21,13 @@ import de.congrace.exp4j.UnparsableExpressionException;
 public class Math extends InterpretationModule {
 
 	private Logger logger;
-	private Tagger tagger;
 	private Synthesis synth;
 
 	// can be changed by user during runtime
 	private int roundToDecimals = 3;
 
-	public Math(Logger logger, Tagger tagger, Synthesis synth) {
+	public Math(Logger logger, Synthesis synth) {
 		this.logger = logger;
-		this.tagger = tagger;
 		this.synth = synth;
 	}
 
@@ -55,10 +52,10 @@ public class Math extends InterpretationModule {
 		 * SETTING
 		 */
 		ArrayList<PhraseOutline> outlines = new ArrayList<PhraseOutline>();
-		PhraseOutline poA = new PhraseOutline(logger, tagger, getName());
-		poA.addTag(new Tag(TagType.MATH_TERM, "round", null, -1));
-		poA.addTag(new Tag(TagType.NUMBER, null, null, -1));
-		poA.addTag(new Tag(TagType.MATH_TERM, "decimal", null, -1));
+		PhraseOutline poA = new PhraseOutline(logger, getName());
+		poA.addTag(new Tag(TagType.MATH_TERM, "round"));
+		poA.addTag(new Tag(TagType.NUMBER, null));
+		poA.addTag(new Tag(TagType.MATH_TERM, "decimal"));
 		outlines.add(poA);
 
 		PhraseOutline match = ParseHelpers.match(logger, outlines, phrase);
@@ -90,7 +87,7 @@ public class Math extends InterpretationModule {
 	}
 
 	private void executeSetting(Phrase phrase) {
-		Tag setRoundingToTag = ParseHelpers.getTagOfType(logger, tagger, TagType.NUMBER, phrase);
+		Tag setRoundingToTag = ParseHelpers.getTagOfType(logger, TagType.NUMBER, phrase);
 		int setRoundingTo = Integer.parseInt(setRoundingToTag.getValue());
 
 		roundToDecimals = setRoundingTo;

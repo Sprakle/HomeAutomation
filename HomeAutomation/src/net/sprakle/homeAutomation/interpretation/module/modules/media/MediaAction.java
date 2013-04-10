@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
-import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.MediaCentre;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
@@ -13,14 +12,12 @@ public abstract class MediaAction {
 
 	protected Logger logger;
 	protected MediaCentre mc;
-	protected Tagger tagger;
 
 	protected ArrayList<PhraseOutline> phraseOutlines;
 
-	public MediaAction(Logger logger, MediaCentre mc, Tagger tagger) {
+	public MediaAction(Logger logger, MediaCentre mc) {
 		this.logger = logger;
 		this.mc = mc;
-		this.tagger = tagger;
 
 		phraseOutlines = makePhraseOutlines();
 	}

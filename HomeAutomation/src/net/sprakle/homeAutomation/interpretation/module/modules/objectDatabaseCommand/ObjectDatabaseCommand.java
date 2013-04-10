@@ -6,7 +6,6 @@ import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
-import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.objectDatabase.NodeType;
@@ -27,13 +26,11 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 	private Logger logger;
 	private Synthesis synth;
 	private ObjectDatabase od;
-	private Tagger tagger;
 
-	public ObjectDatabaseCommand(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger) {
+	public ObjectDatabaseCommand(Logger logger, Synthesis synth, ObjectDatabase od) {
 		this.logger = logger;
 		this.synth = synth;
 		this.od = od;
-		this.tagger = tagger;
 	}
 
 	// returns true if a phrase applies to this determiner
@@ -61,7 +58,7 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 		switch (type) {
 			case BINARY:
 				logger.log("Executing " + NAME + "for a binary command", LogSource.DETERMINER_INFO, 2);
-				executeForBinary(od, tagger, phrase, nodeName);
+				executeForBinary(od, phrase, nodeName);
 				break;
 
 			case INTEGER:
@@ -76,12 +73,12 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 	}
 
 	// called when a binary change is requested. EX: turn on the light
-	private void executeForBinary(ObjectDatabase od, Tagger tagger, Phrase phrase, String nodeName) {
+	private void executeForBinary(ObjectDatabase od, Phrase phrase, String nodeName) {
 		// get the tag describing the target to execute the command on
-		Tag targetTag = ParseHelpers.getTagOfType(logger, tagger, TagType.OD_OBJECT, phrase);
+		Tag targetTag = ParseHelpers.getTagOfType(logger, TagType.OD_OBJECT, phrase);
 
 		// get the tag describing the command
-		Tag commandTag = ParseHelpers.getTagOfType(logger, tagger, TagType.POWER_OPTION, phrase);
+		Tag commandTag = ParseHelpers.getTagOfType(logger, TagType.POWER_OPTION, phrase);
 
 		String targetName = targetTag.getValue();
 
@@ -131,10 +128,12 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 	// called when an integer change is requested. EX: set light to 50 percent
 	private void executeForInteger(ObjectDatabase od, Phrase phrase, String nodeName) {
 		// get the tag describing the target to execute the command on
-		Tag targetTag = ParseHelpers.getTagOfType(logger, tagger, TagType.OD_OBJECT, phrase);
+		Tag targetTag = ParseHelpers.getTagOfType(logger, TagType.OD_OBJECT, phrase);
 
+		// TODO: add getRelativeTag() method that returns tags before and after a given tag
 		// get the tag describing the command
-		Tag commandTag = ParseHelpers.getTagOfType(logger, tagger, TagType.SETTER, phrase);
+		// TODO: make sure this comes after a setter
+		Tag numberTag = ParseHelpers.getTagOfType(logger, TagType.NUMBER, phrase);
 
 		String targetName = targetTag.getValue();
 
@@ -176,7 +175,7 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 		if (node == null) {
 			synth.speak("The object " + NAME + " does not have the node " + nodeName);
 		} else {
-			int command = Integer.parseInt(commandTag.getValue());
+			int command = Integer.parseInt(numberTag.getValue());
 			node.writeValue(NodeType.INTEGER, command);
 		}
 	}
@@ -190,9 +189,9 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 
 		// binary
 		{
-			PhraseOutline possibility1 = new PhraseOutline(logger, tagger, getName());
-			possibility1.addTag(new Tag(TagType.POWER_OPTION, null, null, -1));
-			possibility1.addTag(new Tag(TagType.OD_OBJECT, null, null, -1));
+			PhraseOutline possibility1 = new PhraseOutline(logger, getName());
+			possibility1.addTag(new Tag(TagType.POWER_OPTION, null));
+			possibility1.addTag(new Tag(TagType.OD_OBJECT, null));
 
 			ArrayList<PhraseOutline> binArray = new ArrayList<PhraseOutline>();
 			binArray.add(possibility1);
@@ -204,20 +203,29 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 
 		// integer
 		{
-			// tag outline
-			PhraseOutline possibility1 = new PhraseOutline(logger, tagger, getName());
-			possibility1.addTag(new Tag(TagType.SETTER, null, null, -1));
-			possibility1.addTag(new Tag(TagType.OD_OBJECT, null, null, -1));
+			PhraseOutline poA = new PhraseOutline(logger, getName());
+			poA.addTag(new Tag(TagType.SETTER, null));
+			poA.addTag(new Tag(TagType.NUMBER, null));
+			poA.addTag(new Tag(TagType.OD_OBJECT, null));
+
+			PhraseOutline poB = new PhraseOutline(logger, getName());
+			poB.addTag(new Tag(TagType.SETTER, null));
+			poB.addTag(new Tag(TagType.OD_OBJECT, null));
+			poB.addTag(new Tag(TagType.NUMBER, null));
 
 			// tag outlines
 			ArrayList<PhraseOutline> setArray = new ArrayList<PhraseOutline>();
-			setArray.add(possibility1);
+			setArray.add(poA);
+			setArray.add(poB);
 
 			if (ParseHelpers.match(logger, setArray, phrase) != null) {
 				// make sure the setter has a value
-				Tag setter = ParseHelpers.getTagOfType(logger, tagger, TagType.SETTER, phrase);
+				Tag setter = ParseHelpers.getTagOfType(logger, TagType.SETTER, phrase);
 
-				if (setter.getValue().matches("-?\\d+(\\.\\d+)?")) {
+				// TODO: make sure this comes after a setter
+				Tag number = ParseHelpers.getTagOfType(logger, TagType.NUMBER, phrase);
+
+				if (number.getValue().matches("-?\\d+(\\.\\d+)?")) {
 					types.add(NodeType.INTEGER);
 				}
 			}
@@ -235,15 +243,15 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 	private String interpretNode(Phrase phrase, NodeType nodeType) {
 		String result = "unknown";
 
-		boolean hasPwrOpt = ParseHelpers.getTagOfType(logger, tagger, TagType.POWER_OPTION, phrase) != null; // it needs either a POWER_OPTION or SETTER
-		boolean hasSet = ParseHelpers.getTagOfType(logger, tagger, TagType.SETTER, phrase) != null;
+		boolean hasPwrOpt = ParseHelpers.getTagOfType(logger, TagType.POWER_OPTION, phrase) != null; // it needs either a POWER_OPTION or SETTER
+		boolean hasSet = ParseHelpers.getTagOfType(logger, TagType.SETTER, phrase) != null;
 		if (hasPwrOpt || hasSet) {
 
 			// if there isn't a tag, try to find the object's default node
-			boolean hasNode = ParseHelpers.getTagOfType(logger, tagger, TagType.NODE, phrase) != null; // it must not have a NODE, as that means it's talking about something besides power
+			boolean hasNode = ParseHelpers.getTagOfType(logger, TagType.NODE, phrase) != null; // it must not have a NODE, as that means it's talking about something besides power
 			if (!hasNode) {
 				// if the user has not specified a node, get the Object's default node
-				String[] query = { ParseHelpers.getTagOfType(logger, tagger, TagType.OD_OBJECT, phrase).getValue() };
+				String[] query = { ParseHelpers.getTagOfType(logger, TagType.OD_OBJECT, phrase).getValue() };
 				QueryResponse queryResponse = od.query(logger, query);
 
 				DB_Node defaultNode = null;
@@ -263,7 +271,7 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 			} else {
 
 				// the user defined a specific node. use that:
-				Tag nodeTag = ParseHelpers.getTagOfType(logger, tagger, TagType.NODE, phrase);
+				Tag nodeTag = ParseHelpers.getTagOfType(logger, TagType.NODE, phrase);
 				result = nodeTag.getValue();
 			}
 		}

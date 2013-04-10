@@ -6,7 +6,6 @@ import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
-import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.objectDatabase.NodeType;
@@ -25,13 +24,11 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 	private Logger logger;
 	private Synthesis synth;
 	private ObjectDatabase od;
-	private Tagger tagger;
 
-	public ObjectDatabaseRQD(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger) {
+	public ObjectDatabaseRQD(Logger logger, Synthesis synth, ObjectDatabase od) {
 		this.logger = logger;
 		this.synth = synth;
 		this.od = od;
-		this.tagger = tagger;
 	}
 
 	@Override
@@ -49,7 +46,7 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 
 			// get the object in question
 			DB_Object targetObject = null;
-			String targetName = ParseHelpers.getTagOfType(logger, tagger, TagType.OD_OBJECT, phrase).getValue();
+			String targetName = ParseHelpers.getTagOfType(logger, TagType.OD_OBJECT, phrase).getValue();
 			String[] query = { targetName };
 			QueryResponse queryResponse = od.query(logger, query);
 
@@ -61,7 +58,7 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 			}
 
 			// what kind of information is the user requesting?
-			Tag questionTag = ParseHelpers.getTagOfType(logger, tagger, TagType.QUESTION, phrase);
+			Tag questionTag = ParseHelpers.getTagOfType(logger, TagType.QUESTION, phrase);
 			switch (questionTag.getValue()) {
 				case "generic": {
 					DB_Node targetNode = targetObject.getDefaultNode(NodeType.DEFAULT);
@@ -136,9 +133,9 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 		 */
 
 		// tag outline
-		PhraseOutline possibility1 = new PhraseOutline(logger, tagger, getName());
-		possibility1.addTag(new Tag(TagType.QUESTION, null, null, -1));
-		possibility1.addTag(new Tag(TagType.OD_OBJECT, null, null, -1));
+		PhraseOutline possibility1 = new PhraseOutline(logger, getName());
+		possibility1.addTag(new Tag(TagType.QUESTION, null));
+		possibility1.addTag(new Tag(TagType.OD_OBJECT, null));
 
 		// tag outlines
 		ArrayList<PhraseOutline> sentence = new ArrayList<PhraseOutline>();

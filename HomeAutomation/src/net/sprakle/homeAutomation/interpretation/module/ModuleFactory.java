@@ -25,11 +25,11 @@ public class ModuleFactory {
 		// temporarily hold modules for easy adding of each checkbox
 		ArrayList<InterpretationModule> moduleArray = new ArrayList<InterpretationModule>();
 
-		moduleArray.add(new ObjectDatabaseCommand(logger, synth, od, tagger));
-		moduleArray.add(new ObjectDatabaseRQD(logger, synth, od, tagger));
-		moduleArray.add(new Media(logger, tagger, exs));
-		moduleArray.add(new Math(logger, tagger, synth));
-		moduleArray.add(new Reloading(logger, tagger));
+		moduleArray.add(new ObjectDatabaseCommand(logger, synth, od));
+		moduleArray.add(new ObjectDatabaseRQD(logger, synth, od));
+		moduleArray.add(new Media(logger, exs));
+		moduleArray.add(new Math(logger, synth));
+		moduleArray.add(new Reloading(logger));
 
 		// add module and checkbox
 		for (InterpretationModule im : moduleArray) {

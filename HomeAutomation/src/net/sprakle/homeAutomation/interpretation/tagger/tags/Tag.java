@@ -6,19 +6,25 @@
 
 package net.sprakle.homeAutomation.interpretation.tagger.tags;
 
+import net.sprakle.homeAutomation.interpretation.tagger.TagFileParser;
+import net.sprakle.homeAutomation.utilities.logger.Logger;
+
 public class Tag {
 	private TagType type;
 
 	private String value;
-	private String originalText;
 
-	private int position;
-
-	public Tag(TagType type, String value, String originalText, int position) {
+	public Tag(TagType type, String value) {
 		this.type = type;
 		this.value = value;
-		this.originalText = originalText;
-		this.position = position;
+	}
+
+	public Tag(Logger logger, String originalText) {
+		TagType type = TagFileParser.getType(logger, originalText);
+		String value = TagFileParser.getValue(logger, originalText);
+
+		this.type = type;
+		this.value = value;
 	}
 
 	public TagType getType() {
@@ -29,28 +35,8 @@ public class Tag {
 		return value;
 	}
 
-	public String getOriginalText() {
-		return originalText;
-	}
-
-	public int getPosition() {
-		return position;
-	}
-
 	@Override
 	public String toString() {
-		return "{" + type + "/" + value + "}-[" + position + "]";
+		return "{" + type + "/" + value + "}";
 	}
-
-	// checks if this tag should be sorted before another
-	public boolean comesBefore(Tag t) {
-		if (position < t.getPosition()) {
-			return true;
-		} else if (position > t.getPosition()) {
-			return false;
-		}
-
-		return false;
-	}
-
 }

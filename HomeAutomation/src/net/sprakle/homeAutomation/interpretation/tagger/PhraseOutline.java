@@ -13,7 +13,7 @@ public class PhraseOutline {
 
 	private ArrayList<Tag> outlineTags;
 
-	public PhraseOutline(Logger logger, Tagger tagger, String description) {
+	public PhraseOutline(Logger logger, String description) {
 		this.description = description;
 
 		outlineTags = new ArrayList<Tag>();

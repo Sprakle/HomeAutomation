@@ -6,7 +6,6 @@ import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.MediaAction;
 import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
-import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.MediaCentre;
@@ -15,8 +14,8 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class EnqueueSong extends MediaAction {
 
-	public EnqueueSong(Logger logger, MediaCentre mc, Tagger tagger) {
-		super(logger, mc, tagger);
+	public EnqueueSong(Logger logger, MediaCentre mc) {
+		super(logger, mc);
 	}
 
 	@Override
@@ -24,17 +23,17 @@ public class EnqueueSong extends MediaAction {
 
 		ArrayList<PhraseOutline> outlines = new ArrayList<PhraseOutline>();
 
-		PhraseOutline poA = new PhraseOutline(logger, tagger, getName() + " (title only)");
-		poA.addTag(new Tag(TagType.PLAYBACK, "play", null, -1));
-		poA.addTag(new Tag(TagType.UNKOWN_TEXT, null, null, -1));
-		poA.addTag(new Tag(TagType.TIME_CHANGE, "next", null, -1));
+		PhraseOutline poA = new PhraseOutline(logger, getName() + " (title only)");
+		poA.addTag(new Tag(TagType.PLAYBACK, "play"));
+		poA.addTag(new Tag(TagType.UNKOWN_TEXT, null));
+		poA.addTag(new Tag(TagType.TIME_CHANGE, "next"));
 
-		PhraseOutline poB = new PhraseOutline(logger, tagger, getName() + " (title + artist)");
-		poB.addTag(new Tag(TagType.PLAYBACK, "play", null, -1));
-		poB.addTag(new Tag(TagType.UNKOWN_TEXT, null, null, -1));
-		poB.addTag(new Tag(TagType.POSSESSION, "owned", null, -1));
-		poB.addTag(new Tag(TagType.UNKOWN_TEXT, null, null, -1));
-		poB.addTag(new Tag(TagType.TIME_CHANGE, "next", null, -1));
+		PhraseOutline poB = new PhraseOutline(logger, getName() + " (title + artist)");
+		poB.addTag(new Tag(TagType.PLAYBACK, "play"));
+		poB.addTag(new Tag(TagType.UNKOWN_TEXT, null));
+		poB.addTag(new Tag(TagType.POSSESSION, "owned"));
+		poB.addTag(new Tag(TagType.UNKOWN_TEXT, null));
+		poB.addTag(new Tag(TagType.TIME_CHANGE, "next"));
 
 		outlines.add(poA);
 		outlines.add(poB);
@@ -44,7 +43,7 @@ public class EnqueueSong extends MediaAction {
 
 	@Override
 	public void doExecute(Phrase phrase) {
-		Tag byTag = ParseHelpers.getTagOfType(logger, tagger, TagType.POSSESSION, phrase);
+		Tag byTag = ParseHelpers.getTagOfType(logger, TagType.POSSESSION, phrase);
 		if (byTag == null)
 			executeTitleOnly(phrase);
 		else

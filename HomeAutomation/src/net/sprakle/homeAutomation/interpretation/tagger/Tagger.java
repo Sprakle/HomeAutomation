@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 import net.sprakle.homeAutomation.events.Event;
 import net.sprakle.homeAutomation.events.EventListener;
@@ -24,20 +25,31 @@ import net.sprakle.homeAutomation.events.EventType;
 import net.sprakle.homeAutomation.interpretation.module.modules.reloading.ReloadEvent;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
-import net.sprakle.homeAutomation.interpretation.tagger.tags.TagUtilities;
 import net.sprakle.homeAutomation.main.Config;
 import net.sprakle.homeAutomation.synthesis.Synthesis;
+import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.utilities.fileAccess.read.LineByLine;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class Tagger implements EventListener {
-	// FIXME: bug: in a phrase like: "play alchemy by alchemy" the tags are out of order
 
 	private Logger logger;
 	private Synthesis synth;
 
 	private Path tagFile;
 	private List<String> lines = null;
+
+	public static void main(String args[]) {
+		Logger logger = new Logger();
+		ExternalSoftware exs = new ExternalSoftware(logger);
+		Synthesis synth = new Synthesis(logger, exs);
+		Tagger tagger = new Tagger(logger, synth);
+
+		String phrase = "10 plus 5 times 10";
+		ArrayList<Tag> tags = tagger.tagText(phrase);
+		for (Tag t : tags)
+			System.out.println(t);
+	}
 
 	public Tagger(Logger logger, Synthesis synth) {
 		this.logger = logger;
@@ -50,24 +62,39 @@ public class Tagger implements EventListener {
 	}
 
 	public ArrayList<Tag> tagText(String text) {
-		// will hold the tags
-		ArrayList<Tag> tags = new ArrayList<Tag>();
+
+		// used to sort tags by their position in the text
+		TreeMap<Integer, Tag> sortingTags = new TreeMap<Integer, Tag>();
 
 		/* 
 		 * TAG STANDARD TAGS
 		 * (located in tagFile)
 		 */
+		// repeat until no more tags can be found
+		int tagsFound = 1;
+		while (tagsFound > 0) {
+			tagsFound = 0;
 
-		// loop though each line, searching for matches in the phrase. Note: this must not simply device words by whitespace and match them, as some tags are multi-worded
-		for (String s : lines) {
-			String trigger = TagFileParser.getTrigger(logger, s);
+			// for each tag in taglist
+			for (String s : lines) {
+				String trigger = TagFileParser.getTrigger(logger, s);
 
-			// check if it contains the trigger, but only if there are no characters surrounding it
-			if (shouldTag(text, trigger)) {
+				// check if it contains the trigger, but only if there are no characters surrounding it
+				if (shouldTag(text, trigger)) {
 
-				// standard tags
-				Tag tag = TagFactory.getTag(logger, s, text);
-				tags.add(tag);
+					Tag tag = new Tag(logger, s);
+					int position = text.indexOf(trigger);
+
+					sortingTags.put(position, tag);
+
+					// replace trigger in text with blanks. a star is used to signify that a tag used to be there
+					String whitespace = "*";
+					for (int i = 0; i < trigger.length() - 1; i++)
+						whitespace += " ";
+					text = text.replaceFirst(trigger, whitespace);
+
+					tagsFound++;
+				}
 			}
 		}
 
@@ -82,110 +109,48 @@ public class Tagger implements EventListener {
 			word = word.trim(); // just in case there were multiple spaces
 
 			// is it a number?
-			if (word.matches("-?\\d+(\\.\\d+)?")) { // woo! my first regex!
+			if (word.matches("-?\\d+(\\.\\d+)?")) {
 
 				// make a temporary tagFile line based off that number, as the TagFactory needs it to give a tag it's position on the line
 				String tagFileLine = "\"" + word + "\" {NUMBER/" + word + "}";
-				Tag tag = TagFactory.getTag(logger, tagFileLine, text);
-				tags.add(tag);
+				Tag tag = new Tag(logger, tagFileLine);
+
+				int index = text.indexOf(word);
+				sortingTags.put(index, tag);
+
+				// replace number in text with blanks. a star is used to signify that a tag used to be there
+				String whitespace = "*";
+				for (int i = 0; i < word.length() - 1; i++)
+					whitespace += " ";
+				text = text.replaceFirst(word, whitespace);
 			}
-		}
-
-		tags = TagUtilities.orderTags(tags);
-
-		/*
-		 * REPLACE {SETTER/i} + {NUMBER/x} with {SETTER/x}
-		 * EX: {SETTER/i} + {NUMBER/20} + {OD_OBJECT/light} = {SETTER/20} {OD_OBJECT/light}
-		 * 
-		 * Tag order is important here
-		 */
-
-		// to avoid C.M.E, we need to add add and remove things *after* the for loop is complete.
-		// addAfter contains Tags to add, addAt has the corresponding index it should be added at
-		ArrayList<Tag> addAfter = new ArrayList<Tag>();
-		ArrayList<Integer> addAt = new ArrayList<Integer>();
-
-		// removeAfter contains Tags to remove
-		ArrayList<Tag> removeAfter = new ArrayList<Tag>();
-
-		for (Tag t : tags) {
-			if (t.getType() == TagType.SETTER) {
-				// we found a setter! now look for the next number
-
-				int currentIndex = tags.indexOf(t) + 1; // look for the number
-
-				boolean searching = true;
-				while (searching) {
-
-					// quit when reaching the end of the arrayList in case there is no NUMBER
-					if (currentIndex >= tags.size()) {
-						break;
-					}
-
-					if (tags.get(currentIndex).getType() == TagType.NUMBER) {
-
-						Tag oldSetter = t;
-						Tag oldNumber = tags.get(currentIndex);
-
-						// create the new SETTER tag with the value of the NUMBER tag
-						Tag newSetter = new Tag(TagType.SETTER, oldNumber.getValue(), oldNumber.getOriginalText(), oldSetter.getPosition());
-
-						// remove the old NUMBER tag
-						//tags.remove(oldNumber);
-						removeAfter.add(oldNumber);
-
-						// replace the old SETTER with the new one
-						//tags.add(tags.indexOf(oldSetter), newSetter);
-						//tags.remove(oldSetter);
-						addAfter.add(newSetter);
-						addAt.add(tags.indexOf(oldSetter));
-
-						removeAfter.add(oldSetter);
-					}
-
-					currentIndex++;
-				}
-			}
-		}
-
-		for (Tag t : removeAfter) {
-			tags.remove(t);
-		}
-
-		for (Tag t : addAfter) {
-			int index = addAt.get(addAfter.indexOf(t));
-			tags.add(index, t);
 		}
 
 		/*
 		 * Tag remaining untagged text
 		 */
-		// find untagged text
-		String untagged = text;
-		for (Tag t : tags) {
-			untagged = untagged.replace(t.getOriginalText(), "*");
-		}
-		untagged.replaceAll(" ", "");
-
 		// create tags based off untagged text
-		String untaggedArray[] = untagged.split("\\*");
+		String untaggedArray[] = text.split("\\*");
 		for (int i = 0; i < untaggedArray.length; i++) {
 			String value = untaggedArray[i].trim();
+			int index = text.indexOf(value);
 
 			if (value.equals(""))
 				continue;
 
-			int position = text.indexOf(value);
-			Tag t = new Tag(TagType.UNKOWN_TEXT, value, value, position);
+			value = value.trim();
+			Tag t = new Tag(TagType.UNKOWN_TEXT, value);
 
-			tags.add(t);
+			sortingTags.put(index, t);
 		}
 
-		// sort tags back into order in rawText
-		tags = TagUtilities.orderTags(tags);
+		// sort tags 
+		ArrayList<Tag> tags = new ArrayList<Tag>();
+		tags.addAll(sortingTags.values());
 
 		return tags;
 	}
+
 	private boolean shouldTag(String text, String trigger) {
 		boolean result = true;
 

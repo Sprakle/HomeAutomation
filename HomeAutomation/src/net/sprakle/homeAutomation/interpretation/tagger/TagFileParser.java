@@ -7,7 +7,7 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 public class TagFileParser {
 
 	// gets the trigger of a line
-	static String getTrigger(Logger logger, String line) {
+	public static String getTrigger(Logger logger, String line) {
 		String trigger = null;
 
 		trigger = getStringBetween(logger, line, "\"", "\"");
@@ -16,7 +16,7 @@ public class TagFileParser {
 	}
 
 	// gets the tagType of a line
-	static TagType getType(Logger logger, String line) {
+	public static TagType getType(Logger logger, String line) {
 		TagType type = null;
 
 		String typeString = getStringBetween(logger, line, "{", "/");
@@ -32,7 +32,7 @@ public class TagFileParser {
 	}
 
 	// gets the value of the line
-	static String getValue(Logger logger, String line) {
+	public static String getValue(Logger logger, String line) {
 		String value = null;
 
 		value = getStringBetween(logger, line, "/", "}");
