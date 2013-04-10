@@ -87,7 +87,7 @@ public class Math extends InterpretationModule {
 	}
 
 	private void executeSetting(Phrase phrase) {
-		Tag setRoundingToTag = ParseHelpers.getTagOfType(logger, TagType.NUMBER, phrase);
+		Tag setRoundingToTag = phrase.getTagOfType(TagType.NUMBER);
 		int setRoundingTo = Integer.parseInt(setRoundingToTag.getValue());
 
 		roundToDecimals = setRoundingTo;

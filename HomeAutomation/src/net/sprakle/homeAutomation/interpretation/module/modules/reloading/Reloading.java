@@ -46,8 +46,6 @@ public class Reloading extends InterpretationModule {
 		em.call(EventType.RELOAD, event);
 	}
 
-	// TODO: phrase method: return index of tag for sorting purposes
-	// TODO: add getTagOfType to phrase
 	private Tag selectExecution(Phrase phrase) {
 		ArrayList<Tag> tags = phrase.getTags();
 
@@ -62,10 +60,10 @@ public class Reloading extends InterpretationModule {
 		if (poMatch != poA)
 			return null;
 
-		Tag reloadTag = ParseHelpers.getTagOfType(logger, TagType.TIME_CHANGE, phrase);
+		Tag reloadTag = phrase.getTagOfType(TagType.TIME_CHANGE);
 
 		int index = tags.indexOf(reloadTag);
-		Tag tagMatch = ParseHelpers.getTagOfType(logger, TagType.INTERNALS, phrase, index);
+		Tag tagMatch = phrase.getTagOfType(TagType.INTERNALS, index);
 
 		return tagMatch;
 	}

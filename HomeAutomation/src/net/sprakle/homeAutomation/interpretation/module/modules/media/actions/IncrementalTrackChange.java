@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.MediaAction;
-import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
@@ -40,7 +39,7 @@ public class IncrementalTrackChange extends MediaAction {
 
 	@Override
 	public void doExecute(Phrase phrase) {
-		Tag tag = ParseHelpers.getTagOfType(logger, TagType.TIME_CHANGE, phrase);
+		Tag tag = phrase.getTagOfType(TagType.TIME_CHANGE);
 		String commandString = tag.getValue();
 
 		PlaybackCommand command = null;

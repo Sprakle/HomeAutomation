@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.MediaAction;
-import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
@@ -43,7 +42,7 @@ public class EnqueueSong extends MediaAction {
 
 	@Override
 	public void doExecute(Phrase phrase) {
-		Tag byTag = ParseHelpers.getTagOfType(logger, TagType.POSSESSION, phrase);
+		Tag byTag = phrase.getTagOfType(TagType.POSSESSION);
 		if (byTag == null)
 			executeTitleOnly(phrase);
 		else
@@ -53,13 +52,9 @@ public class EnqueueSong extends MediaAction {
 	private void executeTitleOnly(Phrase phrase) {
 		String title = null;
 
-		ArrayList<Tag> tags = phrase.getTags();
-		for (Tag t : tags) {
-			if (t.getType() == TagType.UNKOWN_TEXT) {
-				title = t.getValue();
-				break;
-			}
-		}
+		Tag playTag = phrase.getTagOfType(TagType.PLAYBACK);
+		Tag titleTag = phrase.getRelativeTag(TagType.UNKOWN_TEXT, playTag, 1);
+		titleTag.getValue();
 
 		mc.enqueueTrack(title, null);
 	}

@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 import net.sprakle.homeAutomation.interpretation.Phrase;
-import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
-import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class ParseHelpers {
@@ -46,42 +44,5 @@ public class ParseHelpers {
 
 		// get the most confident entry
 		return match;
-	}
-
-	/*
-	 *  when given a shell tag (Only the TagType is set) it will return the full tag from a phrase
-	 *  If there are multiple tags found, or no tags found, null will be returned
-	 */
-	public static Tag getTagOfType(Logger logger, TagType queryType, Phrase phrase) {
-		Tag result = null;
-
-		ArrayList<Tag> tagsInPhrase = phrase.getTags();
-
-		ArrayList<Tag> matchingTags = new ArrayList<Tag>();
-		for (Tag t : tagsInPhrase) {
-			if (t.getType() == queryType) {
-				matchingTags.add(t);
-			}
-		}
-
-		if (matchingTags.size() == 1) {
-			result = matchingTags.get(0);
-		}
-
-		return result;
-	}
-
-	// similar to other getTagOfType(), but searches after a specific index - returns first one fond at the given index 
-	public static Tag getTagOfType(Logger logger, TagType queryType, Phrase phrase, int startIndex) {
-		ArrayList<Tag> tagsInPhrase = phrase.getTags();
-		ArrayList<Tag> releventTags = new ArrayList<Tag>(tagsInPhrase.subList(startIndex, tagsInPhrase.size()));
-
-		for (Tag t : releventTags) {
-			if (t.getType() == queryType) {
-				return t;
-			}
-		}
-
-		return null;
 	}
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.MediaAction;
-import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
@@ -35,7 +34,7 @@ public class ChangePlaybackState extends MediaAction {
 
 	@Override
 	public void doExecute(Phrase phrase) {
-		Tag commandTag = ParseHelpers.getTagOfType(logger, TagType.PLAYBACK, phrase);
+		Tag commandTag = phrase.getTagOfType(TagType.PLAYBACK);
 		String commandString = commandTag.getValue();
 
 		PlaybackCommand command = null;

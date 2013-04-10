@@ -46,7 +46,7 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 
 			// get the object in question
 			DB_Object targetObject = null;
-			String targetName = ParseHelpers.getTagOfType(logger, TagType.OD_OBJECT, phrase).getValue();
+			String targetName = phrase.getTagOfType(TagType.OD_OBJECT).getValue();
 			String[] query = { targetName };
 			QueryResponse queryResponse = od.query(logger, query);
 
@@ -58,7 +58,7 @@ public class ObjectDatabaseRQD extends InterpretationModule {
 			}
 
 			// what kind of information is the user requesting?
-			Tag questionTag = ParseHelpers.getTagOfType(logger, TagType.QUESTION, phrase);
+			Tag questionTag = phrase.getTagOfType(TagType.QUESTION);
 			switch (questionTag.getValue()) {
 				case "generic": {
 					DB_Node targetNode = targetObject.getDefaultNode(NodeType.DEFAULT);
