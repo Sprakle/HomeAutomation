@@ -40,7 +40,8 @@ public class TextInputListener implements ActionListener, MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		textField.setText(emptyText);
+		if (textField.getText().equals("") || textField.getText().equals(promptText))
+			textField.setText(emptyText);
 	}
 	@Override
 	public void mouseExited(MouseEvent arg0) {
