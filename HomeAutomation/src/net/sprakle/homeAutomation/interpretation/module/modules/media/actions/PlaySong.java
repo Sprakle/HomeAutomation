@@ -28,14 +28,38 @@ public class PlaySong extends MediaAction {
 		poA.addTag(new Tag(TagType.POSSESSION, "owned"));
 		poA.addTag(new Tag(TagType.UNKOWN_TEXT, null));
 
+		PhraseOutline poB = new PhraseOutline(logger, getName());
+		poB.addTag(new Tag(TagType.PLAYBACK, "play"));
+		poB.addTag(new Tag(TagType.UNKOWN_TEXT, null));
+
 		outlines.add(poA);
+		outlines.add(poB);
 
 		return outlines;
 	}
 
 	@Override
 	public void doExecute(Phrase phrase) {
-		// get the {UNKOWN_TEXT} tag value after the {POSSESION/BY} tag
+		Tag byTag = phrase.getTagOfType(TagType.POSSESSION);
+		if (byTag == null)
+			executeTitleOnly(phrase);
+		else
+			executeTitleAndArtist(phrase);
+	}
+
+	private void executeTitleOnly(Phrase phrase) {
+		String title = null;
+
+		Tag playTag = phrase.getTagOfType(TagType.PLAYBACK);
+		Tag titleTag = phrase.getRelativeTag(TagType.UNKOWN_TEXT, playTag, 1);
+		System.out.println("playTag: " + playTag);
+		System.out.println("titleTag: " + titleTag);
+		title = titleTag.getValue();
+
+		mc.playTrack(title, null);
+	}
+
+	private void executeTitleAndArtist(Phrase phrase) {
 		ArrayList<Tag> tags = phrase.getTags();
 
 		int ownedTagIndex = -1;

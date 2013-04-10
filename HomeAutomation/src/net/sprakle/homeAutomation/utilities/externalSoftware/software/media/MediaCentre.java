@@ -12,7 +12,6 @@ import net.sprakle.homeAutomation.main.Config;
 import net.sprakle.homeAutomation.main.OS;
 import net.sprakle.homeAutomation.utilities.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.CommandLineInterface;
-import net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.os.LinuxCLI;
 import net.sprakle.homeAutomation.utilities.externalSoftware.software.SoftwareInterface;
 import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.os.MediaController;
 import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.os.linux.Rhythmbox;
@@ -97,14 +96,6 @@ public class MediaCentre extends SoftwareInterface implements EventListener {
 	@Override
 	public SoftwareName getSoftwareName() {
 		return SoftwareName.MEDIA_CENTRE;
-	}
-
-	public static void main(String args[]) {
-		Logger logger = new Logger();
-
-		MediaCentre mc = new MediaCentre(logger, new LinuxCLI(logger));
-
-		mc.playRandomTrack("poets of the fall");
 	}
 
 	@Override

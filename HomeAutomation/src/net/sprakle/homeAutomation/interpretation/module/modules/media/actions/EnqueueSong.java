@@ -54,7 +54,9 @@ public class EnqueueSong extends MediaAction {
 
 		Tag playTag = phrase.getTagOfType(TagType.PLAYBACK);
 		Tag titleTag = phrase.getRelativeTag(TagType.UNKOWN_TEXT, playTag, 1);
-		titleTag.getValue();
+		System.out.println("playTag: " + playTag);
+		System.out.println("titleTag: " + titleTag);
+		title = titleTag.getValue();
 
 		mc.enqueueTrack(title, null);
 	}
