@@ -25,6 +25,7 @@ public enum LogSource {
 	GOOGLE_SPEECH_INFO(100, 255, 0),
 	EXTERNAL_SOFTWARE(20, 20, 20),
 	MATH(100, 100, 255),
+	SPELLING(50, 255, 50),
 	FILE_ACCES(100, 100, 0);
 	private final Color color;
 

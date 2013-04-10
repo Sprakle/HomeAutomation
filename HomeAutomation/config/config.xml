@@ -53,6 +53,10 @@
 		<visual_display_time>70</visual_display_time> <!-- time to display recognized speech -->
 	</speech_recognition>
 	
+	<spelling>
+		<dictionary>res/spelling/en_ca.dict</dictionary>
+	</spelling>
+	
 	<external_software>
 		<rhythmbox>
 			<relative_directory>.local/share/rhythmbox/rhythmdb.xml</relative_directory>
