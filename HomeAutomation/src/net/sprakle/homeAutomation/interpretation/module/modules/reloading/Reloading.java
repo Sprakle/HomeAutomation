@@ -6,7 +6,6 @@ import net.sprakle.homeAutomation.events.EventManager;
 import net.sprakle.homeAutomation.events.EventType;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
-import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
@@ -55,7 +54,7 @@ public class Reloading extends InterpretationModule {
 		poA.addTag(new Tag(TagType.INTERNALS, null));
 		outlines.add(poA);
 
-		PhraseOutline poMatch = ParseHelpers.match(logger, outlines, phrase);
+		PhraseOutline poMatch = phrase.matchOutlines(logger, outlines);
 
 		if (poMatch != poA)
 			return null;

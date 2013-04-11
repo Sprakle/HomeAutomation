@@ -10,7 +10,6 @@ import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.In
 import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.PlayRandomSong;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.PlayRandomSongByArtist;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.PlaySong;
-import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.utilities.externalSoftware.SoftwareName;
@@ -63,7 +62,7 @@ public class Media extends InterpretationModule {
 			phraseOutlines.addAll(ma.getPhraseOutlines());
 		}
 
-		PhraseOutline poResult = ParseHelpers.match(logger, phraseOutlines, phrase);
+		PhraseOutline poResult = phrase.matchOutlines(logger, phraseOutlines);
 
 		// get the media action that had the resulting phrase outline
 		for (MediaAction ma : mediaActions) {

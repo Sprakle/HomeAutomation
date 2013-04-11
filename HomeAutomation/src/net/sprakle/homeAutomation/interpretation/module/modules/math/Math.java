@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
-import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
@@ -58,7 +57,7 @@ public class Math extends InterpretationModule {
 		poA.addTag(new Tag(TagType.MATH_TERM, "decimal"));
 		outlines.add(poA);
 
-		PhraseOutline match = ParseHelpers.match(logger, outlines, phrase);
+		PhraseOutline match = phrase.matchOutlines(logger, outlines);
 		if (match != null)
 			return Execution.SETTING;
 

@@ -9,7 +9,6 @@ import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.compo
 import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.components.DB_Object;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
-import net.sprakle.homeAutomation.interpretation.tagger.ParseHelpers;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
@@ -192,7 +191,7 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 			ArrayList<PhraseOutline> binArray = new ArrayList<PhraseOutline>();
 			binArray.add(possibility1);
 
-			if (ParseHelpers.match(logger, binArray, phrase) != null) {
+			if (phrase.matchOutlines(logger, binArray) != null) {
 				types.add(NodeType.BINARY);
 			}
 		}
@@ -214,7 +213,7 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 			setArray.add(poA);
 			setArray.add(poB);
 
-			if (ParseHelpers.match(logger, setArray, phrase) != null) {
+			if (phrase.matchOutlines(logger, setArray) != null) {
 				// make sure the setter has a value
 				Tag setter = phrase.getTag(new Tag(TagType.SETTER, null));
 				Tag number = phrase.getRelativeTag(setter, new Tag(TagType.NUMBER, null), 1);

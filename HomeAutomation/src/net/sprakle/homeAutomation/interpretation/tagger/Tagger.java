@@ -27,7 +27,6 @@ import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.main.Config;
 import net.sprakle.homeAutomation.synthesis.Synthesis;
-import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.utilities.fileAccess.read.LineByLine;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
@@ -38,18 +37,6 @@ public class Tagger implements EventListener {
 
 	private Path tagFile;
 	private List<String> lines = null;
-
-	public static void main(String args[]) {
-		Logger logger = new Logger();
-		ExternalSoftware exs = new ExternalSoftware(logger);
-		Synthesis synth = new Synthesis(logger, exs);
-		Tagger tagger = new Tagger(logger, synth);
-
-		String phrase = "10 plus 5 times 10";
-		ArrayList<Tag> tags = tagger.tagText(phrase);
-		for (Tag t : tags)
-			System.out.println(t);
-	}
 
 	public Tagger(Logger logger, Synthesis synth) {
 		this.logger = logger;

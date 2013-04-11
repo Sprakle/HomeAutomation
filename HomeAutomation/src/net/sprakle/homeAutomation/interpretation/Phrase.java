@@ -1,7 +1,9 @@
 package net.sprakle.homeAutomation.interpretation;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
+import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
@@ -154,5 +156,35 @@ public class Phrase {
 
 	public ArrayList<Tag> getTags() {
 		return tags;
+	}
+
+	/**
+	 * 
+	 * @param logger
+	 * @param phraseOutlines
+	 *            arraylist of possibilities to match
+	 * @return the matching outline. returns null if there are not matches
+	 */
+	public PhraseOutline matchOutlines(Logger logger, ArrayList<PhraseOutline> phraseOutlines) {
+		// used to sort outlines by their confidence rating
+		TreeMap<Integer, PhraseOutline> matches = new TreeMap<Integer, PhraseOutline>();
+
+		// for every 1 dimensional array AKA phrase outline
+		for (PhraseOutline at : phraseOutlines) {
+
+			int outlineConfidence = at.match(this);
+			if (outlineConfidence > 0) {
+				matches.put(outlineConfidence, at);
+			}
+		}
+
+		// return null if no matches
+		if (matches.size() == 0)
+			return null;
+
+		PhraseOutline match = matches.lastEntry().getValue();
+
+		// get the most confident entry
+		return match;
 	}
 }
