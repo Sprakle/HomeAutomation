@@ -15,6 +15,7 @@ import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.utilities.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
+import net.sprakle.homeAutomation.utilities.speller.Speller;
 
 @SuppressWarnings("unused")
 public class ApplicationFactory {
@@ -24,6 +25,7 @@ public class ApplicationFactory {
 
 	private Logger logger;
 	private ExternalSoftware exs;
+	private Speller speller;
 	private Synthesis synth;
 	private Arduino arduino;
 	private ObjectDatabase objectDatabase;
@@ -53,10 +55,10 @@ public class ApplicationFactory {
 		exs = new ExternalSoftware(logger);
 		exs.initSoftware(SoftwareName.SWIFT);
 
+		speller = new Speller(logger);
+
 		synth = new Synthesis(logger, exs);
 		synth.speak(STARTUP_SPEECH);
-
-		//exs.initSoftware(SoftwareName.MEDIA_CENTRE);
 
 		// initialize UI
 		textInput = new TextInput(logger);
@@ -69,7 +71,7 @@ public class ApplicationFactory {
 		objectDatabase = new ObjectDatabase(logger, synth, arduino);
 
 		// initialize interpretation
-		interpreter = new Interpreter(logger, synth, objectDatabase, exs);
+		interpreter = new Interpreter(logger, synth, objectDatabase, exs, speller);
 
 		synth.speak("ready");
 

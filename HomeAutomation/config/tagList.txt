@@ -92,3 +92,5 @@
 "decimal"			{MATH_TERM/decimal}
 
 "pi"				{NUMBER/3.14159}
+
+"spell"				{GENERAL_COMMAND/spell}

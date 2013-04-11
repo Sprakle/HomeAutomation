@@ -13,6 +13,7 @@ import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
+import net.sprakle.homeAutomation.utilities.speller.Speller;
 
 public class ModuleManager {
 	HashMap<JCheckBox, InterpretationModule> modules;
@@ -21,10 +22,10 @@ public class ModuleManager {
 
 	ModuleGUI moduleGUI;
 
-	public ModuleManager(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger, ExternalSoftware exs) {
+	public ModuleManager(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger, ExternalSoftware exs, Speller speller) {
 		this.logger = logger;
 
-		modules = ModuleFactory.getModules(logger, synth, od, tagger, exs);
+		modules = ModuleFactory.getModules(logger, synth, od, tagger, exs, speller);
 
 		ArrayList<JCheckBox> checkboxes = new ArrayList<JCheckBox>();
 		checkboxes.addAll(modules.keySet());

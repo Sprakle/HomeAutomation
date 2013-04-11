@@ -33,7 +33,7 @@ public class Phrase {
 		logger.log(tagString, LogSource.PHRASE_INFO, 2);
 	}
 
-	public int getIndexOfTag(Tag t) {
+	public int indexOfTag(Tag t) {
 		return tags.indexOf(t);
 	}
 

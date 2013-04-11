@@ -19,6 +19,7 @@ import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.DynamicResponder;
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.Response;
+import net.sprakle.homeAutomation.utilities.speller.Speller;
 
 public class Interpreter implements EventListener {
 
@@ -36,13 +37,13 @@ public class Interpreter implements EventListener {
 	ModuleManager moduleManager;
 	Tagger tagger;
 
-	public Interpreter(Logger logger, Synthesis synth, ObjectDatabase od, ExternalSoftware exs) {
+	public Interpreter(Logger logger, Synthesis synth, ObjectDatabase od, ExternalSoftware exs, Speller speller) {
 		this.logger = logger;
 		this.synth = synth;
 		this.od = od;
 
 		this.tagger = new Tagger(logger, synth);
-		this.moduleManager = new ModuleManager(logger, synth, od, tagger, exs);
+		this.moduleManager = new ModuleManager(logger, synth, od, tagger, exs, speller);
 
 		EventManager em = EventManager.getInstance(logger);
 		em.addListener(EventType.USER_SPEECH_RECIEVED, this);

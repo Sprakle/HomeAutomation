@@ -12,13 +12,15 @@ import net.sprakle.homeAutomation.interpretation.module.modules.math.Math;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.Media;
 import net.sprakle.homeAutomation.interpretation.module.modules.objectDatabaseCommand.ObjectDatabaseCommand;
 import net.sprakle.homeAutomation.interpretation.module.modules.reloading.Reloading;
+import net.sprakle.homeAutomation.interpretation.module.modules.spelling.Spelling;
 import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
+import net.sprakle.homeAutomation.utilities.speller.Speller;
 
 public class ModuleFactory {
-	static HashMap<JCheckBox, InterpretationModule> getModules(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger, ExternalSoftware exs) {
+	static HashMap<JCheckBox, InterpretationModule> getModules(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger, ExternalSoftware exs, Speller speller) {
 		HashMap<JCheckBox, InterpretationModule> modules = new HashMap<JCheckBox, InterpretationModule>();
 
 		// temporarily hold modules for easy adding of each checkbox
@@ -27,6 +29,7 @@ public class ModuleFactory {
 		moduleArray.add(new ObjectDatabaseCommand(logger, synth, od));
 		moduleArray.add(new Media(logger, exs));
 		moduleArray.add(new Math(logger, synth));
+		moduleArray.add(new Spelling(synth, speller));
 		moduleArray.add(new Reloading(logger));
 
 		// add module and checkbox
