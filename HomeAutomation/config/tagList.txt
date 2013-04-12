@@ -3,11 +3,6 @@
 "fan"				{OD_OBJECT/fan}
 "printer"			{OD_OBJECT/printer}
 "battery charger"	{OD_OBJECT/drill battery charger}
-"ambient light"		{OD_OBJECT/ambient light sensor}
-"ambient brightness"{OD_OBJECT/ambient light sensor}
-"bright"			{OD_OBJECT/ambient light sensor}
-"temperature"		{OD_OBJECT/room temperature sensor}
-"hot"				{OD_OBJECT/room temperature sensor}
 
 "on"				{POWER_OPTION/1}
 "enable"			{POWER_OPTION/1}
@@ -94,3 +89,47 @@
 "pi"				{NUMBER/3.14159}
 
 "spell"				{GENERAL_COMMAND/spell}
+
+"today"				{RELATIVE_DAY/0}
+"today's"			{RELATIVE_DAY/0}
+"tomorrow"			{RELATIVE_DAY/1}
+"tomorrow's"		{RELATIVE_DAY/1}
+
+"sunday"			{DAY/0}
+"monday"			{DAY/1}
+"tuesday"			{DAY/2}
+"wednesday"			{DAY/3}
+"thursday"			{DAY/4}
+"friday"			{DAY/5}
+"saturday"			{DAY/6}
+"sunday's"			{DAY/0}
+"monday's"			{DAY/1}
+"tuesday's"			{DAY/2}
+"wednesday's"		{DAY/3}
+"thursday's"		{DAY/4}
+"friday's"			{DAY/5}
+"saturday's"		{DAY/6}
+
+"forecast"			{WEATHER_CONDITION/overview}
+"weather"			{WEATHER_CONDITION/overview}
+"temperature"		{WEATHER_CONDITION/temperature}
+"hot"				{WEATHER_CONDITION/temp_high}
+"high"				{WEATHER_CONDITION/temp_high}
+"cold"				{WEATHER_CONDITION/temp_low}
+"cool"				{WEATHER_CONDITION/temp_low}
+"low"				{WEATHER_CONDITION/temp_low}
+"windspeed"			{WEATHER_CONDITION/windspeed}
+"windy"				{WEATHER_CONDITION/windspeed}
+"wet"				{WEATHER_CONDITION/precipitation}
+"rain"				{WEATHER_CONDITION/precipitation}
+"rainy"				{WEATHER_CONDITION/precipitation}
+"precipitation"		{WEATHER_CONDITION/precipitation}
+"humid"				{WEATHER_CONDITION/humidity}
+"humidity"			{WEATHER_CONDITION/humidity}
+"moist"				{WEATHER_CONDITION/humidity}
+"dry"				{WEATHER_CONDITION/humidity}
+"visibility"		{WEATHER_CONDITION/visibility}
+"able to see"		{WEATHER_CONDITION/visibility}
+"clouds"			{WEATHER_CONDITION/cloudcover}
+"cloudy"			{WEATHER_CONDITION/cloudcover}
+"cloudcover"		{WEATHER_CONDITION/cloudcover}

@@ -6,6 +6,7 @@ package net.sprakle.homeAutomation.main;
 
 import net.sprakle.homeAutomation.interaction.arduino.Arduino;
 import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
+import net.sprakle.homeAutomation.interaction.weather.InternetWeather;
 import net.sprakle.homeAutomation.interpretation.Interpreter;
 import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.timer.MainTimer;
@@ -29,6 +30,7 @@ public class ApplicationFactory {
 	private Synthesis synth;
 	private Arduino arduino;
 	private ObjectDatabase objectDatabase;
+	private InternetWeather iWeather;
 	private MainTimer mainTimer;
 	private Interpreter interpreter;
 	private TextInput textInput;
@@ -70,8 +72,10 @@ public class ApplicationFactory {
 		// initialize object database
 		objectDatabase = new ObjectDatabase(logger, synth, arduino);
 
+		iWeather = new InternetWeather(logger);
+
 		// initialize interpretation
-		interpreter = new Interpreter(logger, synth, objectDatabase, exs, speller);
+		interpreter = new Interpreter(logger, synth, objectDatabase, exs, speller, iWeather);
 
 		synth.speak("ready");
 

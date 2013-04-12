@@ -49,6 +49,7 @@ public class Tagger implements EventListener {
 	}
 
 	public ArrayList<Tag> tagText(String text) {
+		text = text.toLowerCase();
 
 		// used to sort tags by their position in the text
 		TreeMap<Integer, Tag> sortingTags = new TreeMap<Integer, Tag>();

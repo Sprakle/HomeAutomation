@@ -6,6 +6,7 @@ import java.util.HashMap;
 import javax.swing.JCheckBox;
 
 import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
+import net.sprakle.homeAutomation.interaction.weather.InternetWeather;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.GUI.ModuleGUI;
 import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
@@ -22,10 +23,10 @@ public class ModuleManager {
 
 	ModuleGUI moduleGUI;
 
-	public ModuleManager(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger, ExternalSoftware exs, Speller speller) {
+	public ModuleManager(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger, ExternalSoftware exs, Speller speller, InternetWeather iWeather) {
 		this.logger = logger;
 
-		modules = ModuleFactory.getModules(logger, synth, od, tagger, exs, speller);
+		modules = ModuleFactory.getModules(logger, synth, od, tagger, exs, speller, iWeather);
 
 		ArrayList<JCheckBox> checkboxes = new ArrayList<JCheckBox>();
 		checkboxes.addAll(modules.keySet());

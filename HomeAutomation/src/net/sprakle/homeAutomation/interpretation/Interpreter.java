@@ -5,6 +5,7 @@ import net.sprakle.homeAutomation.events.EventListener;
 import net.sprakle.homeAutomation.events.EventManager;
 import net.sprakle.homeAutomation.events.EventType;
 import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
+import net.sprakle.homeAutomation.interaction.weather.InternetWeather;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.module.ModuleManager;
 import net.sprakle.homeAutomation.interpretation.module.ModuleManager.ClaimResponse;
@@ -37,13 +38,13 @@ public class Interpreter implements EventListener {
 	ModuleManager moduleManager;
 	Tagger tagger;
 
-	public Interpreter(Logger logger, Synthesis synth, ObjectDatabase od, ExternalSoftware exs, Speller speller) {
+	public Interpreter(Logger logger, Synthesis synth, ObjectDatabase od, ExternalSoftware exs, Speller speller, InternetWeather iWeather) {
 		this.logger = logger;
 		this.synth = synth;
 		this.od = od;
 
 		this.tagger = new Tagger(logger, synth);
-		this.moduleManager = new ModuleManager(logger, synth, od, tagger, exs, speller);
+		this.moduleManager = new ModuleManager(logger, synth, od, tagger, exs, speller, iWeather);
 
 		EventManager em = EventManager.getInstance(logger);
 		em.addListener(EventType.USER_SPEECH_RECIEVED, this);

@@ -17,5 +17,8 @@ public enum TagType {
 	MATH_TERM,
 	MATH_OPERATOR,
 	MATH_FUNCTION,
+	RELATIVE_DAY,
+	DAY,
+	WEATHER_CONDITION,
 	GENERAL_COMMAND, // commands of areas that are not large enough to get their own tagtype, such spell
 }

@@ -8,7 +8,7 @@ import net.sprakle.homeAutomation.events.EventManager;
 import net.sprakle.homeAutomation.events.EventType;
 import net.sprakle.homeAutomation.interpretation.module.modules.reloading.ReloadEvent;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
-import net.sprakle.homeAutomation.main.Config;
+import net.sprakle.homeAutomation.main.Info;
 import net.sprakle.homeAutomation.main.OS;
 import net.sprakle.homeAutomation.utilities.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.CommandLineInterface;
@@ -27,7 +27,7 @@ public class MediaCentre extends SoftwareInterface implements EventListener {
 	public MediaCentre(Logger logger, CommandLineInterface cli) {
 		super(logger, cli);
 
-		OS os = Config.getOS();
+		OS os = Info.getOS();
 
 		switch (os) {
 			case LINUX:

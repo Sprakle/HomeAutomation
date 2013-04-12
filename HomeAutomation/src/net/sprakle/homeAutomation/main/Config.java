@@ -69,26 +69,4 @@ public class Config {
 
 		return result;
 	}
-
-	public static OS getOS() {
-
-		final String linux = "Linux";
-		final String windows = "Win";
-		final String mac = "Mac";
-
-		String os = System.getProperty("os.name");
-		if (os.contains(linux)) {
-			return OS.LINUX;
-		}
-
-		if (os.contains(windows)) {
-			return OS.WINDOWS;
-		}
-
-		if (os.contains(mac)) {
-			return OS.MAC;
-		}
-
-		return OS.UNKOWN;
-	}
 }

@@ -1,6 +1,6 @@
 package net.sprakle.homeAutomation.utilities.externalSoftware.commandLine;
 
-import net.sprakle.homeAutomation.main.Config;
+import net.sprakle.homeAutomation.main.Info;
 import net.sprakle.homeAutomation.main.OS;
 import net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.os.LinuxCLI;
 import net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.os.MacCLI;
@@ -12,7 +12,7 @@ public class CommandLineFactory {
 	public static CommandLineInterface getCommandLine(Logger logger) {
 		CommandLineInterface cli = null;
 
-		OS os = Config.getOS();
+		OS os = Info.getOS();
 		switch (os) {
 			case LINUX:
 				cli = new LinuxCLI(logger);

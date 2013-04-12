@@ -13,6 +13,8 @@ public class PhraseOutline {
 
 	private ArrayList<Tag> outlineTags;
 
+	private int maxTagSeparation = 2;
+
 	public PhraseOutline(Logger logger, String description) {
 		this.description = description;
 
@@ -51,7 +53,7 @@ public class PhraseOutline {
 					int outlineTagPos = outlineTags.indexOf(t);
 
 					int difference = outlineTagPos - lastOutlineTagPos;
-					if (difference > 0 && difference < 3) {
+					if (difference > 0 && difference < maxTagSeparation + 1) {
 						outlineTag = t;
 
 						// break the loop, as we only want to first tag of the correct position
@@ -94,6 +96,16 @@ public class PhraseOutline {
 			confidence = 0;
 
 		return confidence;
+	}
+
+	/**
+	 * Greatest difference of indexes two tags can have to be considered
+	 * adjacent
+	 * 
+	 * @param max
+	 */
+	public void setMaxTagSeparation(int max) {
+		maxTagSeparation = max;
 	}
 
 	public void addTag(Tag t) {
