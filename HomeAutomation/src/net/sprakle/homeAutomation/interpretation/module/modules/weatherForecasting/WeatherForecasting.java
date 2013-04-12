@@ -35,30 +35,36 @@ public class WeatherForecasting extends InterpretationModule {
 
 		ArrayList<PhraseOutline> outlines = new ArrayList<PhraseOutline>();
 
-		// TODO: add allowed tags that will not count towards a phrases unexpedcted tag count
+		// TODO: add allowed tags that will not count towards a phrases unexpedcted tag count. maybe define between mandatory and possible tags
 		// ex: what will the TEMPERATURE be TOMORROW
 		PhraseOutline poA = new PhraseOutline(logger, getName());
-		poA.addTag(new Tag(TagType.WEATHER_CONDITION, null));
-		poA.addTag(new Tag(TagType.RELATIVE_DAY, null));
+		poA.addMandatoryTag(new Tag(TagType.WEATHER_CONDITION, null));
+		poA.addMandatoryTag(new Tag(TagType.RELATIVE_DAY, null));
 		poA.setMaxTagSeparation(3);
 
 		// ex: how RAINY will it by in FRIDAY
 		PhraseOutline poB = new PhraseOutline(logger, getName());
-		poB.addTag(new Tag(TagType.WEATHER_CONDITION, null));
-		poB.addTag(new Tag(TagType.DAY, null));
+		poB.addMandatoryTag(new Tag(TagType.WEATHER_CONDITION, null));
+		poB.addMandatoryTag(new Tag(TagType.DAY, null));
 		poB.setMaxTagSeparation(3);
 
 		// ex: what will TOMOROWS - FORECAST be
 		PhraseOutline poC = new PhraseOutline(logger, getName());
-		poC.addTag(new Tag(TagType.RELATIVE_DAY, null));
-		poC.addTag(new Tag(TagType.WEATHER_CONDITION, null));
+		poC.addMandatoryTag(new Tag(TagType.RELATIVE_DAY, null));
+		poC.addMandatoryTag(new Tag(TagType.WEATHER_CONDITION, null));
 		poC.setMaxTagSeparation(3);
 
 		// ex: what will MONDAYS - WEATHER be like
 		PhraseOutline poD = new PhraseOutline(logger, getName());
-		poD.addTag(new Tag(TagType.DAY, null));
-		poD.addTag(new Tag(TagType.WEATHER_CONDITION, null));
+		poD.addMandatoryTag(new Tag(TagType.DAY, null));
+		poD.addMandatoryTag(new Tag(TagType.WEATHER_CONDITION, null));
 		poC.setMaxTagSeparation(3);
+
+		// the user may have a question such as (WHAT is the weather like)
+		poA.addNeutralTag(new Tag(TagType.QUESTION, null));
+		poB.addNeutralTag(new Tag(TagType.QUESTION, null));
+		poC.addNeutralTag(new Tag(TagType.QUESTION, null));
+		poD.addNeutralTag(new Tag(TagType.QUESTION, null));
 
 		outlines.add(poA);
 		outlines.add(poB);
@@ -139,7 +145,6 @@ public class WeatherForecasting extends InterpretationModule {
 			int absoluteDay = Integer.parseInt(dayTag.getValue());
 
 			difference = (7 + (absoluteDay - currentDay)) % 7;
-			System.out.println("abs: " + absoluteDay + " cur:" + currentDay + " dif" + difference);
 
 		} else if (relDayTag != null) {
 

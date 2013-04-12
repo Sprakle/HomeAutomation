@@ -70,7 +70,7 @@
 	<weather>
 		<!-- Weather information is taken from worldweatheronline.com -->
 		<api_key>2a2m2h7324vkr46vwp4n7nd9</api_key>
-		<update_frequency>1</update_frequency> <!-- ammount fo time in minutes to wait after each update. If you make this low, please create your own API account -->
+		<update_frequency>30</update_frequency> <!-- ammount fo time in minutes to wait after each update. If you make this low, please create your own API account -->
 		<location>v9l4b9</location> <!-- US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude (decimal degree) or city name -->
 	</weather>
 	

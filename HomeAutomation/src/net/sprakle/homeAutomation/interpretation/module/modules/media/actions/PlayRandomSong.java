@@ -22,9 +22,9 @@ public class PlayRandomSong extends MediaAction {
 		ArrayList<PhraseOutline> outlines = new ArrayList<PhraseOutline>();
 
 		PhraseOutline poA = new PhraseOutline(logger, getName());
-		poA.addTag(new Tag(TagType.PLAYBACK, "play"));
-		poA.addTag(new Tag(TagType.TIME_CHANGE, "random"));
-		poA.addTag(new Tag(TagType.MEDIA, "track"));
+		poA.addMandatoryTag(new Tag(TagType.PLAYBACK, "play"));
+		poA.addMandatoryTag(new Tag(TagType.TIME_CHANGE, "random"));
+		poA.addMandatoryTag(new Tag(TagType.MEDIA, "track"));
 
 		outlines.add(poA);
 

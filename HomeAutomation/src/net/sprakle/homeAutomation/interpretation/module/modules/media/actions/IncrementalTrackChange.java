@@ -23,13 +23,13 @@ public class IncrementalTrackChange extends MediaAction {
 		ArrayList<PhraseOutline> outlines = new ArrayList<PhraseOutline>();
 
 		PhraseOutline poA = new PhraseOutline(logger, getName());
-		poA.addTag(new Tag(TagType.TIME_CHANGE, null));
-		poA.addTag(new Tag(TagType.MEDIA, "track"));
+		poA.addMandatoryTag(new Tag(TagType.TIME_CHANGE, null));
+		poA.addMandatoryTag(new Tag(TagType.MEDIA, "track"));
 
 		PhraseOutline poB = new PhraseOutline(logger, getName());
-		poB.addTag(new Tag(TagType.PLAYBACK, "play"));
-		poB.addTag(new Tag(TagType.TIME_CHANGE, null));
-		poB.addTag(new Tag(TagType.MEDIA, "track"));
+		poB.addMandatoryTag(new Tag(TagType.PLAYBACK, "play"));
+		poB.addMandatoryTag(new Tag(TagType.TIME_CHANGE, null));
+		poB.addMandatoryTag(new Tag(TagType.MEDIA, "track"));
 
 		outlines.add(poA);
 		outlines.add(poB);

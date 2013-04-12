@@ -23,14 +23,14 @@ public class PlaySong extends MediaAction {
 		ArrayList<PhraseOutline> outlines = new ArrayList<PhraseOutline>();
 
 		PhraseOutline poA = new PhraseOutline(logger, getName());
-		poA.addTag(new Tag(TagType.PLAYBACK, "play"));
-		poA.addTag(new Tag(TagType.UNKOWN_TEXT, null));
-		poA.addTag(new Tag(TagType.POSSESSION, "owned"));
-		poA.addTag(new Tag(TagType.UNKOWN_TEXT, null));
+		poA.addMandatoryTag(new Tag(TagType.PLAYBACK, "play"));
+		poA.addMandatoryTag(new Tag(TagType.UNKOWN_TEXT, null));
+		poA.addMandatoryTag(new Tag(TagType.POSSESSION, "owned"));
+		poA.addMandatoryTag(new Tag(TagType.UNKOWN_TEXT, null));
 
 		PhraseOutline poB = new PhraseOutline(logger, getName());
-		poB.addTag(new Tag(TagType.PLAYBACK, "play"));
-		poB.addTag(new Tag(TagType.UNKOWN_TEXT, null));
+		poB.addMandatoryTag(new Tag(TagType.PLAYBACK, "play"));
+		poB.addMandatoryTag(new Tag(TagType.UNKOWN_TEXT, null));
 
 		outlines.add(poA);
 		outlines.add(poB);

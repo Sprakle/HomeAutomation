@@ -23,16 +23,16 @@ public class EnqueueSong extends MediaAction {
 		ArrayList<PhraseOutline> outlines = new ArrayList<PhraseOutline>();
 
 		PhraseOutline poA = new PhraseOutline(logger, getName() + " (title only)");
-		poA.addTag(new Tag(TagType.PLAYBACK, "play"));
-		poA.addTag(new Tag(TagType.UNKOWN_TEXT, null));
-		poA.addTag(new Tag(TagType.TIME_CHANGE, "next"));
+		poA.addMandatoryTag(new Tag(TagType.PLAYBACK, "play"));
+		poA.addMandatoryTag(new Tag(TagType.UNKOWN_TEXT, null));
+		poA.addMandatoryTag(new Tag(TagType.TIME_CHANGE, "next"));
 
 		PhraseOutline poB = new PhraseOutline(logger, getName() + " (title + artist)");
-		poB.addTag(new Tag(TagType.PLAYBACK, "play"));
-		poB.addTag(new Tag(TagType.UNKOWN_TEXT, null));
-		poB.addTag(new Tag(TagType.POSSESSION, "owned"));
-		poB.addTag(new Tag(TagType.UNKOWN_TEXT, null));
-		poB.addTag(new Tag(TagType.TIME_CHANGE, "next"));
+		poB.addMandatoryTag(new Tag(TagType.PLAYBACK, "play"));
+		poB.addMandatoryTag(new Tag(TagType.UNKOWN_TEXT, null));
+		poB.addMandatoryTag(new Tag(TagType.POSSESSION, "owned"));
+		poB.addMandatoryTag(new Tag(TagType.UNKOWN_TEXT, null));
+		poB.addMandatoryTag(new Tag(TagType.TIME_CHANGE, "next"));
 
 		outlines.add(poA);
 		outlines.add(poB);

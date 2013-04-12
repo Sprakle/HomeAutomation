@@ -24,17 +24,17 @@ public class PlayRandomSongByArtist extends MediaAction {
 
 		// play random song by artist
 		PhraseOutline poA = new PhraseOutline(logger, getName() + " (S)");
-		poA.addTag(new Tag(TagType.PLAYBACK, "play"));
-		poA.addTag(new Tag(TagType.UNKOWN_TEXT, "something"));
-		poA.addTag(new Tag(TagType.POSSESSION, "owned"));
-		poA.addTag(new Tag(TagType.UNKOWN_TEXT, null));
+		poA.addMandatoryTag(new Tag(TagType.PLAYBACK, "play"));
+		poA.addMandatoryTag(new Tag(TagType.UNKOWN_TEXT, "something"));
+		poA.addMandatoryTag(new Tag(TagType.POSSESSION, "owned"));
+		poA.addMandatoryTag(new Tag(TagType.UNKOWN_TEXT, null));
 
 		// play random song by artist
 		PhraseOutline poB = new PhraseOutline(logger, getName() + " (T)");
-		poB.addTag(new Tag(TagType.PLAYBACK, "play"));
-		poB.addTag(new Tag(TagType.MEDIA, "track"));
-		poB.addTag(new Tag(TagType.POSSESSION, "owned"));
-		poB.addTag(new Tag(TagType.UNKOWN_TEXT, null));
+		poB.addMandatoryTag(new Tag(TagType.PLAYBACK, "play"));
+		poB.addMandatoryTag(new Tag(TagType.MEDIA, "track"));
+		poB.addMandatoryTag(new Tag(TagType.POSSESSION, "owned"));
+		poB.addMandatoryTag(new Tag(TagType.UNKOWN_TEXT, null));
 
 		outlines.add(poA);
 		outlines.add(poB);

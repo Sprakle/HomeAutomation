@@ -11,14 +11,16 @@ public class PhraseOutline {
 
 	private String description;
 
-	private ArrayList<Tag> outlineTags;
+	private ArrayList<Tag> mandatoryTags;
+	private ArrayList<Tag> neutralTags;
 
 	private int maxTagSeparation = 2;
 
 	public PhraseOutline(Logger logger, String description) {
 		this.description = description;
 
-		outlineTags = new ArrayList<Tag>();
+		mandatoryTags = new ArrayList<Tag>();
+		neutralTags = new ArrayList<Tag>();
 	}
 
 	// return an integer of the confidence of the match. 0 is no confidence
@@ -27,7 +29,7 @@ public class PhraseOutline {
 
 		int confidence = 0;
 
-		int mininumExpectedTags = outlineTags.size();
+		int mininumExpectedTags = mandatoryTags.size();
 
 		int expectedTags = 0;
 		int specificTags = 0;
@@ -44,13 +46,17 @@ public class PhraseOutline {
 		ArrayList<Tag> phraseTags = phrase.getTags();
 		for (Tag phraseTag : phraseTags) {
 
+			// skip if neutral tag
+			if (taglistContainsType(neutralTags, phraseTag))
+				continue;
+
 			// is it in the outline?
 			Tag outlineTag = null;
-			for (Tag t : outlineTags) {
-				if (t.getType().equals(phraseTag.getType())) {
+			for (Tag t : mandatoryTags) {
+				if (t.equalsType(phraseTag)) {
 
 					// make sure this phrase is in the right order, by checking if the matching outline tag came after the last one, but not too far ahead
-					int outlineTagPos = outlineTags.indexOf(t);
+					int outlineTagPos = mandatoryTags.indexOf(t);
 
 					int difference = outlineTagPos - lastOutlineTagPos;
 					if (difference > 0 && difference < maxTagSeparation + 1) {
@@ -66,9 +72,8 @@ public class PhraseOutline {
 				// the phrase tag was contained within the outline, and at the correct position
 
 				// if the outline tag has a value, make sure the phrase tag has a matching one
-				String value = outlineTag.getValue();
-				if (value != null) {
-					if (!phraseTag.getValue().equals(value)) {
+				if (outlineTag.getValue() != null) {
+					if (!outlineTag.equalsValue(phraseTag)) {
 						// fail
 						unexpectedTags += unexpectedTagWeight;
 						continue;
@@ -83,7 +88,7 @@ public class PhraseOutline {
 			} else {
 
 				// this is an unexpected tag. add to count if this is not an UNKOWN_TEXT tag
-				if (!phraseTag.getType().equals(TagType.UNKOWN_TEXT)) {
+				if (!phraseTag.equalsType(new Tag(TagType.UNKOWN_TEXT, null))) {
 					unexpectedTags += unexpectedTagWeight;
 				}
 			}
@@ -108,16 +113,93 @@ public class PhraseOutline {
 		maxTagSeparation = max;
 	}
 
-	public void addTag(Tag t) {
-		outlineTags.add(t);
+	/**
+	 * This tag MUST be in a phrase for its confidence to be above 0 Mandatory
+	 * tags will be matched by their value if it is not null, otherwise and tag
+	 * of the same type will match
+	 * 
+	 * @param t
+	 *            shell tag
+	 */
+	public void addMandatoryTag(Tag t) {
+		mandatoryTags.add(t);
+	}
+
+	/**
+	 * Neutral tags will not count against or for the confidence of a tag
+	 * neutral tags are only matched by their type, not value
+	 * 
+	 * @param t
+	 *            shell tag
+	 */
+	public void addNeutralTag(Tag t) {
+		neutralTags.add(t);
 	}
 
 	public ArrayList<Tag> getTags() {
-		return new ArrayList<Tag>(outlineTags);
+		return new ArrayList<Tag>(mandatoryTags);
 	}
 
 	@Override
 	public String toString() {
 		return "'" + description + "'";
 	}
+
+	/**
+	 * Checks a list of tags if it contains a tag that matches the given tags
+	 * value
+	 * 
+	 * @param list
+	 *            list of tags
+	 * @param t
+	 *            tag that should be matched
+	 * @return true if there is a match
+	 */
+	private boolean taglistContainsValue(ArrayList<Tag> list, Tag check) {
+		for (Tag t : list) {
+			if (t.equalsValue(check))
+				return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Checks a list of tags if it contains a tag that matches the given tags
+	 * type
+	 * 
+	 * @param list
+	 *            list of tags
+	 * @param t
+	 *            tag that should be matched
+	 * @return true if there is a match
+	 */
+	private boolean taglistContainsType(ArrayList<Tag> list, Tag check) {
+		for (Tag t : list) {
+			if (t.equalsType(check))
+				return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Checks a list of tags if it contains a tag that matches the given tags
+	 * type AND value
+	 * 
+	 * @param list
+	 *            list of tags
+	 * @param t
+	 *            tag that should be matched
+	 * @return true if there is a match
+	 */
+	private boolean taglistContainsTypeValue(ArrayList<Tag> list, Tag check) {
+		for (Tag t : list) {
+			if (t.equalsTypeValue(check))
+				return true;
+		}
+
+		return false;
+	}
+
 }

@@ -50,8 +50,8 @@ public class Reloading extends InterpretationModule {
 
 		ArrayList<PhraseOutline> outlines = new ArrayList<PhraseOutline>();
 		PhraseOutline poA = new PhraseOutline(logger, getName());
-		poA.addTag(new Tag(TagType.TIME_CHANGE, "restart"));
-		poA.addTag(new Tag(TagType.INTERNALS, null));
+		poA.addMandatoryTag(new Tag(TagType.TIME_CHANGE, "restart"));
+		poA.addMandatoryTag(new Tag(TagType.INTERNALS, null));
 		outlines.add(poA);
 
 		PhraseOutline poMatch = phrase.matchOutlines(logger, outlines);

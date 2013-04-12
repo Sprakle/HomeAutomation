@@ -39,4 +39,25 @@ public class Tag {
 	public String toString() {
 		return "{" + type + "/" + value + "}";
 	}
+
+	public boolean equalsType(Tag t) {
+		if (type == t.getType())
+			return true;
+
+		return false;
+	}
+
+	public boolean equalsValue(Tag t) {
+		if (value.equals(t.getValue()))
+			return true;
+
+		return false;
+	}
+
+	public boolean equalsTypeValue(Tag t) {
+		if (equalsType(t) && equalsValue(t))
+			return true;
+
+		return false;
+	}
 }

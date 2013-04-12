@@ -185,8 +185,8 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 		// binary
 		{
 			PhraseOutline possibility1 = new PhraseOutline(logger, getName());
-			possibility1.addTag(new Tag(TagType.POWER_OPTION, null));
-			possibility1.addTag(new Tag(TagType.OD_OBJECT, null));
+			possibility1.addMandatoryTag(new Tag(TagType.POWER_OPTION, null));
+			possibility1.addMandatoryTag(new Tag(TagType.OD_OBJECT, null));
 
 			ArrayList<PhraseOutline> binArray = new ArrayList<PhraseOutline>();
 			binArray.add(possibility1);
@@ -199,14 +199,14 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 		// integer
 		{
 			PhraseOutline poA = new PhraseOutline(logger, getName());
-			poA.addTag(new Tag(TagType.SETTER, null));
-			poA.addTag(new Tag(TagType.OD_OBJECT, null));
-			poA.addTag(new Tag(TagType.NUMBER, null));
+			poA.addMandatoryTag(new Tag(TagType.SETTER, null));
+			poA.addMandatoryTag(new Tag(TagType.OD_OBJECT, null));
+			poA.addMandatoryTag(new Tag(TagType.NUMBER, null));
 
 			PhraseOutline poB = new PhraseOutline(logger, getName());
-			poB.addTag(new Tag(TagType.SETTER, null));
-			poB.addTag(new Tag(TagType.OD_OBJECT, null));
-			poB.addTag(new Tag(TagType.NUMBER, null));
+			poB.addMandatoryTag(new Tag(TagType.SETTER, null));
+			poB.addMandatoryTag(new Tag(TagType.OD_OBJECT, null));
+			poB.addMandatoryTag(new Tag(TagType.NUMBER, null));
 
 			// tag outlines
 			ArrayList<PhraseOutline> setArray = new ArrayList<PhraseOutline>();

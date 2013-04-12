@@ -24,8 +24,8 @@ public class ChangePlaybackState extends MediaAction {
 		ArrayList<PhraseOutline> outlines = new ArrayList<PhraseOutline>();
 
 		PhraseOutline poA = new PhraseOutline(logger, getName());
-		poA.addTag(new Tag(TagType.PLAYBACK, null));
-		poA.addTag(new Tag(TagType.MEDIA, null));
+		poA.addMandatoryTag(new Tag(TagType.PLAYBACK, null));
+		poA.addMandatoryTag(new Tag(TagType.MEDIA, null));
 
 		outlines.add(poA);
 

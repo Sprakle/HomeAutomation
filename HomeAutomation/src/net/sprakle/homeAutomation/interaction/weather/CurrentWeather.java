@@ -69,6 +69,7 @@ public class CurrentWeather extends WeatherTimeframe {
 			case IMPERIAL:
 				tempKey = "temp_F";
 				break;
+
 			case METRIC:
 				tempKey = "temp_C";
 				break;

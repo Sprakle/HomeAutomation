@@ -52,9 +52,9 @@ public class Math extends InterpretationModule {
 		 */
 		ArrayList<PhraseOutline> outlines = new ArrayList<PhraseOutline>();
 		PhraseOutline poA = new PhraseOutline(logger, getName());
-		poA.addTag(new Tag(TagType.MATH_TERM, "round"));
-		poA.addTag(new Tag(TagType.NUMBER, null));
-		poA.addTag(new Tag(TagType.MATH_TERM, "decimal"));
+		poA.addMandatoryTag(new Tag(TagType.MATH_TERM, "round"));
+		poA.addMandatoryTag(new Tag(TagType.NUMBER, null));
+		poA.addMandatoryTag(new Tag(TagType.MATH_TERM, "decimal"));
 		outlines.add(poA);
 
 		PhraseOutline match = phrase.matchOutlines(logger, outlines);
