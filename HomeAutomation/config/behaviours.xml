@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ta_system>
+	<behaviour name="call detector">
+		<description>
+			When a phone call is recieved, or the phone is removed from it's cradle, 
+			music is turned down.
+		</description>
+		<triggers>
+			<trigger type="object_database_read" >
+				<object_node>root/rooms/bedroom/phone light sensor/light</object_node>
+				<comparison>integer_less_than</comparison>
+				<integer_less_than>500</integer_less_than>
+			</trigger>
+		</triggers>
+		<actions>
+			<action type="media_centre_command">
+				<set_volume_percentage>10</set_volume_percentage>
+			</action>
+		</actions>
+	</behaviour>
+	
+	<behaviour name="wake up sequence">
+		<description>
+			When the user presses the wake up button, quiet music is played, and
+			the days weather is read
+		</description>
+		<triggers>
+			<trigger type="object_database_read">
+				<comparison>binary_equals</comparison>
+				<object_node>root/rooms/bedroom/bedside button 0/pressed</object_node>
+				<binary_equals>true</binary_equals>
+			</trigger>
+		</triggers>
+		
+		<actions>
+			<action type="media_centre_command">
+				<set_volume_percentage>10</set_volume_percentage>
+			</action>
+			<action type="media_centre_command">
+				<playback_command>random</playback_command>
+			</action>
+			<action type="emulate_user_input">
+				<phrase>what will the weather be like today</phrase>
+			</action>
+		</actions>
+	</behaviour>
+</ta_system>
