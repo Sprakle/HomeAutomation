@@ -45,4 +45,22 @@ public class Rhythmbox extends MediaController {
 		String pre = CLIENT + " --enqueue";
 		cli.execute(pre + " \"" + track.getPath() + "\"");
 	}
+
+	@Override
+	public void setVolume(double vol) {
+		String pre = CLIENT + " --set-volume";
+		cli.execute(pre + " " + vol);
+	}
+
+	@Override
+	public void changeVolume(double change) {
+		String command = CLIENT + " --volume-" + (change > 0 ? "up" : "down");
+
+		// get number of times to call volume up/down (each is 10%)
+		change = Math.abs(change);
+		int changes = (int) (change * 10);
+		for (int i = 0; i < changes; i++)
+			cli.execute(command);
+		System.out.println("called " + command + " " + changes + " times");
+	}
 }

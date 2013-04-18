@@ -21,21 +21,35 @@ public class WindowsMediaController extends MediaController {
 
 	@Override
 	public void playbackCommand(PlaybackCommand pc) {
-		logger.log("Windows Media Controller not yet implemented!", LogSource.ERROR, LogSource.EXTERNAL_SOFTWARE, 1);
+		freakOut();
 	}
 
 	@Override
 	public void playTrack(Track track) {
-		logger.log("Windows Media Controller not yet implemented!", LogSource.ERROR, LogSource.EXTERNAL_SOFTWARE, 1);
+		freakOut();
 	}
 
 	@Override
 	public void enqueueTrack(Track track) {
-		logger.log("Windows Media Controller not yet implemented!", LogSource.ERROR, LogSource.EXTERNAL_SOFTWARE, 1);
+		freakOut();
 	}
 
 	@Override
 	public void loadTracks() {
+		freakOut();
+	}
+
+	@Override
+	public void setVolume(double vol) {
+		freakOut();
+	}
+
+	@Override
+	public void changeVolume(double change) {
+		freakOut();
+	}
+
+	private void freakOut() {
 		logger.log("Windows Media Controller not yet implemented!", LogSource.ERROR, LogSource.EXTERNAL_SOFTWARE, 1);
 	}
 

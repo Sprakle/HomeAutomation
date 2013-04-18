@@ -12,6 +12,7 @@ import net.sprakle.homeAutomation.main.Info;
 import net.sprakle.homeAutomation.main.OS;
 import net.sprakle.homeAutomation.utilities.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.CommandLineInterface;
+import net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.os.LinuxCLI;
 import net.sprakle.homeAutomation.utilities.externalSoftware.software.SoftwareInterface;
 import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.os.MediaController;
 import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.os.linux.Rhythmbox;
@@ -84,6 +85,32 @@ public class MediaCentre extends SoftwareInterface implements EventListener {
 		controller.playRandomTrack(artist);
 	}
 
+	/**
+	 * @param vol
+	 *            Volume as a double between 0 and 1
+	 */
+	public void setVolume(double vol) {
+		if (vol < 0 || vol > 1) {
+			logger.log("Invalid volume value", LogSource.ERROR, LogSource.EXTERNAL_SOFTWARE, 1);
+			return;
+		}
+
+		controller.setVolume(vol);
+	}
+
+	/**
+	 * @param vol
+	 *            change in volume as a double between -1 and 1
+	 */
+	public void changeVolume(double change) {
+		if (change < -1 || change > 1) {
+			logger.log("Invalid volume value", LogSource.ERROR, LogSource.EXTERNAL_SOFTWARE, 1);
+			return;
+		}
+
+		controller.changeVolume(change);
+	}
+
 	public ArrayList<Track> getTracks() {
 		return controller.getTracks();
 	}
@@ -112,5 +139,12 @@ public class MediaCentre extends SoftwareInterface implements EventListener {
 		}
 
 		controller.loadTracks();
+	}
+
+	public static void main(String[] args) {
+		Logger logger = new Logger();
+		CommandLineInterface cli = new LinuxCLI(logger);
+		MediaCentre mc = new MediaCentre(logger, cli);
+		mc.changeVolume(-0.9);
 	}
 }

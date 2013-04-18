@@ -25,9 +25,6 @@ public abstract class MediaController {
 
 	public abstract void playbackCommand(PlaybackCommand pc);
 
-	/*
-	 * PLAY TRACK
-	 */
 	public void playTrack(String title, String artist) {
 		Track result = levenGet(title, artist, 20);
 
@@ -41,9 +38,6 @@ public abstract class MediaController {
 	}
 	public abstract void playTrack(Track track);
 
-	/*
-	 * ENQUEUE TRACK
-	 */
 	public void enqueueTrack(String title, String artist) {
 		Track result = levenGet(title, artist, 20);
 
@@ -57,9 +51,9 @@ public abstract class MediaController {
 	}
 	public abstract void enqueueTrack(Track track);
 
-	/*
-	 * PLAY RANDOM TRACK
-	 */
+	public abstract void setVolume(double vol);
+	public abstract void changeVolume(double change);
+
 	public void playRandomTrack(String artist) {
 		ArrayList<Track> pool = null;
 
@@ -88,6 +82,18 @@ public abstract class MediaController {
 		playTrack(result);
 	}
 
+	/**
+	 * Search for a single track using levenshtein. (title || artist) || (title
+	 * && artist) must NOT be null. Null values will be ignored
+	 * 
+	 * @param title
+	 *            title of track wanted
+	 * @param artist
+	 *            artist name of track wanted
+	 * @param maxDistance
+	 *            max levenshtein distance to search
+	 * @return returns the track with the smallest distance
+	 */
 	public Track levenGet(String title, String artist, int maxDistance) {
 		Track result = null;
 
@@ -101,6 +107,18 @@ public abstract class MediaController {
 		return result;
 	}
 
+	/**
+	 * Search for multiple tracks using levenshtein. (title || artist) || (title
+	 * && artist) must NOT be null. Null values will be ignored
+	 * 
+	 * @param title
+	 *            title of track wanted
+	 * @param artist
+	 *            artist name of track wanted
+	 * @param maxDistance
+	 *            max levenshtein distance to search
+	 * @return all tracks with a distance below maxDistance
+	 */
 	public TreeMap<Integer, Track> levenGetMulti(String title, String artist, int maxDistance) {
 		TreeMap<Integer, Track> distances = new TreeMap<Integer, Track>();
 
