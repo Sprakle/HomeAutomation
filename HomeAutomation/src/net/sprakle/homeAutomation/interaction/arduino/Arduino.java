@@ -85,10 +85,6 @@ public class Arduino implements LogicTimerObserver {
 	 * response: if this is a read, the current value of a pin (returns last set value if it's a WRITE pin)
 	 */
 	public int interact(Technology tech, int pin, int interaction) {
-		logger.log("Interacting with Arduino:", LogSource.ARDUINO, 1);
-		logger.log("    Technology: " + tech.name(), LogSource.ARDUINO, 2);
-		logger.log("    Pin: " + pin, LogSource.ARDUINO, 2);
-		logger.log("    Interaction: " + interaction, LogSource.ARDUINO, 2);
 
 		int response = -1;
 
@@ -148,11 +144,6 @@ public class Arduino implements LogicTimerObserver {
 				break;
 		}
 
-		/*
-		 * All done!
-		 */
-
-		logger.log("Completed interaction with Arduino", LogSource.ARDUINO, 1);
 		return response;
 	}
 	// checks if it is possible to have a specific pin, and then if the interaction to said pin is possible

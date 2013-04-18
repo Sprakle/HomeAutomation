@@ -67,6 +67,22 @@
 					</NODE_BEHAVIOUR>
 				</NODE>
 			</OBJECT>
+			<OBJECT name="phone light sensor">
+				<NODE name="light" defaultOf="DEFAULT">
+					<NODE_BEHAVIOUR type="ARDUINO_DEVICE">
+						<tech>analogue_read</tech>
+						<pin>00</pin>
+					</NODE_BEHAVIOUR>
+				</NODE>
+			</OBJECT>
+			<OBJECT name="bedside button 0">
+				<NODE name="pressed" defaultOf="DEFAULT">
+					<NODE_BEHAVIOUR type="ARDUINO_DEVICE">
+						<tech>digital_read</tech>
+						<pin>08</pin>
+					</NODE_BEHAVIOUR>
+				</NODE>
+			</OBJECT>
 		</OBJECT>
 	</OBJECT>
 	<OBJECT name="weather">

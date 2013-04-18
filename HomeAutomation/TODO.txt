@@ -1,10 +1,7 @@
 Features:
 - Keywords to start listening. Different keywords will have different weights. EX: 'walter' has weight of 1, while 'activate' has 0.8
-- Find places where a factory can be used, eliminate unnecessary creations in ApplicationFactory
 - News reading
-- Room sensors
 - Electronic calculators (resistance, capacitance, etc.)
-- Spelling help. use speech recognition
 - Repeat last phrase if requested
 - Slideshow
 - Webpage Alerts Ex: Alert for Linux on r/games
@@ -15,7 +12,5 @@ Features:
 - Create action-reaction system. ex: When phone is taken off cradle, pause music / lower volume
 	- use a serializable class that can listen to certain variables and call a number of phrases in response
 	- allow specification of speech or no speech for each phrase triggered
-- Use 'pactl set-sink-volume 3 35%' to set volume
-- Use dynamic keywords to check for commands vs regular speech
 - add capabilities in taglist to have word types. ex: "\NUMBER times \NUMBER" ex2: "turn on \DB_OBJECT". Most word types will be based on other tags, bu some such as \number will have special definitions
 	possibility: use a mix of teglist items and regex. ex: "set \-DB_OBJECT -d" would turn into "set light|stereo|heater -d" then checked with regex

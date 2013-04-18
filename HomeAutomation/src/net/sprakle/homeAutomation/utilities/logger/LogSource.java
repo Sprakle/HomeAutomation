@@ -27,6 +27,7 @@ public enum LogSource {
 	MATH(100, 100, 255),
 	SPELLING(50, 255, 50),
 	WEATHER(255, 255, 0),
+	BEHAVIOUR(100, 255, 100),
 	FILE_ACCES(100, 100, 0);
 	private final Color color;
 

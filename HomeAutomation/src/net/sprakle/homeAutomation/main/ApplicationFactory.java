@@ -4,6 +4,7 @@
 
 package net.sprakle.homeAutomation.main;
 
+import net.sprakle.homeAutomation.behaviour.BehaviourManager;
 import net.sprakle.homeAutomation.interaction.arduino.Arduino;
 import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.interaction.weather.InternetWeather;
@@ -33,6 +34,7 @@ public class ApplicationFactory {
 	private InternetWeather iWeather;
 	private MainTimer mainTimer;
 	private Interpreter interpreter;
+	private BehaviourManager behaviourManager;
 	private TextInput textInput;
 	private SpeechInput speechInput;
 
@@ -49,11 +51,9 @@ public class ApplicationFactory {
 		String version = Config.getString("config/system/version");
 		STARTUP_SPEECH = "Initializing " + name + " version " + version;
 
-		// create logger
 		logger = new Logger();
 		logger.log(name + " v" + version + " initiated.", LogSource.APPLICATION_EVENT, 1);
 
-		// initialize external software, used by synth to access swift
 		exs = new ExternalSoftware(logger);
 		exs.initSoftware(SoftwareName.SWIFT);
 
@@ -62,20 +62,21 @@ public class ApplicationFactory {
 		synth = new Synthesis(logger, exs);
 		synth.speak(STARTUP_SPEECH);
 
-		// initialize UI
+		// TODO: make external software initialize software automatically
+		exs.initSoftware(SoftwareName.MEDIA_CENTRE);
+
 		textInput = new TextInput(logger);
 		speechInput = new SpeechInput(logger);
 
-		// initialize arduino
 		arduino = new Arduino(logger, synth);
 
-		// initialize object database
 		objectDatabase = new ObjectDatabase(logger, synth, arduino);
 
 		iWeather = new InternetWeather(logger);
 
-		// initialize interpretation
 		interpreter = new Interpreter(logger, synth, objectDatabase, exs, speller, iWeather);
+
+		behaviourManager = new BehaviourManager(logger, objectDatabase, exs);
 
 		synth.speak("ready");
 

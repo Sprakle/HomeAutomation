@@ -74,8 +74,15 @@
 		<location>v9l4b9</location> <!-- US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude (decimal degree) or city name -->
 	</weather>
 	
+	<behaviours>
+		<behaviours_file>config/behaviours.xml</behaviours_file>
+		
+		<!-- time in milliseconds between each checking of each behaviour's triggers and executing relevent actions -->
+		<update_period>1000</update_period>
+	</behaviours>
+	
 	<logger>
 		<!-- Higher number is more verbose. 0 is infinite -->
-		<verbosity>30</verbosity>
+		<verbosity>0</verbosity>
 	</logger>
 </config>

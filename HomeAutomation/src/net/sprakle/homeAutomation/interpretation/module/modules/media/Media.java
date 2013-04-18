@@ -27,7 +27,6 @@ public class Media extends InterpretationModule {
 	public Media(Logger logger, ExternalSoftware exs) {
 		this.logger = logger;
 
-		exs.initSoftware(SoftwareName.MEDIA_CENTRE);
 		mc = (MediaCentre) exs.getSoftware(SoftwareName.MEDIA_CENTRE);
 
 		mediaActions = new ArrayList<MediaAction>();
