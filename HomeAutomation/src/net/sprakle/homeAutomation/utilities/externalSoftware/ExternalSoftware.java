@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.CommandLineFactory;
 import net.sprakle.homeAutomation.utilities.externalSoftware.commandLine.CommandLineInterface;
 import net.sprakle.homeAutomation.utilities.externalSoftware.software.SoftwareInterface;
-import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class ExternalSoftware {
@@ -25,6 +24,11 @@ public class ExternalSoftware {
 		software = new ArrayList<SoftwareInterface>();
 	}
 
+	/**
+	 * Software can be initialised before it is needed
+	 * 
+	 * @param name
+	 */
 	public void initSoftware(SoftwareName name) {
 		software.add(SoftwareFactory.getSoftware(logger, cli, name));
 	}
@@ -36,8 +40,7 @@ public class ExternalSoftware {
 			}
 		}
 
-		logger.log(name + " not yet initialized", LogSource.ERROR, LogSource.EXTERNAL_SOFTWARE, 1);
-
-		return null;
+		initSoftware(name);
+		return getSoftware(name);
 	}
 }

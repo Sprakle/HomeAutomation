@@ -35,7 +35,6 @@ public class WeatherForecasting extends InterpretationModule {
 
 		ArrayList<PhraseOutline> outlines = new ArrayList<PhraseOutline>();
 
-		// TODO: add allowed tags that will not count towards a phrases unexpedcted tag count. maybe define between mandatory and possible tags
 		// ex: what will the TEMPERATURE be TOMORROW
 		PhraseOutline poA = new PhraseOutline(logger, getName());
 		poA.addMandatoryTag(new Tag(TagType.WEATHER_CONDITION, null));

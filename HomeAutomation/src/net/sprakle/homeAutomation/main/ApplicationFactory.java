@@ -14,7 +14,6 @@ import net.sprakle.homeAutomation.timer.MainTimer;
 import net.sprakle.homeAutomation.userInterface.speechInput.SpeechInput;
 import net.sprakle.homeAutomation.userInterface.textInput.TextInput;
 import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
-import net.sprakle.homeAutomation.utilities.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.speller.Speller;
@@ -55,15 +54,11 @@ public class ApplicationFactory {
 		logger.log(name + " v" + version + " initiated.", LogSource.APPLICATION_EVENT, 1);
 
 		exs = new ExternalSoftware(logger);
-		exs.initSoftware(SoftwareName.SWIFT);
 
 		speller = new Speller(logger);
 
 		synth = new Synthesis(logger, exs);
 		synth.speak(STARTUP_SPEECH);
-
-		// TODO: make external software initialize software automatically
-		exs.initSoftware(SoftwareName.MEDIA_CENTRE);
 
 		textInput = new TextInput(logger);
 		speechInput = new SpeechInput(logger);
