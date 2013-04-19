@@ -152,19 +152,17 @@ public class Arduino implements LogicTimerObserver {
 			String input = ai.getInput();
 			if (input != null) {
 
-				if (getIncomingMode(input) == null) {
-					logger.log("Recieved invalid response from arduino: " + input, LogSource.ERROR, LogSource.ARDUINO, 1);
-				}
+				IncomingInteraction interaction = new IncomingInteraction(logger, input);
 
-				String replyMode = input.substring(0, 2);
-				int replyPin = Integer.parseInt(input.substring(3, 5));
-				int replyData = Integer.parseInt(input.substring(6));
+				IncomingMode replyMode = interaction.getMode();
+				int replyPin = interaction.getPin();
+				int replyData = interaction.getDataAsInteger();
 
 				// ensure it's the info we requested
-				if (IncomingMode.VALUE.isValid(replyMode, replyPin, input.substring(6)) && replyPin == pin) {
+				if (replyMode == IncomingMode.VALUE && replyPin == pin) {
 					response = replyData;
 				} else {
-					logger.log("Got unexpected serial message while expecting value", LogSource.ERROR, LogSource.ARDUINO, 1);
+					logger.log("Got unexpected serial message while expecting value: " + input, LogSource.ERROR, LogSource.ARDUINO, 1);
 				}
 
 				break;
@@ -196,20 +194,13 @@ public class Arduino implements LogicTimerObserver {
 			String input = ai.getInput();
 			if (input != null) {
 
-				if (getIncomingMode(input) == null) {
-					logger.log("Recieved invalid response from arduino: " + input, LogSource.ERROR, LogSource.ARDUINO, 1);
-				}
-
-				String replyMode = input.substring(0, 2);
-				int replyPin = Integer.parseInt(input.substring(3, 5));
-
-				// ensure it's the info we requested
-				if (replyMode.equals("cn") && replyPin == pin) {
+				IncomingInteraction interaction = new IncomingInteraction(logger, input);
+				IncomingMode incomingMode = interaction.getMode();
+				int incomingPin = interaction.getPin();
+				if (incomingMode == IncomingMode.CONFIRMATION && incomingPin == pin)
 					response = true;
-				} else {
+				else
 					logger.log("Got unexpected serial message while expecting confirmation", LogSource.ERROR, LogSource.ARDUINO, 1);
-				}
-
 				break;
 			}
 
@@ -228,17 +219,13 @@ public class Arduino implements LogicTimerObserver {
 
 		return response;
 	}
-
 	// called if an unexpected serial string is received, such as a subscription update
 	private void serialUpdate(String msg) {
-		IncomingMode mode = getIncomingMode(msg);
-		if (mode == null) {
-			logger.log("Recieved invalid serial data: " + msg, LogSource.ERROR, LogSource.ARDUINO, 1);
-			return;
-		}
+		IncomingInteraction interaction = new IncomingInteraction(logger, msg);
 
-		int pin = Integer.parseInt(msg.substring(3, 5));
-		int value = Integer.parseInt(msg.substring(6));
+		IncomingMode mode = interaction.getMode();
+		int pin = interaction.getPin();
+		int value = interaction.getDataAsInteger();
 
 		switch (mode) {
 			case ANALOGUE_UPDATE:
@@ -261,31 +248,6 @@ public class Arduino implements LogicTimerObserver {
 				logger.log("Recieved unexpected serial data: " + msg, LogSource.WARNING, LogSource.ARDUINO, 1);
 				return;
 		}
-	}
-
-	IncomingMode getIncomingMode(String msg) {
-		String mode = null;
-		int pin = -1;
-		String data = null;
-
-		mode = msg.substring(0, 2);
-
-		String pinString = msg.substring(3, 5);
-		if (!pinString.matches("\\d*")) {
-			return null;
-		}
-
-		pin = Integer.parseInt(pinString);
-
-		// get data if it exists
-		if (msg.length() > 5)
-			data = msg.substring(6);
-
-		for (IncomingMode im : IncomingMode.values())
-			if (im.isValid(mode, pin, data))
-				return im;
-
-		return null;
 	}
 
 	@Override
