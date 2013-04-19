@@ -9,8 +9,10 @@
  *   SENT STRING: DEFINITION   - SERIAL RESPONSE
  *   dr: digital read        - value
  *   dw: digital write       - confirmation
+ *   ds: digital subscribe   - confirmation
  *   ar: analogue read       - value
  *   aw: analogue write      - confirmation
+ *   as: analog subscribe    - confirmation
  *   em: emergency stop all  - confirmation
  * 
  * pin:
@@ -20,8 +22,10 @@
  *   MODE:        - SENT STRING
  *   digital read:        null
  *   digital write:       1|0
+ *   digital subscribe:    null
  *   analogue read:       null
  *   analogue write:      0-255
+ *   analog subscribe:      null
  *   emergency stop all:  null
  * 
  * 
@@ -30,10 +34,12 @@
  * {mode}-{pin}-{data}
  * mode:
  *   SENT STRING: DEFINITION
- *   cn: confirmation // used to confirm a pin was set
- *   va: value        // used to repond to reads
- *   xx: failiure     // general failiure
- *   db: debug:       // general debug info
+ *   cn: confirmation
+ *   va: value, used to respond to reads
+ *   du: digital subscription update
+ *   au: analog subscription update
+ *   xx: failiure
+ *   db: debug
  * 
  * pin:
  *   if applicable, contains the pin number
@@ -41,7 +47,9 @@
  * data:
  *   RESPONSE TYPE:    - SENT STRING
  *   confirmation:      null
- *   value:             0-255
+ *   value:             0-1024
+ *   digital update     0|1
+ *   analog update      0-1024
  *   failiure:          {text string of error}
  *   debug:             {text string of debug}
  * 
@@ -122,6 +130,19 @@ const float MAX_DIGI_PIN = 15;
 const float MIN_ANA_PIN = 0;
 const float MAX_ANA_PIN = 11;
 
+/*
+ * Subscriptions
+ * Sizes should match the pin constraint
+ */
+boolean digitalSubscriptions[15];
+int numDigitalSubscriptios = 15;
+int digitalLastValues[15];
+
+boolean analogSubscriptions[11];
+int numAnalogSubscriptions = 11;
+int analogLastValues[11];
+int analogTolerance = 25; // if the value changes by 10, the subscriber will be alerted
+
 
 void setup(){
   pinMode(onPin, OUTPUT);
@@ -188,6 +209,54 @@ void loop(){
       serialReadString[stringPosition] = inByte; // Save the character in a character array
     }
   }
+  
+  // check subscribed pins and update if neccesary - digital
+  for (int i = 0; i < numDigitalSubscriptios; i++) {
+    if (digitalSubscriptions[i] == true) {
+      
+      int currentValue = myShiftIn.shiftRead(i);
+      int lastValue = digitalLastValues[i];
+      if (currentValue == lastValue) {
+        // dont alert if value was the same
+        continue;
+      }
+      
+      digitalLastValues[i] = currentValue;
+    
+      // add leading zeroes if neccesary
+      String sPin = String(i);
+      if (i < 10) {
+        sPin = "0" + sPin;
+      }
+    
+      Serial.println("du-" + sPin + "-" + String(currentValue));
+    }
+  }
+  
+  // check subscribed pins and update if neccesary - analog
+  for (int i = 0; i < numAnalogSubscriptions; i++) {
+    if (analogSubscriptions[i] == true) {
+      
+      int currentValue = analogRead(i);
+      int lastValue = analogLastValues[i];
+      int difference = abs(currentValue - lastValue);
+      if (difference < analogTolerance) {
+        // dont alert if difference was not great enough
+        continue;
+      }
+      
+      analogLastValues[i] = currentValue;
+    
+      // add leading zeroes if neccesary
+      String sPin = String(i);
+      if (i < 10) {
+        sPin = "0" + sPin;
+      }
+    
+      Serial.println("au-" + sPin + "-" + String(currentValue));
+    }
+  }
+  
 
   delay(10);
 }
@@ -239,9 +308,9 @@ void interpretCommand(String mode, int pin, String data) {
     return;
   }
 
-  // digital read
-  if (mode == "dr") {
-    int result = myShiftIn.shiftRead(pin);
+  // digital subscribe
+  if (mode == "ds") {
+    digitalSubscriptions[pin] = true;
     
     // add leading zeroes if neccesary
     String sPin = String(pin);
@@ -249,7 +318,23 @@ void interpretCommand(String mode, int pin, String data) {
       sPin = "0" + sPin;
     }
     
-    Serial.println("va-" + sPin + "-" + String(result));
+    digitalLastValues[pin] = myShiftIn.shiftRead(pin);
+    
+    Serial.println("cn-" + sPin);
+    return;
+  }
+  
+  // digital read
+  if (mode == "dr") {
+    int value = myShiftIn.shiftRead(pin);
+    
+    // add leading zeroes if neccesary
+    String sPin = String(pin);
+    if (pin < 10) {
+      sPin = "0" + sPin;
+    }
+    
+    Serial.println("va-" + sPin + "-" + String(value));
     return;
   }
 
@@ -268,7 +353,23 @@ void interpretCommand(String mode, int pin, String data) {
     return;
   }
 
-  // analogue read
+  // analogue subscribe
+  if (mode == "as") {
+    analogSubscriptions[pin] = true;
+    
+    // add leading zeroes if neccesary
+    String sPin = String(pin);
+    if (pin < 10) {
+      sPin = "0" + sPin;
+    }
+    
+    analogLastValues[pin] = analogRead(pin);
+    
+    Serial.println("cn-" + sPin);
+    return;
+  }
+  
+  // analog read
   if (mode == "ar") {
     int value = analogRead(pin);
     
@@ -279,14 +380,12 @@ void interpretCommand(String mode, int pin, String data) {
     }
     
     Serial.println("va-" + sPin + "-" + String(value));
-    return;
   }
 
   // Shutdown EVERYTHING
   if (mode == "em") {
     for ( int i = 0; i < MAX_DIGI_PIN; i++) {
       myShiftOut.shiftWrite(i, 0);
-      Serial.println("cn-" + String(i) + "-0");
     }
     myShiftOut.shiftUpdate();
     return;
@@ -318,7 +417,7 @@ boolean isAcceptable(String command) {
   String e = command.substring(6);
 
   // should be a mode
-  if (a != "pa" && a != "dr" && a != "dw" && a != "ar" && a != "aw" && a != "em") {
+  if (a != "pa" && a != "ds" && a != "dr" && a != "dw" && a != "as" && a != "ar" && a != "aw" && a != "em") {
     return false;
   }
 
@@ -329,7 +428,7 @@ boolean isAcceptable(String command) {
 
   // if digital, shoud be within digi constraints. likewise with analogue
   int pin = c.toInt();
-  if (a == "dr" || a == "dw" || a == "pa") {
+  if (a == "ds" || a == "dr" || a == "dw" || a == "pa") {
     if (pin < MIN_DIGI_PIN || pin > MAX_DIGI_PIN) {
       return false;
     }
@@ -346,7 +445,7 @@ boolean isAcceptable(String command) {
     }
 
   } 
-  else if (a == "ar" || a == "aw") {
+  else if (a == "as" || a == "ar" || a == "aw") {
     if (pin < MIN_ANA_PIN || pin > MAX_ANA_PIN) {
       return false;
     }

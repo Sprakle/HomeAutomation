@@ -63,7 +63,7 @@ public class ApplicationFactory {
 		textInput = new TextInput(logger);
 		speechInput = new SpeechInput(logger);
 
-		arduino = new Arduino(logger, synth);
+		arduino = new Arduino(logger);
 
 		objectDatabase = new ObjectDatabase(logger, synth, arduino);
 

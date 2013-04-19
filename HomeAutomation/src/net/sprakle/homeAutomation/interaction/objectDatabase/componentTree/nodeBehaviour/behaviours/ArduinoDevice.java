@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.sprakle.homeAutomation.interaction.arduino.Arduino;
-import net.sprakle.homeAutomation.interaction.arduino.Arduino.Technology;
+import net.sprakle.homeAutomation.interaction.arduino.OutgoingMode;
 import net.sprakle.homeAutomation.interaction.objectDatabase.NodeType;
 import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.components.DB_Node;
 import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.nodeBehaviour.NodeBehaviour;
@@ -20,7 +20,7 @@ public class ArduinoDevice extends NodeBehaviour {
 
 	int pin;
 
-	Technology technology;
+	OutgoingMode mode;
 
 	public ArduinoDevice(Logger logger, Arduino arduino, DB_Node parent, HashMap<String, String> args) {
 		super(logger, parent, args);
@@ -30,19 +30,19 @@ public class ArduinoDevice extends NodeBehaviour {
 		String techString = args.get(Arduino.ARG_TECHNOLOGY);
 		switch (techString) {
 			case "digital_read":
-				technology = arduino.DIGITAL_READ;
+				mode = OutgoingMode.DIGITAL_READ;
 				break;
 
 			case "digital_write":
-				technology = arduino.DIGITAL_WRITE;
+				mode = OutgoingMode.DIGITAL_WRITE;
 				break;
 
 			case "analogue_read":
-				technology = arduino.ANALOGUE_READ;
+				mode = OutgoingMode.ANALOGUE_READ;
 				break;
 
 			case "analogue_write":
-				technology = arduino.ANALOGUE_WRITE;
+				mode = OutgoingMode.ANALOGUE_WRITE;
 				break;
 
 			default:
@@ -62,14 +62,13 @@ public class ArduinoDevice extends NodeBehaviour {
 	// integer reads will always be analogue
 	@Override
 	public Integer readInteger() {
-		return arduino.interact(arduino.ANALOGUE_READ, pin, -1);
+		return arduino.interact(OutgoingMode.ANALOGUE_READ, pin, -1);
 	}
 
 	// integer writes will always be analogue
 	@Override
 	public void writeInteger(Integer write) {
-		Technology tech = arduino.ANALOGUE_WRITE;
-		arduino.interact(tech, pin, write);
+		arduino.interact(OutgoingMode.ANALOGUE_WRITE, pin, write);
 	}
 
 	@Override
@@ -80,16 +79,16 @@ public class ArduinoDevice extends NodeBehaviour {
 		else
 			binary = 0;
 
-		if (technology == Technology.DIGITAL_WRITE)
-			arduino.interact(arduino.DIGITAL_WRITE, pin, binary);
+		if (mode == OutgoingMode.DIGITAL_WRITE)
+			arduino.interact(OutgoingMode.DIGITAL_WRITE, pin, binary);
 
-		else if (technology == Technology.ANALOGUE_WRITE) // if a binary signal is sent to an analogue device, it will go full on (255) of full off (0)
-			arduino.interact(arduino.ANALOGUE_WRITE, pin, binary * 255);
+		else if (mode == OutgoingMode.ANALOGUE_WRITE) // if a binary signal is sent to an analogue device, it will go full on (255) of full off (0)
+			arduino.interact(OutgoingMode.ANALOGUE_WRITE, pin, binary * 255);
 	}
 
 	@Override
 	public Boolean readBinary() {
-		return arduino.interact(arduino.DIGITAL_READ, pin, -1) == 1; // returns true if 1, false if 0
+		return arduino.interact(OutgoingMode.DIGITAL_READ, pin, -1) == 1; // returns true if 1, false if 0
 	}
 
 	@Override
@@ -101,8 +100,8 @@ public class ArduinoDevice extends NodeBehaviour {
 	protected void writeString(String write) {
 	}
 
-	public Technology getTech() {
-		return technology;
+	public OutgoingMode getTech() {
+		return mode;
 	}
 
 	public int getPin() {
