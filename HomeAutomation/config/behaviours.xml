@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 
+update_period: time in ms between trigger checks. Default is defined in the config file
+triggers: link to a class and pass arguments.
+triggerStartActions: called ONCE after a trigger is triggered. not called is a trigger is triggered repeatedly
+triggerEndActions: called ONCE when a trigger was stopped being gtriggered.
+-->
 
 <ta_system>
 	<behaviour name="call detector">
@@ -6,6 +12,7 @@
 			When a phone call is recieved, or the phone is removed from it's cradle, 
 			music is turned down.
 		</description>
+		<update_period>1000</update_period>
 		<triggers>
 			<trigger type="object_database_read" >
 				<object_node>root/rooms/bedroom/phone light sensor/light</object_node>
@@ -13,11 +20,18 @@
 				<integer_less_than>500</integer_less_than>
 			</trigger>
 		</triggers>
-		<actions>
+		
+		<triggerStartActions>
 			<action type="media_centre_command">
-				<set_volume_percentage>10</set_volume_percentage>
+				<adjust_volume>-0.4</adjust_volume>
 			</action>
-		</actions>
+		</triggerStartActions>
+		
+		<triggerEndActions>
+			<action type="media_centre_command">
+				<adjust_volume>0.4</adjust_volume>
+			</action>
+		</triggerEndActions>
 	</behaviour>
 	
 	<behaviour name="wake up sequence">
@@ -33,7 +47,7 @@
 			</trigger>
 		</triggers>
 		
-		<actions>
+		<triggerStartActions>
 			<action type="media_centre_command">
 				<set_volume_percentage>10</set_volume_percentage>
 			</action>
@@ -43,6 +57,6 @@
 			<action type="emulate_user_input">
 				<phrase>what will the weather be like today</phrase>
 			</action>
-		</actions>
+		</triggerStartActions>
 	</behaviour>
 </ta_system>

@@ -9,6 +9,7 @@ import net.sprakle.homeAutomation.behaviour.actions.ActionFactory;
 import net.sprakle.homeAutomation.behaviour.triggers.Trigger;
 import net.sprakle.homeAutomation.behaviour.triggers.TriggerFactory;
 import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
+import net.sprakle.homeAutomation.main.Config;
 import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
@@ -19,17 +20,33 @@ public final class Behaviour {
 
 	private Logger logger;
 
+	BehaviourState state;
+
 	private List<Trigger> triggers;
-	private List<Action> actions;
+
+	// actions to be called once triggered
+	private List<Action> triggerStartActions;
+
+	// actions to be called once triggers have ceased
+	private List<Action> triggerEndActions;
 
 	private String name;
 	private String description;
+	private int updatePeriod;
 
 	Behaviour(Logger logger, Element behaviourElement, ObjectDatabase od, ExternalSoftware exs) {
 		this.logger = logger;
 
+		state = BehaviourState.DORMANT;
+
 		name = behaviourElement.attributeValue("name");
 		description = behaviourElement.elementText("description");
+
+		String UPString = behaviourElement.elementText("update_period");
+		if (UPString != null && UPString.matches("\\d*"))
+			updatePeriod = Integer.parseInt(UPString);
+		else
+			updatePeriod = Config.getInt("config/behaviours/minimum_update_period");
 
 		if (name == null) {
 			String path = behaviourElement.getUniquePath();
@@ -42,10 +59,12 @@ public final class Behaviour {
 		}
 
 		Element triggerElements = behaviourElement.element("triggers");
-		Element actionElements = behaviourElement.element("actions");
-
 		triggers = makeTriggers(triggerElements, od);
-		actions = makeActions(actionElements, exs);
+
+		Element triggerStartActionElements = behaviourElement.element("triggerStartActions");
+		Element triggerEndActionElements = behaviourElement.element("triggerEndActions");
+		triggerStartActions = makeActions(triggerStartActionElements, exs);
+		triggerEndActions = makeActions(triggerEndActionElements, exs);
 	}
 
 	boolean check() {
@@ -56,8 +75,13 @@ public final class Behaviour {
 		return false;
 	}
 
-	void execute() {
-		for (Action a : actions)
+	void executeTriggerStart() {
+		for (Action a : triggerStartActions)
+			a.execute();
+	}
+
+	void executeTriggerEnd() {
+		for (Action a : triggerEndActions)
 			a.execute();
 	}
 
@@ -67,6 +91,10 @@ public final class Behaviour {
 
 	String getDescription() {
 		return description;
+	}
+
+	int getUpdatePeriod() {
+		return updatePeriod;
 	}
 
 	private List<Trigger> makeTriggers(Element triggerElements, ObjectDatabase od) {
@@ -89,6 +117,9 @@ public final class Behaviour {
 	private List<Action> makeActions(Element actionElements, ExternalSoftware exs) {
 		List<Action> actions = new ArrayList<Action>();
 
+		if (actionElements == null || actionElements.nodeCount() == 0)
+			return actions;
+
 		for (Iterator<?> i = actionElements.elementIterator("action"); i.hasNext();) {
 			Element actionElement = (Element) i.next();
 
@@ -101,5 +132,18 @@ public final class Behaviour {
 		}
 
 		return actions;
+	}
+
+	BehaviourState getState() {
+		return state;
+	}
+
+	void setState(BehaviourState state) {
+		this.state = state;
+	}
+
+	@Override
+	public String toString() {
+		return name;
 	}
 }

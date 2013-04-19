@@ -73,8 +73,11 @@
 	<behaviours>
 		<behaviours_file>config/behaviours.xml</behaviours_file>
 		
-		<!-- time in milliseconds between each checking of each behaviour's triggers and executing relevent actions -->
-		<update_period>100</update_period>
+		<!-- minimum time between behaviour trigger checks -->
+		<minimum_update_period>10</minimum_update_period>
+			
+		<!-- if a behaviour's update period is not ndefined, this will be used instead -->
+		<default_update_period>1000</default_update_period>
 	</behaviours>
 	
 	<logger>

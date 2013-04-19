@@ -14,7 +14,6 @@ public class MediaCentreCommand extends Action {
 
 	@Override
 	public void execute() {
-		System.out.println("Executed media centre command");
 	}
 
 }
