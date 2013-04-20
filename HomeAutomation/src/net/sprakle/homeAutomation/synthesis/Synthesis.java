@@ -5,21 +5,16 @@
 
 package net.sprakle.homeAutomation.synthesis;
 
-import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.externalSoftware.software.swift.Swift;
-import net.sprakle.homeAutomation.main.Config;
-import net.sprakle.homeAutomation.utilities.audio.out.AudioOut;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class Synthesis {
-
-	private static final String path = Config.getString("config/files/synthesis_output");
 
 	private Logger logger;
 
@@ -38,12 +33,7 @@ public class Synthesis {
 
 		// first write the wav file
 		Swift swift = (Swift) exs.getSoftware(SoftwareName.SWIFT);
-		swift.writeSpeechFile(path, phrase);
-
-		// then play it
-		File speechFile = new File(path);
-		speechFile.deleteOnExit();
-		AudioOut.playSound(logger, speechFile);
+		swift.speak(phrase);
 	}
 
 	// since swift cannot pronounce numbers like "-67", they must be modified to use the word "negative"

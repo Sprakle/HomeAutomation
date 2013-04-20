@@ -35,7 +35,6 @@
 	<files>
 		<object_database>config/database.xml</object_database>
 		<taglist>config/tagList.txt</taglist>
-		<synthesis_output>synthAudio/speech.wav</synthesis_output>
 	</files>
 	
 	<speech_recognition>

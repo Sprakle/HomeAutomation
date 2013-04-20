@@ -10,6 +10,6 @@ class SwiftInactive implements Swift {
 	}
 
 	@Override
-	public void writeSpeechFile(String path, String phrase) {
+	public void speak(String phrase) {
 	}
 }

@@ -20,7 +20,7 @@ public class SoftwareFactory {
 				break;
 
 			case SWIFT:
-				factory = new SwiftFactory(cli);
+				factory = new SwiftFactory(logger, cli);
 				break;
 
 			case ARDUINO:
