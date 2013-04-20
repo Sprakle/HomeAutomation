@@ -32,24 +32,27 @@ public class Rhythmbox extends MediaController {
 	@Override
 	public void playbackCommand(PlaybackCommand pc) {
 		String command = CLIENT + " " + pc.getCommand();
-		cli.execute(command);
+
+		// command must be sent twice to go back
+		int num = pc == PlaybackCommand.BACK ? 2 : 1;
+		cli.execute(command, num);
 	}
 
 	@Override
 	public void playTrack(Track track) {
 		String pre = CLIENT + " --play-uri";
-		cli.execute(pre + " \"" + track.getPath() + "\"");
+		cli.execute(pre + " \"" + track.getPath() + "\"", 1);
 	}
 	@Override
 	public void enqueueTrack(Track track) {
 		String pre = CLIENT + " --enqueue";
-		cli.execute(pre + " \"" + track.getPath() + "\"");
+		cli.execute(pre + " \"" + track.getPath() + "\"", 1);
 	}
 
 	@Override
 	public void setVolume(double vol) {
 		String pre = CLIENT + " --set-volume";
-		cli.execute(pre + " " + vol);
+		cli.execute(pre + " " + vol, 1);
 	}
 
 	@Override
@@ -59,8 +62,6 @@ public class Rhythmbox extends MediaController {
 		// get number of times to call volume up/down (each is 10%)
 		change = Math.abs(change);
 		int changes = (int) (change * 10);
-		for (int i = 0; i < changes; i++)
-			cli.execute(command);
-		System.out.println("called " + command + " " + changes + " times");
+		cli.execute(command, changes);
 	}
 }

@@ -23,15 +23,15 @@ triggerEndActions: called ONCE when a trigger was stopped being gtriggered.
 		
 		<triggerStartActions>
 			<action type="media_centre_command">
-				<command>playback</command>
-				<playback>next</playback>
+				<command>change_volume</command>
+				<change>-0.4</change>
 			</action>
 		</triggerStartActions>
 		
 		<triggerEndActions>
 			<action type="media_centre_command">
-				<command>playback</command>
-				<playback>back</playback>
+				<command>change_volume</command>
+				<change>0.4</change>
 			</action>
 		</triggerEndActions>
 	</behaviour>

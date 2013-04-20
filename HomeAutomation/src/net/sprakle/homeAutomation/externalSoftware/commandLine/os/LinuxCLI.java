@@ -21,8 +21,8 @@ public class LinuxCLI implements CommandLineInterface {
 	}
 
 	@Override
-	public void execute(String command) {
-		logger.log("Executing Linux CLI command: \"" + command + "\"", LogSource.EXTERNAL_SOFTWARE, 2);
+	public void execute(String command, int num) {
+		logger.log("Executing Linux CLI command: \"" + command + "\" " + num + " times", LogSource.EXTERNAL_SOFTWARE, 2);
 
 		String line = null;
 
@@ -48,7 +48,8 @@ public class LinuxCLI implements CommandLineInterface {
 				// Putting 'exit' amongst the echo --EOF--s below doesn't work.
 				writer.write("exit\n");
 			} else {
-				writer.write("((" + command + ") && echo --EOF--) || echo --EOF--\n");
+				for (int i = 0; i < num; i++)
+					writer.write("((" + command + ") && echo --EOF--) || echo --EOF--\n");
 			}
 			writer.flush();
 

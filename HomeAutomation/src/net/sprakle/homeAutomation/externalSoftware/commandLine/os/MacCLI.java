@@ -13,7 +13,7 @@ public class MacCLI implements CommandLineInterface {
 	}
 
 	@Override
-	public void execute(String command) {
+	public void execute(String command, int num) {
 		logger.log("CLI not supported in this operating system", LogSource.ERROR, LogSource.EXTERNAL_SOFTWARE, 1);
 
 	}

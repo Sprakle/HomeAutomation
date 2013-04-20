@@ -38,7 +38,7 @@ class SwiftActive implements Swift {
 	@Override
 	public void speak(String phrase) {
 		String command = "swift -n David \"" + phrase + "\" -o " + FILE_NAME;
-		cli.execute(command);
+		cli.execute(command, 1);
 
 		File audioFile = new File(FILE_NAME);
 		audioFile.deleteOnExit();

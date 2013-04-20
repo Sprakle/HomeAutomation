@@ -61,10 +61,6 @@ public class IncrementalTrackChange extends MediaAction {
 		}
 
 		mc.playbackCommand(command);
-
-		// execute back twice
-		if (commandString.equals("prev"))
-			mc.playbackCommand(command);
 	}
 
 	@Override
