@@ -4,8 +4,8 @@ import net.sprakle.homeAutomation.events.Event;
 import net.sprakle.homeAutomation.events.EventListener;
 import net.sprakle.homeAutomation.events.EventManager;
 import net.sprakle.homeAutomation.events.EventType;
+import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
-import net.sprakle.homeAutomation.interaction.weather.InternetWeather;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.module.ModuleManager;
 import net.sprakle.homeAutomation.interpretation.module.ModuleManager.ClaimResponse;
@@ -15,7 +15,6 @@ import net.sprakle.homeAutomation.userInterface.speechInput.SpeechInput;
 import net.sprakle.homeAutomation.userInterface.speechInput.UserSpeechRecievedEvent;
 import net.sprakle.homeAutomation.userInterface.textInput.TextInput;
 import net.sprakle.homeAutomation.userInterface.textInput.UserTextRecievedEvent;
-import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.DynamicResponder;
@@ -38,13 +37,13 @@ public class Interpreter implements EventListener {
 	ModuleManager moduleManager;
 	Tagger tagger;
 
-	public Interpreter(Logger logger, Synthesis synth, ObjectDatabase od, ExternalSoftware exs, Speller speller, InternetWeather iWeather) {
+	public Interpreter(Logger logger, Synthesis synth, ObjectDatabase od, ExternalSoftware exs, Speller speller) {
 		this.logger = logger;
 		this.synth = synth;
 		this.od = od;
 
 		this.tagger = new Tagger(logger, synth);
-		this.moduleManager = new ModuleManager(logger, synth, od, tagger, exs, speller, iWeather);
+		this.moduleManager = new ModuleManager(logger, synth, od, tagger, exs, speller);
 
 		EventManager em = EventManager.getInstance(logger);
 		em.addListener(EventType.USER_SPEECH_RECIEVED, this);

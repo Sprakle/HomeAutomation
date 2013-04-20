@@ -7,8 +7,9 @@ package net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.node
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import net.sprakle.homeAutomation.interaction.arduino.Arduino;
-import net.sprakle.homeAutomation.interaction.arduino.OutgoingMode;
+import net.sprakle.homeAutomation.externalSoftware.software.arduino.Arduino;
+import net.sprakle.homeAutomation.externalSoftware.software.arduino.supporting.ArduinoArguments;
+import net.sprakle.homeAutomation.externalSoftware.software.arduino.supporting.OutgoingMode;
 import net.sprakle.homeAutomation.interaction.objectDatabase.NodeType;
 import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.components.DB_Node;
 import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.nodeBehaviour.NodeBehaviour;
@@ -27,7 +28,7 @@ public class ArduinoDevice extends NodeBehaviour {
 		this.arduino = arduino;
 
 		//get technology
-		String techString = args.get(Arduino.ARG_TECHNOLOGY);
+		String techString = args.get(ArduinoArguments.ARG_TECHNOLOGY);
 		switch (techString) {
 			case "digital_read":
 				mode = OutgoingMode.DIGITAL_READ;
@@ -52,7 +53,7 @@ public class ArduinoDevice extends NodeBehaviour {
 
 		// get pin number
 		try {
-			pin = Integer.parseInt(args.get(Arduino.ARG_PIN));
+			pin = Integer.parseInt(args.get(ArduinoArguments.ARG_PIN));
 		} catch (NumberFormatException e) {
 			logger.log("Invalid arguments in database orginization for node behaviour of arduino device '" + parent.getParent().getIdentifier() + "'", LogSource.ERROR, LogSource.OD_NODE_BEHAVIOUR, 1);
 		}
@@ -113,7 +114,7 @@ public class ArduinoDevice extends NodeBehaviour {
 		ArrayList<NodeType> acceptedTypes = new ArrayList<NodeType>();
 
 		// find out what we accept based on the args from the database file
-		String techArg = args.get(Arduino.ARG_TECHNOLOGY);
+		String techArg = args.get(ArduinoArguments.ARG_TECHNOLOGY);
 		switch (techArg) {
 			case "digital_read":
 				acceptedTypes.add(NodeType.BINARY);
@@ -138,7 +139,7 @@ public class ArduinoDevice extends NodeBehaviour {
 		ArrayList<NodeType> acceptedTypes = new ArrayList<NodeType>();
 
 		// find out what we accept based on the args from the database file
-		String techArg = args.get(Arduino.ARG_TECHNOLOGY);
+		String techArg = args.get(ArduinoArguments.ARG_TECHNOLOGY);
 		switch (techArg) {
 			case "digital_read":
 				break;

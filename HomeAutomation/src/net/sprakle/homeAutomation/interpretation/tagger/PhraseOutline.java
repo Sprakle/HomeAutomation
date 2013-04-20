@@ -147,25 +147,6 @@ public class PhraseOutline {
 
 	/**
 	 * Checks a list of tags if it contains a tag that matches the given tags
-	 * value
-	 * 
-	 * @param list
-	 *            list of tags
-	 * @param t
-	 *            tag that should be matched
-	 * @return true if there is a match
-	 */
-	private boolean taglistContainsValue(ArrayList<Tag> list, Tag check) {
-		for (Tag t : list) {
-			if (t.equalsValue(check))
-				return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * Checks a list of tags if it contains a tag that matches the given tags
 	 * type
 	 * 
 	 * @param list
@@ -177,25 +158,6 @@ public class PhraseOutline {
 	private boolean taglistContainsType(ArrayList<Tag> list, Tag check) {
 		for (Tag t : list) {
 			if (t.equalsType(check))
-				return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * Checks a list of tags if it contains a tag that matches the given tags
-	 * type AND value
-	 * 
-	 * @param list
-	 *            list of tags
-	 * @param t
-	 *            tag that should be matched
-	 * @return true if there is a match
-	 */
-	private boolean taglistContainsTypeValue(ArrayList<Tag> list, Tag check) {
-		for (Tag t : list) {
-			if (t.equalsTypeValue(check))
 				return true;
 		}
 

@@ -5,15 +5,13 @@
 package net.sprakle.homeAutomation.main;
 
 import net.sprakle.homeAutomation.behaviour.BehaviourManager;
-import net.sprakle.homeAutomation.interaction.arduino.Arduino;
+import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
-import net.sprakle.homeAutomation.interaction.weather.InternetWeather;
 import net.sprakle.homeAutomation.interpretation.Interpreter;
 import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.timer.MainTimer;
 import net.sprakle.homeAutomation.userInterface.speechInput.SpeechInput;
 import net.sprakle.homeAutomation.userInterface.textInput.TextInput;
-import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.speller.Speller;
@@ -28,9 +26,7 @@ public class ApplicationFactory {
 	private ExternalSoftware exs;
 	private Speller speller;
 	private Synthesis synth;
-	private Arduino arduino;
 	private ObjectDatabase objectDatabase;
-	private InternetWeather iWeather;
 	private MainTimer mainTimer;
 	private Interpreter interpreter;
 	private BehaviourManager behaviourManager;
@@ -63,13 +59,9 @@ public class ApplicationFactory {
 		textInput = new TextInput(logger);
 		speechInput = new SpeechInput(logger);
 
-		arduino = new Arduino(logger);
+		objectDatabase = new ObjectDatabase(logger, synth, exs);
 
-		objectDatabase = new ObjectDatabase(logger, synth, arduino);
-
-		iWeather = new InternetWeather(logger);
-
-		interpreter = new Interpreter(logger, synth, objectDatabase, exs, speller, iWeather);
+		interpreter = new Interpreter(logger, synth, objectDatabase, exs, speller);
 
 		behaviourManager = new BehaviourManager(logger, objectDatabase, exs);
 

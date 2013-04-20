@@ -2,6 +2,9 @@ package net.sprakle.homeAutomation.interpretation.module.modules.media;
 
 import java.util.ArrayList;
 
+import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
+import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
+import net.sprakle.homeAutomation.externalSoftware.software.media.MediaCentre;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.ChangePlaybackState;
@@ -11,9 +14,6 @@ import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.Pl
 import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.PlayRandomSongByArtist;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.PlaySong;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
-import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
-import net.sprakle.homeAutomation.utilities.externalSoftware.SoftwareName;
-import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.MediaCentre;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class Media extends InterpretationModule {

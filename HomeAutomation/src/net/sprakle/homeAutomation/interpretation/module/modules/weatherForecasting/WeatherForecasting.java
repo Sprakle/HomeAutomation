@@ -3,9 +3,11 @@ package net.sprakle.homeAutomation.interpretation.module.modules.weatherForecast
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import net.sprakle.homeAutomation.interaction.weather.ConditionType;
-import net.sprakle.homeAutomation.interaction.weather.Forecast;
-import net.sprakle.homeAutomation.interaction.weather.InternetWeather;
+import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
+import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
+import net.sprakle.homeAutomation.externalSoftware.software.weather.InternetWeather;
+import net.sprakle.homeAutomation.externalSoftware.software.weather.supporting.ConditionType;
+import net.sprakle.homeAutomation.externalSoftware.software.weather.supporting.Forecast;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
@@ -25,9 +27,9 @@ public class WeatherForecasting extends InterpretationModule {
 
 	private InternetWeather iWeather;
 
-	public WeatherForecasting(Synthesis synth, InternetWeather iWeather) {
+	public WeatherForecasting(Synthesis synth, ExternalSoftware exs) {
 		this.synth = synth;
-		this.iWeather = iWeather;
+		this.iWeather = (InternetWeather) exs.getSoftware(SoftwareName.INTERNET_WEATHER);
 	}
 
 	@Override

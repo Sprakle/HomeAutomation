@@ -3,7 +3,7 @@ package net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.node
 import java.util.HashMap;
 import java.util.Iterator;
 
-import net.sprakle.homeAutomation.interaction.arduino.Arduino;
+import net.sprakle.homeAutomation.externalSoftware.software.arduino.Arduino;
 import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.components.DB_Node;
 import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.nodeBehaviour.NodeBehaviour.NodeBehaviourType;
 import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.nodeBehaviour.behaviours.ArduinoDevice;

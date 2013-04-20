@@ -9,11 +9,11 @@ import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
+import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
+import net.sprakle.homeAutomation.externalSoftware.software.swift.Swift;
 import net.sprakle.homeAutomation.main.Config;
 import net.sprakle.homeAutomation.utilities.audio.out.AudioOut;
-import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
-import net.sprakle.homeAutomation.utilities.externalSoftware.SoftwareName;
-import net.sprakle.homeAutomation.utilities.externalSoftware.software.swift.Swift;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 

@@ -1,6 +1,6 @@
 package net.sprakle.homeAutomation.interaction.objectDatabase.utilities;
 
-import net.sprakle.homeAutomation.interaction.arduino.Arduino;
+import net.sprakle.homeAutomation.externalSoftware.software.arduino.Arduino;
 import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.Component;
 import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.components.DB_Placeholder;
 import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.nodeBehaviour.NodeBehaviourFactory;

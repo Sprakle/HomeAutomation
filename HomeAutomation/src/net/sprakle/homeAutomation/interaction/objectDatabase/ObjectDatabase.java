@@ -6,7 +6,9 @@ import net.sprakle.homeAutomation.events.Event;
 import net.sprakle.homeAutomation.events.EventListener;
 import net.sprakle.homeAutomation.events.EventManager;
 import net.sprakle.homeAutomation.events.EventType;
-import net.sprakle.homeAutomation.interaction.arduino.Arduino;
+import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
+import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
+import net.sprakle.homeAutomation.externalSoftware.software.arduino.Arduino;
 import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.Component;
 import net.sprakle.homeAutomation.interaction.objectDatabase.utilities.DepthFirstSearcher;
 import net.sprakle.homeAutomation.interaction.objectDatabase.utilities.ObjectCreator;
@@ -25,10 +27,11 @@ public class ObjectDatabase implements EventListener {
 
 	ObjectCreator oc;
 
-	public ObjectDatabase(Logger logger, Synthesis synth, Arduino arduino) {
+	public ObjectDatabase(Logger logger, Synthesis synth, ExternalSoftware exs) {
 		this.logger = logger;
 		this.synth = synth;
 
+		Arduino arduino = (Arduino) exs.getSoftware(SoftwareName.ARDUINO);
 		oc = new ObjectCreator(logger, arduino);
 
 		buildDatabase();

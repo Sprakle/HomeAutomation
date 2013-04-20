@@ -1,7 +1,7 @@
 package net.sprakle.homeAutomation.behaviour.actions.mediaCentreCommand;
 
 import net.sprakle.homeAutomation.behaviour.actions.Action;
-import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
+import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
 
 import org.dom4j.Element;
 

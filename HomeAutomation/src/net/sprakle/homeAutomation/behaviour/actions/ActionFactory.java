@@ -2,7 +2,7 @@ package net.sprakle.homeAutomation.behaviour.actions;
 
 import net.sprakle.homeAutomation.behaviour.actions.emulateUserInput.EmulateUserInput;
 import net.sprakle.homeAutomation.behaviour.actions.mediaCentreCommand.MediaCentreCommand;
-import net.sprakle.homeAutomation.utilities.externalSoftware.ExternalSoftware;
+import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 

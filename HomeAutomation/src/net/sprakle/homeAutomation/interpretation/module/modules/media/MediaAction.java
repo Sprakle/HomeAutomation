@@ -2,9 +2,9 @@ package net.sprakle.homeAutomation.interpretation.module.modules.media;
 
 import java.util.ArrayList;
 
+import net.sprakle.homeAutomation.externalSoftware.software.media.MediaCentre;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
-import net.sprakle.homeAutomation.utilities.externalSoftware.software.media.MediaCentre;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
