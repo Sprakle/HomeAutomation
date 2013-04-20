@@ -1,8 +1,8 @@
 package net.sprakle.homeAutomation.userInterface.Window;
 
-import java.awt.Dimension;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Point;
-import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
@@ -28,10 +28,11 @@ public class Window extends JFrame {
 	private Point makePosition(int winW, int winH, WindowPosition pos) {
 		Point p = new Point();
 
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		Dimension screenSize = tk.getScreenSize();
-		int scW = screenSize.width;
-		int scH = screenSize.height;
+		GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		GraphicsDevice monitor = g.getScreenDevices()[0];
+
+		int scW = monitor.getDisplayMode().getWidth();
+		int scH = monitor.getDisplayMode().getHeight();
 
 		switch (pos) {
 			case CENTER:
