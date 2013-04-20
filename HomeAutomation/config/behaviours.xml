@@ -23,13 +23,15 @@ triggerEndActions: called ONCE when a trigger was stopped being gtriggered.
 		
 		<triggerStartActions>
 			<action type="media_centre_command">
-				<adjust_volume>-0.4</adjust_volume>
+				<command>playback</command>
+				<playback>next</playback>
 			</action>
 		</triggerStartActions>
 		
 		<triggerEndActions>
 			<action type="media_centre_command">
-				<adjust_volume>0.4</adjust_volume>
+				<command>playback</command>
+				<playback>back</playback>
 			</action>
 		</triggerEndActions>
 	</behaviour>
@@ -49,10 +51,12 @@ triggerEndActions: called ONCE when a trigger was stopped being gtriggered.
 		
 		<triggerStartActions>
 			<action type="media_centre_command">
-				<set_volume_percentage>10</set_volume_percentage>
+				<command>set_volume</command>
+				<set>1</set>
 			</action>
 			<action type="media_centre_command">
-				<playback_command>random</playback_command>
+				<command>play_random_track</command>
+				<artist>evening star</artist>
 			</action>
 			<action type="emulate_user_input">
 				<phrase>what will the weather be like today</phrase>

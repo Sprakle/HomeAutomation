@@ -17,7 +17,7 @@ public class ActionFactory {
 		if (actionString == null)
 			logger.log("Unable to read action: " + path, LogSource.ERROR, LogSource.BEHAVIOUR, 1);
 
-		ActionDependencies td = new ActionDependencies(e, exs);
+		ActionDependencies td = new ActionDependencies(logger, e, exs);
 
 		for (Actions t : Actions.values())
 			if (t.getElementString().equals(actionString))
@@ -39,7 +39,7 @@ public class ActionFactory {
 
 			@Override
 			public Action getAction(ActionDependencies td) {
-				return new MediaCentreCommand(td.element, td.exs);
+				return new MediaCentreCommand(td.logger, td.element, td.exs);
 			}
 
 		},
@@ -65,10 +65,12 @@ public class ActionFactory {
 	 * Add new action dependencies here
 	 */
 	private static class ActionDependencies {
+		public Logger logger;
 		public Element element;
 		public ExternalSoftware exs;
 
-		public ActionDependencies(Element element, ExternalSoftware exs) {
+		public ActionDependencies(Logger logger, Element element, ExternalSoftware exs) {
+			this.logger = logger;
 			this.element = element;
 			this.exs = exs;
 		}
