@@ -2,6 +2,7 @@ package net.sprakle.homeAutomation.externalSoftware.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -52,6 +53,7 @@ public class ExternalSoftwareGUI {
 		// panel
 		Container cp = window.getContentPane();
 		JPanel checkBoxPanel = new JPanel();
+		checkBoxPanel.setPreferredSize(new Dimension(220, 100));
 		checkBoxPanel.setLayout(new GridBagLayout());
 		JScrollPane scrollPane = new JScrollPane(checkBoxPanel);
 		cp.add(scrollPane, BorderLayout.CENTER);
@@ -64,7 +66,7 @@ public class ExternalSoftwareGUI {
 
 		JTextArea text = new JTextArea(MESSAGE);
 		text.setEditable(false);
-		text.setLineWrap(true);
+		text.setWrapStyleWord(true);
 		checkBoxPanel.add(text, gbc);
 
 		// add each checkbox
