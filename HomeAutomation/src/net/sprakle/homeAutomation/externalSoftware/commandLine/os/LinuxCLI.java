@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 import net.sprakle.homeAutomation.externalSoftware.commandLine.CommandLineInterface;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
@@ -21,10 +22,11 @@ public class LinuxCLI implements CommandLineInterface {
 	}
 
 	@Override
-	public void execute(String command, int num) {
+	public ArrayList<String> execute(String command, int num) {
 		logger.log("Executing Linux CLI command: \"" + command + "\" " + num + " times", LogSource.EXTERNAL_SOFTWARE, 2);
 
 		String line = null;
+		ArrayList<String> lines = new ArrayList<String>();
 
 		ProcessBuilder builder = new ProcessBuilder("/bin/bash");
 		builder.redirectErrorStream(true);
@@ -61,6 +63,7 @@ public class LinuxCLI implements CommandLineInterface {
 
 		while (line != null && !line.trim().equals("--EOF--")) {
 			logger.log("Terminal stream: '" + line + "'", LogSource.EXTERNAL_SOFTWARE, 1);
+			lines.add(line);
 			try {
 				line = reader.readLine();
 			} catch (IOException e) {
@@ -68,6 +71,8 @@ public class LinuxCLI implements CommandLineInterface {
 				error();
 			}
 		}
+
+		return lines;
 	}
 
 	private void error() {
