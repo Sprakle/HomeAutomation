@@ -16,11 +16,9 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.speller.Speller;
 
 public class ModuleManager {
-	HashMap<JCheckBox, InterpretationModule> modules;
+	private HashMap<JCheckBox, InterpretationModule> modules;
 
-	Logger logger;
-
-	ModuleGUI moduleGUI;
+	private Logger logger;
 
 	public ModuleManager(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger, ExternalSoftware exs, Speller speller) {
 		this.logger = logger;
@@ -29,7 +27,7 @@ public class ModuleManager {
 
 		ArrayList<JCheckBox> checkboxes = new ArrayList<JCheckBox>();
 		checkboxes.addAll(modules.keySet());
-		moduleGUI = new ModuleGUI(checkboxes);
+		new ModuleGUI(checkboxes);
 	}
 
 	// checks each module for a claim on the given phrase
@@ -67,7 +65,7 @@ public class ModuleManager {
 		}
 
 		long totalTime = System.currentTimeMillis() - startTime;
-		logger.log("Checked all modules for claimed in " + totalTime + " ms", LogSource.INTERPRETER_INFO, 2);
+		logger.log("Checked all modules for claims in " + totalTime + " ms", LogSource.INTERPRETER_INFO, 2);
 
 		return response;
 	}

@@ -1,7 +1,9 @@
 package net.sprakle.homeAutomation.interpretation.module.modules.spelling;
 
 import java.util.List;
+import java.util.Stack;
 
+import net.sprakle.homeAutomation.interpretation.ExecutionResult;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
@@ -9,7 +11,7 @@ import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.speller.Speller;
 
-public class Spelling extends InterpretationModule {
+public class Spelling implements InterpretationModule {
 
 	private Synthesis synth;
 	private Speller speller;
@@ -38,14 +40,16 @@ public class Spelling extends InterpretationModule {
 	}
 
 	@Override
-	public void execute(Phrase phrase) {
+	public ExecutionResult execute(Stack<Phrase> phrases) {
+		Phrase phrase = phrases.firstElement();
+
 		Tag spellTag = phrase.getTag(new Tag(TagType.GENERAL_COMMAND, "spell"));
 		Tag afterSpellTag = phrase.getRelativeTag(spellTag, 1);
 
 		String check = afterSpellTag.getValue();
 		if (check.contains(" ")) {
 			synth.speak("I can only help you spell single words at a time");
-			return;
+			return ExecutionResult.COMPLETE;
 		}
 
 		List<String> suggestions = speller.checkSpelling(check);
@@ -54,10 +58,12 @@ public class Spelling extends InterpretationModule {
 		if (suggestions == null) {
 			// pronounce word even if spelled correctly, because the phrase may have been created by the speech recognition system
 			pronounceWord(check);
-			return;
+			return ExecutionResult.COMPLETE;
 		}
 
 		pronounceWord(suggestions.get(0));
+
+		return ExecutionResult.COMPLETE;
 	}
 
 	private void pronounceWord(String word) {

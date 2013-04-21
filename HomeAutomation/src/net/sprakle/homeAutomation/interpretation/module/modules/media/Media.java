@@ -1,10 +1,12 @@
 package net.sprakle.homeAutomation.interpretation.module.modules.media;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.externalSoftware.software.media.MediaCentre;
+import net.sprakle.homeAutomation.interpretation.ExecutionResult;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.ChangePlaybackState;
@@ -16,7 +18,7 @@ import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.Pl
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-public class Media extends InterpretationModule {
+public class Media implements InterpretationModule {
 	private final String NAME = "Media";
 
 	private ArrayList<MediaAction> mediaActions;
@@ -45,10 +47,13 @@ public class Media extends InterpretationModule {
 	}
 
 	@Override
-	public void execute(Phrase phrase) {
+	public ExecutionResult execute(Stack<Phrase> phrases) {
+		Phrase phrase = phrases.firstElement();
 
 		MediaAction result = selectExecution(phrase);
 		result.execute(phrase);
+
+		return ExecutionResult.COMPLETE;
 	}
 
 	private MediaAction selectExecution(Phrase phrase) {

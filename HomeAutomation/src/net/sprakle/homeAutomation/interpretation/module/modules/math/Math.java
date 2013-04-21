@@ -3,7 +3,9 @@ package net.sprakle.homeAutomation.interpretation.module.modules.math;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Stack;
 
+import net.sprakle.homeAutomation.interpretation.ExecutionResult;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
@@ -17,7 +19,7 @@ import de.congrace.exp4j.ExpressionBuilder;
 import de.congrace.exp4j.UnknownFunctionException;
 import de.congrace.exp4j.UnparsableExpressionException;
 
-public class Math extends InterpretationModule {
+public class Math implements InterpretationModule {
 
 	private Logger logger;
 	private Synthesis synth;
@@ -36,13 +38,17 @@ public class Math extends InterpretationModule {
 	}
 
 	@Override
-	public void execute(Phrase phrase) {
+	public ExecutionResult execute(Stack<Phrase> phrases) {
+		Phrase phrase = phrases.firstElement();
+
 		Execution execution = selectExecution(phrase);
 
 		if (execution == Execution.SETTING)
 			executeSetting(phrase);
 		else
 			executeCalculation(phrase);
+
+		return ExecutionResult.COMPLETE;
 	}
 
 	private Execution selectExecution(Phrase phrase) {

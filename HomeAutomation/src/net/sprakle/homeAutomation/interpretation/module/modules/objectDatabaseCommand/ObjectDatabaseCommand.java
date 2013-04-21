@@ -1,12 +1,14 @@
 package net.sprakle.homeAutomation.interpretation.module.modules.objectDatabaseCommand;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import net.sprakle.homeAutomation.interaction.objectDatabase.NodeType;
 import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase.QueryResponse;
 import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.components.DB_Node;
 import net.sprakle.homeAutomation.interaction.objectDatabase.componentTree.components.DB_Object;
+import net.sprakle.homeAutomation.interpretation.ExecutionResult;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
@@ -18,7 +20,7 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.DynamicResponder;
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.Response;
 
-public class ObjectDatabaseCommand extends InterpretationModule {
+public class ObjectDatabaseCommand implements InterpretationModule {
 
 	private final String NAME = "Object Database Command";
 
@@ -46,7 +48,8 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 	}
 
 	@Override
-	public void execute(Phrase phrase) {
+	public ExecutionResult execute(Stack<Phrase> phrases) {
+		Phrase phrase = phrases.firstElement();
 
 		// what type of node is the user attempting to effect?
 		NodeType type = interpretNodeType(phrase);
@@ -69,6 +72,8 @@ public class ObjectDatabaseCommand extends InterpretationModule {
 				String error = "Execute called on ObjectDatabaseCommand when it shouldn't have been called";
 				this.logger.log(error, LogSource.ERROR, LogSource.DETERMINER_INFO, 1);
 		}
+
+		return ExecutionResult.COMPLETE;
 	}
 
 	// called when a binary change is requested. EX: turn on the light

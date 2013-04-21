@@ -1,9 +1,11 @@
 package net.sprakle.homeAutomation.interpretation.module.modules.reloading;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import net.sprakle.homeAutomation.events.EventManager;
 import net.sprakle.homeAutomation.events.EventType;
+import net.sprakle.homeAutomation.interpretation.ExecutionResult;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
@@ -12,7 +14,7 @@ import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-public class Reloading extends InterpretationModule {
+public class Reloading implements InterpretationModule {
 	private final String NAME = "Reloader";
 
 	private Logger logger;
@@ -33,7 +35,8 @@ public class Reloading extends InterpretationModule {
 	}
 
 	@Override
-	public void execute(Phrase phrase) {
+	public ExecutionResult execute(Stack<Phrase> phrases) {
+		Phrase phrase = phrases.firstElement();
 
 		Tag match = selectExecution(phrase);
 
@@ -43,6 +46,8 @@ public class Reloading extends InterpretationModule {
 		EventManager em = EventManager.getInstance(logger);
 		ReloadEvent event = new ReloadEvent(match);
 		em.call(EventType.RELOAD, event);
+
+		return ExecutionResult.COMPLETE;
 	}
 
 	private Tag selectExecution(Phrase phrase) {

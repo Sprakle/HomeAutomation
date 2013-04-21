@@ -4,12 +4,14 @@
 
 package net.sprakle.homeAutomation.interpretation.module;
 
+import java.util.Stack;
+
+import net.sprakle.homeAutomation.interpretation.ExecutionResult;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 
-public abstract class InterpretationModule {
+public interface InterpretationModule {
+	public boolean claim(Phrase phrase);
+	public ExecutionResult execute(Stack<Phrase> phrases);
 
-	public abstract boolean claim(Phrase phrase);
-	public abstract void execute(Phrase phrase);
-
-	public abstract String getName();
+	public String getName();
 }

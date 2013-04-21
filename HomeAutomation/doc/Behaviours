@@ -1,0 +1,161 @@
+This document list the possible commands that can be used in behaviours
+
+============================
+========= Actions ========== 
+============================
+
+Media Centre Command
+	Type name: "media_centre_command"
+	Main element: "command"
+
+	Play Track:
+		Description:
+			Plays a track using the MediaCentre class.
+	
+		Element text:
+			"play_track"
+		
+		Required additional elements:
+			"track"
+			
+		Optional additional elements:
+			"artist"
+		
+		
+	Enqueue Track:
+		Description:
+			Enqueues a track using the MediaCentre class.
+			
+		Element text:
+			"enqueue_track"
+		
+		Required additional elements:
+			"track"
+			
+		Optional additional elements:
+			"artist"
+			
+			
+	Play Random Track:
+		Description:
+			Plays a random track. If an artist is specified, the pool of
+			tracks to choose from will shrink to those of the given
+			artist. Uses the MediaCentre class
+		
+		Element text:
+			"play_random_track"
+			
+		Optional Additional elements:
+			"artist"
+			
+			
+	Set volume:
+		Description:
+			Sets the volume of your media player using the MediaCentre
+			class. Note that this does not affect the operating system
+			volume.
+		
+		Element text:
+			"set_volume"
+		
+		Required Additional elements:
+			"set" - double >= 0 and <= 1
+			
+			
+	Change Volume:
+		Description:
+			Changes the volume of your media player using the
+			MediaCentre	class. Note that this does not affect the
+			operating system volume.
+		
+		Element text:
+			"change_volume"
+		
+		Required Additional elements:
+			"change" - double >= -1 and <= 1
+			
+	Playback:
+		Description:
+			Plays, pauses, and changes tracks, using the MediaCentre
+			class.
+		
+		Element text:
+			"playback"
+		
+		Required Additional elements:
+			"playback" - string "play", "pause", "next", or "back"
+			
+
+============================
+========= Triggers =========
+============================
+
+Object Database Read
+	Type name: "object_database_read"
+	Main element: "comparison"
+
+	Integer greater than:
+		Description:
+			Compares an integer to the integer node of a database object
+		
+		Element text:
+			"integer_greater_than"
+		
+		Required Additional elements:
+			"object_node" - path in the object database of an object's
+				node
+			"integer_greater_than" - integer
+			
+	
+	Integer less than:
+		Description:
+			Compares an integer to the integer node of a database object
+		
+		Element text:
+			"integer_less_than"
+		
+		Required Additional elements:
+			"object_node" - path in the object database of an object's
+				node
+			"integer_less_than" - integer
+
+	
+	Integer equals:
+		Description:
+			Compares an integer to the integer node of a database object
+		
+		Element text:
+			"integer_equals"
+		
+		Required Additional elements:
+			"object_node" - path in the object database of an object's
+				node
+			"integer_equals" - integer
+			
+			
+	Binary equals:
+		Description:
+			Compares a binary value to the integer node of a database
+			object
+		
+		Element text:
+			"binary_equals"
+		
+		Required Additional elements:
+			"object_node" - path in the object database of an object's
+				node
+			"binary_equals" - string "true" or "false"
+
+	
+	String equals:
+		Description:
+			Compares a string value to the integer node of a database
+			object
+		
+		Element text:
+			"string_equals"
+		
+		Required Additional elements:
+			"object_node" - path in the object database of an object's
+				node
+			"string_equals" - string

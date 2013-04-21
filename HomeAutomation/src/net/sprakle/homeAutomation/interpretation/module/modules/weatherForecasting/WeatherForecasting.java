@@ -2,12 +2,14 @@ package net.sprakle.homeAutomation.interpretation.module.modules.weatherForecast
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Stack;
 
 import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.externalSoftware.software.weather.InternetWeather;
 import net.sprakle.homeAutomation.externalSoftware.software.weather.supporting.ConditionType;
 import net.sprakle.homeAutomation.externalSoftware.software.weather.supporting.Forecast;
+import net.sprakle.homeAutomation.interpretation.ExecutionResult;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
@@ -20,7 +22,7 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.DynamicResponder;
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.Response;
 
-public class WeatherForecasting extends InterpretationModule {
+public class WeatherForecasting implements InterpretationModule {
 
 	private Logger logger;
 	private Synthesis synth;
@@ -80,7 +82,9 @@ public class WeatherForecasting extends InterpretationModule {
 	}
 
 	@Override
-	public void execute(Phrase phrase) {
+	public ExecutionResult execute(Stack<Phrase> phrases) {
+		Phrase phrase = phrases.firstElement();
+
 		Forecast forecast = getReleventForecast(phrase);
 
 		Tag conditionTag = phrase.getTag(new Tag(TagType.WEATHER_CONDITION, null));
@@ -124,10 +128,12 @@ public class WeatherForecasting extends InterpretationModule {
 
 			default:
 				synth.speak(DynamicResponder.reply(Response.I_COULD_NOT) + " get that information");
-				return;
+				return ExecutionResult.COMPLETE;
 		}
 
 		synth.speak(speak);
+
+		return ExecutionResult.COMPLETE;
 	}
 	private Forecast getReleventForecast(Phrase phrase) {
 		Forecast result = null;
