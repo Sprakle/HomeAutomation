@@ -49,6 +49,12 @@ public class WindowsMediaController extends MediaController {
 		freakOut();
 	}
 
+	@Override
+	public Track getCurrentTrack() {
+		freakOut();
+		return null;
+	}
+
 	private void freakOut() {
 		logger.log("Windows Media Controller not yet implemented!", LogSource.ERROR, LogSource.EXTERNAL_SOFTWARE, 1);
 	}

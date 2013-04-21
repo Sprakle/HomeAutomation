@@ -20,6 +20,10 @@ public class Track {
 
 	public Track(Logger logger, File sourceFile) {
 		this.sourceFile = sourceFile;
+
+		if (sourceFile == null)
+			return;
+
 		this.path = sourceFile.getAbsolutePath();
 
 		// get tags
@@ -95,6 +99,10 @@ public class Track {
 		return Levenshtein.getDistance(target, artist);
 	}
 
+	public boolean delete() {
+		return sourceFile.delete();
+	}
+
 	public File getSourceFile() {
 		return sourceFile;
 	}
@@ -109,5 +117,10 @@ public class Track {
 
 	public String getPath() {
 		return path;
+	}
+
+	@Override
+	public String toString() {
+		return title + " by " + artist;
 	}
 }

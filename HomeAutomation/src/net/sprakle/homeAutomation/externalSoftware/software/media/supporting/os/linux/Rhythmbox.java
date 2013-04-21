@@ -64,4 +64,12 @@ public class Rhythmbox extends MediaController {
 		int changes = (int) (change * 10);
 		cli.execute(command, changes);
 	}
+
+	@Override
+	public Track getCurrentTrack() {
+		String track = cli.execute(CLIENT + " --print-playing-format %tt", 1).get(0);
+		String artist = cli.execute(CLIENT + " --print-playing-format %ta", 1).get(0);
+
+		return levenGet(track, artist, 10);
+	}
 }

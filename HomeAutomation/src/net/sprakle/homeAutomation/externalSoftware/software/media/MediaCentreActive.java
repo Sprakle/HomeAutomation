@@ -1,6 +1,7 @@
 package net.sprakle.homeAutomation.externalSoftware.software.media;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 import net.sprakle.homeAutomation.events.Event;
 import net.sprakle.homeAutomation.events.EventListener;
@@ -120,5 +121,20 @@ class MediaCentreActive implements MediaCentre, EventListener {
 		}
 
 		controller.loadTracks();
+	}
+
+	@Override
+	public Track levenGet(String title, String artist, int maxDistance) {
+		return controller.levenGet(title, artist, maxDistance);
+	}
+
+	@Override
+	public TreeMap<Integer, Track> levenGetMulti(String title, String artist, int maxDistance) {
+		return controller.levenGetMulti(title, artist, maxDistance);
+	}
+
+	@Override
+	public Track getCurrentTrack() {
+		return controller.getCurrentTrack();
 	}
 }

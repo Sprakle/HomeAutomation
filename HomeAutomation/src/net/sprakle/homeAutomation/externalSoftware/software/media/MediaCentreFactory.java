@@ -22,7 +22,7 @@ public class MediaCentreFactory implements SoftwareInterfaceFactory {
 
 	@Override
 	public SoftwareInterface getInactiveSoftware() {
-		return new MediaCentreInactive();
+		return new MediaCentreInactive(logger);
 	}
 
 }

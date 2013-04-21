@@ -1,6 +1,7 @@
 package net.sprakle.homeAutomation.interpretation.tagger.tags;
 
 public enum TagType {
+	GENERAL,
 	UNKOWN_TEXT, // text that has not been tagged
 	POWER_OPTION, // EX: "Activate".
 	OD_OBJECT, // EX: "kitchen", "heater"
@@ -21,4 +22,6 @@ public enum TagType {
 	DAY,
 	WEATHER_CONDITION,
 	GENERAL_COMMAND, // commands of areas that are not large enough to get their own tagtype, such spell
+	FILE_CONTROL,
+	DECISION, // yes/no
 }

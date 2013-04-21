@@ -1,3 +1,6 @@
+"current"			{GENERAL/this}
+"this"				{GENERAL/this}
+
 "backlight"			{OD_OBJECT/backlight}
 "lamp"				{OD_OBJECT/loftbed lamp}
 "fan"				{OD_OBJECT/fan}
@@ -38,7 +41,7 @@
 "random"			{TIME_CHANGE/random}
 
 "song"				{MEDIA/track}
-"track"				{MEDIA/track}
+"track"				{MEDIA/track}"
 "music"				{MEDIA/track}
 
 "by"				{POSSESSION/owned}
@@ -133,3 +136,32 @@
 "clouds"			{WEATHER_CONDITION/cloudcover}
 "cloudy"			{WEATHER_CONDITION/cloudcover}
 "cloudcover"		{WEATHER_CONDITION/cloudcover}
+
+"delete"			{FILE_CONTROL/delete}
+"remove"			{FILE_CONTROL/delete}
+"copy"				{FILE_CONTROL/copy}
+"paste"				{FILE_CONTROL/paste}
+"cut"				{FILE_CONTROL/cut}
+
+"yes"				{DECISION/yes}
+"yup"				{DECISION/yes}
+"yep"				{DECISION/yes}
+"yea"				{DECISION/yes}
+"affirmative"		{DECISION/yes}
+"all right"			{DECISION/yes}
+"ok"				{DECISION/yes}
+"okay"				{DECISION/yes}
+"certainly"			{DECISION/yes}
+"definitely"		{DECISION/yes}
+"fine"				{DECISION/yes}
+"of course"			{DECISION/yes}
+"true"				{DECISION/yes}
+"continue"			{DECISION/yes}
+"no"				{DECISION/no}
+"not"				{DECISION/no}
+"negative"			{DECISION/no}
+"never"				{DECISION/no}
+"false"				{DECISION/no}
+"nope"				{DECISION/no}
+"nah"				{DECISION/no}
+"cancel"			{DECISION/no}

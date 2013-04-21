@@ -49,6 +49,12 @@ public class MacMediaController extends MediaController {
 		freakOut();
 	}
 
+	@Override
+	public Track getCurrentTrack() {
+		freakOut();
+		return null;
+	}
+
 	private void freakOut() {
 		logger.log("Mac Media Controller not yet implemented!", LogSource.ERROR, LogSource.EXTERNAL_SOFTWARE, 1);
 	}

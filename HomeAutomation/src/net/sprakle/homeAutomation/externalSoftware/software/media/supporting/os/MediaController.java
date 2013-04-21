@@ -144,4 +144,6 @@ public abstract class MediaController {
 
 		return distances;
 	}
+
+	public abstract Track getCurrentTrack();
 }

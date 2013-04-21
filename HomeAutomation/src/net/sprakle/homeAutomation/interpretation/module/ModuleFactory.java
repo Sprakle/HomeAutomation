@@ -9,6 +9,7 @@ import javax.swing.JCheckBox;
 
 import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
+import net.sprakle.homeAutomation.interpretation.module.modules.deleteCurrentSong.DeleteCurrentSong;
 import net.sprakle.homeAutomation.interpretation.module.modules.math.Math;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.Media;
 import net.sprakle.homeAutomation.interpretation.module.modules.objectDatabaseCommand.ObjectDatabaseCommand;
@@ -33,6 +34,7 @@ public class ModuleFactory {
 		moduleArray.add(new Spelling(synth, speller));
 		moduleArray.add(new WeatherForecasting(synth, exs));
 		moduleArray.add(new Reloading(logger));
+		moduleArray.add(new DeleteCurrentSong(logger, synth, exs));
 
 		// add module and checkbox
 		for (InterpretationModule im : moduleArray) {

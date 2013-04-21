@@ -1,6 +1,7 @@
 package net.sprakle.homeAutomation.externalSoftware.software.media;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 import net.sprakle.homeAutomation.externalSoftware.software.SoftwareInterface;
 import net.sprakle.homeAutomation.externalSoftware.software.media.supporting.PlaybackCommand;
@@ -49,4 +50,38 @@ public interface MediaCentre extends SoftwareInterface {
 	public ArrayList<Track> getTracks();
 
 	public void playbackCommand(PlaybackCommand pc);
+
+	/**
+	 * Search for a single track using levenshtein. (title || artist) || (title
+	 * && artist) must NOT be null. Null values will be ignored
+	 * 
+	 * @param title
+	 *            title of track wanted
+	 * @param artist
+	 *            artist name of track wanted
+	 * @param maxDistance
+	 *            max levenshtein distance to search
+	 * @return returns the track with the smallest distance
+	 */
+	public Track levenGet(String title, String artist, int maxDistance);
+
+	/**
+	 * Search for multiple tracks using levenshtein. (title || artist) || (title
+	 * && artist) must NOT be null. Null values will be ignored
+	 * 
+	 * @param title
+	 *            title of track wanted
+	 * @param artist
+	 *            artist name of track wanted
+	 * @param maxDistance
+	 *            max levenshtein distance to search
+	 * @return all tracks with a distance below maxDistance
+	 */
+	public TreeMap<Integer, Track> levenGetMulti(String title, String artist, int maxDistance);
+
+	/**
+	 * 
+	 * @return The track currently playing by the system's media player
+	 */
+	public Track getCurrentTrack();
 }

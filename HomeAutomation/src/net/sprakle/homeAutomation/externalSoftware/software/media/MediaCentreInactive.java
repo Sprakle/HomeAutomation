@@ -1,12 +1,20 @@
 package net.sprakle.homeAutomation.externalSoftware.software.media;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.externalSoftware.software.media.supporting.PlaybackCommand;
 import net.sprakle.homeAutomation.externalSoftware.software.media.supporting.Track;
+import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 class MediaCentreInactive implements MediaCentre {
+
+	private Logger logger;
+
+	public MediaCentreInactive(Logger logger) {
+		this.logger = logger;
+	}
 
 	@Override
 	public SoftwareName getSoftwareName() {
@@ -40,5 +48,20 @@ class MediaCentreInactive implements MediaCentre {
 
 	@Override
 	public void playbackCommand(PlaybackCommand pc) {
+	}
+
+	@Override
+	public Track levenGet(String title, String artist, int maxDistance) {
+		return new Track(logger, null);
+	}
+
+	@Override
+	public TreeMap<Integer, Track> levenGetMulti(String title, String artist, int maxDistance) {
+		return new TreeMap<Integer, Track>();
+	}
+
+	@Override
+	public Track getCurrentTrack() {
+		return new Track(logger, null);
 	}
 }
