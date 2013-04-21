@@ -16,7 +16,7 @@ public class SetVolume extends Command {
 
 		String setString = element.elementText("set");
 
-		if (setString == null || !setString.matches("-?(0(\\.\\d*)?)|1")) {
+		if (setString == null || !setString.matches("(0(\\.\\d*)?)|1")) {
 			logger.log("Invalid volume in set_volume behaviour: " + path, LogSource.ERROR, LogSource.BEHAVIOUR, 1);
 			return;
 		}
