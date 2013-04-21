@@ -7,6 +7,7 @@
  * {mode}-{pin}-{data}
  * mode:
  *   SENT STRING: DEFINITION   - SERIAL RESPONSE
+ *   ch: check if ready      - confirmation
  *   dr: digital read        - value
  *   dw: digital write       - confirmation
  *   ds: digital subscribe   - confirmation
@@ -20,6 +21,7 @@
  * 
  * data:
  *   MODE:        - SENT STRING
+ *   check if ready:      null
  *   digital read:        null
  *   digital write:       1|0
  *   digital subscribe:    null
@@ -94,24 +96,34 @@ ShiftIn myShiftIn(6, 7, 5, 2);
 /*
  * PIZEO TONES
  */
-int waitingTones[] = {500};
-int waitingTiming[] = {60};
+int waitingTones[] = {
+  500};
+int waitingTiming[] = {
+  60};
 int waitingLength = 1;
- 
-int startTones[] = {400, 0, 450, 0, 500, 0, 500};
-int startTiming[] = {70, 40, 70, 40, 70, 40, 70};
+
+int startTones[] = {
+  400, 0, 450, 0, 500, 0, 500};
+int startTiming[] = {
+  70, 40, 70, 40, 70, 40, 70};
 int startLength = 7;
 
-int devOnTones[] = {400, 600};
-int devOnTiming[] = {100, 100};
+int devOnTones[] = {
+  400, 600};
+int devOnTiming[] = {
+  100, 100};
 int devOnLength = 2;
 
-int devOffTones[] = {600, 400};
-int devOffTiming[] = {100, 100};
+int devOffTones[] = {
+  600, 400};
+int devOffTiming[] = {
+  100, 100};
 int devOffLength = 2;
 
-int errTones[] = {300, 0, 300, 0, 300, 0, 300, 0, 300, 0, 300};
-int errTiming[] = {600, 300, 600, 300, 600, 300, 600, 300, 600, 300, 600};
+int errTones[] = {
+  300, 0, 300, 0, 300, 0, 300, 0, 300, 0, 300};
+int errTiming[] = {
+  600, 300, 600, 300, 600, 300, 600, 300, 600, 300, 600};
 int errLength = 11;
 
 
@@ -147,39 +159,38 @@ int analogTolerance = 25; // if the value changes by 10, the subscriber will be 
 void setup(){
   pinMode(onPin, OUTPUT);
   pinMode(pizeoPin, OUTPUT);
-  
+
   Serial.begin(9600);
-  
+
   // waiting for serial
   boolean waitOn = false; // blinking the on LED
   boolean waiting = true;
+
   while(waiting) {
-    
     if (waitOn) {
       digitalWrite(onPin, LOW);
       waitOn = false;
-    } else {
+    } 
+    else {
       digitalWrite(onPin, HIGH);
       waitOn = true;
     }
-    
+
     pizeoNoise(pizeoPin, waitingTones, waitingTiming, waitingLength);
     delay(1500);
-    
+
     while (Serial.available() > 0){
       Serial.read();
       waiting = false;
     }
   }
-  
-  Serial.println("db-00-ready");
 
   // flush shift registers, as they can carry data from the last run
   myShiftOut.shiftUpdate();
-  
+
   // signal ready 
   digitalWrite(onPin, HIGH);
-  
+
   // make ready sound
   pizeoNoise(pizeoPin, startTones, startTiming, startLength);
 }
@@ -209,34 +220,34 @@ void loop(){
       serialReadString[stringPosition] = inByte; // Save the character in a character array
     }
   }
-  
+
   // check subscribed pins and update if neccesary - digital
   for (int i = 0; i < numDigitalSubscriptios; i++) {
     if (digitalSubscriptions[i] == true) {
-      
+
       int currentValue = myShiftIn.shiftRead(i);
       int lastValue = digitalLastValues[i];
       if (currentValue == lastValue) {
         // dont alert if value was the same
         continue;
       }
-      
+
       digitalLastValues[i] = currentValue;
-    
+
       // add leading zeroes if neccesary
       String sPin = String(i);
       if (i < 10) {
         sPin = "0" + sPin;
       }
-    
+
       Serial.println("du-" + sPin + "-" + String(currentValue));
     }
   }
-  
+
   // check subscribed pins and update if neccesary - analog
   for (int i = 0; i < numAnalogSubscriptions; i++) {
     if (analogSubscriptions[i] == true) {
-      
+
       int currentValue = analogRead(i);
       int lastValue = analogLastValues[i];
       int difference = abs(currentValue - lastValue);
@@ -244,19 +255,19 @@ void loop(){
         // dont alert if difference was not great enough
         continue;
       }
-      
+
       analogLastValues[i] = currentValue;
-    
+
       // add leading zeroes if neccesary
       String sPin = String(i);
       if (i < 10) {
         sPin = "0" + sPin;
       }
-    
+
       Serial.println("au-" + sPin + "-" + String(currentValue));
     }
   }
-  
+
 
   delay(10);
 }
@@ -286,24 +297,30 @@ void parseCommand(String command) {
 
 void interpretCommand(String mode, int pin, String data) {
 
+  // check if ready
+  if (mode == "ch") {
+    Serial.println("cn-00-ready");
+  }
+
   // digital write
   if (mode == "dw") {
     int value = data.toInt();
     myShiftOut.shiftWrite(pin, value);
     myShiftOut.shiftUpdate();
-    
+
     if (value == 1) {
       pizeoNoise(pizeoPin, devOnTones, devOnTiming, devOnLength);
-    } else {
+    } 
+    else {
       pizeoNoise(pizeoPin, devOffTones, devOffTiming, devOffLength);
     }
-    
+
     // add leading zeroes if neccesary
     String sPin = String(pin);
     if (pin < 10) {
       sPin = "0" + sPin;
     }
-    
+
     Serial.println("cn-" + sPin + "-" + String(value));
     return;
   }
@@ -311,29 +328,29 @@ void interpretCommand(String mode, int pin, String data) {
   // digital subscribe
   if (mode == "ds") {
     digitalSubscriptions[pin] = true;
-    
+
     // add leading zeroes if neccesary
     String sPin = String(pin);
     if (pin < 10) {
       sPin = "0" + sPin;
     }
-    
+
     digitalLastValues[pin] = myShiftIn.shiftRead(pin);
-    
+
     Serial.println("cn-" + sPin);
     return;
   }
-  
+
   // digital read
   if (mode == "dr") {
     int value = myShiftIn.shiftRead(pin);
-    
+
     // add leading zeroes if neccesary
     String sPin = String(pin);
     if (pin < 10) {
       sPin = "0" + sPin;
     }
-    
+
     Serial.println("va-" + sPin + "-" + String(value));
     return;
   }
@@ -342,13 +359,13 @@ void interpretCommand(String mode, int pin, String data) {
   if (mode == "aw") {
     int value = data.toInt();
     analogWrite(pin, value);
-    
+
     // add leading zeroes if neccesary
     String sPin = String(pin);
     if (pin < 10) {
       sPin = "0" + sPin;
     }
-    
+
     Serial.println("cn-" + sPin + "-" + String(value));
     return;
   }
@@ -356,29 +373,29 @@ void interpretCommand(String mode, int pin, String data) {
   // analogue subscribe
   if (mode == "as") {
     analogSubscriptions[pin] = true;
-    
+
     // add leading zeroes if neccesary
     String sPin = String(pin);
     if (pin < 10) {
       sPin = "0" + sPin;
     }
-    
+
     analogLastValues[pin] = analogRead(pin);
-    
+
     Serial.println("cn-" + sPin);
     return;
   }
-  
+
   // analog read
   if (mode == "ar") {
     int value = analogRead(pin);
-    
+
     // add leading zeroes if neccesary
     String sPin = String(pin);
     if (pin < 10) {
       sPin = "0" + sPin;
     }
-    
+
     Serial.println("va-" + sPin + "-" + String(value));
   }
 
@@ -417,7 +434,7 @@ boolean isAcceptable(String command) {
   String e = command.substring(6);
 
   // should be a mode
-  if (a != "pa" && a != "ds" && a != "dr" && a != "dw" && a != "as" && a != "ar" && a != "aw" && a != "em") {
+  if (a != "ch" &&a != "pa" && a != "ds" && a != "dr" && a != "dw" && a != "as" && a != "ar" && a != "aw" && a != "em") {
     return false;
   }
 
@@ -477,12 +494,14 @@ void pizeoNoise(int pin, int tones[], int timing[], int length) {
 
     if (freq == 0) {
       delay(time);
-      
-    } else {
+
+    } 
+    else {
       tone(pin, freq);
       delay(time);
       noTone(pin);
     }
   }
 }
+
 

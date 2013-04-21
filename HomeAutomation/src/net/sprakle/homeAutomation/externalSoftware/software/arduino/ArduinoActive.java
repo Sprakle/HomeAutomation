@@ -44,6 +44,13 @@ class ArduinoActive implements Arduino, LogicTimerObserver {
 		analogueSubscriptions = new boolean[maxAnaloguePin - minAnaloguePin];
 		analogueValues = new int[maxAnaloguePin - minAnaloguePin];
 
+		if (waitForArduinoStart(10, 500)) {
+			logger.log("Arduino started and ready for commands", LogSource.ARDUINO, 1);
+		} else {
+			logger.log("Unable to start arduino", LogSource.ERROR, LogSource.ARDUINO, 1);
+			return;
+		}
+
 		LogicTimer timer = LogicTimer.getLogicTimer();
 		timer.addObserver(this);
 	}
@@ -251,6 +258,32 @@ class ArduinoActive implements Arduino, LogicTimerObserver {
 		}
 	}
 
+	// returns once arduino is ready to accept commands
+	private boolean waitForArduinoStart(int tries, int timeoutPerTry) {
+
+		for (int i = 0; i < tries; i++) {
+			ai.sendString("ch-00");
+
+			long startTime = System.currentTimeMillis();
+			while (true) {
+				String input = ai.getInput();
+				if (input != null && input.equals("cn-00-ready"))
+					return true;
+
+				long totalTime = System.currentTimeMillis() - startTime;
+				if (totalTime > timeoutPerTry)
+					break;
+
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return false;
+	}
 	@Override
 	public void advanceLogic() {
 		String input = ai.getInput();
