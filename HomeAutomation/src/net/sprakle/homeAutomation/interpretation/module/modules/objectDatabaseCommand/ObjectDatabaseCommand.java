@@ -133,7 +133,7 @@ public class ObjectDatabaseCommand implements InterpretationModule {
 	private void executeForInteger(ObjectDatabase od, Phrase phrase, String nodeName) {
 		// get the tag describing the target to execute the command on
 		Tag targetTag = phrase.getTag(new Tag(TagType.OD_OBJECT, null));
-		Tag numberTag = phrase.getRelativeTag(targetTag, new Tag(TagType.NUMBER, null), 1);
+		Tag numberTag = phrase.getRelativeTag(targetTag, new Tag(TagType.NUMBER, null), 1, 3);
 
 		String targetName = targetTag.getValue();
 
@@ -221,7 +221,7 @@ public class ObjectDatabaseCommand implements InterpretationModule {
 			if (phrase.matchOutlines(logger, setArray) != null) {
 				// make sure the setter has a value
 				Tag setter = phrase.getTag(new Tag(TagType.SETTER, null));
-				Tag number = phrase.getRelativeTag(setter, new Tag(TagType.NUMBER, null), 1);
+				Tag number = phrase.getRelativeTag(setter, new Tag(TagType.NUMBER, null), 1, 3);
 
 				if (number.getValue().matches("-?\\d+(\\.\\d+)?")) {
 					types.add(NodeType.INTEGER);

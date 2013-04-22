@@ -51,7 +51,7 @@ public class PlaySong extends MediaAction {
 		String title = null;
 
 		Tag playTag = phrase.getTag(new Tag(TagType.PLAYBACK, "play"));
-		Tag titleTag = phrase.getRelativeTag(playTag, new Tag(TagType.UNKOWN_TEXT, null), 1);
+		Tag titleTag = phrase.getRelativeTag(playTag, new Tag(TagType.UNKOWN_TEXT, null), 1, 3);
 		title = titleTag.getValue();
 
 		mc.playTrack(title, null);

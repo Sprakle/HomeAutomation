@@ -99,19 +99,29 @@ public class Phrase {
 	}
 
 	/**
-	 * 
-	 * @param type
-	 *            use to get a specific type
+	 * Searches for a specific tag starting from the absolute tag. Starts at
+	 * absoluteIndex + delta, and continues until it has found a match or passed
+	 * allowed tolerances
 	 * 
 	 * @param absolute
-	 *            tag to base the traversal from
+	 *            Tag to start searching from
+	 * @param shellTag
+	 *            Tag that must be matched
 	 * @param delta
-	 *            amount to traverse. 0 = the tag passed, 1 = the tag after
-	 * @return
+	 *            Added to absolute index to start search
+	 * @param maxTraversal
+	 *            Maximum distance to search
+	 * @return The matching tag. Returns null if nothing found
 	 */
-	public Tag getRelativeTag(Tag absolute, Tag shellTag, int delta) {
+	public Tag getRelativeTag(Tag absolute, Tag shellTag, int delta, int maxTraversal) {
+		// increment delta until tag is found, the end of the array has been reached, or the max traversal value has been passed
 
-		while (delta > 0 && delta < tags.size()) {
+		int absoluteIndex = tags.indexOf(absolute);
+		int maxDeltaLeft = absoluteIndex * -1;
+		int maxDeltaRight = tags.size() - 1;
+
+		// while delta is within allowed tolerances
+		while (delta >= maxDeltaLeft && delta <= maxDeltaRight && Math.abs(delta) <= maxTraversal) {
 			Tag t = getRelativeTag(absolute, delta);
 
 			if (match(shellTag, t))
