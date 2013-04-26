@@ -1,6 +1,7 @@
 package net.sprakle.homeAutomation.interpretation.tagger;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
@@ -9,12 +10,18 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class PhraseOutline {
 
+	private final int EXPECTED_TAG_WEIGHT = 1;
+	private final int SPECIFIC_TAG_WEIGHT = 1;
+	private final int UNEXPECTED_TAG_WEIGHT = 1;
+
 	private String description;
 
 	private ArrayList<Tag> mandatoryTags;
 	private ArrayList<Tag> neutralTags;
 
+	// match settings
 	private int maxTagSeparation = 2;
+	private boolean negateUnxepectedTagPenalty = false;
 
 	public PhraseOutline(Logger logger, String description) {
 		this.description = description;
@@ -23,10 +30,57 @@ public class PhraseOutline {
 		neutralTags = new ArrayList<Tag>();
 	}
 
-	// return an integer of the confidence of the match. 0 is no confidence
-	// Confidence = total matches + total specific tags (tags with their type AND value defined) - total unexpected NON-UNKOWN_TEXT tags
+	/**
+	 * Match a phrase against this outline
+	 * 
+	 * @param phrase
+	 * @return an integer of the confidence of the match. 0 is no confidence
+	 */
 	public int match(Phrase phrase) {
 
+		/*
+		 * A phrase can have multiple tags to start matching from, for example:
+		 * 		Outline: {FRACTION/null} {TIME_CHANGE/null}			Expecting: "do something at quarter after"
+		 * 		Phrase:  "Do half by homework at quarter after"
+		 * 
+		 * The matcher will work off of the {FRACTION/half} tag, resulting on zero confidence, as the
+		 * following tag is not a TIME_CHANGE tag.
+		 * 
+		 * To combat this, a list is made of all tags in the phrase with the correct starting type (and value if
+		 * applicable). For each starting tag, a new List<Tag> is made of it and the tags following, and each of
+		 * them are sent to the matcher. The starting tag with the highest confidence is selected as the correct
+		 * one, and this confidence is returned, completing the process.
+		 */
+
+		// tags in phrase
+		List<Tag> phraseTags = phrase.getTags();
+
+		// find all potential starting tags
+		List<List<Tag>> potentialMatchers = new ArrayList<List<Tag>>();
+		for (Tag t : phraseTags) {
+			Tag outlineTag = mandatoryTags.get(0);
+			if (tagsMatch(outlineTag, t)) {
+				int startIndex = phraseTags.indexOf(t);
+				int endIndex = phraseTags.size();
+				List<Tag> potentialMatcher = phraseTags.subList(startIndex, endIndex);
+				potentialMatchers.add(potentialMatcher);
+			}
+		}
+
+		int confidence = 0;
+
+		// check each potential starting tag, keeping the one with the highest confidence
+		for (List<Tag> potentialMatcher : potentialMatchers) {
+
+			int currentConfidence = getConfidence(potentialMatcher);
+			if (currentConfidence > confidence)
+				confidence = currentConfidence;
+		}
+
+		return confidence;
+	}
+
+	private int getConfidence(List<Tag> tags) {
 		int confidence = 0;
 
 		int mininumExpectedTags = mandatoryTags.size();
@@ -35,77 +89,138 @@ public class PhraseOutline {
 		int specificTags = 0;
 		int unexpectedTags = 0;
 
-		// consider making weights decimal values, and multiplying the end results by the weights
-		int expectedTagWeight = 1;
-		int specificTagWeight = 1;
-		int unexpectedTagWeight = 1;
+		Tag previousMatch = null;
+		Tag previousOutline = null;
 
-		int lastOutlineTagPos = -1;
+		// tag outlines that have been checked already
+		List<Tag> visitedMandatoryTags = new ArrayList<Tag>();
 
-		// for every tag in the phrase
-		ArrayList<Tag> phraseTags = phrase.getTags();
-		for (Tag phraseTag : phraseTags) {
+		for (Tag tag : tags) {
+			TagResult result = matchTag(tags, visitedMandatoryTags, previousOutline, previousMatch, tag);
 
-			// skip if neutral tag
-			if (taglistContainsType(neutralTags, phraseTag))
-				continue;
+			switch (result) {
+				case NEUTRAL:
+					// do nothing
+					break;
 
-			// is it in the outline?
-			Tag outlineTag = null;
-			for (Tag t : mandatoryTags) {
-				if (t.equalsType(phraseTag)) {
+				case EXPECTED:
+					expectedTags += EXPECTED_TAG_WEIGHT;
 
-					// make sure this phrase is in the right order, by checking if the matching outline tag came after the last one, but not too far ahead
-					int outlineTagPos = mandatoryTags.indexOf(t);
+					previousMatch = tag;
+					previousOutline = visitedMandatoryTags.get(visitedMandatoryTags.size() - 1);
+					break;
 
-					int difference = outlineTagPos - lastOutlineTagPos;
-					if (difference > 0 && difference < maxTagSeparation + 1) {
-						outlineTag = t;
+				case SPECIFIC:
+					specificTags += SPECIFIC_TAG_WEIGHT;
+					expectedTags += EXPECTED_TAG_WEIGHT;
 
-						// break the loop, as we only want to first tag of the correct position
-						break;
-					}
-				}
+					previousMatch = tag;
+					previousOutline = visitedMandatoryTags.get(visitedMandatoryTags.size() - 1);
+					break;
+
+				case UNEXPECTED:
+					unexpectedTags += UNEXPECTED_TAG_WEIGHT;
+					break;
 			}
 
-			if (outlineTag != null) {
-				// the phrase tag was contained within the outline, and at the correct position
-
-				// if the outline tag has a value, make sure the phrase tag has a matching one
-				if (outlineTag.getValue() != null) {
-					if (!outlineTag.equalsValue(phraseTag)) {
-						// fail
-						unexpectedTags += unexpectedTagWeight;
-						continue;
-					} else {
-						specificTags += specificTagWeight; // this tag specified a value. add to confidence
-					}
-				}
-
-				lastOutlineTagPos++;
-				expectedTags += expectedTagWeight;
-
-			} else {
-
-				// this is an unexpected tag. add to count if this is not an UNKOWN_TEXT tag
-				if (!phraseTag.equalsType(new Tag(TagType.UNKOWN_TEXT, null))) {
-					unexpectedTags += unexpectedTagWeight;
-				}
-			}
 		}
+
+		if (negateUnxepectedTagPenalty)
+			unexpectedTags = 0;
 
 		confidence = expectedTags + specificTags - unexpectedTags;
 
-		// confidence is zero if there were not enough matches
 		if (expectedTags < mininumExpectedTags)
 			confidence = 0;
 
 		return confidence;
 	}
 
+	private TagResult matchTag(List<Tag> allTags, List<Tag> visitedMandatoryTags, Tag previousOutline, Tag previousMatch, Tag tag) {
+
+		if (taglistContainsType(neutralTags, tag))
+			return TagResult.NEUTRAL;
+
+		// make sure the tag is on the outline, by checking if the type and value (if applicable) matches
+		// only look through outline tags that have not been checked yet
+		boolean inOutline = false;
+		List<Tag> pool = new ArrayList<Tag>(mandatoryTags);
+		pool.removeAll(visitedMandatoryTags);
+		for (Tag outlineTag : pool) {
+			boolean match = tagsMatch(outlineTag, tag);
+			boolean outlineFollowsPrevious = tagFollowsTag(mandatoryTags, previousOutline, outlineTag, 1);
+			boolean tagFollowsPrevious = tagFollowsTag(allTags, previousMatch, tag, maxTagSeparation);
+
+			if (match && outlineFollowsPrevious && tagFollowsPrevious) {
+				inOutline = true;
+				visitedMandatoryTags.add(outlineTag);
+
+				// if the outline tag had a value, it was matched as specific
+				if (outlineTag.getValue() != null)
+					return TagResult.SPECIFIC;
+				else
+					return TagResult.EXPECTED;
+			}
+		}
+
+		// if not in outline and it's not UNKOWN_TEXT, it's unexpected
+		if (!inOutline) {
+			if (tag.equalsType(new Tag(TagType.UNKOWN_TEXT, null)))
+				return TagResult.NEUTRAL;
+			else
+				return TagResult.UNEXPECTED;
+		}
+
+		// nothing should be here
+		return null;
+	}
+
 	/**
-	 * Greatest difference of indexes two tags can have to be considered
-	 * adjacent
+	 * Matches types, and values ONLY if target has a value
+	 * 
+	 * @param target
+	 *            The tag that test should be
+	 * @param test
+	 *            Tag tag that should be test
+	 * @return true if match
+	 */
+	private boolean tagsMatch(Tag target, Tag test) {
+		boolean checkValue = target.getValue() != null;
+
+		if (checkValue) {
+			if (test.equalsTypeValue(target))
+				return true;
+
+		} else if (test.equalsType(target))
+			return true;
+
+		return false;
+	}
+
+	private boolean tagFollowsTag(List<Tag> list, Tag previous, Tag current, int maxSeparation) {
+		// automatically return true if the tag is the first
+		if (previous == null)
+			return true;
+
+		int prevMatchIndex = list.indexOf(previous);
+		int tagIndex = list.indexOf(current);
+		int difference = tagIndex - prevMatchIndex;
+		if (difference > 0 && difference <= maxTagSeparation)
+			return true;
+		else
+			return false;
+	}
+
+	private enum TagResult {
+		NEUTRAL,
+		UNEXPECTED,
+		EXPECTED,
+		SPECIFIC;
+	}
+
+	/**
+	 * Greatest difference of indexes two tags in a phrase can have to be
+	 * considered adjacent.
 	 * 
 	 * @param max
 	 */
@@ -136,6 +251,14 @@ public class PhraseOutline {
 		neutralTags.add(t);
 	}
 
+	/**
+	 * There will be no reduction of confidence by unexpected tags. Useful for
+	 * when expecting a lot of unknown input, such as a social message
+	 */
+	public void negateUnxepectedTagPenalty() {
+		negateUnxepectedTagPenalty = true;
+	}
+
 	public ArrayList<Tag> getTags() {
 		return new ArrayList<Tag>(mandatoryTags);
 	}
@@ -155,7 +278,7 @@ public class PhraseOutline {
 	 *            tag that should be matched
 	 * @return true if there is a match
 	 */
-	private boolean taglistContainsType(ArrayList<Tag> list, Tag check) {
+	private boolean taglistContainsType(List<Tag> list, Tag check) {
 		for (Tag t : list) {
 			if (t.equalsType(check))
 				return true;

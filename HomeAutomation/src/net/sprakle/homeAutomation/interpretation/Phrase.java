@@ -1,6 +1,7 @@
 package net.sprakle.homeAutomation.interpretation;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
@@ -43,25 +44,19 @@ public class Phrase {
 		return tags.get(index);
 	}
 
-	/*
-	 *  when given a shell tag (Only the TagType is set) it will return the full tag from a phrase
-	 *  If there are multiple tags found, or no tags found, null will be returned
+	/**
+	 * Returns the first occurrence of a matching tag
+	 * 
+	 * @param shellTag
+	 * @return
 	 */
 	public Tag getTag(Tag shellTag) {
-		Tag result = null;
-
-		ArrayList<Tag> matchingTags = new ArrayList<Tag>();
 		for (Tag t : tags) {
-
 			if (match(shellTag, t))
-				matchingTags.add(t);
+				return t;
 		}
 
-		if (matchingTags.size() == 1) {
-			result = matchingTags.get(0);
-		}
-
-		return result;
+		return null;
 	}
 
 	// similar to other getTagOfType(), but searches after a specific index - returns first one fond at the given index 
@@ -175,7 +170,7 @@ public class Phrase {
 	 *            arraylist of possibilities to match
 	 * @return the matching outline. returns null if there are not matches
 	 */
-	public PhraseOutline matchOutlines(Logger logger, ArrayList<PhraseOutline> phraseOutlines) {
+	public PhraseOutline matchOutlines(Logger logger, List<PhraseOutline> phraseOutlines) {
 		// used to sort outlines by their confidence rating
 		TreeMap<Integer, PhraseOutline> matches = new TreeMap<Integer, PhraseOutline>();
 
