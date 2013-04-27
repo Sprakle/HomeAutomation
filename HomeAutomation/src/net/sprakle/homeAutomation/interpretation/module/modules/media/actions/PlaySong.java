@@ -8,7 +8,6 @@ import net.sprakle.homeAutomation.interpretation.module.modules.media.MediaActio
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
-import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class PlaySong extends MediaAction {
@@ -40,7 +39,7 @@ public class PlaySong extends MediaAction {
 
 	@Override
 	public void doExecute(Phrase phrase) {
-		Tag byTag = phrase.getTag(new Tag(TagType.POSSESSION, "by"));
+		Tag byTag = phrase.getTag(new Tag(TagType.POSSESSION, "owned"));
 		if (byTag == null)
 			executeTitleOnly(phrase);
 		else
@@ -48,39 +47,29 @@ public class PlaySong extends MediaAction {
 	}
 
 	private void executeTitleOnly(Phrase phrase) {
-		String title = null;
+		Tag[] sequenceRequest = new Tag[2];
+		sequenceRequest[0] = new Tag(TagType.PLAYBACK, "play");
+		sequenceRequest[1] = new Tag(TagType.UNKOWN_TEXT, null);
 
-		Tag playTag = phrase.getTag(new Tag(TagType.PLAYBACK, "play"));
-		Tag titleTag = phrase.getRelativeTag(playTag, new Tag(TagType.UNKOWN_TEXT, null), 1, 3);
-		title = titleTag.getValue();
+		Tag[] sequence = phrase.getTagSequence(sequenceRequest);
+
+		Tag titleTag = sequence[1];
+		String title = titleTag.getValue();
 
 		mc.playTrack(title, null);
 	}
 
 	private void executeTitleAndArtist(Phrase phrase) {
-		ArrayList<Tag> tags = phrase.getTags();
+		Tag[] sequenceRequest = new Tag[3];
+		sequenceRequest[0] = new Tag(TagType.UNKOWN_TEXT, null);
+		sequenceRequest[1] = new Tag(TagType.POSSESSION, "owned");
+		sequenceRequest[2] = new Tag(TagType.UNKOWN_TEXT, null);
 
-		int ownedTagIndex = -1;
-		for (Tag t : tags) {
+		Tag[] sequence = phrase.getTagSequence(sequenceRequest);
+		Tag titleTag = sequence[0];
+		Tag artistTag = sequence[2];
 
-			if (t.getType() == TagType.POSSESSION && t.getValue().equals("owned"))
-				ownedTagIndex = tags.indexOf(t);
-		}
-
-		Tag titleTag = tags.get(ownedTagIndex - 1);
-		Tag artistTag = tags.get(ownedTagIndex + 1);
-
-		String title = null;
-		String artist = null;
-
-		if (titleTag != null & artistTag != null) {
-			title = titleTag.getValue();
-			artist = artistTag.getValue();
-		} else {
-			logger.log("Unable to determine track from phrase", LogSource.ERROR, LogSource.EXTERNAL_SOFTWARE, 1);
-		}
-
-		mc.playTrack(title, artist);
+		mc.playTrack(titleTag.getValue(), artistTag.getValue());
 	}
 
 	@Override

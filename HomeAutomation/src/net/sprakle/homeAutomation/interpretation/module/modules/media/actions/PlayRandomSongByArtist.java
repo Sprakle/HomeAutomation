@@ -8,7 +8,6 @@ import net.sprakle.homeAutomation.interpretation.module.modules.media.MediaActio
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
-import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class PlayRandomSongByArtist extends MediaAction {
@@ -44,26 +43,18 @@ public class PlayRandomSongByArtist extends MediaAction {
 
 	@Override
 	public void doExecute(Phrase phrase) {
+		Tag[] sequenceRequest = new Tag[2];
+		sequenceRequest[0] = new Tag(TagType.POSSESSION, "owned");
+		sequenceRequest[1] = new Tag(TagType.UNKOWN_TEXT, null);
 
-		// get the {UNKOWN_TEXT} tag value after the {POSSESION/BY} tag
-		ArrayList<Tag> tags = phrase.getTags();
+		Tag[] sequence = phrase.getTagSequence(sequenceRequest);
 
-		int ownedTagIndex = -1;
-		for (Tag t : tags) {
-
-			if (t.getType() == TagType.POSSESSION && t.getValue().equals("owned"))
-				ownedTagIndex = tags.indexOf(t);
-		}
-
-		String artist = null;
-
-		if (ownedTagIndex != -1)
-			artist = tags.get(ownedTagIndex + 1).getValue();
-		else
-			logger.log("Unable to determine artist from phrase", LogSource.ERROR, LogSource.EXTERNAL_SOFTWARE, 1);
+		Tag artistTag = sequence[1];
+		String artist = artistTag.getValue();
 
 		mc.playRandomTrack(artist);
 	}
+
 	@Override
 	public String getName() {
 		return "Play random song by specific artist";

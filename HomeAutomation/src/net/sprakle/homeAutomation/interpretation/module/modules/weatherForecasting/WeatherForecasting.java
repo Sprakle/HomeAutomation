@@ -45,7 +45,7 @@ public class WeatherForecasting implements InterpretationModule {
 		poA.addMandatoryTag(new Tag(TagType.RELATIVE_DAY, null));
 		poA.setMaxTagSeparation(3);
 
-		// ex: how RAINY will it by in FRIDAY
+		// ex: how RAINY will it be on FRIDAY
 		PhraseOutline poB = new PhraseOutline(logger, getName());
 		poB.addMandatoryTag(new Tag(TagType.WEATHER_CONDITION, null));
 		poB.addMandatoryTag(new Tag(TagType.DAY, null));
@@ -135,6 +135,7 @@ public class WeatherForecasting implements InterpretationModule {
 
 		return ExecutionResult.COMPLETE;
 	}
+
 	private Forecast getReleventForecast(Phrase phrase) {
 		Forecast result = null;
 

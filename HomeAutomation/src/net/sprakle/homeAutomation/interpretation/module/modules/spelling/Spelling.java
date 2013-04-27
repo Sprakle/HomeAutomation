@@ -43,6 +43,7 @@ public class Spelling implements InterpretationModule {
 	public ExecutionResult execute(Stack<Phrase> phrases) {
 		Phrase phrase = phrases.firstElement();
 
+		// we will use the old relative tag system, as we want to spell ANYTHING given
 		Tag spellTag = phrase.getTag(new Tag(TagType.GENERAL_COMMAND, "spell"));
 		Tag afterSpellTag = phrase.getRelativeTag(spellTag, 1);
 
