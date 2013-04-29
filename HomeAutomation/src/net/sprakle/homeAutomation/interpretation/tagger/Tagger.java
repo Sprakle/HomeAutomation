@@ -86,12 +86,12 @@ public class Tagger implements EventListener {
 			}
 		}
 
-		/*
-		 * TAG NUMBERS
-		 */
 		// holds each word that was separated by whitespace
 		String[] words = text.split(" ");
 
+		/*
+		 * TAG NUMBERS
+		 */
 		// tag any numbers
 		for (String word : words) {
 			word = word.trim(); // just in case there were multiple spaces
@@ -101,6 +101,32 @@ public class Tagger implements EventListener {
 
 				// make a temporary tagFile line based off that number, as the TagFactory needs it to give a tag it's position on the line
 				String tagFileLine = "\"" + word + "\" {NUMBER/" + word + "}";
+				Tag tag = new Tag(logger, tagFileLine);
+
+				int index = text.indexOf(word);
+				sortingTags.put(index, tag);
+
+				// replace number in text with blanks. a star is used to signify that a tag used to be there
+				String whitespace = "*";
+				for (int i = 0; i < word.length() - 1; i++)
+					whitespace += " ";
+				text = text.replaceFirst(word, whitespace);
+			}
+		}
+
+		/*
+		 * TAG NTH NUMBERS (first, second, 3rd, etc)
+		 */
+		// tag any numbers
+		for (String word : words) {
+			word = word.trim(); // just in case there were multiple spaces
+
+			// is it a number?
+			if (word.matches("\\d*((st)|(nd)|(rd)|(th))")) {
+				String number = word.replaceAll("((st)|(nd)|(rd)|(th))", "");
+
+				// make a temporary tagFile line based off that number, as the TagFactory needs it to give a tag it's position on the line
+				String tagFileLine = "\"" + number + "\" {NTH_NUMBER/" + number + "}";
 				Tag tag = new Tag(logger, tagFileLine);
 
 				int index = text.indexOf(word);
