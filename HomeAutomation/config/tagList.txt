@@ -32,6 +32,8 @@
 
 "next"				{TIME_CHANGE/next}
 "after"				{TIME_CHANGE/next}
+"past"				{TIME_CHANGE/next}
+"to"				{TIME_CHANGE/prev}
 "last"				{TIME_CHANGE/prev}
 "before"			{TIME_CHANGE/prev}
 "previous"			{TIME_CHANGE/prev}
@@ -91,8 +93,16 @@
 
 "pi"				{NUMBER/3.14159}
 
+"first"				{NTH_NUMBER/1}
+"second"			{NTH_NUMBER/2}
+"third"				{NTH_NUMBER/3}
+"fourth"			{NTH_NUMBER/4}
+"fifth"				{NTH_NUMBER/5}
+
 "spell"				{GENERAL_COMMAND/spell}
 
+"yesterday"			{RELATIVE_DAY/-1}
+"yesterday's"		{RELATIVE_DAY/-1}
 "today"				{RELATIVE_DAY/0}
 "today's"			{RELATIVE_DAY/0}
 "tomorrow"			{RELATIVE_DAY/1}
@@ -112,6 +122,24 @@
 "thursday's"		{DAY/4}
 "friday's"			{DAY/5}
 "saturday's"		{DAY/6}
+
+"january"			{MONTH/0}
+"february"			{MONTH/1}
+"march"				{MONTH/2}
+"april"				{MONTH/3}
+"may"				{MONTH/4}
+"june"				{MONTH/5}
+"july"				{MONTH/6}
+"august"			{MONTH/7}
+"september"			{MONTH/8}
+"october"			{MONTH/9}
+"november"			{MONTH/10}
+"december"			{MONTH/11}
+
+"am"				{AM_PM/0}
+"a.m."				{AM_PM/0}
+"pm"				{AM_PM/1}
+"p.m."				{AM_PM/1}
 
 "forecast"			{WEATHER_CONDITION/overview}
 "weather"			{WEATHER_CONDITION/overview}
@@ -165,3 +193,39 @@
 "nope"				{DECISION/no}
 "nah"				{DECISION/no}
 "cancel"			{DECISION/no}
+
+"remind"			{SCHEDULE/remind}
+"reminder"			{SCHEDULE/remind}
+
+"seconds"			{TIME/second}
+"second"			{TIME/second}
+"minutes"			{TIME/minute}
+"minute"			{TIME/minute}
+"hours"				{TIME/hour}
+"hour"				{TIME/hour}
+"days"				{TIME/day}
+"day"				{TIME/day}
+"weeks"				{TIME/week}
+"week"				{TIME/week}
+"months"			{TIME/month}
+"month"				{TIME/month}
+"years"				{TIME/year}
+"year"				{TIME/year}
+
+"morning"			{PART_OF_DAY/6-30-0}
+"breakfast"			{PART_OF_DAY/7-0-0}
+"noon"				{PART_OF_DAY/12-0-0}
+"lunch"				{PART_OF_DAY/12-30-1}
+"afternoon"			{PART_OF_DAY/3-0-1}
+"dinner"			{PART_OF_DAY/5-30-1}
+"evening"			{PART_OF_DAY/6-0-1}
+"night"				{PART_OF_DAY/9-0-1}
+"midnight"			{PART_OF_DAY/12-0-1}	
+
+"single"			{SHORTHAND_TIME/1}
+"couple"			{SHORTHAND_TIME/2}
+"few"				{SHORTHAND_TIME/3}
+"several"			{SHORTHAND_TIME/4}
+
+"quarter"			{FRACTION/0.25}
+"half"				{FRACTION/0.5}

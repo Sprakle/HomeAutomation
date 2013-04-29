@@ -69,7 +69,6 @@ public class Phrase {
 	public Tag[] getTagSequence(Tag[] sequenceRequested) {
 		Tag sequence[] = new Tag[sequenceRequested.length];
 
-		System.out.println("Seqreq len: " + sequenceRequested.length);
 		int startIndex = indexOf(sequenceRequested);
 
 		for (int i = 0; i < sequence.length; i++) {
@@ -195,7 +194,6 @@ public class Phrase {
 	}
 
 	private boolean match(Tag shell, Tag target) {
-		System.out.println("Matching " + shell + " to " + target);
 		TagType type = shell.getType();
 		String value = shell.getValue();
 
