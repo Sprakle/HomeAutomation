@@ -19,7 +19,7 @@ public class AmPmGroupFactory {
 		formats.add(new AbsoluteFormat(logger));
 		formats.add(new PartOfDayFormat(logger, "am pm", 2));
 
-		TimeFormatGroup group = new TimeFormatGroup(logger, Calendar.AM_PM, formats);
+		TimeFormatGroup group = new TimeFormatGroup(logger, Calendar.AM_PM, formats, false);
 
 		return group;
 	}

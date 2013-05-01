@@ -1,5 +1,10 @@
-"current"			{GENERAL/this}
-"this"				{GENERAL/this}
+"current"			{LANGUAGE/this}
+"this"				{LANGUAGE/this}
+"at"				{LANGUAGE/at}
+"something"			{LANGUAGE/something}
+"anything"			{LANGUAGE/something}
+"the"				{LANGUAGE/the}
+"by"				{LANGUAGE/owned}
 
 "backlight"			{OD_OBJECT/backlight}
 "lamp"				{OD_OBJECT/loftbed lamp}
@@ -43,10 +48,8 @@
 "random"			{TIME_CHANGE/random}
 
 "song"				{MEDIA/track}
-"track"				{MEDIA/track}"
+"track"				{MEDIA/track}
 "music"				{MEDIA/track}
-
-"by"				{POSSESSION/owned}
 
 "degrees"			{UNIT/degree}
 "degree"			{UNIT/degree}

@@ -2,6 +2,7 @@ package net.sprakle.homeAutomation.interpretation;
 
 import java.util.Stack;
 
+import net.sprakle.homeAutomation.behaviour.BehaviourManager;
 import net.sprakle.homeAutomation.events.Event;
 import net.sprakle.homeAutomation.events.EventListener;
 import net.sprakle.homeAutomation.events.EventManager;
@@ -36,12 +37,12 @@ public class Interpreter implements EventListener {
 	private ModuleManager moduleManager;
 	private Tagger tagger;
 
-	public Interpreter(Logger logger, Synthesis synth, ObjectDatabase od, ExternalSoftware exs, Speller speller) {
+	public Interpreter(Logger logger, Synthesis synth, ObjectDatabase od, ExternalSoftware exs, Speller speller, BehaviourManager bm) {
 		this.logger = logger;
 		this.synth = synth;
 
 		this.tagger = new Tagger(logger, synth);
-		this.moduleManager = new ModuleManager(logger, synth, od, tagger, exs, speller);
+		this.moduleManager = new ModuleManager(logger, synth, od, tagger, exs, speller, bm);
 
 		phrases = new Stack<Phrase>();
 

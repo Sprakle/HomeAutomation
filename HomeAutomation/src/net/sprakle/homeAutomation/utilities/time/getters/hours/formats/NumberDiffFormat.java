@@ -26,6 +26,7 @@ public class NumberDiffFormat implements TimeFormat {
 		outline = new PhraseOutline(logger, "number difference hour format");
 		outline.addMandatoryTag(new Tag(TagType.TIME_CHANGE, null));
 		outline.addMandatoryTag(new Tag(TagType.NUMBER, null));
+		outline.setMaxTagSeparation(1);
 		outline.negateUnxepectedTagPenalty();
 	}
 

@@ -24,15 +24,15 @@ public class PlayRandomSongByArtist extends MediaAction {
 		// play random song by artist
 		PhraseOutline poA = new PhraseOutline(logger, getName() + " (S)");
 		poA.addMandatoryTag(new Tag(TagType.PLAYBACK, "play"));
-		poA.addMandatoryTag(new Tag(TagType.UNKOWN_TEXT, "something"));
-		poA.addMandatoryTag(new Tag(TagType.POSSESSION, "owned"));
+		poA.addMandatoryTag(new Tag(TagType.LANGUAGE, "something"));
+		poA.addMandatoryTag(new Tag(TagType.LANGUAGE, "owned"));
 		poA.addMandatoryTag(new Tag(TagType.UNKOWN_TEXT, null));
 
 		// play random song by artist
 		PhraseOutline poB = new PhraseOutline(logger, getName() + " (T)");
 		poB.addMandatoryTag(new Tag(TagType.PLAYBACK, "play"));
 		poB.addMandatoryTag(new Tag(TagType.MEDIA, "track"));
-		poB.addMandatoryTag(new Tag(TagType.POSSESSION, "owned"));
+		poB.addMandatoryTag(new Tag(TagType.LANGUAGE, "owned"));
 		poB.addMandatoryTag(new Tag(TagType.UNKOWN_TEXT, null));
 
 		outlines.add(poA);
@@ -44,7 +44,7 @@ public class PlayRandomSongByArtist extends MediaAction {
 	@Override
 	public void doExecute(Phrase phrase) {
 		Tag[] sequenceRequest = new Tag[2];
-		sequenceRequest[0] = new Tag(TagType.POSSESSION, "owned");
+		sequenceRequest[0] = new Tag(TagType.LANGUAGE, "owned");
 		sequenceRequest[1] = new Tag(TagType.UNKOWN_TEXT, null);
 
 		Tag[] sequence = phrase.getTagSequence(sequenceRequest);

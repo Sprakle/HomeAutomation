@@ -23,7 +23,7 @@ public class MonthGroupFactory {
 		formats.add(new RelativeTimeChangeFormat(logger, "month", Calendar.MONTH));
 		formats.add(new AbsoluteFormat(logger));
 
-		TimeFormatGroup group = new TimeFormatGroup(logger, Calendar.MONDAY, formats);
+		TimeFormatGroup group = new TimeFormatGroup(logger, Calendar.MONDAY, formats, false);
 
 		return group;
 	}

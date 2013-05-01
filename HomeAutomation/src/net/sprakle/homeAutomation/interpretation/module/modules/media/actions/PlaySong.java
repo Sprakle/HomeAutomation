@@ -24,7 +24,7 @@ public class PlaySong extends MediaAction {
 		PhraseOutline poA = new PhraseOutline(logger, getName());
 		poA.addMandatoryTag(new Tag(TagType.PLAYBACK, "play"));
 		poA.addMandatoryTag(new Tag(TagType.UNKOWN_TEXT, null));
-		poA.addMandatoryTag(new Tag(TagType.POSSESSION, "owned"));
+		poA.addMandatoryTag(new Tag(TagType.LANGUAGE, "owned"));
 		poA.addMandatoryTag(new Tag(TagType.UNKOWN_TEXT, null));
 
 		PhraseOutline poB = new PhraseOutline(logger, getName());
@@ -39,7 +39,7 @@ public class PlaySong extends MediaAction {
 
 	@Override
 	public void doExecute(Phrase phrase) {
-		Tag byTag = phrase.getTag(new Tag(TagType.POSSESSION, "owned"));
+		Tag byTag = phrase.getTag(new Tag(TagType.LANGUAGE, "owned"));
 		if (byTag == null)
 			executeTitleOnly(phrase);
 		else
@@ -62,7 +62,7 @@ public class PlaySong extends MediaAction {
 	private void executeTitleAndArtist(Phrase phrase) {
 		Tag[] sequenceRequest = new Tag[3];
 		sequenceRequest[0] = new Tag(TagType.UNKOWN_TEXT, null);
-		sequenceRequest[1] = new Tag(TagType.POSSESSION, "owned");
+		sequenceRequest[1] = new Tag(TagType.LANGUAGE, "owned");
 		sequenceRequest[2] = new Tag(TagType.UNKOWN_TEXT, null);
 
 		Tag[] sequence = phrase.getTagSequence(sequenceRequest);

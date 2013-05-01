@@ -25,7 +25,7 @@ public class DayGroupFactory {
 		formats.add(new AbsoluteFormat(logger));
 		formats.add(new RelativeDayFormat(logger));
 
-		TimeFormatGroup group = new TimeFormatGroup(logger, Calendar.DAY_OF_WEEK, formats);
+		TimeFormatGroup group = new TimeFormatGroup(logger, Calendar.DAY_OF_WEEK, formats, false);
 
 		return group;
 	}

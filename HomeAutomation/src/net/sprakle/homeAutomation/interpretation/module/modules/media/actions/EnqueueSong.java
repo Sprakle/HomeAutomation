@@ -29,7 +29,7 @@ public class EnqueueSong extends MediaAction {
 		PhraseOutline poB = new PhraseOutline(logger, getName() + " (title + artist)");
 		poB.addMandatoryTag(new Tag(TagType.PLAYBACK, "play"));
 		poB.addMandatoryTag(new Tag(TagType.UNKOWN_TEXT, null));
-		poB.addMandatoryTag(new Tag(TagType.POSSESSION, "owned"));
+		poB.addMandatoryTag(new Tag(TagType.LANGUAGE, "owned"));
 		poB.addMandatoryTag(new Tag(TagType.UNKOWN_TEXT, null));
 		poB.addMandatoryTag(new Tag(TagType.TIME_CHANGE, "next"));
 
@@ -41,7 +41,7 @@ public class EnqueueSong extends MediaAction {
 
 	@Override
 	public void doExecute(Phrase phrase) {
-		Tag byTag = phrase.getTag(new Tag(TagType.POSSESSION, "owned"));
+		Tag byTag = phrase.getTag(new Tag(TagType.LANGUAGE, "owned"));
 		if (byTag == null)
 			executeTitleOnly(phrase);
 		else
@@ -64,7 +64,7 @@ public class EnqueueSong extends MediaAction {
 	private void executeTitleAndArtist(Phrase phrase) {
 		Tag[] sequenceRequest = new Tag[3];
 		sequenceRequest[0] = new Tag(TagType.UNKOWN_TEXT, null);
-		sequenceRequest[1] = new Tag(TagType.POSSESSION, "owned");
+		sequenceRequest[1] = new Tag(TagType.LANGUAGE, "owned");
 		sequenceRequest[2] = new Tag(TagType.UNKOWN_TEXT, null);
 
 		Tag[] sequence = phrase.getTagSequence(sequenceRequest);

@@ -21,7 +21,7 @@ public class YearGroupFactory {
 		formats.add(new RelativeShorthandFormat(logger, "year", Calendar.YEAR));
 		formats.add(new RelativeTimeChangeFormat(logger, "year", Calendar.YEAR));
 
-		TimeFormatGroup group = new TimeFormatGroup(logger, Calendar.YEAR, formats);
+		TimeFormatGroup group = new TimeFormatGroup(logger, Calendar.YEAR, formats, false);
 
 		return group;
 	}

@@ -21,14 +21,34 @@ public class TimeFormatGroup {
 	private List<TimeFormat> formats;
 	private int calendarUnit;
 
-	public TimeFormatGroup(Logger logger, int calendarUnit, List<TimeFormat> formats) {
+	private boolean overriding;
+
+	/**
+	 * Collects a list of TimeFormats for a specific unit of time, such as
+	 * minutes. When parseTime() is called, returns the result of the best
+	 * format for a phrase
+	 * 
+	 * @param logger
+	 * @param calendarUnit
+	 *            the unit in Java.util.Calendar this this group applies to
+	 * @param formats
+	 *            Formats of natural language that can be parsed
+	 * @param overriding
+	 *            If this unit overrides others (such as Calendar.DATE), it will
+	 *            only be considered if the group is able to parse a phrase.
+	 *            Otherwise the current time of this unit will be used if unable
+	 *            to parse
+	 */
+	public TimeFormatGroup(Logger logger, int calendarUnit, List<TimeFormat> formats, boolean overriding) {
 		this.logger = logger;
 		this.calendarUnit = calendarUnit;
 
 		this.formats = formats;
+
+		this.overriding = overriding;
 	}
 
-	public TimeFormat selectFormat(Phrase phrase) {
+	private TimeFormat selectFormat(Phrase phrase) {
 		List<PhraseOutline> outlines = new ArrayList<PhraseOutline>();
 
 		for (TimeFormat tf : formats) {
@@ -47,13 +67,24 @@ public class TimeFormatGroup {
 		return null;
 	}
 
-	public int parseTime(Phrase phrase) {
-		TimeFormat format = selectFormat(phrase);
-
-		if (format == null)
-			return DateParser.getCurrent(calendarUnit);
-		else
-			return format.getTime(phrase);
+	public boolean canParse(Phrase phrase) {
+		return selectFormat(phrase) != null;
 	}
 
+	public int parseTime(Phrase phrase) {
+		TimeFormat format = selectFormat(phrase);
+		return format.getTime(phrase);
+	}
+
+	public int getCurrent() {
+		return DateParser.getCurrent(calendarUnit);
+	}
+
+	public int getCalendarUnit() {
+		return calendarUnit;
+	}
+
+	public boolean isOverriding() {
+		return overriding;
+	}
 }

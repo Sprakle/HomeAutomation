@@ -8,55 +8,8 @@ import java.util.List;
 
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
-import net.sprakle.homeAutomation.utilities.time.getters.amPm.AmPmGroupFactory;
-import net.sprakle.homeAutomation.utilities.time.getters.date.DateGroupFactory;
-import net.sprakle.homeAutomation.utilities.time.getters.days.DayGroupFactory;
-import net.sprakle.homeAutomation.utilities.time.getters.hours.HourGroupFactory;
-import net.sprakle.homeAutomation.utilities.time.getters.minutes.MinuteGroupFactory;
-import net.sprakle.homeAutomation.utilities.time.getters.months.MonthGroupFactory;
-import net.sprakle.homeAutomation.utilities.time.getters.seconds.SecondGroupFactory;
-import net.sprakle.homeAutomation.utilities.time.getters.weeks.WeekGroupFactory;
-import net.sprakle.homeAutomation.utilities.time.getters.years.YearGroupFactory;
 
 public class DateParser {
-
-	private TimeFormatGroup yearGroup;
-	private TimeFormatGroup monthGroup;
-	private TimeFormatGroup weekGroup;
-	private TimeFormatGroup dayGroup;
-	private TimeFormatGroup amPmGroup;
-	private TimeFormatGroup hourGroup;
-	private TimeFormatGroup minuteGroup;
-	private TimeFormatGroup secondGroup;
-
-	// overrides week and day
-	private TimeFormatGroup dateGroup;
-
-	private List<TimeFormatGroup> allGroups;
-
-	public DateParser(Logger logger) {
-		yearGroup = YearGroupFactory.getTimeGroup(logger);
-		monthGroup = MonthGroupFactory.getTimeGroup(logger);
-		weekGroup = WeekGroupFactory.getTimeGroup(logger);
-		dayGroup = DayGroupFactory.getTimeGroup(logger);
-		amPmGroup = AmPmGroupFactory.getTimeGroup(logger);
-		hourGroup = HourGroupFactory.getTimeGroup(logger);
-		minuteGroup = MinuteGroupFactory.getTimeGroup(logger);
-		secondGroup = SecondGroupFactory.getTimeGroup(logger);
-
-		dateGroup = DateGroupFactory.getTimeGroup(logger);
-
-		allGroups = new ArrayList<TimeFormatGroup>();
-		allGroups.add(yearGroup);
-		allGroups.add(monthGroup);
-		allGroups.add(weekGroup);
-		allGroups.add(dayGroup);
-		allGroups.add(amPmGroup);
-		allGroups.add(hourGroup);
-		allGroups.add(minuteGroup);
-		allGroups.add(secondGroup);
-		allGroups.add(dateGroup);
-	}
 
 	/**
 	 * Takes a phrases and returns the date the phrase is referring to. Example
@@ -79,51 +32,122 @@ public class DateParser {
 	 * "tomorrow at 5"
 	 * 
 	 * @param phrase
+	 * @param mustBeInFuture
+	 *            If true, the parser will convert things like "at 6 o'clock" to
+	 *            the next available 6 o'clock and not one in the past. This
+	 *            applies to all units of time
 	 * @return
 	 */
-	public Date parseDate(Phrase phrase) {
+	public static Date parseDate(Logger logger, Phrase phrase, boolean mustBeInFuture) {
+		List<TimeFormatGroup> groups = GroupFactory.getGroups(logger);
 
-		// Go through each group of time formats. There is a group for Seconds, Minutes, Hours, etc.
-		// If no format in a group is selected, use the current time of that group. Ex:
-		// 	"Remind me to x tomorrow at 5 30" Use the current year, month, week
-		int year = yearGroup.parseTime(phrase);
-		int month = monthGroup.parseTime(phrase);
-		int week = weekGroup.parseTime(phrase);
-		int day = dayGroup.parseTime(phrase);
-		int amPm = amPmGroup.parseTime(phrase);
-		int hour = hourGroup.parseTime(phrase);
-		int minute = minuteGroup.parseTime(phrase);
-		int second = secondGroup.parseTime(phrase);
-
-		int date = dateGroup.parseTime(phrase);
-
-		// manual rollovers that Calendar is unable to handle
-		if (day > 7) {
-			int times = Math.round(day / 7);
-			day -= times * 7;
-			week += times;
-		}
+		List<TimeFormatGroup> standardGroups = getStandardGroups(groups);
+		List<TimeFormatGroup> overridingGroups = getOverridingGroups(groups);
 
 		Calendar cal = GregorianCalendar.getInstance();
-		cal.set(Calendar.YEAR, year);
-		cal.set(Calendar.MONTH, month);
-		cal.set(Calendar.WEEK_OF_MONTH, week);
-		cal.set(Calendar.DAY_OF_WEEK, day);
-		cal.set(Calendar.AM_PM, amPm);
-		cal.set(Calendar.HOUR, hour);
-		cal.set(Calendar.MINUTE, minute);
-		cal.set(Calendar.SECOND, second);
 
-		// override day and week if date is defined
-		if (dateGroup.selectFormat(phrase) != null)
-			cal.set(Calendar.DATE, date);
+		// apply standard dates
+		for (TimeFormatGroup group : standardGroups) {
+			int unit = group.getCalendarUnit();
+			int value;
+
+			// if the user has explicitly defined the group's unit
+			if (group.canParse(phrase))
+				value = group.parseTime(phrase);
+			else
+				value = group.getCurrent();
+
+			// manual rollovers that Calendar is unable to handle
+			if (group.getCalendarUnit() == Calendar.DAY_OF_WEEK && value > 7) {
+				int times = Math.round(value / 7);
+				value -= times * 7;
+				cal.add(Calendar.WEEK_OF_MONTH, times);
+			}
+
+			cal.set(unit, value);
+		}
+
+		// apply overrides
+		for (TimeFormatGroup group : overridingGroups) {
+			// only apply override if the user has explicitly defined it
+			if (group.canParse(phrase)) {
+				int unit = group.getCalendarUnit();
+				int value = group.parseTime(phrase);
+
+				cal.set(unit, value);
+			}
+		}
+
+		// if in the past, convert date to future date
+		if (mustBeInFuture && cal.getTimeInMillis() < System.currentTimeMillis())
+			convertToFuture(cal, phrase, groups);
 
 		return cal.getTime();
 	}
 
-	public boolean containsDate(Phrase phrase) {
-		for (TimeFormatGroup tfg : allGroups) {
-			if (tfg.selectFormat(phrase) != null)
+	/**
+	 * Works by incrementing the unit before the last defined unit until the
+	 * date is in the future. Example:
+	 * 
+	 * Phrase: "on the 5th" - Current date: April 26th
+	 * 
+	 * Last defined unit: date. Next largest: month
+	 * 
+	 * Increment month until full date is in the future
+	 * 
+	 * @param phrase
+	 * @param cal
+	 */
+	private static void convertToFuture(Calendar cal, Phrase phrase, List<TimeFormatGroup> groups) {
+		// find group to increment
+		TimeFormatGroup increment = null;
+		boolean lastWasDefined = false;
+		for (int i = groups.size() - 1; i >= 0; i--) {
+			TimeFormatGroup group = groups.get(i);
+			if (group.canParse(phrase)) {
+				lastWasDefined = true;
+				continue;
+			}
+
+			if (lastWasDefined) {
+				increment = groups.get(i);
+				break;
+			}
+		}
+
+		if (increment == null)
+			return;
+
+		int calendarUnit = increment.getCalendarUnit();
+		System.out.println(increment.getClass().getSimpleName());
+		while (cal.getTimeInMillis() < System.currentTimeMillis()) {
+			cal.add(calendarUnit, 1);
+		}
+	}
+
+	private static List<TimeFormatGroup> getStandardGroups(List<TimeFormatGroup> groups) {
+		List<TimeFormatGroup> standardGroups = new ArrayList<TimeFormatGroup>();
+		for (TimeFormatGroup group : groups)
+			if (!group.isOverriding())
+				standardGroups.add(group);
+
+		return standardGroups;
+	}
+
+	private static List<TimeFormatGroup> getOverridingGroups(List<TimeFormatGroup> groups) {
+		List<TimeFormatGroup> overridingGroups = new ArrayList<TimeFormatGroup>();
+		for (TimeFormatGroup group : groups)
+			if (group.isOverriding())
+				overridingGroups.add(group);
+
+		return overridingGroups;
+	}
+
+	public static boolean containsDate(Logger logger, Phrase phrase) {
+		List<TimeFormatGroup> groups = GroupFactory.getGroups(logger);
+
+		for (TimeFormatGroup group : groups) {
+			if (group.canParse(phrase))
 				return true;
 		}
 

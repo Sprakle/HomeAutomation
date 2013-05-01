@@ -19,7 +19,7 @@ public class DateGroupFactory {
 		formats.add(new TheNthNumberFormat(logger));
 		formats.add(new MonthNthNumberFormat(logger));
 
-		TimeFormatGroup group = new TimeFormatGroup(logger, Calendar.DATE, formats);
+		TimeFormatGroup group = new TimeFormatGroup(logger, Calendar.DATE, formats, true);
 
 		return group;
 	}

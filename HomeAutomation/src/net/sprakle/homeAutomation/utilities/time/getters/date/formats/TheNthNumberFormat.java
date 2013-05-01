@@ -17,7 +17,7 @@ public class TheNthNumberFormat implements TimeFormat {
 		this.logger = logger;
 
 		outline = new PhraseOutline(logger, "nth number date format");
-		outline.addMandatoryTag(new Tag(TagType.UNKOWN_TEXT, "the"));
+		outline.addMandatoryTag(new Tag(TagType.LANGUAGE, "the"));
 		outline.addMandatoryTag(new Tag(TagType.NTH_NUMBER, null));
 		outline.negateUnxepectedTagPenalty();
 	}
@@ -30,7 +30,7 @@ public class TheNthNumberFormat implements TimeFormat {
 	@Override
 	public int getTime(Phrase phrase) {
 		Tag[] sequenceRequest = new Tag[2];
-		sequenceRequest[0] = new Tag(TagType.UNKOWN_TEXT, "the");
+		sequenceRequest[0] = new Tag(TagType.LANGUAGE, "the");
 		sequenceRequest[1] = new Tag(TagType.NTH_NUMBER, null);
 
 		Tag[] sequence = phrase.getTagSequence(sequenceRequest);

@@ -19,7 +19,7 @@ public class SecondGroupFactory {
 		formats.add(new RelativeNumberFormat(logger, "second", Calendar.SECOND));
 		formats.add(new RelativeShorthandFormat(logger, "second", Calendar.SECOND));
 
-		TimeFormatGroup group = new TimeFormatGroup(logger, Calendar.SECOND, formats);
+		TimeFormatGroup group = new TimeFormatGroup(logger, Calendar.SECOND, formats, false);
 
 		return group;
 	}

@@ -21,7 +21,7 @@ public class WeekGroupFactory {
 		formats.add(new RelativeShorthandFormat(logger, "week", Calendar.WEEK_OF_MONTH));
 		formats.add(new RelativeTimeChangeFormat(logger, "week", Calendar.WEEK_OF_MONTH));
 
-		TimeFormatGroup group = new TimeFormatGroup(logger, Calendar.WEEK_OF_MONTH, formats);
+		TimeFormatGroup group = new TimeFormatGroup(logger, Calendar.WEEK_OF_MONTH, formats, false);
 
 		return group;
 	}

@@ -8,8 +8,6 @@ import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.time.TimeFormat;
 
-// TODO: extends to allow days, weeks, months, etc. and for the taglist value to be able to signify the current of a unit of time
-
 /**
  * Parses time. Example:
  * 

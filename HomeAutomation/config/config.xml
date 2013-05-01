@@ -42,12 +42,12 @@
 		<sample_rate>44100</sample_rate>
 		
 		<!-- RMS of audio that must be above to begin recording -->
-		<record_start_rms_threshold>10</record_start_rms_threshold>
+		<record_start_rms_threshold>8</record_start_rms_threshold>
 		<record_start_time_threshold>0</record_start_time_threshold> <!-- DOES NOTHING YET-->
 		
 		<!-- RMS of audio that must be less than to end recording -->
-		<record_end_rms_threshold>2</record_end_rms_threshold>
-		<record_end_time_threshold>250</record_end_time_threshold> <!-- milliseconds RMS must be below threshold for -->
+		<record_end_rms_threshold>3</record_end_rms_threshold>
+		<record_end_time_threshold>500</record_end_time_threshold> <!-- milliseconds RMS must be below threshold for -->
 		
 		<visual_display_time>70</visual_display_time> <!-- time to display recognized speech -->
 	</speech_recognition>

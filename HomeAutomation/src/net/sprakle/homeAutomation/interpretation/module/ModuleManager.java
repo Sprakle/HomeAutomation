@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import javax.swing.JCheckBox;
 
+import net.sprakle.homeAutomation.behaviour.BehaviourManager;
 import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.interpretation.Phrase;
@@ -20,10 +21,10 @@ public class ModuleManager {
 
 	private Logger logger;
 
-	public ModuleManager(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger, ExternalSoftware exs, Speller speller) {
+	public ModuleManager(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger, ExternalSoftware exs, Speller speller, BehaviourManager bm) {
 		this.logger = logger;
 
-		modules = ModuleFactory.getModules(logger, synth, od, tagger, exs, speller);
+		modules = ModuleFactory.getModules(logger, synth, od, tagger, exs, speller, bm);
 
 		ArrayList<JCheckBox> checkboxes = new ArrayList<JCheckBox>();
 		checkboxes.addAll(modules.keySet());

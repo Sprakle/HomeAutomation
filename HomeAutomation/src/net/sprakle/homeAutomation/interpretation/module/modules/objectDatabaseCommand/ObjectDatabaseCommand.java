@@ -20,7 +20,7 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.DynamicResponder;
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.Response;
 
-// TODO: update tag getting to use the new tagSequence methods
+// TODO: rewrite this broken mess. 
 public class ObjectDatabaseCommand implements InterpretationModule {
 
 	private final String NAME = "Object Database Command";
@@ -219,7 +219,6 @@ public class ObjectDatabaseCommand implements InterpretationModule {
 			setArray.add(poA);
 			setArray.add(poB);
 
-			// TODO: nullpointer here when input is: "set backlight brightness to 0"
 			if (phrase.matchOutlines(logger, setArray) != null) {
 				// make sure the setter has a value
 				Tag setter = phrase.getTag(new Tag(TagType.SETTER, null));

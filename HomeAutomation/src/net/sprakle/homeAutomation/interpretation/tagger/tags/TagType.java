@@ -3,8 +3,8 @@ package net.sprakle.homeAutomation.interpretation.tagger.tags;
 public enum TagType {
 	NUMBER, // NOT defined in the tagList file, only applied later by the Tagger
 	NTH_NUMBER, // NOT defined in the taglist file, only applied latter by the Tagger (1st, second, 3rd, etc)
-	UNKOWN_TEXT, // text that has not been tagged
-	GENERAL,
+	UNKOWN_TEXT, // text that has not been tagged. NOT considered when matching phrase outlines
+	LANGUAGE, // standard words that are not specific enough to merit an entire category. NOT considered when matching phrase outlines
 	POWER_OPTION, // EX: "Activate".
 	OD_OBJECT, // EX: "kitchen", "heater"
 	NODE,
@@ -13,7 +13,6 @@ public enum TagType {
 	UNIT, // degrees, percent, meter, etc.
 	TIME_CHANGE, // next, last, etc 
 	MEDIA, // commands to control music and other media
-	POSSESSION, // by (Maybe change this?)
 	PLAYBACK,
 	INTERNALS,
 	MATH_TERM,

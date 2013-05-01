@@ -15,6 +15,7 @@ import net.sprakle.homeAutomation.userInterface.textInput.TextInput;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.speller.Speller;
+import net.sprakle.homeAutomation.utilities.time.DateParser;
 
 @SuppressWarnings("unused")
 public class ApplicationFactory {
@@ -28,8 +29,9 @@ public class ApplicationFactory {
 	private Synthesis synth;
 	private ObjectDatabase objectDatabase;
 	private MainTimer mainTimer;
-	private Interpreter interpreter;
 	private BehaviourManager behaviourManager;
+	private DateParser dateParser;
+	private Interpreter interpreter;
 	private TextInput textInput;
 	private SpeechInput speechInput;
 
@@ -61,9 +63,9 @@ public class ApplicationFactory {
 
 		objectDatabase = new ObjectDatabase(logger, synth, exs);
 
-		interpreter = new Interpreter(logger, synth, objectDatabase, exs, speller);
-
 		behaviourManager = new BehaviourManager(logger, objectDatabase, exs);
+
+		interpreter = new Interpreter(logger, synth, objectDatabase, exs, speller, behaviourManager);
 
 		synth.speak("ready");
 

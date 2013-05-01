@@ -29,7 +29,7 @@ public class HourGroupFactory {
 		formats.add(new RelativeShorthandFormat(logger, "hour", Calendar.HOUR));
 		formats.add(new RelativeTimeChangeFormat(logger, "hour", Calendar.HOUR));
 
-		TimeFormatGroup group = new TimeFormatGroup(logger, Calendar.HOUR, formats);
+		TimeFormatGroup group = new TimeFormatGroup(logger, Calendar.HOUR, formats, false);
 
 		return group;
 	}

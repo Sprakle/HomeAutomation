@@ -34,7 +34,7 @@ public class DeleteCurrentSong implements InterpretationModule {
 		ArrayList<PhraseOutline> outlines = new ArrayList<PhraseOutline>();
 		PhraseOutline poA = new PhraseOutline(logger, getName());
 		poA.addMandatoryTag(new Tag(TagType.FILE_CONTROL, "delete"));
-		poA.addMandatoryTag(new Tag(TagType.GENERAL, "this"));
+		poA.addMandatoryTag(new Tag(TagType.LANGUAGE, "this"));
 		poA.addMandatoryTag(new Tag(TagType.MEDIA, "track"));
 		outlines.add(poA);
 
