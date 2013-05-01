@@ -42,12 +42,15 @@
 		<sample_rate>44100</sample_rate>
 		
 		<!-- RMS of audio that must be above to begin recording -->
-		<record_start_rms_threshold>8</record_start_rms_threshold>
-		<record_start_time_threshold>0</record_start_time_threshold> <!-- DOES NOTHING YET-->
+		<record_start_rms_threshold>4</record_start_rms_threshold>
+		<record_start_time_threshold>150</record_start_time_threshold> <!-- milliseconds RMS must be above threshold for-->
 		
 		<!-- RMS of audio that must be less than to end recording -->
 		<record_end_rms_threshold>3</record_end_rms_threshold>
 		<record_end_time_threshold>500</record_end_time_threshold> <!-- milliseconds RMS must be below threshold for -->
+		
+		<!-- bytes the will be prepended to the record stream after triggering. Prevents cutting off the start of speech -->
+		<prepend_bytes>50000</prepend_bytes>
 		
 		<visual_display_time>70</visual_display_time> <!-- time to display recognized speech -->
 	</speech_recognition>

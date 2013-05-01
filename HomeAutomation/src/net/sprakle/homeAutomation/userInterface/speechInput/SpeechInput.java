@@ -26,6 +26,8 @@ public class SpeechInput implements LogicTimerObserver {
 	// test have shown that changing this does not significantly change the time taken to process speech
 	private final int SAMPLE_RATE = Config.getInt(pre + "sample_rate");
 
+	private final int PREPEND_BYTES = Config.getInt(pre + "prepend_bytes");
+
 	Logger logger;
 
 	GoogleSpeech gs;
@@ -45,7 +47,7 @@ public class SpeechInput implements LogicTimerObserver {
 				RECORD_END_TIME_THRESHOLD);
 
 		Output output = new Output();
-		gs = new GoogleSpeech(output, thresholds, SAMPLE_RATE);
+		gs = new GoogleSpeech(output, thresholds, SAMPLE_RATE, PREPEND_BYTES);
 		gs.listenForSpeech();
 
 		LogicTimer.getLogicTimer().addObserver(this);
@@ -56,8 +58,12 @@ public class SpeechInput implements LogicTimerObserver {
 	class Output implements net.sprakle.jGoogleSpeech.Logger {
 
 		@Override
-		public void log(String info) {
-			logger.log(info, LogSource.GOOGLE_SPEECH_INFO, 3);
+		public void log(boolean criticalError, String info) {
+
+			if (criticalError)
+				logger.log(info, LogSource.ERROR, LogSource.GOOGLE_SPEECH_INFO, 1);
+			else
+				logger.log(info, LogSource.GOOGLE_SPEECH_INFO, 3);
 		}
 	}
 
