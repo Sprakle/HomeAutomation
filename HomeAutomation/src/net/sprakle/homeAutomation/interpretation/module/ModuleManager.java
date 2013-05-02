@@ -2,6 +2,7 @@ package net.sprakle.homeAutomation.interpretation.module;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.JCheckBox;
 
@@ -31,8 +32,14 @@ public class ModuleManager {
 		new ModuleGUI(checkboxes);
 	}
 
-	// checks each module for a claim on the given phrase
-	public ClaimResponse submitForClaiming(Phrase phrase) {
+	/**
+	 * Checks all InterpretationModules for a claim on the given phrase, and
+	 * returns claiming ones
+	 * 
+	 * @param phrase
+	 * @return
+	 */
+	public List<InterpretationModule> submitForClaiming(Phrase phrase) {
 		long startTime = System.currentTimeMillis();
 
 		// create module arraylist containing only ones whose checkbox is selected
@@ -42,33 +49,12 @@ public class ModuleManager {
 				enabledModules.add(modules.get(cb));
 		}
 
-		// list of all modules that claimed the phrase. Ideally only one module will be in this list
-		ClaimResponse response = new ClaimResponse();
 		ArrayList<InterpretationModule> claimers = getClaimers(enabledModules, phrase);
 
-		// did we get too many claims?
-		if (claimers.size() > 1) {
-			response.toManyClaimed = true;
-		} else {
-			response.toManyClaimed = false;
-		}
-
-		// was there not enough claims? (0)
-		if (claimers.size() <= 0) {
-			response.notClaimed = true;
-		} else {
-			response.notClaimed = false;
-		}
-
-		// if everything worked out well
-		if (!response.notClaimed && !response.toManyClaimed) {
-			response.module = claimers.get(0);
-		}
-
 		long totalTime = System.currentTimeMillis() - startTime;
-		logger.log("Checked all modules for claims in " + totalTime + " ms", LogSource.INTERPRETER_INFO, 2);
+		logger.log("Checked all modules for claims in " + totalTime + " ms. Result: " + getModuleNames(claimers), LogSource.INTERPRETER_INFO, 2);
 
-		return response;
+		return claimers;
 	}
 
 	private ArrayList<InterpretationModule> getClaimers(ArrayList<InterpretationModule> modules, final Phrase phrase) {
@@ -102,6 +88,20 @@ public class ModuleManager {
 		return resultingClaimers;
 	}
 
+	private String getModuleNames(List<InterpretationModule> modules) {
+		String names = "";
+
+		if (modules.size() == 0)
+			return "";
+
+		for (InterpretationModule module : modules)
+			names += module.getName() + ", ";
+
+		// remove last to characters
+		names = names.substring(0, names.length() - 2);
+		return names;
+	}
+
 	private class ClaimerThread extends Thread {
 
 		private Phrase phrase;
@@ -126,12 +126,5 @@ public class ModuleManager {
 		public InterpretationModule getModule() {
 			return module;
 		}
-	}
-
-	// used to return data about claims
-	public class ClaimResponse {
-		public InterpretationModule module = null;
-		public boolean toManyClaimed = false;
-		public boolean notClaimed = false;
 	}
 }

@@ -1,5 +1,6 @@
 package net.sprakle.homeAutomation.interpretation;
 
+import java.util.List;
 import java.util.Stack;
 
 import net.sprakle.homeAutomation.behaviour.BehaviourManager;
@@ -11,21 +12,17 @@ import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.module.ModuleManager;
-import net.sprakle.homeAutomation.interpretation.module.ModuleManager.ClaimResponse;
 import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.userInterface.speechInput.UserSpeechRecievedEvent;
 import net.sprakle.homeAutomation.userInterface.textInput.UserTextRecievedEvent;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
-import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.DynamicResponder;
-import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.Response;
 import net.sprakle.homeAutomation.utilities.speller.Speller;
 
 public class Interpreter implements EventListener {
 
 	private Logger logger;
-	private Synthesis synth;
 
 	// every time a phrase is made, it is added to the stack, until a the user-computer interaction is complete
 	private Stack<Phrase> phrases;
@@ -39,7 +36,6 @@ public class Interpreter implements EventListener {
 
 	public Interpreter(Logger logger, Synthesis synth, ObjectDatabase od, ExternalSoftware exs, Speller speller, BehaviourManager bm) {
 		this.logger = logger;
-		this.synth = synth;
 
 		this.tagger = new Tagger(logger, synth);
 		this.moduleManager = new ModuleManager(logger, synth, od, tagger, exs, speller, bm);
@@ -64,17 +60,18 @@ public class Interpreter implements EventListener {
 		}
 
 		// each interpretation module will be checked for a claim
-		ClaimResponse response = moduleManager.submitForClaiming(phrase);
-		if (response.notClaimed) {
-			synth.speak(DynamicResponder.reply(Response.I_DIDNT_UNDERSTAND));
-			return;
-		}
-		if (response.toManyClaimed) {
-			synth.speak(DynamicResponder.reply(Response.TOO_AMBIGUOUS));
+		List<InterpretationModule> result = moduleManager.submitForClaiming(phrase);
+
+		if (result.size() < 1) {
+			logger.log("Ignoring phrase, as no modules were able to accept it", LogSource.INTERPRETER_INFO, 2);
 			return;
 		}
 
-		InterpretationModule target = response.module;
+		if (result.size() > 1) {
+			logger.log("Multiple modules claimed the phrase. Modules should be made more specific", LogSource.WARNING, LogSource.INTERPRETER_INFO, 1);
+		}
+
+		InterpretationModule target = result.get(0);
 		executeModule(target, phrase);
 	}
 
