@@ -42,7 +42,7 @@
 		<sample_rate>44100</sample_rate>
 		
 		<!-- RMS of audio that must be above to begin recording -->
-		<record_start_rms_threshold>4</record_start_rms_threshold>
+		<record_start_rms_threshold>3</record_start_rms_threshold>
 		<record_start_time_threshold>150</record_start_time_threshold> <!-- milliseconds RMS must be above threshold for-->
 		
 		<!-- RMS of audio that must be less than to end recording -->

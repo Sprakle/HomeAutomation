@@ -21,14 +21,17 @@
 "off"				{POWER_OPTION/0}
 "unlock"			{POWER_OPTION/0}
 
-"volume"			{NODE/volume}
 "brightness"		{NODE/brightness}
 
-"set"				{SETTER/i} // IDEA: instead if 'i', use +/-/=
-"turn up"			{SETTER/i}
-"turn down"			{SETTER/i}
-"increase"			{SETTER/i}
-"decrease"			{SETTER/i}
+"set"				{SETTER/x}
+"turn up"			{SETTER/+}
+"increase"			{SETTER/+}
+"increment"			{SETTER/+}
+"raise"				{SETTER/+}
+"turn down"			{SETTER/-}
+"decrease"			{SETTER/-}
+"decrement"			{SETTER/-}
+"lower"				{SETTER/-}
 
 "play"				{PLAYBACK/play}
 "start"				{PLAYBACK/play}
@@ -230,5 +233,23 @@
 "few"				{SHORTHAND_TIME/3}
 "several"			{SHORTHAND_TIME/4}
 
+"full"				{FRACTION/1}
+"max"				{FRACTION/1}
+"maximum"			{FRACTION/1}
+"high"				{FRACTION/1}
+"highest"			{FRACTION/1}
+"empty"				{FRACTION/0}
+"min"				{FRACTION/0}
+"minimum"			{FRACTION/0}
+"low"				{FRACTION/0}
+"lowest"			{FRACTION/0}
 "quarter"			{FRACTION/0.25}
 "half"				{FRACTION/0.5}
+
+"volume"			{AUDIO/volume}
+"loudness"			{AUDIO/volume}
+"quietness"			{AUDIO/volume}
+"mute"				{AUDIO/mute}
+"shut up"			{AUDIO/mute}
+"be quiet"			{AUDIO/mute}
+"unmute"			{AUDIO/mute}

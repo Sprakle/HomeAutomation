@@ -31,4 +31,5 @@ public enum TagType {
 	PART_OF_DAY, // morning, afternoon, etc
 	AM_PM,
 	MONTH,
+	AUDIO,
 }

@@ -31,7 +31,7 @@ public class ModuleFactory {
 		ArrayList<InterpretationModule> moduleArray = new ArrayList<InterpretationModule>();
 
 		moduleArray.add(new ObjectDatabaseCommand(logger, synth, od));
-		moduleArray.add(new Media(logger, exs));
+		moduleArray.add(new Media(logger, exs, synth));
 		moduleArray.add(new Math(logger, synth));
 		moduleArray.add(new Spelling(synth, speller));
 		moduleArray.add(new WeatherForecasting(synth, exs));

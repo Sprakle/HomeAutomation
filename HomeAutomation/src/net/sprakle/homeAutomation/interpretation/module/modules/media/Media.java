@@ -9,13 +9,16 @@ import net.sprakle.homeAutomation.externalSoftware.software.media.MediaCentre;
 import net.sprakle.homeAutomation.interpretation.ExecutionResult;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
+import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.AdjustVolume;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.ChangePlaybackState;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.EnqueueSong;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.IncrementalTrackChange;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.PlayRandomSong;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.PlayRandomSongByArtist;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.PlaySong;
+import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.SetVolume;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
+import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class Media implements InterpretationModule {
@@ -26,7 +29,8 @@ public class Media implements InterpretationModule {
 	private Logger logger;
 	private MediaCentre mc;
 
-	public Media(Logger logger, ExternalSoftware exs) {
+	// TODO: replace synthesis with only swift. Rename swift
+	public Media(Logger logger, ExternalSoftware exs, Synthesis synth) {
 		this.logger = logger;
 
 		mc = (MediaCentre) exs.getSoftware(SoftwareName.MEDIA_CENTRE);
@@ -38,6 +42,8 @@ public class Media implements InterpretationModule {
 		mediaActions.add(new PlayRandomSong(logger, mc));
 		mediaActions.add(new PlayRandomSongByArtist(logger, mc));
 		mediaActions.add(new PlaySong(logger, mc));
+		mediaActions.add(new AdjustVolume(logger, mc));
+		mediaActions.add(new SetVolume(logger, mc, synth));
 	}
 
 	@Override

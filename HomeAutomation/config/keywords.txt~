@@ -1,0 +1,4 @@
+// Keywords are words that if heard, the System will attempt interpretation of input
+// If keywords in the user's input add up to 1, the input will be accepted
+// formating example: 0.8 "activate"
+
