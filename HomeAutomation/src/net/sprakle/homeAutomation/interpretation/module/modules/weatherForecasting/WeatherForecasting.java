@@ -6,6 +6,7 @@ import java.util.Stack;
 
 import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
+import net.sprakle.homeAutomation.externalSoftware.software.synthesis.Synthesis;
 import net.sprakle.homeAutomation.externalSoftware.software.weather.InternetWeather;
 import net.sprakle.homeAutomation.externalSoftware.software.weather.supporting.ConditionType;
 import net.sprakle.homeAutomation.externalSoftware.software.weather.supporting.Forecast;
@@ -17,7 +18,6 @@ import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.main.Info;
 import net.sprakle.homeAutomation.main.Unit;
-import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.DynamicResponder;
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.Response;
@@ -29,8 +29,8 @@ public class WeatherForecasting implements InterpretationModule {
 
 	private InternetWeather iWeather;
 
-	public WeatherForecasting(Synthesis synth, ExternalSoftware exs) {
-		this.synth = synth;
+	public WeatherForecasting(ExternalSoftware exs) {
+		this.synth = (Synthesis) exs.getSoftware(SoftwareName.SYNTHESIS);
 		this.iWeather = (InternetWeather) exs.getSoftware(SoftwareName.INTERNET_WEATHER);
 	}
 

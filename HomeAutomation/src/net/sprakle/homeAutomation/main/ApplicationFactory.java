@@ -6,9 +6,10 @@ package net.sprakle.homeAutomation.main;
 
 import net.sprakle.homeAutomation.behaviour.BehaviourManager;
 import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
+import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
+import net.sprakle.homeAutomation.externalSoftware.software.synthesis.Synthesis;
 import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.interpretation.Interpreter;
-import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.timer.MainTimer;
 import net.sprakle.homeAutomation.userInterface.speechInput.SpeechInput;
 import net.sprakle.homeAutomation.userInterface.textInput.TextInput;
@@ -26,7 +27,6 @@ public class ApplicationFactory {
 	private Logger logger;
 	private ExternalSoftware exs;
 	private Speller speller;
-	private Synthesis synth;
 	private ObjectDatabase objectDatabase;
 	private MainTimer mainTimer;
 	private BehaviourManager behaviourManager;
@@ -53,19 +53,27 @@ public class ApplicationFactory {
 
 		exs = new ExternalSoftware(logger);
 
-		speller = new Speller(logger);
-
-		synth = new Synthesis(logger, exs);
+		Synthesis synth = (Synthesis) exs.getSoftware(SoftwareName.SYNTHESIS);
 		synth.speak(STARTUP_SPEECH);
+
+		/*
+		 * BEGIN INITIALISATION
+		 */
+
+		speller = new Speller(logger);
 
 		textInput = new TextInput(logger);
 		speechInput = new SpeechInput(logger);
 
-		objectDatabase = new ObjectDatabase(logger, synth, exs);
+		objectDatabase = new ObjectDatabase(logger, exs);
 
 		behaviourManager = new BehaviourManager(logger, objectDatabase, exs);
 
-		interpreter = new Interpreter(logger, synth, objectDatabase, exs, speller, behaviourManager);
+		interpreter = new Interpreter(logger, objectDatabase, exs, speller, behaviourManager);
+
+		/*
+		 * END INITIALISATION
+		 */
 
 		synth.speak("ready");
 

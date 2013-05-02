@@ -5,13 +5,15 @@ import java.util.Date;
 import java.util.Stack;
 
 import net.sprakle.homeAutomation.behaviour.BehaviourManager;
+import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
+import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
+import net.sprakle.homeAutomation.externalSoftware.software.synthesis.Synthesis;
 import net.sprakle.homeAutomation.interpretation.ExecutionResult;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
-import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.time.DateParser;
 
@@ -21,10 +23,11 @@ public class Reminder implements InterpretationModule {
 	private Synthesis synth;
 	private BehaviourManager bm;
 
-	public Reminder(Logger logger, Synthesis synth, BehaviourManager bm) {
+	public Reminder(Logger logger, BehaviourManager bm, ExternalSoftware exs) {
 		this.logger = logger;
-		this.synth = synth;
 		this.bm = bm;
+
+		this.synth = (Synthesis) exs.getSoftware(SoftwareName.SYNTHESIS);
 	}
 
 	@Override

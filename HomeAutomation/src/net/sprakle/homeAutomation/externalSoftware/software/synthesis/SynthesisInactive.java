@@ -1,12 +1,12 @@
-package net.sprakle.homeAutomation.externalSoftware.software.swift;
+package net.sprakle.homeAutomation.externalSoftware.software.synthesis;
 
 import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
 
-class SwiftInactive implements Swift {
+class SynthesisInactive implements Synthesis {
 
 	@Override
 	public SoftwareName getSoftwareName() {
-		return SoftwareName.SWIFT;
+		return SoftwareName.SYNTHESIS;
 	}
 
 	@Override

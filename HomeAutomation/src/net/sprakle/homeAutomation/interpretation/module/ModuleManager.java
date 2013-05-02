@@ -12,7 +12,6 @@ import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.GUI.ModuleGUI;
 import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
-import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.speller.Speller;
@@ -22,10 +21,10 @@ public class ModuleManager {
 
 	private Logger logger;
 
-	public ModuleManager(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger, ExternalSoftware exs, Speller speller, BehaviourManager bm) {
+	public ModuleManager(Logger logger, ObjectDatabase od, Tagger tagger, ExternalSoftware exs, Speller speller, BehaviourManager bm) {
 		this.logger = logger;
 
-		modules = ModuleFactory.getModules(logger, synth, od, tagger, exs, speller, bm);
+		modules = ModuleFactory.getModules(logger, od, tagger, exs, speller, bm);
 
 		ArrayList<JCheckBox> checkboxes = new ArrayList<JCheckBox>();
 		checkboxes.addAll(modules.keySet());

@@ -3,6 +3,9 @@ package net.sprakle.homeAutomation.interpretation.module.modules.objectDatabaseC
 import java.util.ArrayList;
 import java.util.Stack;
 
+import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
+import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
+import net.sprakle.homeAutomation.externalSoftware.software.synthesis.Synthesis;
 import net.sprakle.homeAutomation.interaction.objectDatabase.NodeType;
 import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase.QueryResponse;
@@ -14,7 +17,6 @@ import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
-import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.personality.dynamicResponse.DynamicResponder;
@@ -29,10 +31,11 @@ public class ObjectDatabaseCommand implements InterpretationModule {
 	private Synthesis synth;
 	private ObjectDatabase od;
 
-	public ObjectDatabaseCommand(Logger logger, Synthesis synth, ObjectDatabase od) {
+	public ObjectDatabaseCommand(Logger logger, ExternalSoftware exs, ObjectDatabase od) {
 		this.logger = logger;
-		this.synth = synth;
 		this.od = od;
+
+		this.synth = (Synthesis) exs.getSoftware(SoftwareName.SYNTHESIS);
 	}
 
 	// returns true if a phrase applies to this determiner

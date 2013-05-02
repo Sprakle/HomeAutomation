@@ -5,13 +5,15 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
+import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
+import net.sprakle.homeAutomation.externalSoftware.software.synthesis.Synthesis;
 import net.sprakle.homeAutomation.interpretation.ExecutionResult;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
-import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 import de.congrace.exp4j.Calculable;
@@ -27,9 +29,10 @@ public class Math implements InterpretationModule {
 	// can be changed by user during runtime
 	private int roundToDecimals = 3;
 
-	public Math(Logger logger, Synthesis synth) {
+	public Math(Logger logger, ExternalSoftware exs) {
 		this.logger = logger;
-		this.synth = synth;
+
+		this.synth = (Synthesis) exs.getSoftware(SoftwareName.SYNTHESIS);
 	}
 
 	@Override

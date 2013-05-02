@@ -13,7 +13,6 @@ import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.module.ModuleManager;
 import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
-import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.userInterface.speechInput.UserSpeechRecievedEvent;
 import net.sprakle.homeAutomation.userInterface.textInput.UserTextRecievedEvent;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
@@ -34,11 +33,11 @@ public class Interpreter implements EventListener {
 	private ModuleManager moduleManager;
 	private Tagger tagger;
 
-	public Interpreter(Logger logger, Synthesis synth, ObjectDatabase od, ExternalSoftware exs, Speller speller, BehaviourManager bm) {
+	public Interpreter(Logger logger, ObjectDatabase od, ExternalSoftware exs, Speller speller, BehaviourManager bm) {
 		this.logger = logger;
 
-		this.tagger = new Tagger(logger, synth);
-		this.moduleManager = new ModuleManager(logger, synth, od, tagger, exs, speller, bm);
+		this.tagger = new Tagger(logger);
+		this.moduleManager = new ModuleManager(logger, od, tagger, exs, speller, bm);
 
 		phrases = new Stack<Phrase>();
 

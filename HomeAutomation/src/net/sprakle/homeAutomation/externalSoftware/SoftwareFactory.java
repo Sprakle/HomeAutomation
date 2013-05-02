@@ -5,7 +5,7 @@ import net.sprakle.homeAutomation.externalSoftware.software.SoftwareInterface;
 import net.sprakle.homeAutomation.externalSoftware.software.SoftwareInterfaceFactory;
 import net.sprakle.homeAutomation.externalSoftware.software.arduino.ArduinoFactory;
 import net.sprakle.homeAutomation.externalSoftware.software.media.MediaCentreFactory;
-import net.sprakle.homeAutomation.externalSoftware.software.swift.SwiftFactory;
+import net.sprakle.homeAutomation.externalSoftware.software.synthesis.SynthesisFactory;
 import net.sprakle.homeAutomation.externalSoftware.software.weather.InternetWeatherFactory;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
@@ -19,8 +19,8 @@ public class SoftwareFactory {
 				factory = new MediaCentreFactory(logger, cli);
 				break;
 
-			case SWIFT:
-				factory = new SwiftFactory(logger, cli);
+			case SYNTHESIS:
+				factory = new SynthesisFactory(logger, cli);
 				break;
 
 			case ARDUINO:

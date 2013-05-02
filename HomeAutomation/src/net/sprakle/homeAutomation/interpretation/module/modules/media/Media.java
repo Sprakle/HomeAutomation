@@ -6,6 +6,7 @@ import java.util.Stack;
 import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.externalSoftware.software.media.MediaCentre;
+import net.sprakle.homeAutomation.externalSoftware.software.synthesis.Synthesis;
 import net.sprakle.homeAutomation.interpretation.ExecutionResult;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
@@ -18,7 +19,6 @@ import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.Pl
 import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.PlaySong;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.actions.SetVolume;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
-import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class Media implements InterpretationModule {
@@ -29,11 +29,11 @@ public class Media implements InterpretationModule {
 	private Logger logger;
 	private MediaCentre mc;
 
-	// TODO: replace synthesis with only swift. Rename swift
-	public Media(Logger logger, ExternalSoftware exs, Synthesis synth) {
+	public Media(Logger logger, ExternalSoftware exs) {
 		this.logger = logger;
 
 		mc = (MediaCentre) exs.getSoftware(SoftwareName.MEDIA_CENTRE);
+		Synthesis synth = (Synthesis) exs.getSoftware(SoftwareName.SYNTHESIS);
 
 		mediaActions = new ArrayList<MediaAction>();
 		mediaActions.add(new ChangePlaybackState(logger, mc));

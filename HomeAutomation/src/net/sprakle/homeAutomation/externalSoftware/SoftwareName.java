@@ -1,7 +1,7 @@
 package net.sprakle.homeAutomation.externalSoftware;
 
 public enum SoftwareName {
-	SWIFT,
+	SYNTHESIS,
 	MEDIA_CENTRE,
 	ARDUINO,
 	INTERNET_WEATHER,

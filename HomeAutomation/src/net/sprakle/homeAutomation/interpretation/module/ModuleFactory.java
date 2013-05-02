@@ -19,25 +19,24 @@ import net.sprakle.homeAutomation.interpretation.module.modules.reminder.Reminde
 import net.sprakle.homeAutomation.interpretation.module.modules.spelling.Spelling;
 import net.sprakle.homeAutomation.interpretation.module.modules.weatherForecasting.WeatherForecasting;
 import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
-import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 import net.sprakle.homeAutomation.utilities.speller.Speller;
 
 public class ModuleFactory {
-	static HashMap<JCheckBox, InterpretationModule> getModules(Logger logger, Synthesis synth, ObjectDatabase od, Tagger tagger, ExternalSoftware exs, Speller speller, BehaviourManager bm) {
+	static HashMap<JCheckBox, InterpretationModule> getModules(Logger logger, ObjectDatabase od, Tagger tagger, ExternalSoftware exs, Speller speller, BehaviourManager bm) {
 		HashMap<JCheckBox, InterpretationModule> modules = new HashMap<JCheckBox, InterpretationModule>();
 
 		// temporarily hold modules for easy adding of each checkbox
 		ArrayList<InterpretationModule> moduleArray = new ArrayList<InterpretationModule>();
 
-		moduleArray.add(new ObjectDatabaseCommand(logger, synth, od));
-		moduleArray.add(new Media(logger, exs, synth));
-		moduleArray.add(new Math(logger, synth));
-		moduleArray.add(new Spelling(synth, speller));
-		moduleArray.add(new WeatherForecasting(synth, exs));
+		moduleArray.add(new ObjectDatabaseCommand(logger, exs, od));
+		moduleArray.add(new Media(logger, exs));
+		moduleArray.add(new Math(logger, exs));
+		moduleArray.add(new Spelling(exs, speller));
+		moduleArray.add(new WeatherForecasting(exs));
 		moduleArray.add(new Reloading(logger));
-		moduleArray.add(new DeleteCurrentSong(logger, synth, exs));
-		moduleArray.add(new Reminder(logger, synth, bm));
+		moduleArray.add(new DeleteCurrentSong(logger, exs));
+		moduleArray.add(new Reminder(logger, bm, exs));
 
 		// add module and checkbox
 		for (InterpretationModule im : moduleArray) {

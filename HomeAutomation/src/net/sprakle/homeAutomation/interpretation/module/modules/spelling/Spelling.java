@@ -3,12 +3,14 @@ package net.sprakle.homeAutomation.interpretation.module.modules.spelling;
 import java.util.List;
 import java.util.Stack;
 
+import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
+import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
+import net.sprakle.homeAutomation.externalSoftware.software.synthesis.Synthesis;
 import net.sprakle.homeAutomation.interpretation.ExecutionResult;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
-import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.speller.Speller;
 
 public class Spelling implements InterpretationModule {
@@ -16,9 +18,10 @@ public class Spelling implements InterpretationModule {
 	private Synthesis synth;
 	private Speller speller;
 
-	public Spelling(Synthesis synth, Speller speller) {
-		this.synth = synth;
+	public Spelling(ExternalSoftware exs, Speller speller) {
 		this.speller = speller;
+
+		this.synth = (Synthesis) exs.getSoftware(SoftwareName.SYNTHESIS);
 	}
 
 	@Override

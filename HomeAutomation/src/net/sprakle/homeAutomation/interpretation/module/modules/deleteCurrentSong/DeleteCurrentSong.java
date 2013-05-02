@@ -7,13 +7,13 @@ import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.externalSoftware.software.media.MediaCentre;
 import net.sprakle.homeAutomation.externalSoftware.software.media.supporting.Track;
+import net.sprakle.homeAutomation.externalSoftware.software.synthesis.Synthesis;
 import net.sprakle.homeAutomation.interpretation.ExecutionResult;
 import net.sprakle.homeAutomation.interpretation.Phrase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.tagger.PhraseOutline;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
-import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class DeleteCurrentSong implements InterpretationModule {
@@ -22,9 +22,10 @@ public class DeleteCurrentSong implements InterpretationModule {
 	private Synthesis synth;
 	private MediaCentre mc;
 
-	public DeleteCurrentSong(Logger logger, Synthesis synth, ExternalSoftware exs) {
+	public DeleteCurrentSong(Logger logger, ExternalSoftware exs) {
 		this.logger = logger;
-		this.synth = synth;
+
+		this.synth = (Synthesis) exs.getSoftware(SoftwareName.SYNTHESIS);
 		this.mc = (MediaCentre) exs.getSoftware(SoftwareName.MEDIA_CENTRE);
 	}
 

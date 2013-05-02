@@ -26,21 +26,18 @@ import net.sprakle.homeAutomation.interpretation.module.modules.reloading.Reload
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.TagType;
 import net.sprakle.homeAutomation.main.Config;
-import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.fileAccess.read.LineByLine;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class Tagger implements EventListener {
 
 	private Logger logger;
-	private Synthesis synth;
 
 	private Path tagFile;
 	private List<String> lines = null;
 
-	public Tagger(Logger logger, Synthesis synth) {
+	public Tagger(Logger logger) {
 		this.logger = logger;
-		this.synth = synth;
 
 		tagFile = Paths.get(Config.getString("config/files/taglist"));
 		lines = LineByLine.read(logger, tagFile); // read lines from file
@@ -208,8 +205,6 @@ public class Tagger implements EventListener {
 	}
 
 	public void reloadTaglist() {
-		synth.speak("Re-loading tag list");
-
 		loadTaglist();
 
 		EventManager em = EventManager.getInstance(logger);

@@ -7,9 +7,11 @@
  * These swift commands happen to work on BOTH windows and linux
  */
 
-package net.sprakle.homeAutomation.externalSoftware.software.swift;
+package net.sprakle.homeAutomation.externalSoftware.software.synthesis;
 
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -22,7 +24,7 @@ import net.sprakle.homeAutomation.externalSoftware.commandLine.CommandLineInterf
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-class SwiftActive implements Swift {
+class SynthesisActive implements Synthesis {
 
 	private final String FILE_NAME = "synth.wav";
 
@@ -30,13 +32,15 @@ class SwiftActive implements Swift {
 
 	private CommandLineInterface cli;
 
-	public SwiftActive(Logger logger, CommandLineInterface cli) {
+	public SynthesisActive(Logger logger, CommandLineInterface cli) {
 		this.logger = logger;
 		this.cli = cli;
 	}
 
 	@Override
 	public void speak(String phrase) {
+		phrase = filterNegatives(phrase);
+
 		String command = "swift -n David \"" + phrase + "\" -o " + FILE_NAME;
 		cli.execute(command, 1);
 
@@ -47,7 +51,30 @@ class SwiftActive implements Swift {
 
 	@Override
 	public SoftwareName getSoftwareName() {
-		return SoftwareName.SWIFT;
+		return SoftwareName.SYNTHESIS;
+	}
+
+	// since swift cannot pronounce numbers like "-67", they must be modified to use the word "negative"
+	private String filterNegatives(String original) {
+		String filtered = original;
+
+		String regex = "-[0-9]{1,}";
+
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(filtered);
+		while (matcher.find()) {
+			if (matcher.group().length() == 0)
+				break;
+
+			// get the number less the dash
+			int beginIndex = matcher.start();
+			int endIndex = matcher.end();
+			String number = filtered.substring(beginIndex + 1, endIndex);
+
+			filtered = filtered.replaceFirst(regex, "negative " + number);
+		}
+
+		return filtered;
 	}
 
 	private void playSound(File soundFile) {

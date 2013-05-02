@@ -38,6 +38,8 @@ public class Reloading implements InterpretationModule {
 			return false;
 	}
 
+	// TODO: announce through synth
+
 	@Override
 	public ExecutionResult execute(Stack<Phrase> phrases) {
 		Phrase phrase = phrases.firstElement();

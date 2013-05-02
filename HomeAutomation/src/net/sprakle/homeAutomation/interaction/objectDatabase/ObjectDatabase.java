@@ -14,7 +14,6 @@ import net.sprakle.homeAutomation.interaction.objectDatabase.utilities.DepthFirs
 import net.sprakle.homeAutomation.interaction.objectDatabase.utilities.ObjectCreator;
 import net.sprakle.homeAutomation.interpretation.module.modules.reloading.ReloadEvent;
 import net.sprakle.homeAutomation.interpretation.tagger.tags.Tag;
-import net.sprakle.homeAutomation.synthesis.Synthesis;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
@@ -23,13 +22,11 @@ public class ObjectDatabase implements EventListener {
 	private Component databaseRoot;
 
 	private Logger logger;
-	private Synthesis synth;
 
 	ObjectCreator oc;
 
-	public ObjectDatabase(Logger logger, Synthesis synth, ExternalSoftware exs) {
+	public ObjectDatabase(Logger logger, ExternalSoftware exs) {
 		this.logger = logger;
-		this.synth = synth;
 
 		Arduino arduino = (Arduino) exs.getSoftware(SoftwareName.ARDUINO);
 		oc = new ObjectCreator(logger, arduino);
@@ -175,8 +172,6 @@ public class ObjectDatabase implements EventListener {
 
 	// updates database and alerts listeners
 	public void reloadDatabase() {
-		synth.speak("Re-loading database");
-
 		buildDatabase();
 
 		EventManager em = EventManager.getInstance(logger);
