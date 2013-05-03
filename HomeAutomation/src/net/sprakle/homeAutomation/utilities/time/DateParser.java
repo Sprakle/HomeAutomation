@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import net.sprakle.homeAutomation.interpretation.Phrase;
+import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class DateParser {
@@ -86,31 +87,31 @@ public class DateParser {
 	}
 
 	/**
-	 * Works by incrementing the unit before the last defined unit until the
-	 * date is in the future. Example:
+	 * Converts past dates into future dates. Example:
 	 * 
-	 * Phrase: "on the 5th" - Current date: April 26th
+	 * Phrase: "the 5th" - Current date: April 26th
 	 * 
-	 * Last defined unit: date. Next largest: month
-	 * 
-	 * Increment month until full date is in the future
+	 * Converts to May 5th
 	 * 
 	 * @param phrase
 	 * @param cal
 	 */
 	private static void convertToFuture(Calendar cal, Phrase phrase, List<TimeFormatGroup> groups) {
-		// find group to increment
-		TimeFormatGroup increment = null;
-		boolean lastWasDefined = false;
-		for (int i = groups.size() - 1; i >= 0; i--) {
-			TimeFormatGroup group = groups.get(i);
-			if (group.canParse(phrase)) {
-				lastWasDefined = true;
-				continue;
-			}
+		// find the unit (group) to increment by finding the BEFORE largest the unit that is in the past
 
-			if (lastWasDefined) {
-				increment = groups.get(i);
+		TimeFormatGroup increment = null;
+		for (TimeFormatGroup group : groups) {
+
+			int calendarUnit = group.getCalendarUnit();
+
+			int checkUnit = cal.get(calendarUnit);
+			int currentUnit = DateParser.getCurrent(calendarUnit);
+
+			// if this unit in the present? Was it a unit explicitly defined by the user?
+			if (checkUnit < currentUnit && group.canParse(phrase)) {
+				// this unit is in the past. The previous should be incremented
+				int thisIndex = groups.indexOf(group);
+				increment = groups.get(thisIndex - 1);
 				break;
 			}
 		}
@@ -118,11 +119,72 @@ public class DateParser {
 		if (increment == null)
 			return;
 
+		// increment the target until the time is in the future
 		int calendarUnit = increment.getCalendarUnit();
-		System.out.println(increment.getClass().getSimpleName());
 		while (cal.getTimeInMillis() < System.currentTimeMillis()) {
 			cal.add(calendarUnit, 1);
 		}
+	}
+
+	/**
+	 * Isolates the part of a string that defines a date
+	 * 
+	 * WARNING: This is a very expensive operation. It takes about 50ms to
+	 * isolate a date from and average sentence
+	 * 
+	 * @param logger
+	 * @param tagger
+	 * @param rawText
+	 *            String that has a date you wish to be isolated
+	 * @param mustBeInFuture
+	 * @return A string with the least words as possible that still have the
+	 *         same parsed date as the original
+	 */
+	public static String isolateDate(Logger logger, Tagger tagger, String rawText, boolean mustBeInFuture) {
+		// works by adding tags one at a time to a string then DateParsing it, and checking if the given date equals the original
+		String result = "";
+
+		Date originalDate = DateParser.parseDate(logger, new Phrase(logger, tagger, rawText), mustBeInFuture);
+
+		/*
+		 * Find start by building from end, to remove extra text from the beginning
+		 */
+		String[] tagRawTexts = rawText.split(" ");
+		String build = "";
+		for (int i = tagRawTexts.length - 1; i > 0; i--) {
+			build = tagRawTexts[i] + " " + build;
+
+			Phrase buildPhrase = new Phrase(logger, tagger, build);
+			Date builtDate = DateParser.parseDate(logger, buildPhrase, mustBeInFuture);
+
+			// TODO: give dateParser a reference time, so this comparison can simply be .equals()
+			// TODO: setup parsing "next/last" friday
+
+			// if the dates are the same
+			if (Math.abs(builtDate.getTime() - originalDate.getTime()) < 2000) {
+				// break out of the loop, as we are finished isolating the date
+				break;
+			}
+		}
+
+		/*
+		 * Now build from the beginning, to remove extra text from the end
+		 */
+		String buildRawTexts[] = build.split(" ");
+		for (int i = 0; i < buildRawTexts.length; i++) {
+			result += buildRawTexts[i] + " ";
+
+			Phrase buildPhrase = new Phrase(logger, tagger, result);
+			Date builtDate = DateParser.parseDate(logger, buildPhrase, mustBeInFuture);
+
+			// if the dates are the same
+			if (Math.abs(builtDate.getTime() - originalDate.getTime()) < 2000) {
+				// break out of the loop, as we are finished isolating the date
+				break;
+			}
+		}
+
+		return result.trim();
 	}
 
 	private static List<TimeFormatGroup> getStandardGroups(List<TimeFormatGroup> groups) {
