@@ -51,6 +51,7 @@ public class Interpreter implements EventListener {
 
 		// convert text to a phrase, tagging it
 		Phrase phrase = new Phrase(logger, tagger, input);
+		logger.log("Tagged input: " + phrase, LogSource.TAGGER_INFO, 3);
 
 		// if the last module requires addition user interaction, automatically execute it
 		if (additionalInteractionRequired) {

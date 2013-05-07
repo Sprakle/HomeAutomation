@@ -6,6 +6,8 @@
 "the"				{LANGUAGE/the}
 "by"				{LANGUAGE/owned}
 
+"spell"				{GENERAL_COMMAND/spell}
+
 "backlight"			{OD_OBJECT/backlight}
 "lamp"				{OD_OBJECT/loftbed lamp}
 "fan"				{OD_OBJECT/fan}
@@ -23,6 +25,13 @@
 
 "brightness"		{NODE/brightness}
 
+"remind me to"		{SCHEDULE/memo}
+"remind me that"	{SCHEDULE/memo}
+"reminder"			{SCHEDULE/memo}
+"memo"				{SCHEDULE/memo}
+"memorandum"		{SCHEDULE/memo}
+"note"				{SCHEDULE/memo}
+
 "set"				{SETTER/x}
 "turn up"			{SETTER/+}
 "increase"			{SETTER/+}
@@ -35,8 +44,10 @@
 
 "play"				{PLAYBACK/play}
 "start"				{PLAYBACK/play}
+"begin"				{PLAYBACK/play}
 "pause"				{PLAYBACK/pause}
 "stop"				{PLAYBACK/pause}
+"end"				{PLAYBACK/play}
 
 "next"				{TIME_CHANGE/next}
 "after"				{TIME_CHANGE/next}
@@ -61,6 +72,7 @@
 "what"				{QUESTION/generic}
 "how"				{QUESTION/integer}
 
+// internal parts of the home automation system
 "taglist"			{INTERNALS/tagger}
 "tag list"			{INTERNALS/tagger}
 "tagger"			{INTERNALS/tagger}
@@ -69,8 +81,8 @@
 
 "plus"				{MATH_OPERATOR/+}
 "minus"				{MATH_OPERATOR/-}
-"times"				{MATH_OPERATOR/*}
-"devided"			{MATH_OPERATOR//}
+"times"				{MATH_OPERATOR\/*} // slash-asterisk escaped
+"devided"			{MATH_OPERATOR\//} // double slash escapted
 "left bracket"		{MATH_OPERATOR/(}
 "right bracket"		{MATH_OPERATOR/)}
 "to the power of"	{MATH_OPERATOR/^}
@@ -97,15 +109,15 @@
 "decimals"			{MATH_TERM/decimal}
 "decimal"			{MATH_TERM/decimal}
 
+// constants can be defined
 "pi"				{NUMBER/3.14159}
 
+// if this list must be bigger, consider programming interpretation of such terms
 "first"				{NTH_NUMBER/1}
 "second"			{NTH_NUMBER/2}
 "third"				{NTH_NUMBER/3}
 "fourth"			{NTH_NUMBER/4}
 "fifth"				{NTH_NUMBER/5}
-
-"spell"				{GENERAL_COMMAND/spell}
 
 "yesterday"			{RELATIVE_DAY/-1}
 "yesterday's"		{RELATIVE_DAY/-1}
@@ -200,9 +212,6 @@
 "nah"				{DECISION/no}
 "cancel"			{DECISION/no}
 
-"remind"			{SCHEDULE/remind}
-"reminder"			{SCHEDULE/remind}
-
 "seconds"			{TIME/second}
 "second"			{TIME/second}
 "minutes"			{TIME/minute}
@@ -218,6 +227,7 @@
 "years"				{TIME/year}
 "year"				{TIME/year}
 
+// formatted as hour-minute-second
 "morning"			{PART_OF_DAY/6-30-0}
 "breakfast"			{PART_OF_DAY/7-0-0}
 "noon"				{PART_OF_DAY/12-0-0}
