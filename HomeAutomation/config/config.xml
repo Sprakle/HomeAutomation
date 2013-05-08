@@ -82,6 +82,10 @@
 		<default_update_period>1000</default_update_period>
 	</behaviours>
 	
+	<misc>
+		<perspective_map_path>config/perspectiveMap.txt</perspective_map_path>
+	</misc>
+	
 	<logger>
 		<!-- Higher number is more verbose. 0 is infinite -->
 		<verbosity>0</verbosity>

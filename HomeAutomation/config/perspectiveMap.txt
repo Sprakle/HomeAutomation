@@ -1,0 +1,26 @@
+// My grammar aint no good
+// Allowed characters in words: a-z (case insensitive), space, single apostrophe (')
+
+>
+	1: "me" "I"
+	2: "you"
+	
+>
+	1: "mine" "our's"
+	2: "yours"
+
+>
+	1: "my" "our"
+	2: "your"
+	
+>
+	1: "myself"
+	2: "yourself"
+	
+>
+	1: "ourselves"
+	2: "yourselves"
+	
+>
+	1: "us" "we"
+	2: "you people"
