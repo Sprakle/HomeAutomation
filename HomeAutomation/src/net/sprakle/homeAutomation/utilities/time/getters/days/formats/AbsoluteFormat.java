@@ -41,5 +41,4 @@ public class AbsoluteFormat implements TimeFormat {
 
 		return day;
 	}
-
 }

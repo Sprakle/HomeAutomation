@@ -13,6 +13,7 @@ triggerEndActions: called ONCE when a trigger was stopped being gtriggered.
 			music is turned down.
 		</description>
 		<update_period>1000</update_period>
+		
 		<triggers>
 			<trigger type="object_database_read" >
 				<object_node>root/rooms/bedroom/phone light sensor/light</object_node>
@@ -21,19 +22,19 @@ triggerEndActions: called ONCE when a trigger was stopped being gtriggered.
 			</trigger>
 		</triggers>
 		
-		<triggerStartActions>
+		<trigger_start_actions>
 			<action type="media_centre_command">
 				<command>change_volume</command>
 				<change>-0.4</change>
 			</action>
-		</triggerStartActions>
+		</trigger_start_actions>
 		
-		<triggerEndActions>
+		<trigger_end_actions>
 			<action type="media_centre_command">
 				<command>change_volume</command>
 				<change>0.4</change>
 			</action>
-		</triggerEndActions>
+		</trigger_end_actions>
 	</behaviour>
 	
 	<behaviour name="wake up sequence">
@@ -49,7 +50,7 @@ triggerEndActions: called ONCE when a trigger was stopped being gtriggered.
 			</trigger>
 		</triggers>
 		
-		<triggerStartActions>
+		<trigger_start_actions>
 			<action type="media_centre_command">
 				<command>set_volume</command>
 				<set>1</set>
@@ -61,6 +62,6 @@ triggerEndActions: called ONCE when a trigger was stopped being gtriggered.
 			<action type="emulate_user_input">
 				<phrase>what will the weather be like today</phrase>
 			</action>
-		</triggerStartActions>
+		</trigger_start_actions>
 	</behaviour>
 </ta_system>

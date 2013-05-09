@@ -20,7 +20,7 @@ public final class Behaviour {
 
 	private Logger logger;
 
-	BehaviourState state;
+	private BehaviourState state;
 
 	private List<Trigger> triggers;
 
@@ -30,39 +30,50 @@ public final class Behaviour {
 	// actions to be called once triggers have ceased
 	private List<Action> triggerEndActions;
 
-	private String name;
-	private String description;
-	private int updatePeriod;
+	private final String NAME;
+	private final String DESCRIPTION;
+	private final int UPDATE_PERIOD;
 
+	private final Element element;
+
+	/**
+	 * Create behaviour based on element from and XML file
+	 * 
+	 * @param logger
+	 * @param behaviourElement
+	 * @param od
+	 * @param exs
+	 */
 	Behaviour(Logger logger, Element behaviourElement, ObjectDatabase od, ExternalSoftware exs) {
 		this.logger = logger;
+		this.element = behaviourElement;
 
 		state = BehaviourState.DORMANT;
 
-		name = behaviourElement.attributeValue("name");
-		description = behaviourElement.elementText("description");
+		NAME = behaviourElement.attributeValue(XMLKeys.NAME);
+		DESCRIPTION = behaviourElement.elementText(XMLKeys.DESCRIPTION);
 
-		String UPString = behaviourElement.elementText("update_period");
+		String UPString = behaviourElement.elementText(XMLKeys.UPDATE_PERIOD);
 		if (UPString != null && UPString.matches("\\d*"))
-			updatePeriod = Integer.parseInt(UPString);
+			UPDATE_PERIOD = Integer.parseInt(UPString);
 		else
-			updatePeriod = Config.getInt("config/behaviours/minimum_update_period");
+			UPDATE_PERIOD = Config.getInt("config/behaviours/minimum_update_period");
 
-		if (name == null) {
+		if (NAME == null) {
 			String path = behaviourElement.getUniquePath();
 			logger.log("Behaviour does not have a name: " + path, LogSource.ERROR, LogSource.BEHAVIOUR, 1);
 		}
 
-		if (description == null) {
+		if (DESCRIPTION == null) {
 			String path = behaviourElement.getUniquePath();
 			logger.log("Behaviour does not have a description: " + path, LogSource.ERROR, LogSource.BEHAVIOUR, 1);
 		}
 
-		Element triggerElements = behaviourElement.element("triggers");
+		Element triggerElements = behaviourElement.element(XMLKeys.TRIGGERS);
 		triggers = makeTriggers(triggerElements, od);
 
-		Element triggerStartActionElements = behaviourElement.element("triggerStartActions");
-		Element triggerEndActionElements = behaviourElement.element("triggerEndActions");
+		Element triggerStartActionElements = behaviourElement.element(XMLKeys.TRIGGER_START_ACTIONS);
+		Element triggerEndActionElements = behaviourElement.element(XMLKeys.TRIGGER_END_ACTION);
 		triggerStartActions = makeActions(triggerStartActionElements, exs);
 		triggerEndActions = makeActions(triggerEndActionElements, exs);
 	}
@@ -74,7 +85,6 @@ public final class Behaviour {
 
 		return false;
 	}
-
 	void executeTriggerStart() {
 		for (Action a : triggerStartActions)
 			a.execute();
@@ -86,21 +96,38 @@ public final class Behaviour {
 	}
 
 	String getName() {
-		return name;
+		return NAME;
 	}
 
 	String getDescription() {
-		return description;
+		return DESCRIPTION;
+	}
+
+	Element getElement() {
+		return element;
 	}
 
 	int getUpdatePeriod() {
-		return updatePeriod;
+		return UPDATE_PERIOD;
+	}
+
+	BehaviourState getState() {
+		return state;
+	}
+
+	void setState(BehaviourState state) {
+		this.state = state;
+	}
+
+	@Override
+	public String toString() {
+		return NAME;
 	}
 
 	private List<Trigger> makeTriggers(Element triggerElements, ObjectDatabase od) {
 		List<Trigger> triggers = new ArrayList<Trigger>();
 
-		for (Iterator<?> i = triggerElements.elementIterator("trigger"); i.hasNext();) {
+		for (Iterator<?> i = triggerElements.elementIterator(XMLKeys.TRIGGER); i.hasNext();) {
 			Element triggerElement = (Element) i.next();
 
 			Trigger trigger = TriggerFactory.makeTrigger(logger, triggerElement, od);
@@ -120,7 +147,7 @@ public final class Behaviour {
 		if (actionElements == null || actionElements.nodeCount() == 0)
 			return actions;
 
-		for (Iterator<?> i = actionElements.elementIterator("action"); i.hasNext();) {
+		for (Iterator<?> i = actionElements.elementIterator(XMLKeys.ACTION); i.hasNext();) {
 			Element actionElement = (Element) i.next();
 
 			Action action = ActionFactory.makeAction(logger, actionElement, exs);
@@ -132,18 +159,5 @@ public final class Behaviour {
 		}
 
 		return actions;
-	}
-
-	BehaviourState getState() {
-		return state;
-	}
-
-	void setState(BehaviourState state) {
-		this.state = state;
-	}
-
-	@Override
-	public String toString() {
-		return name;
 	}
 }

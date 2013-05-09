@@ -11,6 +11,7 @@ import net.sprakle.homeAutomation.utilities.time.getters.generic.formats.PartOfD
 import net.sprakle.homeAutomation.utilities.time.getters.generic.formats.RelativeNumberFormat;
 import net.sprakle.homeAutomation.utilities.time.getters.generic.formats.RelativeShorthandFormat;
 import net.sprakle.homeAutomation.utilities.time.getters.minutes.formats.AbsoluteFormat;
+import net.sprakle.homeAutomation.utilities.time.getters.minutes.formats.AtNumberNumberFormat;
 import net.sprakle.homeAutomation.utilities.time.getters.minutes.formats.FractionDiffFormat;
 import net.sprakle.homeAutomation.utilities.time.getters.minutes.formats.NumberDiffFormat;
 import net.sprakle.homeAutomation.utilities.time.getters.minutes.formats.NumberNumberFormat;
@@ -26,6 +27,7 @@ public class MinuteGroupFactory {
 		formats.add(new FractionDiffFormat(logger));
 		formats.add(new NumberDiffFormat(logger));
 		formats.add(new NumberNumberFormat(logger));
+		formats.add(new AtNumberNumberFormat(logger));
 		formats.add(new PartOfDayFormat(logger, "minute", 1));
 		formats.add(new AbsoluteFormat(logger));
 

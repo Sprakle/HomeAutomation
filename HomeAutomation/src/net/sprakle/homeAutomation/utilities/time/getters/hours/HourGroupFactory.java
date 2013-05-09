@@ -21,9 +21,9 @@ public class HourGroupFactory {
 		List<TimeFormat> formats = new ArrayList<TimeFormat>();
 
 		// add new formats here
+		formats.add(new NumberNumberFormat(logger));
 		formats.add(new AbsoluteFormat(logger));
 		formats.add(new NumberDiffFormat(logger));
-		formats.add(new NumberNumberFormat(logger));
 		formats.add(new PartOfDayFormat(logger, "hour", 0));
 		formats.add(new RelativeNumberFormat(logger, "hour", Calendar.HOUR));
 		formats.add(new RelativeShorthandFormat(logger, "hour", Calendar.HOUR));

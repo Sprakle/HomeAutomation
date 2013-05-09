@@ -73,7 +73,8 @@
 	</weather>
 	
 	<behaviours>
-		<behaviours_file>config/behaviours.xml</behaviours_file>
+		<user_behaviours_file>config/userBehaviours.xml</user_behaviours_file>
+		<system_behaviours_file>config/systemBehaviours.xml</system_behaviours_file>
 		
 		<!-- minimum time between behaviour trigger checks -->
 		<minimum_update_period>10</minimum_update_period>

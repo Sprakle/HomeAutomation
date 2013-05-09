@@ -12,6 +12,8 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class DateParser {
 
+	private static final String[] DATE_START_WORDS = { " in", " on", " at", " when" };
+
 	/**
 	 * Takes a phrases and returns the date the phrase is referring to. Example
 	 * accepted phrases (only the relevant part is shown):
@@ -36,7 +38,7 @@ public class DateParser {
 	 * @param mustBeInFuture
 	 *            If true, the parser will convert things like "at 6 o'clock" to
 	 *            the next available 6 o'clock and not one in the past. This
-	 *            applies to all units of time
+	 *            applies to all units of timedateStartWords
 	 * @return
 	 */
 	public static Date parseDate(Logger logger, Phrase phrase, boolean mustBeInFuture) {
@@ -185,6 +187,50 @@ public class DateParser {
 		}
 
 		return result.trim();
+	}
+
+	/**
+	 * Removes the isolated date, along with some words before the date such as
+	 * "in", "on", etc
+	 * 
+	 * Used isolateDate() and thus this is a very expensive operation
+	 * 
+	 * @param logger
+	 * @param tagger
+	 * @param rawText
+	 * @return
+	 */
+	public static String removeDate(Logger logger, Tagger tagger, String rawText) {
+		String isolatedDate = DateParser.isolateDate(logger, tagger, rawText, true);
+
+		int dateIndex = rawText.indexOf(isolatedDate) - 1;
+
+		// remove the date itself from the string
+		rawText = rawText.replace(isolatedDate, "");
+
+		// remove date start words from before the date
+		startWordSearch: for (String startWord : DATE_START_WORDS) {
+
+			// find matches of this word
+			int prevIndex = rawText.indexOf(startWord);
+			while (prevIndex >= 0) {
+				// found match. Is it the word before the date?
+				if (prevIndex + startWord.length() == dateIndex) {
+					rawText = removeRange(rawText, prevIndex, prevIndex + startWord.length());
+					break startWordSearch;
+				}
+
+				prevIndex = rawText.indexOf(startWord, prevIndex + startWord.length());
+			}
+		}
+
+		return rawText;
+	}
+
+	private static String removeRange(String s, int startIndex, int endIndex) {
+		String firstHalf = s.substring(0, startIndex);
+		String secondHalf = s.substring(endIndex, s.length());
+		return firstHalf + secondHalf;
 	}
 
 	private static List<TimeFormatGroup> getStandardGroups(List<TimeFormatGroup> groups) {

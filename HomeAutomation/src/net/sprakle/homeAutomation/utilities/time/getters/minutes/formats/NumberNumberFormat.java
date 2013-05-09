@@ -23,6 +23,7 @@ public class NumberNumberFormat implements TimeFormat {
 		outline = new PhraseOutline(logger, "Number:number minute format");
 		outline.addMandatoryTag(new Tag(TagType.NUMBER, null));
 		outline.addMandatoryTag(new Tag(TagType.NUMBER, null));
+
 		outline.negateUnxepectedTagPenalty();
 		outline.setMaxTagSeparation(1);
 	}

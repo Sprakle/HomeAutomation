@@ -10,18 +10,23 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 import org.dom4j.Element;
 
-public class ObjectDatabaseRead extends Trigger {
+public class ObjectDatabaseRead implements Trigger {
 
 	private DB_Node node;
 	private Comparison comparison;
 
+	private Element element;
+
+	private final String NODE_KEY = "object_node";
+	private final String COMPARISON_KEY = "comparison";
+
 	public ObjectDatabaseRead(Logger logger, Element element, ObjectDatabase od) {
-		super(element);
+		this.element = element;
 
 		String path = element.getUniquePath();
 
-		String nodePath = element.elementText("object_node");
-		String comparisonString = element.elementText("comparison");
+		String nodePath = element.elementText(NODE_KEY);
+		String comparisonString = element.elementText(COMPARISON_KEY);
 
 		if (nodePath == null || comparisonString == null)
 			logger.log("Unable to read trigger: " + path, LogSource.ERROR, LogSource.BEHAVIOUR, 1);

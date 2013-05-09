@@ -1,5 +1,6 @@
 package net.sprakle.homeAutomation.behaviour.triggers;
 
+import net.sprakle.homeAutomation.behaviour.XMLKeys;
 import net.sprakle.homeAutomation.behaviour.triggers.objectDatabaseRead.ObjectDatabaseRead;
 import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
@@ -12,15 +13,16 @@ public class TriggerFactory {
 	public static Trigger makeTrigger(Logger logger, Element e, ObjectDatabase od) {
 		String path = e.getUniquePath();
 
-		String triggerString = e.attributeValue("type");
-		if (triggerString == null)
+		String triggerType = e.attributeValue(XMLKeys.TYPE);
+		if (triggerType == null)
 			logger.log("Unable to read trigger: " + path, LogSource.ERROR, LogSource.BEHAVIOUR, 1);
 
-		TriggerDependencies td = new TriggerDependencies(logger, e, od);
-
-		for (Triggers t : Triggers.values())
-			if (t.getElementString().equals(triggerString))
-				return t.getTrigger(td);
+		for (Triggers t : Triggers.values()) {
+			if (t.getElementString().equals(triggerType)) {
+				Trigger trigger = t.getTrigger(logger, e, od);
+				return trigger;
+			}
+		}
 
 		return null;
 	}
@@ -37,29 +39,13 @@ public class TriggerFactory {
 			}
 
 			@Override
-			public Trigger getTrigger(TriggerDependencies td) {
-				return new ObjectDatabaseRead(td.logger, td.element, td.objectDatabase);
+			public Trigger getTrigger(Logger logger, Element element, ObjectDatabase od) {
+				return new ObjectDatabaseRead(logger, element, od);
 			}
 
 		};
 
 		public abstract String getElementString();
-		public abstract Trigger getTrigger(TriggerDependencies td);
-	}
-
-	/*
-	 * Add new trigger dependencies here
-	 */
-	private static class TriggerDependencies {
-		public Logger logger;
-		public Element element;
-		public ObjectDatabase objectDatabase;
-
-		public TriggerDependencies(Logger logger, Element element, ObjectDatabase od) {
-			super();
-			this.logger = logger;
-			this.element = element;
-			this.objectDatabase = od;
-		}
+		public abstract Trigger getTrigger(Logger logger, Element element, ObjectDatabase od);
 	}
 }

@@ -1,5 +1,6 @@
 package net.sprakle.homeAutomation.behaviour.actions;
 
+import net.sprakle.homeAutomation.behaviour.XMLKeys;
 import net.sprakle.homeAutomation.behaviour.actions.emulateUserInput.EmulateUserInput;
 import net.sprakle.homeAutomation.behaviour.actions.mediaCentreCommand.MediaCentreCommand;
 import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
@@ -13,15 +14,13 @@ public class ActionFactory {
 	public static Action makeAction(Logger logger, Element e, ExternalSoftware exs) {
 		String path = e.getUniquePath();
 
-		String actionString = e.attributeValue("type");
+		String actionString = e.attributeValue(XMLKeys.TYPE);
 		if (actionString == null)
 			logger.log("Unable to read action: " + path, LogSource.ERROR, LogSource.BEHAVIOUR, 1);
 
-		ActionDependencies td = new ActionDependencies(logger, e, exs);
-
 		for (Actions t : Actions.values())
 			if (t.getElementString().equals(actionString))
-				return t.getAction(td);
+				return t.getAction(logger, e, exs);
 
 		return null;
 	}
@@ -38,8 +37,8 @@ public class ActionFactory {
 			}
 
 			@Override
-			public Action getAction(ActionDependencies td) {
-				return new MediaCentreCommand(td.logger, td.element, td.exs);
+			public Action getAction(Logger logger, Element element, ExternalSoftware exs) {
+				return new MediaCentreCommand(logger, element, exs);
 			}
 
 		},
@@ -52,27 +51,12 @@ public class ActionFactory {
 			}
 
 			@Override
-			public Action getAction(ActionDependencies td) {
-				return new EmulateUserInput(td.element);
+			public Action getAction(Logger logger, Element element, ExternalSoftware exs) {
+				return new EmulateUserInput(element);
 			}
 		};
 
 		public abstract String getElementString();
-		public abstract Action getAction(ActionDependencies td);
-	}
-
-	/*
-	 * Add new action dependencies here
-	 */
-	private static class ActionDependencies {
-		public Logger logger;
-		public Element element;
-		public ExternalSoftware exs;
-
-		public ActionDependencies(Logger logger, Element element, ExternalSoftware exs) {
-			this.logger = logger;
-			this.element = element;
-			this.exs = exs;
-		}
+		public abstract Action getAction(Logger logger, Element element, ExternalSoftware exs);
 	}
 }

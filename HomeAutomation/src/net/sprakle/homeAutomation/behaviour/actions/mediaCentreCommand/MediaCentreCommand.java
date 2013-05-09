@@ -15,14 +15,12 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 import org.dom4j.Element;
 
-public class MediaCentreCommand extends Action {
+public class MediaCentreCommand implements Action {
 
 	private Logger logger;
 	private Command command;
 
 	public MediaCentreCommand(Logger logger, Element element, ExternalSoftware exs) {
-		super(element);
-
 		this.logger = logger;
 
 		MediaCentre mc = (MediaCentre) exs.getSoftware(SoftwareName.MEDIA_CENTRE);

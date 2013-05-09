@@ -45,7 +45,7 @@ Media Centre Command
 		Element text:
 			"play_random_track"
 			
-		Optional Additional elements:
+		Optional additional elements:
 			"artist"
 			
 			
@@ -58,7 +58,7 @@ Media Centre Command
 		Element text:
 			"set_volume"
 		
-		Required Additional elements:
+		Required additional elements:
 			"set" - double >= 0 and <= 1
 			
 			
@@ -71,7 +71,7 @@ Media Centre Command
 		Element text:
 			"change_volume"
 		
-		Required Additional elements:
+		Required additional elements:
 			"change" - double >= -1 and <= 1
 			
 	Playback:
@@ -82,7 +82,7 @@ Media Centre Command
 		Element text:
 			"playback"
 		
-		Required Additional elements:
+		Required additional elements:
 			"playback" - string "play", "pause", "next", or "back"
 			
 
@@ -101,7 +101,7 @@ Object Database Read
 		Element text:
 			"integer_greater_than"
 		
-		Required Additional elements:
+		Required additional elements:
 			"object_node" - path in the object database of an object's
 				node
 			"integer_greater_than" - integer
@@ -114,7 +114,7 @@ Object Database Read
 		Element text:
 			"integer_less_than"
 		
-		Required Additional elements:
+		Required additional elements:
 			"object_node" - path in the object database of an object's
 				node
 			"integer_less_than" - integer
@@ -127,7 +127,7 @@ Object Database Read
 		Element text:
 			"integer_equals"
 		
-		Required Additional elements:
+		Required additional elements:
 			"object_node" - path in the object database of an object's
 				node
 			"integer_equals" - integer
@@ -141,7 +141,7 @@ Object Database Read
 		Element text:
 			"binary_equals"
 		
-		Required Additional elements:
+		Required additional elements:
 			"object_node" - path in the object database of an object's
 				node
 			"binary_equals" - string "true" or "false"
@@ -155,7 +155,43 @@ Object Database Read
 		Element text:
 			"string_equals"
 		
-		Required Additional elements:
+		Required additional elements:
 			"object_node" - path in the object database of an object's
 				node
 			"string_equals" - string
+
+
+Time
+	Type name: "time"
+	Main element: "parse_mode"
+			
+	Standard:
+		Description:
+			Date in standard from
+		
+		Element text"
+			"standard"
+			
+		Required additional elements:
+			"time" - time in the form "yyyy-MM-dd-HH-mm-ss" (java.text.SimpleDateFormat)
+
+	Natural Language:
+		Description:
+			Attempt to parse using the DateParser
+		
+		Element text"
+			"natural_language"
+			
+		Required additional elements:
+			"time" - time in a natural scentence
+			"must_be_in_future" - true | false. Will convert ambiguous past time to the next future time
+			
+	Milliseconds:
+		Description:
+			Miliseconds from the epoch
+		
+		Element text"
+			"milliseconds"
+			
+		Required additional elements:
+			"time" - time milliseconds from epoch
