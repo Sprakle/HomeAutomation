@@ -40,7 +40,7 @@ public class Tagger implements EventListener {
 		this.logger = logger;
 
 		tagFile = Paths.get(Config.getString("config/files/taglist"));
-		lines = LineByLine.read(logger, tagFile); // read lines from file
+		lines = LineByLine.read(logger, tagFile, true, true); // read lines from file
 
 		EventManager.getInstance(logger).addListener(EventType.RELOAD, this);
 	}
@@ -201,7 +201,7 @@ public class Tagger implements EventListener {
 	}
 
 	private void loadTaglist() {
-		lines = LineByLine.read(logger, tagFile); // read lines from file
+		lines = LineByLine.read(logger, tagFile, true, true); // read lines from file
 	}
 
 	public void reloadTaglist() {

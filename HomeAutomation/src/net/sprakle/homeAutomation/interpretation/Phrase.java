@@ -13,10 +13,10 @@ import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class Phrase {
 
-	Logger logger;
+	private Logger logger;
 
 	// original text from input
-	String rawText;
+	private String rawText;
 
 	private ArrayList<Tag> tags;
 
@@ -24,16 +24,7 @@ public class Phrase {
 		this.logger = logger;
 		this.rawText = rawText;
 
-		logger.log("New phrase created. Raw text: '" + rawText + "'", LogSource.PHRASE_INFO, 3);
-
 		tags = tagger.tagText(rawText);
-
-		logger.log("Tagging phrase:", LogSource.PHRASE_INFO, 2);
-		String tagString = "";
-		for (Tag t : tags) {
-			tagString += t + " ";
-		}
-		logger.log(tagString, LogSource.PHRASE_INFO, 2);
 	}
 
 	public int indexOfTag(Tag t) {
@@ -224,8 +215,26 @@ public class Phrase {
 		return rawText;
 	}
 
+	public String tagsToString() {
+		String build = "";
+
+		for (Tag t : tags)
+			build += t + " ";
+
+		return build.trim();
+	}
+
 	public ArrayList<Tag> getTags() {
 		return tags;
+	}
+
+	/**
+	 * Original text given by the user to create this phrase
+	 * 
+	 * @return
+	 */
+	public String getRawText() {
+		return rawText;
 	}
 
 	/**

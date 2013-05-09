@@ -4,9 +4,18 @@ This document list the possible commands that can be used in behaviours
 ========= Actions ========== 
 ============================
 
+Speak
+	Type name: "speak"
+	
+	Desciption:
+		used the synthesis engine to speak
+	
+	Required elements:
+		"speech" - text of what is to be spoken
+
 Media Centre Command
 	Type name: "media_centre_command"
-	Main element: "command"
+	Main switch element: "command"
 
 	Play Track:
 		Description:
@@ -92,7 +101,7 @@ Media Centre Command
 
 Object Database Read
 	Type name: "object_database_read"
-	Main element: "comparison"
+	Main switch element: "comparison"
 
 	Integer greater than:
 		Description:
@@ -163,7 +172,7 @@ Object Database Read
 
 Time
 	Type name: "time"
-	Main element: "parse_mode"
+	Main switch element: "parse_mode"
 			
 	Standard:
 		Description:

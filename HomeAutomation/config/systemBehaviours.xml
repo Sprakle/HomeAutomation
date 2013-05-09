@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ta_system> 
-  <behaviour name="Memo alert">
-    <description>Alert the user of a memo</description>
-    <update_period>1000</update_period>
-    <triggers>
-      <trigger type="time">
-        <time>1368405046628</time>
-        <parse_mode>milliseconds</parse_mode>
-      </trigger>
-    </triggers>
-    <trigger_start_actions/>
-    <trigger_end_actions/>
-  </behaviour>
+<ta_system>
 </ta_system>

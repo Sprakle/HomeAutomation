@@ -10,8 +10,9 @@ import net.sprakle.homeAutomation.interpretation.tagger.TagFileParser;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 public class Tag {
-	private TagType type;
 
+	private String originalTrigger;
+	private TagType type;
 	private String value;
 
 	public Tag(TagType type, String value) {
@@ -23,6 +24,7 @@ public class Tag {
 		TagType type = TagFileParser.getType(logger, originalText);
 		String value = TagFileParser.getValue(logger, originalText);
 
+		this.originalTrigger = TagFileParser.getTrigger(logger, originalText);
 		this.type = type;
 		this.value = value;
 	}
@@ -38,6 +40,16 @@ public class Tag {
 	@Override
 	public String toString() {
 		return "{" + type + "/" + value + "}";
+	}
+
+	/**
+	 * Text that was used to create this tag. May be null if this tag was
+	 * created through other means
+	 * 
+	 * @return
+	 */
+	public String getOriginalTrigger() {
+		return originalTrigger;
 	}
 
 	public boolean equalsType(Tag t) {
@@ -60,4 +72,5 @@ public class Tag {
 
 		return false;
 	}
+
 }
