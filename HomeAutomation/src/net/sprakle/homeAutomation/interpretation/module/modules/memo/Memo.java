@@ -52,11 +52,6 @@ public class Memo implements InterpretationModule {
 		return outlines.contains(match) && DateParser.containsDate(logger, phrase);
 	}
 
-	// FIXME: Work from here:
-	// TODO: add removeAfterTriggerStart and removeAfterTriggerEnd flags to behaviours
-	// TODO: allow actions to remove themselves
-	// TODO: make an alert action that will get confirmation from the user
-
 	@Override
 	public ExecutionResult execute(Stack<Phrase> phrases) {
 		Phrase phrase = phrases.pop();
@@ -90,8 +85,8 @@ public class Memo implements InterpretationModule {
 		bDef.triggerStartActions.add(aDef);
 
 		// add to behaviours
-		Behaviour behaviour = bm.createBehaviour(bDef);
-		bm.addBehaviour(behaviour, true);
+		Behaviour behaviour = bm.createBehaviour(bDef, true);
+		bm.addBehaviour(behaviour);
 
 		return ExecutionResult.COMPLETE;
 	}

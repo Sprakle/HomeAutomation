@@ -20,6 +20,7 @@ public final class Behaviour {
 
 	private Logger logger;
 
+	private final boolean persistent;
 	private BehaviourState state;
 
 	private List<Trigger> triggers;
@@ -36,17 +37,13 @@ public final class Behaviour {
 
 	private final Element element;
 
-	/**
-	 * Create behaviour based on element from and XML file
-	 * 
-	 * @param logger
-	 * @param behaviourElement
-	 * @param od
-	 * @param exs
-	 */
-	Behaviour(Logger logger, Element behaviourElement, ObjectDatabase od, ExternalSoftware exs) {
+	// must be set by manager if persistent;
+	private String file;
+
+	Behaviour(Logger logger, Element behaviourElement, ObjectDatabase od, ExternalSoftware exs, boolean persistent) {
 		this.logger = logger;
 		this.element = behaviourElement;
+		this.persistent = persistent;
 
 		state = BehaviourState.DORMANT;
 
@@ -115,13 +112,30 @@ public final class Behaviour {
 		return state;
 	}
 
-	void setState(BehaviourState state) {
-		this.state = state;
+	String getFile() {
+		return file;
+	}
+
+	boolean isPersistent() {
+		return persistent;
 	}
 
 	@Override
 	public String toString() {
 		return NAME;
+	}
+
+	boolean shouldDelete() {
+		// TODO: get remove tags
+		return false;
+	}
+
+	void setState(BehaviourState state) {
+		this.state = state;
+	}
+
+	void setFile(String file) {
+		this.file = file;
 	}
 
 	private List<Trigger> makeTriggers(Element triggerElements, ObjectDatabase od) {

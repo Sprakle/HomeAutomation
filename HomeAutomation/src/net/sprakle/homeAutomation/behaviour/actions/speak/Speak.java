@@ -1,5 +1,6 @@
-package net.sprakle.homeAutomation.behaviour.actions;
+package net.sprakle.homeAutomation.behaviour.actions.speak;
 
+import net.sprakle.homeAutomation.behaviour.actions.Action;
 import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.externalSoftware.software.synthesis.Synthesis;
@@ -31,5 +32,4 @@ public class Speak implements Action {
 	public void execute() {
 		synth.speak(speech);
 	}
-
 }

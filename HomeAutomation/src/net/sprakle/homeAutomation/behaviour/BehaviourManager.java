@@ -75,8 +75,10 @@ public class BehaviourManager implements LogicTimerObserver {
 		// create and add each behaviour in the behaviours XML file
 		for (Iterator<?> i = root.elementIterator(XMLKeys.BEHAVIOUR); i.hasNext();) {
 			Element behaviourElement = (Element) i.next();
-			Behaviour behaviour = createBehaviour(behaviourElement);
+			Behaviour behaviour = createBehaviour(behaviourElement, true);
 			behaviours.put(behaviour, System.currentTimeMillis());
+
+			behaviour.setFile(USER_BEHAVIOURS_PATH);
 		}
 
 		return behaviours;
@@ -130,11 +132,22 @@ public class BehaviourManager implements LogicTimerObserver {
 			// update state if it has been changed
 			b.setState(state);
 
+			// remove if wanted
+			if (b.shouldDelete()) {
+				behaviours.remove(b);
+
+				// remove from file as well if necessary
+				if (b.isPersistent()) {
+					String file = b.getFile();
+					Element element = b.getElement();
+					removeFileElement(file, element);
+				}
+			}
+
 			// update time of last update
 			behaviours.put(b, System.currentTimeMillis());
 		}
 	}
-
 	private Document readXML(String path) {
 		File file = new File(path);
 
@@ -148,10 +161,11 @@ public class BehaviourManager implements LogicTimerObserver {
 		return document;
 	}
 
-	public void addBehaviour(Behaviour behaviour, boolean persistent) {
+	public void addBehaviour(Behaviour behaviour) {
 		behaviours.put(behaviour, System.currentTimeMillis());
+		logger.log("Added behaviour: '" + behaviour.getName() + "'", LogSource.BEHAVIOUR, 3);
 
-		if (!persistent)
+		if (behaviour.isPersistent())
 			return;
 
 		Document systemDoc = readXML(SYSTEM_BEHAVIOURS_PATH);
@@ -167,7 +181,7 @@ public class BehaviourManager implements LogicTimerObserver {
 		newDoc.setRootElement(root);
 
 		try {
-			FileOutputStream fos = new FileOutputStream("config/systemBehaviours.xml");
+			FileOutputStream fos = new FileOutputStream(SYSTEM_BEHAVIOURS_PATH);
 
 			XMLWriter writer = new XMLWriter(fos, OutputFormat.createPrettyPrint());
 
@@ -176,16 +190,18 @@ public class BehaviourManager implements LogicTimerObserver {
 		} catch (IOException e) {
 			logger.log("Unable to write to system defined behaviours file", LogSource.ERROR, LogSource.BEHAVIOUR, 1);
 		}
-	}
 
+		behaviour.setFile(SYSTEM_BEHAVIOURS_PATH);
+		logger.log("Behaviour saved to system behaviours file", LogSource.BEHAVIOUR, 3);
+	}
 	/**
 	 * Used to create a behaviour based on an element in an XML file
 	 * 
 	 * @param element
 	 * @return
 	 */
-	public Behaviour createBehaviour(Element element) {
-		Behaviour behaviour = new Behaviour(logger, element, od, exs);
+	public Behaviour createBehaviour(Element element, boolean persistent) {
+		Behaviour behaviour = new Behaviour(logger, element, od, exs, persistent);
 		return behaviour;
 	}
 
@@ -195,7 +211,7 @@ public class BehaviourManager implements LogicTimerObserver {
 	 * @param def
 	 * @return
 	 */
-	public Behaviour createBehaviour(BehaviourDefinition def) {
+	public Behaviour createBehaviour(BehaviourDefinition def, boolean persistent) {
 
 		// create an element based on the definition
 		Document doc = DocumentFactory.getInstance().createDocument();
@@ -205,8 +221,36 @@ public class BehaviourManager implements LogicTimerObserver {
 
 		def.copyDataToElement(behaviourElement);
 
-		Behaviour behaviour = createBehaviour(behaviourElement);
+		Behaviour behaviour = createBehaviour(behaviourElement, persistent);
 
 		return behaviour;
+	}
+
+	/**
+	 * Removes an element from a given XML file
+	 * 
+	 * @param filePath
+	 * @param element
+	 */
+	private void removeFileElement(String filePath, Element element) {
+
+		// get
+		Document doc = readXML(filePath);
+
+		// remove
+		doc.remove(element);
+
+		// save
+		try {
+			FileOutputStream fos = new FileOutputStream(filePath);
+
+			XMLWriter writer = new XMLWriter(fos, OutputFormat.createPrettyPrint());
+
+			writer.write(doc);
+			writer.close();
+		} catch (IOException e) {
+			String path = element.getUniquePath();
+			logger.log("Unable to remove element '" + path + "' from XML: '" + filePath + "'", LogSource.ERROR, LogSource.BEHAVIOUR, 1);
+		}
 	}
 }
