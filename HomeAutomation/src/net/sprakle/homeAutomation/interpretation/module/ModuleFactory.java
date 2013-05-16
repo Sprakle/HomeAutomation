@@ -13,7 +13,6 @@ import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.interpretation.module.modules.deleteCurrentSong.DeleteCurrentSong;
 import net.sprakle.homeAutomation.interpretation.module.modules.math.Math;
 import net.sprakle.homeAutomation.interpretation.module.modules.media.Media;
-import net.sprakle.homeAutomation.interpretation.module.modules.memo.Memo;
 import net.sprakle.homeAutomation.interpretation.module.modules.objectDatabaseCommand.ObjectDatabaseCommand;
 import net.sprakle.homeAutomation.interpretation.module.modules.reloading.Reloading;
 import net.sprakle.homeAutomation.interpretation.module.modules.spelling.Spelling;
@@ -36,7 +35,6 @@ public class ModuleFactory {
 		moduleArray.add(new WeatherForecasting(exs));
 		moduleArray.add(new Reloading(logger));
 		moduleArray.add(new DeleteCurrentSong(logger, exs));
-		moduleArray.add(new Memo(logger, tagger, bm, exs));
 
 		// add module and checkbox
 		for (InterpretationModule im : moduleArray) {

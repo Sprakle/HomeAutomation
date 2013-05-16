@@ -1,5 +1,12 @@
 This document list the possible commands that can be used in behaviours
 
+XML Excapes:
+	"   &quot;
+	'   &apos;
+	<   &lt;
+	>   &gt;
+	&   &amp;
+
 ============================
 ========= Actions ========== 
 ============================
@@ -211,7 +218,9 @@ Time
 				
 	Optional Element: "restriction"
 		Required additional attribute:
-			"unit" -	"SECOND" | "MINUTE" | "HOUR" | "DAY" | "WEEK" | "MONTH" | "YEAR"
-			"range" -	what of these units should enable the trigger. Ex: unit="WEEK" range=[2-5]
-						would only trigger on  week days, not weekends. Denote ranges using regular
-						expressions
+			Description:
+				Allows you to narrow down the trigger times. All restrictions must pass.
+		
+			"unit" -		int from java.util.Calendar constant field values
+			"expression" -	what of these units should enable the trigger. Ex: unit="10" 
+							expression="2~5, 7" would only trigger on hours 2 to 5, or 7

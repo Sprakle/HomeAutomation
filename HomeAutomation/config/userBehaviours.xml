@@ -38,29 +38,6 @@ triggerEndActions: called ONCE when a trigger was stopped being gtriggered.
 		</trigger_end_actions>
 	</behaviour>
 	
-	<behaviour name="Morning alarm">
-		<description>
-			Wake up user at given time. Only for testing at the moment.
-		</description>
-		
-		<update_period>5000</update_period>
-		
-		<triggers>
-			<trigger type="time">
-				<parse_mode>standard</parse_mode>
-				<time>06-30-00</time>
-				
-				<!-- <restriction unit="DAY" range="2-5"/> -->
-			</trigger>
-		</triggers>
-		
-		<trigger_end_actions>
-			<action type="speak">
-				<speech>Wake up</speech>
-			</action>
-		</trigger_end_actions>
-	</behaviour>
-	
 	<behaviour name="wake up sequence">
 		<description>
 			When the user presses the wake up button, quiet music is played, and

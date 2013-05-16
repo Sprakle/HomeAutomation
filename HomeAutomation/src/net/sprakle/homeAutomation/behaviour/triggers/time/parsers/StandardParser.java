@@ -1,6 +1,5 @@
 package net.sprakle.homeAutomation.behaviour.triggers.time.parsers;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -50,22 +49,28 @@ public class StandardParser implements TimeParser {
 		if (triggerDate == null)
 			return;
 
-		String prevDateString = formatter.format(new Date());
+		String prevDateString = formatter.format(new Date(new Date().getTime() + (long) 1.8e6));
 		prevDate = parse(formatter, prevDateString);
 	}
 
 	@Override
 	public boolean isCurrent() {
 
-		String currentDateString = formatter.format(new Date());
+		String currentDateString = formatter.format(new Date(new Date().getTime() + (long) 1.8e6));
 		Date currentDate = parse(formatter, currentDateString);
 
+		System.out.println("Trigger Before: " + triggerDate + "\nprevious: " + prevDate + "\ncurrent: " + currentDate);
+
+		// FIXME: cannot understand times with a unit close to 0
+
+		System.out.println("Trigger After: " + triggerDate + "\nprevious: " + prevDate + "\ncurrent: " + currentDate);
+
 		if (triggerDate.after(prevDate) && triggerDate.before(currentDate)) {
-			String prevDateString = formatter.format(new Date());
+			String prevDateString = formatter.format(new Date(new Date().getTime() + (long) 1.8e6));
 			prevDate = parse(formatter, prevDateString);
 			return true;
 		} else {
-			String prevDateString = formatter.format(new Date());
+			String prevDateString = formatter.format(new Date(new Date().getTime() + (long) 1.8e6));
 			prevDate = parse(formatter, prevDateString);
 			return false;
 		}
@@ -76,15 +81,15 @@ public class StandardParser implements TimeParser {
 		return parseMode.equals("standard");
 	}
 
+	/**
+	 * Not yet implemented
+	 * 
+	 * @param formatter
+	 * @param toParse
+	 * @return
+	 */
 	private Date parse(SimpleDateFormat formatter, String toParse) {
-		Date date = null;
-		try {
-			date = formatter.parse(toParse);
-		} catch (ParseException e) {
-			logger.log("Invalid Standard date formatting: " + toParse, LogSource.ERROR, LogSource.BEHAVIOUR, 1);
-			return null;
-		}
-
-		return date;
+		logger.log("parse is not yet implemented due to file coruption", LogSource.ERROR, LogSource.BEHAVIOUR, 1);
+		return null;
 	}
 }
