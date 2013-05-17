@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="googleSpeech">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jGoogleSpeech/lib/commons-codec-1.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jGoogleSpeech/lib/commons-logging-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jGoogleSpeech/lib/fluent-hc-4.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jGoogleSpeech/lib/httpclient-4.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jGoogleSpeech/lib/httpclient-cache-4.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jGoogleSpeech/lib/httpcore-4.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jGoogleSpeech/lib/httpmime-4.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jGoogleSpeech/lib/jave.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jGoogleSpeech/lib/jGoogleSpeech.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
