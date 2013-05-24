@@ -3,9 +3,7 @@ package net.sprakle.homeAutomation.behaviour;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
@@ -98,13 +96,17 @@ public class BehaviourManager implements LogicTimerObserver {
 	 * This way, behaviours are only triggered once
 	 */
 	private void update() {
+
+		// behaviour to remove from list
+		List<Behaviour> removals = new ArrayList<>();
+
 		for (Entry<Behaviour, Long> e : behaviours.entrySet()) {
 			Behaviour b = e.getKey();
 			BehaviourState state = b.getState();
 
+			// only update if enough time has passed
 			long timeSinceLastUpdate = System.currentTimeMillis() - e.getValue();
 			if (timeSinceLastUpdate < b.getUpdatePeriod())
-				// don't update
 				continue;
 
 			switch (state) {
@@ -133,21 +135,19 @@ public class BehaviourManager implements LogicTimerObserver {
 			b.setState(state);
 
 			// remove if wanted
-			if (b.shouldDelete()) {
-				behaviours.remove(b);
-
-				// remove from file as well if necessary
-				if (b.isPersistent()) {
-					String file = b.getFile();
-					Element element = b.getElement();
-					removeFileElement(file, element);
-				}
+			if (b.shouldRemove()) {
+				removals.add(b);
 			}
 
 			// update time of last update
 			behaviours.put(b, System.currentTimeMillis());
 		}
+
+		// remove removals
+		for (Behaviour b : removals)
+			removeBehavior(b, false);
 	}
+
 	private Document readXML(String path) {
 		File file = new File(path);
 
@@ -194,6 +194,21 @@ public class BehaviourManager implements LogicTimerObserver {
 		behaviour.setFile(SYSTEM_BEHAVIOURS_PATH);
 		logger.log("Behaviour saved to system behaviours file", LogSource.BEHAVIOUR, 3);
 	}
+
+	public void removeBehavior(Behaviour b, boolean removeInFile) {
+		behaviours.remove(b);
+		logger.log("Deleting behaviour: '" + b.getName() + "'", LogSource.BEHAVIOUR, 1);
+
+		// remove from file as well if necessary
+		if (removeInFile) {
+			String file = b.getFile();
+			Element element = b.getElement();
+			removeFileElement(file, element);
+
+			logger.log("  Also deleted behaviour from persistent file", LogSource.BEHAVIOUR, 1);
+		}
+	}
+
 	/**
 	 * Used to create a behaviour based on an element in an XML file
 	 * 

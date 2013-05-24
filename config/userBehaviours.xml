@@ -44,12 +44,13 @@ triggerEndActions: called ONCE when a trigger was stopped being gtriggered.
 		</description>
 		
 		<update_period>2000</update_period>
+		<delete_after_triggers>3</delete_after_triggers>
 		
 		<triggers>
 			<trigger type="time">
 				<parse_mode>cron</parse_mode>
 				<time>* * * * *</time>
-				<restriction unit="12" expression="6~8"/>
+				<restriction unit="12" expression="0~60"/>
 			</trigger>
 		</triggers>
 	</behaviour>

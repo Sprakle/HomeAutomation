@@ -35,6 +35,12 @@ public final class Behaviour {
 	private final String DESCRIPTION;
 	private final int UPDATE_PERIOD;
 
+	// this behaviour will be deleted after n triggers. If == -1, the behaviour will stay forever
+	private final int DELETE_AFTER_TRIGGERS;
+
+	// number of times this behaviour has been triggered
+	private int triggersTriggered;
+
 	private final Element element;
 
 	// must be set by manager if persistent;
@@ -47,28 +53,51 @@ public final class Behaviour {
 
 		state = BehaviourState.DORMANT;
 
+		// mandatory elements
 		NAME = behaviourElement.attributeValue(XMLKeys.NAME);
 		DESCRIPTION = behaviourElement.elementText(XMLKeys.DESCRIPTION);
 
+		// update period
 		String UPString = behaviourElement.elementText(XMLKeys.UPDATE_PERIOD);
+
+		// delete after triggers
+		String datString = behaviourElement.elementText(XMLKeys.DELETE_AFTER_TRIGGERS);
+
+		// confirm update period
 		if (UPString != null && UPString.matches("\\d*"))
 			UPDATE_PERIOD = Integer.parseInt(UPString);
 		else
 			UPDATE_PERIOD = Config.getInt("config/behaviours/minimum_update_period");
 
+		// deleteAfterTriggers confirm. If it is not null, it must have an integer > 0
+		if (datString != null) {
+			if (datString.matches("\\d+")) {
+				DELETE_AFTER_TRIGGERS = Integer.parseInt(datString);
+			}else{
+				DELETE_AFTER_TRIGGERS = -1;
+				logger.log("Invalid delete_after_triggers_string: " + datString, LogSource.ERROR, LogSource.BEHAVIOUR, 1);
+			}
+		} else {
+			DELETE_AFTER_TRIGGERS = -1;
+		}
+
+		// confirm name
 		if (NAME == null) {
 			String path = behaviourElement.getUniquePath();
 			logger.log("Behaviour does not have a name: " + path, LogSource.ERROR, LogSource.BEHAVIOUR, 1);
 		}
 
+		// confirm description
 		if (DESCRIPTION == null) {
 			String path = behaviourElement.getUniquePath();
 			logger.log("Behaviour does not have a description: " + path, LogSource.ERROR, LogSource.BEHAVIOUR, 1);
 		}
 
+		// make triggers
 		Element triggerElements = behaviourElement.element(XMLKeys.TRIGGERS);
 		triggers = makeTriggers(triggerElements, od);
 
+		// make actions
 		Element triggerStartActionElements = behaviourElement.element(XMLKeys.TRIGGER_START_ACTIONS);
 		Element triggerEndActionElements = behaviourElement.element(XMLKeys.TRIGGER_END_ACTION);
 		triggerStartActions = makeActions(triggerStartActionElements, exs);
@@ -83,11 +112,15 @@ public final class Behaviour {
 		return false;
 	}
 	void executeTriggerStart() {
+		triggersTriggered++;
+
 		for (Action a : triggerStartActions)
 			a.execute();
 	}
 
 	void executeTriggerEnd() {
+		triggersTriggered++;
+
 		for (Action a : triggerEndActions)
 			a.execute();
 	}
@@ -125,10 +158,8 @@ public final class Behaviour {
 		return NAME;
 	}
 
-	@SuppressWarnings("SameReturnValue")
-    boolean shouldDelete() {
-		// TODO: get remove tags
-		return false;
+    boolean shouldRemove() {
+		return DELETE_AFTER_TRIGGERS != -1 && triggersTriggered >= DELETE_AFTER_TRIGGERS;
 	}
 
 	void setState(BehaviourState state) {

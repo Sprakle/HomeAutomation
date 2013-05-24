@@ -54,7 +54,6 @@ public class NumberExpression {
 			if (permit == null)
 				throw new ExpressionExcpetion("No permits were able to parse expression: '" + expression + "'. Remember ranges use the tilde character.");
 
-			System.out.println("For expression '" + expression + "' permit '" + permit.getClass().getSimpleName() + "' was chosen");
 			permit.setExpression(expression);
 			permits.add(permit);
 		}

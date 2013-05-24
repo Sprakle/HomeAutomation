@@ -11,7 +11,9 @@ public class XMLKeys {
 	public static final String BEHAVIOUR = "behaviour";
 	public static final String NAME = "name";
 	public static final String DESCRIPTION = "description";
+
 	public static final String UPDATE_PERIOD = "update_period";
+	public static final String DELETE_AFTER_TRIGGERS = "delete_after_triggers";
 
 	public static final String TYPE = "type";
 

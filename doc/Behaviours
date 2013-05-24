@@ -6,6 +6,22 @@ XML Excapes:
 	<   &lt;
 	>   &gt;
 	&   &amp;
+	
+Required Attributes of a behaviour:
+	"name" - User readable name for behaviour
+	
+Required elements of a behaviour:
+	"description" - User readable description
+	
+Optional elements:
+	"triggers" - contains all trigger elemens
+	"actions" - contains all actions elements
+	
+	"update_period" - time between checking triggers in milliseconds
+	"delete-after-trigger" - deletes this behaviour after the specified number of triggers, start and
+							 and triggeres combined. Example: A value of 3 will allow a start trigger,
+							 and trigger, and finaly another start trigger before deleting
+							 Does NOT delete behaviours from the persistent file
 
 ============================
 ========= Actions ========== 
