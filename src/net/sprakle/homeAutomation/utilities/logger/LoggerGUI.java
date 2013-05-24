@@ -39,7 +39,7 @@ class LoggerGUI {
 
 		doc = textPane.getStyledDocument();
 		style = textPane.addStyle("", null);
-		StyleConstants.setFontFamily(style, "Courier New");
+		StyleConstants.setFontFamily(style, "Monospaced");
 	}
 
 	void println(String text, LogSource source) {
