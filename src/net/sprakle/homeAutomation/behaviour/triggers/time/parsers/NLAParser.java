@@ -14,7 +14,6 @@ import org.dom4j.Element;
 public class NLAParser implements TimeParser {
 
 	private final Logger logger;
-	private final Tagger tagger;
 
 	private Date triggerDate;
 	private String rawDate;
@@ -22,13 +21,10 @@ public class NLAParser implements TimeParser {
 	// used to see if the current time has matched since isCurrent() was called last
 	private Date prevDate;
 
-	public NLAParser(Logger logger, Tagger tagger) {
+	public NLAParser(Logger logger, Tagger tagger, Element element) {
 		this.logger = logger;
-		this.tagger = tagger;
-	}
 
-	@Override
-	public void create(Element element) {
+
 		rawDate = element.getText();
 		Phrase phrase = new Phrase(logger, tagger, rawDate);
 
@@ -55,10 +51,5 @@ public class NLAParser implements TimeParser {
 			prevDate = new Date();
 			return false;
 		}
-	}
-
-	@Override
-	public boolean canParse(String parseMode) {
-		return parseMode.equals("natural_language");
 	}
 }

@@ -6,9 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.sprakle.homeAutomation.behaviour.triggers.Trigger;
+import net.sprakle.homeAutomation.behaviour.triggers.time.parsers.CronParser;
 import net.sprakle.homeAutomation.behaviour.triggers.time.parsers.MillisParser;
 import net.sprakle.homeAutomation.behaviour.triggers.time.parsers.NLAParser;
-import net.sprakle.homeAutomation.behaviour.triggers.time.parsers.StandardParser;
 import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
@@ -29,7 +29,6 @@ public class Time implements Trigger {
 	private List<Restriction> restrictions;
 
 	public Time(Logger logger, Element element) {
-		logger.log("Do not use the Time behaviour until it's critical bug has been fixed", LogSource.ERROR, LogSource.BEHAVIOUR, 1);
 
 		this.logger = logger;
 		parser = selectParser(element);
@@ -44,12 +43,8 @@ public class Time implements Trigger {
 
 	@Override
 	public boolean check() {
-		System.out.println("Checking:");
 		boolean parserCheck = parser.isCurrent();
 		boolean restrictionCheck = checkRestrictions();
-
-		System.out.println("  Parser: " + parserCheck);
-		System.out.println("  Restrictions: " + restrictionCheck);
 
 		return parserCheck && restrictionCheck;
 	}
@@ -83,26 +78,21 @@ public class Time implements Trigger {
 			return null;
 		}
 
-		List<TimeParser> parsers = makeTimeParsers(tagger);
-		for (TimeParser parser : parsers) {
-			if (parser.canParse(parseMode)) {
-				parser.create(timeElement);
-				return parser;
-			}
-		}
-
-		return null;
-	}
-
-	private List<TimeParser> makeTimeParsers(Tagger tagger) {
-		List<TimeParser> parsers = new ArrayList<>();
-
 		// add new parsers here
-		parsers.add(new StandardParser(logger));
-		parsers.add(new MillisParser(logger));
-		parsers.add(new NLAParser(logger, tagger));
+		switch(parseMode) {
+			case "cron":
+				return new CronParser(logger, timeElement);
 
-		return parsers;
+			case "milliseconds":
+				return new MillisParser(logger, timeElement);
+
+			case "natural_language":
+				return new NLAParser(logger, tagger, timeElement);
+
+			default:
+				logger.log("No time parser able to parse '" + parseMode + "'", LogSource.ERROR, LogSource.BEHAVIOUR, 1);
+				return null;
+		}
 	}
 
 	/**
@@ -116,11 +106,12 @@ public class Time implements Trigger {
 		List<Restriction> restrictions = new ArrayList<>();
 
 		// iterate through child elements of root with element name "foo"
-		for (Iterator<Element> i = element.elementIterator("restriction"); i.hasNext(); i.next()) {
+		for ( Iterator i = element.elementIterator("restriction"); i.hasNext(); ) {
+			Element rElement = (Element) i.next();
 
+			Restriction restriction = new Restriction(logger, rElement);
+			restrictions.add(restriction);
 		}
-
-		logger.log("makeRestrictions() is not yet implemented due to file coruption", LogSource.ERROR, LogSource.BEHAVIOUR, 1);
 
 		return restrictions;
 	}

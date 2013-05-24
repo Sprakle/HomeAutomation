@@ -181,20 +181,18 @@ Time
 		This behaviour will stay triggered for as long as the update period is
 	
 	Switch element: "parse_mode"
-		Standard:
+		Cron:
 			Description:
-				Date in standard from. To repeat, you can either use a standard mode with less large
-				units, or a NLA mode with less large units. You can use restrictions to	ensure
-				triggers only occur when you want (such as weekdays)
+				Specify time as you would a Unix Cron Job. Remember, if you want it to only occur one,
+				set the behaviour <delete-after-trigger> to 1. There is little point of using restrictions
+				with a cron job, but it can be done
 			
 			Element text"
-				"standard"
+				"cron"
 				
 			Required additional elements:
-				"time" - time in the form "yyyy-MM-dd-HH-mm-ss" (java.text.SimpleDateFormat) can
-				also parse text with less largse units, causing a trigger every time the units
-				match. Ex: "06-30-00" will trigger every day at 6:30. Remeber that you must inclide
-				all units after the first defined one, you cannot use "dd-HH-mm".
+				"time" - time as a Unix cron job. Example: '30 6 * * 1-5' will trigger at 6:30 AM every
+						 weekday
 
 		Natural Language:
 			Description:

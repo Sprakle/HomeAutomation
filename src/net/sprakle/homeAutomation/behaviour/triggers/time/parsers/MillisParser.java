@@ -10,19 +10,13 @@ import org.dom4j.Element;
 
 public class MillisParser implements TimeParser {
 
-	private final Logger logger;
-
 	private Date triggerDate;
 
 	// used to see if the current time has matched since isCurrent() was called last
 	private Date prevDate;
 
-	public MillisParser(Logger logger) {
-		this.logger = logger;
-	}
+	public MillisParser(Logger logger, Element element) {
 
-	@Override
-	public void create(Element element) {
 		String rawDate = element.getText();
 		if (!rawDate.matches("\\d+")) {
 			logger.log("Non long value in time trigger: " + rawDate, LogSource.ERROR, LogSource.BEHAVIOUR, 1);
@@ -48,10 +42,4 @@ public class MillisParser implements TimeParser {
 			return false;
 		}
 	}
-
-	@Override
-	public boolean canParse(String parseMode) {
-		return parseMode.equals("milliseconds");
-	}
-
 }

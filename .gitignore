@@ -1,5 +1,6 @@
 /bin
 /.settings
+/.idea
 .classpath
 .euml2
 .project

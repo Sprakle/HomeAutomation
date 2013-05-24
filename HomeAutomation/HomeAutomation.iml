@@ -16,6 +16,7 @@
     <orderEntry type="library" name="jid3lib-0.5.4" level="project" />
     <orderEntry type="library" name="jazzy" level="project" />
     <orderEntry type="library" name="googleSpeech" level="project" />
+    <orderEntry type="library" name="cron4j-2.2" level="project" />
   </component>
 </module>
 

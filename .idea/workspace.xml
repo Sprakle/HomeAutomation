@@ -4,272 +4,51 @@
     <option name="SHOW_STRUCTURE" value="true" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="31103e55-bb30-4e09-ab81-bf7ae5ad3bfa" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/ArduinoInterface/lib/ArduinoInterfacejar.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/ArduinoInterface/lib/RXTXcomm.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/jGoogleSpeech/lib/commons-codec-1.6.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/jGoogleSpeech/lib/commons-logging-1.1.1.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/dom4j-1.6.1/lib/dom4j-1.6.1.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/exp4j/exp4j-0.3.10-javadoc.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/exp4j/exp4j-0.3.10-sources.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/exp4j/exp4j-0.3.10.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/jGoogleSpeech/lib/fluent-hc-4.2.3.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/jGoogleSpeech/lib/httpclient-4.2.3.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/jGoogleSpeech/lib/httpclient-cache-4.2.3.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/jGoogleSpeech/lib/httpcore-4.2.2.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/jGoogleSpeech/lib/httpmime-4.2.3.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/jGoogleSpeech/lib/jGoogleSpeech.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/jGoogleSpeech/lib/jave.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/dom4j-1.6.1/lib/jaxen-1.1-beta-6.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/dom4j-1.6.1/lib/jaxme-api-0.3.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/jazzy.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/MP3 Tag/jid3lib-0.5.4.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/natives/librxtxSerial.jnilib" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/natives/librxtxSerial.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/dom4j-1.6.1/lib/msv-20030807.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/dom4j-1.6.1/lib/pull-parser-2.1.10.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/dom4j-1.6.1/lib/relaxngDatatype-20030807.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/natives/rxtxSerial.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/dom4j-1.6.1/lib/xpp3-1.1.3.3.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/dom4j-1.6.1/lib/xsdlib-20030807.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.name" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/amPm/formats/AbsoluteFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/days/formats/AbsoluteFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/hours/formats/AbsoluteFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/minutes/formats/AbsoluteFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/months/formats/AbsoluteFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/Action.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/ActionDefinition.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/ActionFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/media/actions/AdjustVolume.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/amPm/AmPmGroupFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/main/ApplicationFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/arduino/Arduino.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/arduino/ArduinoActive.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/arduino/supporting/ArduinoArguments.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/componentTree/nodeBehaviour/behaviours/ArduinoDevice.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/arduino/ArduinoFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/arduino/ArduinoInactive.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/ArduinoInterface/src/net/sprakle/arduinoInterface/ArduinoInterface.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/minutes/formats/AtNumberNumberFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/Behaviour.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/BehaviourDefinition.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/BehaviourManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/BehaviourState.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/Behaviours" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Building.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/media/actions/ChangePlaybackState.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/mediaCentreCommand/commands/ChangeVolume.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/weather/supporting/Client.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/mediaCentreCommand/Command.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/commandLine/CommandLineFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/commandLine/CommandLineInterface.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/objectDatabaseRead/Comparison.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/componentTree/Component.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/utilities/ComponentFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/ComponentType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/weather/supporting/Condition.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/weather/supporting/ConditionType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/main/Config.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/weather/supporting/CurrentWeather.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/componentTree/components/DB_Node.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/componentTree/components/DB_Object.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/componentTree/components/DB_Placeholder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/date/DateGroupFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/DateParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/days/DayGroupFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/deleteCurrentSong/DeleteCurrentSong.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/utilities/DepthFirstSearcher.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/personality/dynamicResponse/DynamicResponder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/emulateUserInput/EmulateUserInput.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/media/actions/EnqueueSong.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/mediaCentreCommand/commands/EnqueueTrack.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/events/Event.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/events/EventListener.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/events/EventManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/events/EventRelationship.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/events/EventType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/ExecutionResult.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/numberExpression/ExpressionExcpetion.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/ExternalSoftware.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/GUI/ExternalSoftwareGUI.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/weather/supporting/Forecast.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/minutes/formats/FractionDiffFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Glossary.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/GroupFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HomeAutomation.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/hours/HourGroupFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/arduino/supporting/IncomingInteraction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/arduino/supporting/IncomingMode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/media/actions/IncrementalTrackChange.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/main/Info.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/ArduinoInterface/src/net/sprakle/arduinoInterface/Interface.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/ArduinoInterface/src/net/sprakle/arduinoInterface/InterfaceObserver.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/weather/InternetWeather.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/weather/InternetWeatherActive.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/weather/InternetWeatherFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/weather/InternetWeatherInactive.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/InterpretationModule.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/Interpreter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/dom4j-1.6.1/LICENSE.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/jGoogleSpeech/lib/LICENSE.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/levenshtein/Levenshtein.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/fileAccess/read/LineByLine.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/commandLine/os/LinuxCLI.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/logger/LogSource.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/logger/Logger.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/logger/LoggerGUI.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/timer/LogicTimer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/timer/interfaces/observer/LogicTimerObserver.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/commandLine/os/MacCLI.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/media/supporting/os/mac/MacMediaController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/main/Main.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/timer/MainTimer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/math/Math.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/media/Media.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/media/MediaAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/media/MediaCentre.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/media/MediaCentreActive.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/mediaCentreCommand/MediaCentreCommand.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/media/MediaCentreFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/media/MediaCentreInactive.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/media/supporting/os/MediaController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/memo/Memo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/parsers/MillisParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/minutes/MinuteGroupFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/ModuleFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/GUI/ModuleGUI.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/ModuleManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/months/MonthGroupFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/date/formats/MonthNthNumberFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/parsers/NLAParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/jGoogleSpeech/lib/NOTICE.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/componentTree/nodeBehaviour/NodeBehaviour.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/componentTree/nodeBehaviour/NodeBehaviourFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/NodeType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/hours/formats/NumberDiffFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/minutes/formats/NumberDiffFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/numberExpression/NumberExpression.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/hours/formats/NumberNumberFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/minutes/formats/NumberNumberFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/main/OS.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/utilities/ObjectCreator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/ObjectDatabase.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/objectDatabaseCommand/ObjectDatabaseCommand.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/objectDatabaseRead/ObjectDatabaseRead.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/ObjectDatabaseUtilities.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/arduino/supporting/OutgoingMode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/generic/formats/PartOfDayFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/numberExpression/Permit.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/perspective/PerspectiveConverter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/perspective/PerspectiveGroup.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/Phrase.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/tagger/PhraseOutline.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/media/actions/PlayRandomSong.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/media/actions/PlayRandomSongByArtist.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/mediaCentreCommand/commands/PlayRandomTrack.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/media/actions/PlaySong.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/mediaCentreCommand/commands/PlayTrack.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/mediaCentreCommand/commands/Playback.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/media/supporting/PlaybackCommand.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/ArduinoInterface/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/jGoogleSpeech/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/jGoogleSpeech/lib/README.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/jGoogleSpeech/lib/RELEASE_NOTES.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/numberExpression/permits/RangePermit.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/days/formats/RelativeDayFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/generic/formats/RelativeNumberFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/generic/formats/RelativeShorthandFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/generic/formats/RelativeTimeChangeFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/reloading/ReloadEvent.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/reloading/Reloading.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/personality/dynamicResponse/Response.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/Restriction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/media/supporting/os/linux/Rhythmbox.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/seconds/SecondGroupFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ArduinoScetch/Serial/Serial.ino" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ArduinoScetch/SerialTester/SerialTester.ino" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/mediaCentreCommand/commands/SetVolume.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/media/actions/SetVolume.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ArduinoScetch/Serial/lib/ShiftIn/ShiftIn.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ArduinoScetch/Serial/lib/ShiftIn/ShiftIn.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ArduinoScetch/Serial/lib/ShiftOut/ShiftOut.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ArduinoScetch/Serial/lib/ShiftOut/ShiftOut.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/minutes/formats/ShorthandFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/minutes/formats/SimpleFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/numberExpression/permits/SinglePermit.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/SoftwareFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/SoftwareInterface.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/SoftwareInterfaceFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/SoftwareName.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/speak/Speak.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/userInterface/speechInput/SpeechInput.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/speller/Speller.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/spelling/Spelling.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/parsers/StandardParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/synthesis/Synthesis.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/synthesis/SynthesisActive.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/synthesis/SynthesisFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/synthesis/SynthesisInactive.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TODO.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/tagger/tags/Tag.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/tagger/TagFileParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/tagger/tags/TagType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/tagger/Tagger.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/userInterface/textInput/TextInput.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/userInterface/textInput/TextInputGUI.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/userInterface/textInput/TextInputListener.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/date/formats/TheNthNumberFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/Time.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/TimeFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/TimeFormatGroup.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/TimeParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/timer/Timer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/media/supporting/Track.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/media/supporting/os/linux/TrackFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/Trigger.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/TriggerDefinition.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/TriggerFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/main/Unit.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/main/Units.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/userInterface/speechInput/UserSpeechRecievedEvent.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/userInterface/textInput/UserTextRecievedEvent.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/userInterface/speechInput/Visual.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/componentTree/nodeBehaviour/behaviours/Weather.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/weatherForecasting/WeatherForecasting.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/weather/supporting/WeatherTimeframe.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/weeks/WeekGroupFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/userInterface/Window/Window.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/userInterface/Window/WindowPosition.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/commandLine/os/WindowsCLI.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/media/supporting/os/windows/WindowsMediaController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/XMLKeys.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/years/YearGroupFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/config.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/database.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/spelling/en_ca.dict" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/exp4j.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/jazzy.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/jid3lib_0_5_4.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/perspectiveMap.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/systemBehaviours.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/tagList.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/userBehaviours.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    <list default="true" id="31103e55-bb30-4e09-ab81-bf7ae5ad3bfa" name="Default" comment="Moved source directory into root">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/parsers/CronParser.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/parsers/StandardParser.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/main/ApplicationFactory.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/main/ApplicationFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/Behaviours" afterPath="$PROJECT_DIR$/doc/Behaviours" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/componentTree/Component.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/componentTree/Component.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/utilities/DepthFirstSearcher.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/utilities/DepthFirstSearcher.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Glossary.txt" afterPath="$PROJECT_DIR$/Glossary.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HomeAutomation/HomeAutomation.iml" afterPath="$PROJECT_DIR$/HomeAutomation/HomeAutomation.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/InterpretationModule.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/InterpretationModule.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/Interpreter.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/Interpreter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/dom4j-1.6.1/LICENSE.txt" afterPath="$PROJECT_DIR$/lib/dom4j-1.6.1/LICENSE.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/logger/LogSource.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/logger/LogSource.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/logger/Logger.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/logger/Logger.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/logger/LoggerGUI.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/logger/LoggerGUI.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/timer/LogicTimer.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/timer/LogicTimer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/timer/interfaces/observer/LogicTimerObserver.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/timer/interfaces/observer/LogicTimerObserver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/main/Main.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/main/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/timer/MainTimer.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/timer/MainTimer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/parsers/MillisParser.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/parsers/MillisParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/ModuleFactory.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/ModuleFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/ModuleManager.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/ModuleManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/parsers/NLAParser.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/parsers/NLAParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/ObjectDatabase.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/ObjectDatabase.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/objectDatabaseCommand/ObjectDatabaseCommand.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/objectDatabaseCommand/ObjectDatabaseCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/ObjectDatabaseUtilities.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interaction/objectDatabase/ObjectDatabaseUtilities.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/Phrase.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/Phrase.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TODO.txt" afterPath="$PROJECT_DIR$/TODO.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/tagger/tags/Tag.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/tagger/tags/Tag.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/tagger/TagFileParser.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/tagger/TagFileParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/tagger/tags/TagType.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/tagger/tags/TagType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/tagger/Tagger.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/tagger/Tagger.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/userInterface/textInput/TextInputGUI.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/userInterface/textInput/TextInputGUI.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/Time.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/Time.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/TimeParser.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/TimeParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/timer/Timer.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/timer/Timer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/userInterface/Window/Window.java" afterPath="$PROJECT_DIR$/src/net/sprakle/homeAutomation/userInterface/Window/Window.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/tagList.txt" afterPath="$PROJECT_DIR$/config/tagList.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/userBehaviours.xml" afterPath="$PROJECT_DIR$/config/userBehaviours.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="HomeAutomation.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="31103e55-bb30-4e09-ab81-bf7ae5ad3bfa" time="1368752455861" ignored="false" />
+    <file path="/Dummy.txt" changelist="31103e55-bb30-4e09-ab81-bf7ae5ad3bfa" time="1369365166179" ignored="false" />
     <file path="/fragment.java" changelist="31103e55-bb30-4e09-ab81-bf7ae5ad3bfa" time="1368758601269" ignored="false" />
     <file path="/main.java" changelist="31103e55-bb30-4e09-ab81-bf7ae5ad3bfa" time="1368750983715" ignored="false" />
     <file path="/MediaCentre.java" changelist="31103e55-bb30-4e09-ab81-bf7ae5ad3bfa" time="1368753264552" ignored="false" />
@@ -282,6 +61,13 @@
     <file path="/LoggerGUI.java" changelist="31103e55-bb30-4e09-ab81-bf7ae5ad3bfa" time="1368757984505" ignored="false" />
     <file path="/MainTimer.java" changelist="31103e55-bb30-4e09-ab81-bf7ae5ad3bfa" time="1368758074694" ignored="false" />
     <file path="/Comparison.java" changelist="31103e55-bb30-4e09-ab81-bf7ae5ad3bfa" time="1368759299407" ignored="false" />
+    <file path="/.gitignore" changelist="31103e55-bb30-4e09-ab81-bf7ae5ad3bfa" time="1368816974245" ignored="false" />
+    <file path="/StandardParser.java" changelist="31103e55-bb30-4e09-ab81-bf7ae5ad3bfa" time="1369290047199" ignored="false" />
+    <file path="/a.java" changelist="31103e55-bb30-4e09-ab81-bf7ae5ad3bfa" time="1369333592496" ignored="false" />
+    <file path="/Time.java" changelist="31103e55-bb30-4e09-ab81-bf7ae5ad3bfa" time="1369364629988" ignored="false" />
+    <file path="/CronParser.java" changelist="31103e55-bb30-4e09-ab81-bf7ae5ad3bfa" time="1369333634662" ignored="false" />
+    <file path="/MillisParser.java" changelist="31103e55-bb30-4e09-ab81-bf7ae5ad3bfa" time="1369290093250" ignored="false" />
+    <file path="/NLAParser.java" changelist="31103e55-bb30-4e09-ab81-bf7ae5ad3bfa" time="1369290138736" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -296,6 +82,7 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -332,7 +119,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -345,53 +131,56 @@
     <favorites_list name="HomeAutomation" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="ArduinoInterface.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/ArduinoInterface/src/net/sprakle/arduinoInterface/ArduinoInterface.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="16" selection-start="190" selection-end="190" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Interface.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/ArduinoInterface/src/net/sprakle/arduinoInterface/Interface.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EnqueueTrack.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/mediaCentreCommand/commands/EnqueueTrack.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="57" selection-start="791" selection-end="791" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PlayTrack.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/mediaCentreCommand/commands/PlayTrack.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="54" selection-start="782" selection-end="782" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Comparison.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/objectDatabaseRead/Comparison.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="13" selection-start="1618" selection-end="1618" vertical-scroll-proportion="0.7771509">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf>
+          <file leaf-file-name="MillisParser.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/parsers/MillisParser.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="43" column="5" selection-start="1125" selection-end="1125" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="NLAParser.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/parsers/NLAParser.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="53" column="5" selection-start="1469" selection-end="1469" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Time.java" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/Time.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="41" column="5" selection-start="1220" selection-end="1220" vertical-scroll-proportion="0.2588076">
+                  <folding>
+                    <element signature="e#2729#2759#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="CronParser.java" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/parsers/CronParser.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="33" column="31" selection-start="1098" selection-end="1098" vertical-scroll-proportion="0.40650406">
+                  <folding>
+                    <element signature="e#1124#1125#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -409,13 +198,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/logger/LoggerGUI.java" />
-        <option value="$PROJECT_DIR$/src/net/sprakle/homeAutomation/timer/MainTimer.java" />
-        <option value="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/synthesis/SynthesisActive.java" />
-        <option value="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/ActionDefinition.java" />
-        <option value="$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/media/actions/AdjustVolume.java" />
-        <option value="$PROJECT_DIR$/lib/jGoogleSpeech/src/net/sprakle/jGoogleSpeech/Capture.java" />
-        <option value="$PROJECT_DIR$/src/net/sprakle/homeAutomation/userInterface/speechInput/SpeechInput.java" />
         <option value="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/DateParser.java" />
         <option value="$PROJECT_DIR$/src/net/sprakle/homeAutomation/main/Info.java" />
         <option value="$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/generic/formats/RelativeTimeChangeFormat.java" />
@@ -424,7 +206,14 @@
         <option value="$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/weather/supporting/Condition.java" />
         <option value="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/mediaCentreCommand/commands/EnqueueTrack.java" />
         <option value="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/mediaCentreCommand/commands/PlayTrack.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/objectDatabaseRead/Comparison.java" />
+        <option value="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/parsers/StandardParser.java" />
+        <option value="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/TimeParser.java" />
+        <option value="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/parsers/MillisParser.java" />
+        <option value="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/parsers/NLAParser.java" />
+        <option value="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/Time.java" />
+        <option value="$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/parsers/CronParser.java" />
       </list>
     </option>
   </component>
@@ -442,7 +231,16 @@
             <id />
           </State>
           <State>
+            <id>Android Lint</id>
+          </State>
+          <State>
             <id>Class structure</id>
+          </State>
+          <State>
+            <id>Code style issues</id>
+          </State>
+          <State>
+            <id>Concurrency annotation issues</id>
           </State>
           <State>
             <id>Control flow issues</id>
@@ -457,10 +255,46 @@
             <id>J2ME issues</id>
           </State>
           <State>
+            <id>JUnit issues</id>
+          </State>
+          <State>
             <id>Javadoc issues</id>
           </State>
           <State>
+            <id>Logging issues</id>
+          </State>
+          <State>
+            <id>Numeric issues</id>
+          </State>
+          <State>
+            <id>Plugin DevKit</id>
+          </State>
+          <State>
+            <id>Portability issues</id>
+          </State>
+          <State>
+            <id>Probable bugs</id>
+          </State>
+          <State>
+            <id>RELAX NG</id>
+          </State>
+          <State>
+            <id>Resource management issues</id>
+          </State>
+          <State>
+            <id>Serialization issues</id>
+          </State>
+          <State>
+            <id>Threading issues</id>
+          </State>
+          <State>
             <id>XML</id>
+          </State>
+          <State>
+            <id>XPath</id>
+          </State>
+          <State>
+            <id>XSLT</id>
           </State>
         </expanded-state>
         <selected-state>
@@ -482,7 +316,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
-    <option name="STATE" value="2" />
+    <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
@@ -497,6 +331,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -552,118 +387,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="externalSoftware" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="homeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="externalSoftware" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="software" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="homeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="externalSoftware" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="software" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="weather" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="homeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="externalSoftware" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="software" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="weather" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="supporting" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="homeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="behaviour" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -720,7 +443,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="objectDatabaseRead" />
+              <option name="myItemId" value="time" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -746,187 +469,40 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="actions" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
+              <option name="myItemId" value="triggers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="time" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="homeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="behaviour" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="actions" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mediaCentreCommand" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="homeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="behaviour" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="actions" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mediaCentreCommand" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commands" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jGoogleSpeech" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ArduinoInterface" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ArduinoInterface" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="arduinoInterface" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HomeAutomation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
+              <option name="myItemId" value="parsers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="options.lastSelected" value="settings.github" />
+    <property name="options.lastSelected" value="preferences.sourceCode.Java" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/natives" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/cron4j-2.2.5" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -941,6 +517,19 @@
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -968,19 +557,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -1074,7 +650,11 @@
       <created>1368752344942</created>
       <updated>1368752344942</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Moved source directory into root">
+      <created>1368759383364</created>
+      <updated>1368759383364</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1101,26 +681,26 @@
     <frame x="-1" y="-4" width="1922" height="1085" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14423077" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.85303515" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32977587" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20660277" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32870865" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17075774" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17129135" sideWeight="0.78441834" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21558164" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3009605" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1696905" sideWeight="0.8292423" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16221985" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21558164" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -1189,67 +769,9 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/ActionDefinition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="0" selection-start="818" selection-end="818" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/interpretation/module/modules/media/actions/AdjustVolume.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="74" selection-start="1617" selection-end="1617" vertical-scroll-proportion="0.9930314">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/userInterface/speechInput/SpeechInput.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="18" selection-start="2082" selection-end="2082" vertical-scroll-proportion="0.15679443">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/DateParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="175" column="8" selection-start="5303" selection-end="5303" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/main/Info.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="8" selection-start="521" selection-end="521" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/time/getters/generic/formats/RelativeTimeChangeFormat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="8" selection-start="1781" selection-end="1781" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/utilities/logger/Logger.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="22" selection-start="2443" selection-end="2443" vertical-scroll-proportion="1.2212543">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/BehaviourDefinition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="67" selection-start="1351" selection-end="1351" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/externalSoftware/software/weather/supporting/Condition.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="25" selection-start="1148" selection-end="1148" vertical-scroll-proportion="0.33275262">
-          <folding />
-        </state>
+        <state line="57" column="25" selection-start="1148" selection-end="1148" vertical-scroll-proportion="0.33275262" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/BehaviourManager.java">
@@ -1261,43 +783,87 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/config.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="1" selection-start="41" selection-end="41" vertical-scroll-proportion="0.05226481">
-          <folding />
-        </state>
+        <state line="2" column="1" selection-start="41" selection-end="41" vertical-scroll-proportion="0.05226481" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ArduinoInterface/src/net/sprakle/arduinoInterface/ArduinoInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="16" selection-start="190" selection-end="190" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="7" column="16" selection-start="190" selection-end="190" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ArduinoInterface/src/net/sprakle/arduinoInterface/Interface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/mediaCentreCommand/commands/EnqueueTrack.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="57" selection-start="791" selection-end="791" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="22" column="57" selection-start="791" selection-end="791" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/mediaCentreCommand/commands/PlayTrack.java">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="54" selection-start="782" selection-end="782" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="6" column="11" selection-start="61" selection-end="61" vertical-scroll-proportion="0.09879254" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/objectDatabaseRead/Comparison.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="13" selection-start="1618" selection-end="1618" vertical-scroll-proportion="0.7771509">
+        <state line="43" column="0" selection-start="1057" selection-end="1057" vertical-scroll-proportion="0.27870968" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/actions/mediaCentreCommand/commands/PlayTrack.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="1" selection-start="934" selection-end="934" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/TriggerFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="13" selection-start="504" selection-end="504" vertical-scroll-proportion="0.077419356" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/TimeParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="29" selection-start="117" selection-end="117" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/parsers/NLAParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="5" selection-start="1469" selection-end="1469" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/parsers/MillisParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="5" selection-start="1125" selection-end="1125" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/Behaviour.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="129" column="11" selection-start="3457" selection-end="3457" vertical-scroll-proportion="0.33333334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/parsers/CronParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="31" selection-start="1098" selection-end="1098" vertical-scroll-proportion="0.40650406">
+          <folding>
+            <element signature="e#1124#1125#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/sprakle/homeAutomation/behaviour/triggers/time/Time.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="5" selection-start="1220" selection-end="1220" vertical-scroll-proportion="0.2588076">
+          <folding>
+            <element signature="e#2729#2759#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1358,6 +924,7 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>

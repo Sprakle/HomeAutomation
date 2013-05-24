@@ -38,6 +38,22 @@ triggerEndActions: called ONCE when a trigger was stopped being gtriggered.
 		</trigger_end_actions>
 	</behaviour>
 	
+	<behaviour name="Time Test">
+		<description>
+			Test time capabilities
+		</description>
+		
+		<update_period>2000</update_period>
+		
+		<triggers>
+			<trigger type="time">
+				<parse_mode>cron</parse_mode>
+				<time>* * * * *</time>
+				<restriction unit="12" expression="6~8"/>
+			</trigger>
+		</triggers>
+	</behaviour>
+	
 	<behaviour name="wake up sequence">
 		<description>
 			When the user presses the wake up button, quiet music is played, and
