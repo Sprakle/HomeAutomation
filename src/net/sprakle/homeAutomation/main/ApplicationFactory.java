@@ -10,6 +10,7 @@ import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.externalSoftware.software.synthesis.Synthesis;
 import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.interpretation.Interpreter;
+import net.sprakle.homeAutomation.interpretation.module.ModuleDependencies;
 import net.sprakle.homeAutomation.timer.MainTimer;
 import net.sprakle.homeAutomation.userInterface.speechInput.SpeechInput;
 import net.sprakle.homeAutomation.userInterface.textInput.TextInput;
@@ -58,7 +59,7 @@ class ApplicationFactory {
 
         BehaviourManager behaviourManager = new BehaviourManager(logger, objectDatabase, exs);
 
-        Interpreter interpreter = new Interpreter(logger, objectDatabase, exs, speller);
+        Interpreter interpreter = new Interpreter(logger, new ModuleDependencies(objectDatabase, exs, speller, behaviourManager));
 
 		/*
 		 * END INITIALISATION

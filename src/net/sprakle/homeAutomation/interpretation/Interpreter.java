@@ -11,6 +11,7 @@ import net.sprakle.homeAutomation.events.EventType;
 import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
 import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
+import net.sprakle.homeAutomation.interpretation.module.ModuleDependencies;
 import net.sprakle.homeAutomation.interpretation.module.ModuleManager;
 import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
 import net.sprakle.homeAutomation.userInterface.speechInput.UserSpeechRecievedEvent;
@@ -33,11 +34,11 @@ public class Interpreter implements EventListener {
 	private final ModuleManager moduleManager;
 	private final Tagger tagger;
 
-	public Interpreter(Logger logger, ObjectDatabase od, ExternalSoftware exs, Speller speller) {
+	public Interpreter(Logger logger, ModuleDependencies dependencies) {
 		this.logger = logger;
 
 		this.tagger = new Tagger(logger);
-		this.moduleManager = new ModuleManager(logger, od, exs, speller);
+		this.moduleManager = new ModuleManager(logger, dependencies);
 
 		phrases = new Stack<>();
 
@@ -51,7 +52,7 @@ public class Interpreter implements EventListener {
 
 		// convert text to a phrase, tagging it
 		Phrase phrase = new Phrase(logger, tagger, input);
-		logger.log("Tagged input: " + phrase, LogSource.TAGGER_INFO, 3);
+		logger.log("Tagged input: " + phrase.tagsToString(), LogSource.TAGGER_INFO, 3);
 
 		// if the last module requires addition user interaction, automatically execute it
 		if (additionalInteractionRequired) {
@@ -79,18 +80,22 @@ public class Interpreter implements EventListener {
 		prevModule = target;
 
 		phrases.push(phrase);
+
+		long startTime = System.currentTimeMillis();
 		ExecutionResult result = target.execute(phrases);
+		long totalTime = System.currentTimeMillis() - startTime;
 
 		// if the user-computer interaction is complete, everything is reset
 		if (result == ExecutionResult.COMPLETE) {
 			logger.log("User-system interaction complete after " + phrases.size() + " interactions", LogSource.INTERPRETER_INFO, 2);
 			phrases = new Stack<>();
 			additionalInteractionRequired = false;
-			return;
 		} else {
 			logger.log("Additional user-system interaction required", LogSource.INTERPRETER_INFO, 2);
 			additionalInteractionRequired = true;
 		}
+
+		logger.log("  Execution time: " + totalTime + "ms", LogSource.INTERPRETER_INFO, 2);
 	}
 
 	@Override

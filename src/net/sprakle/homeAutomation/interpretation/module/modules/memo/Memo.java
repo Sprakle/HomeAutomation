@@ -29,12 +29,11 @@ public class Memo implements InterpretationModule {
 	private final PerspectiveConverter pConverter;
 	private final Tagger tagger;
 
-	@SuppressWarnings("UnusedParameters")
-    private Memo(Logger logger, Tagger tagger, BehaviourManager bm, ExternalSoftware exs) {
+    public Memo(Logger logger, BehaviourManager bm, ExternalSoftware exs) {
 		this.logger = logger;
-		this.tagger = tagger;
 		this.bm = bm;
 
+		this.tagger = new Tagger(logger);
 		pConverter = new PerspectiveConverter(logger);
 	}
 
@@ -110,21 +109,5 @@ public class Memo implements InterpretationModule {
 	@Override
 	public String getName() {
 		return "Memo";
-	}
-
-	public static void main(String[] args) {
-		Logger logger = new Logger();
-		Tagger tagger = new Tagger(logger);
-		ExternalSoftware exs = new ExternalSoftware(logger);
-		ObjectDatabase od = new ObjectDatabase(logger, exs);
-		BehaviourManager bm = new BehaviourManager(logger, od, exs);
-
-		Memo memo = new Memo(logger, tagger, bm, exs);
-
-		Phrase phrase = new Phrase(logger, tagger, "remind me to do my homework on sunday at 5 30");
-		Stack<Phrase> phrases = new Stack<>();
-		phrases.push(phrase);
-
-		memo.execute(phrases);
 	}
 }

@@ -189,6 +189,7 @@ public class DateParser {
 		return result.trim();
 	}
 
+	// FIXME: Unable to remove full date from "remind me to eat cake in a few seconds"
 	/**
 	 * Removes the isolated date, along with some words before the date such as
 	 * "in", "on", etc

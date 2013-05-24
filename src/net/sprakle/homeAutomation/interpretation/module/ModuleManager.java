@@ -21,10 +21,10 @@ public class ModuleManager {
 
 	private final Logger logger;
 
-	public ModuleManager(Logger logger, ObjectDatabase od, ExternalSoftware exs, Speller speller) {
+	public ModuleManager(Logger logger, ModuleDependencies dependencies) {
 		this.logger = logger;
 
-		modules = ModuleFactory.getModules(logger, od, exs, speller);
+		modules = ModuleFactory.getModules(logger, dependencies);
 
 		ArrayList<JCheckBox> checkboxes = new ArrayList<>();
 		checkboxes.addAll(modules.keySet());
