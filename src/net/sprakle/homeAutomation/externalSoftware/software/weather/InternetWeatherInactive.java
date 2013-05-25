@@ -15,11 +15,6 @@ class InternetWeatherInactive implements InternetWeather {
 	}
 
 	@Override
-	public SoftwareName getSoftwareName() {
-		return SoftwareName.INTERNET_WEATHER;
-	}
-
-	@Override
 	public Forecast getForecast(int num) {
 		logger.log("Unable to create inactive forecast; it has not been programmed yet", LogSource.ERROR, LogSource.EXTERNAL_SOFTWARE, 1);
 		return null;

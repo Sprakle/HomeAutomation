@@ -5,4 +5,5 @@ public enum SoftwareName {
 	MEDIA_CENTRE,
 	ARDUINO,
 	INTERNET_WEATHER,
+	SPEECH_RECOGNITION,
 }

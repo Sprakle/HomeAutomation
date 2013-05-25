@@ -9,10 +9,4 @@ class ArduinoInactive implements Arduino {
 	public int interact(OutgoingMode mode, int pin, int data) {
 		return 0;
 	}
-
-	@Override
-	public SoftwareName getSoftwareName() {
-		return SoftwareName.ARDUINO;
-	}
-
 }

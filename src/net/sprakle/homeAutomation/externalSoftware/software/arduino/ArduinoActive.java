@@ -291,9 +291,4 @@ class ArduinoActive implements Arduino, LogicTimerObserver {
 			serialUpdate(input);
 		}
 	}
-
-	@Override
-	public SoftwareName getSoftwareName() {
-		return SoftwareName.ARDUINO;
-	}
 }

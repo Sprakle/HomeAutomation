@@ -5,12 +5,13 @@ import net.sprakle.homeAutomation.externalSoftware.software.SoftwareInterface;
 import net.sprakle.homeAutomation.externalSoftware.software.SoftwareInterfaceFactory;
 import net.sprakle.homeAutomation.externalSoftware.software.arduino.ArduinoFactory;
 import net.sprakle.homeAutomation.externalSoftware.software.media.MediaCentreFactory;
+import net.sprakle.homeAutomation.externalSoftware.software.speechRecognition.SpeechRecognitionFactory;
 import net.sprakle.homeAutomation.externalSoftware.software.synthesis.SynthesisFactory;
 import net.sprakle.homeAutomation.externalSoftware.software.weather.InternetWeatherFactory;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
 class SoftwareFactory {
-	public static SoftwareInterface getSoftware(Logger logger, CommandLineInterface cli, SoftwareName name, boolean active) {
+	static SoftwareInterface getSoftware(Logger logger, CommandLineInterface cli, SoftwareName name, boolean active) {
 
 		SoftwareInterfaceFactory factory = null;
 
@@ -31,6 +32,10 @@ class SoftwareFactory {
 				factory = new InternetWeatherFactory(logger);
 				break;
 
+			case SPEECH_RECOGNITION:
+				factory = new SpeechRecognitionFactory(logger);
+				break;
+
 			default:
 				break;
 		}
@@ -38,7 +43,7 @@ class SoftwareFactory {
 		return getFromFactory(factory, active);
 	}
 
-	private static SoftwareInterface getFromFactory(SoftwareInterfaceFactory factory, boolean active) {
+	static SoftwareInterface getFromFactory(SoftwareInterfaceFactory factory, boolean active) {
 		if (active)
 			return factory.getActiveSoftware();
 		else

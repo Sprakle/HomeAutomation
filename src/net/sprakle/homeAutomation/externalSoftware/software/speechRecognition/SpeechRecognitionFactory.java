@@ -1,33 +1,30 @@
-package net.sprakle.homeAutomation.externalSoftware.software.media;
+package net.sprakle.homeAutomation.externalSoftware.software.speechRecognition;
 
 import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
-import net.sprakle.homeAutomation.externalSoftware.commandLine.CommandLineInterface;
 import net.sprakle.homeAutomation.externalSoftware.software.SoftwareInterface;
 import net.sprakle.homeAutomation.externalSoftware.software.SoftwareInterfaceFactory;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-public class MediaCentreFactory implements SoftwareInterfaceFactory {
+public class SpeechRecognitionFactory implements SoftwareInterfaceFactory{
 
 	private final Logger logger;
-	private final CommandLineInterface cli;
 
-	public MediaCentreFactory(Logger logger, CommandLineInterface cli) {
+	public SpeechRecognitionFactory(Logger logger) {
 		this.logger = logger;
-		this.cli = cli;
 	}
 
 	@Override
 	public SoftwareInterface getActiveSoftware() {
-		return new MediaCentreActive(logger, cli);
+		return new SpeechRecognitionActive(logger);
 	}
 
 	@Override
 	public SoftwareInterface getInactiveSoftware() {
-		return new MediaCentreInactive(logger);
+		return new SpeechRecognitionInactive();
 	}
 
 	@Override
 	public SoftwareName getSoftwareName() {
-		return SoftwareName.MEDIA_CENTRE;
+		return SoftwareName.SPEECH_RECOGNITION;
 	}
 }

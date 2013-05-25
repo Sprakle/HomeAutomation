@@ -103,11 +103,6 @@ class MediaCentreActive implements MediaCentre, EventListener {
 	}
 
 	@Override
-	public SoftwareName getSoftwareName() {
-		return SoftwareName.MEDIA_CENTRE;
-	}
-
-	@Override
 	public void call(EventType et, Event e) {
 		if (et != EventType.RELOAD) {
 			return; // not applicable

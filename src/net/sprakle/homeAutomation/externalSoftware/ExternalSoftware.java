@@ -6,6 +6,7 @@ package net.sprakle.homeAutomation.externalSoftware;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import net.sprakle.homeAutomation.externalSoftware.GUI.ExternalSoftwareGUI;
@@ -20,16 +21,16 @@ public class ExternalSoftware {
 	private final CommandLineInterface cli;
 
 	// software can be disabled if the dependencies can not be met, for example if there is no internet connection
-	private HashMap<SoftwareName, Boolean> activeSoftware;
+	private Map<SoftwareName, Boolean> activeSoftware;
 
-	private final ArrayList<SoftwareInterface> software;
+	private final Map<SoftwareName, SoftwareInterface> software;
 
 	public ExternalSoftware(Logger logger) {
 		this.logger = logger;
 		this.cli = CommandLineFactory.getCommandLine(logger);
 
 		activeSoftware = new HashMap<>();
-		software = new ArrayList<>();
+		software = new HashMap<>();
 
 		ExternalSoftwareGUI gui = new ExternalSoftwareGUI(logger, SoftwareName.values());
 		activeSoftware = gui.getActiveSoftware();
@@ -53,15 +54,15 @@ public class ExternalSoftware {
 	 */
     void initSoftware(SoftwareName name) {
 		boolean active = activeSoftware.get(name);
-		software.add(SoftwareFactory.getSoftware(logger, cli, name, active));
+
+		SoftwareInterface sInterface = SoftwareFactory.getSoftware(logger, cli, name, active);
+		software.put(name, sInterface);
 	}
 
 	public SoftwareInterface getSoftware(SoftwareName name) {
-		for (SoftwareInterface si : software) {
-			if (si.getSoftwareName() == name) {
-				return si;
-			}
-		}
+		SoftwareInterface sInterface = software.get(name);
+		if (sInterface != null)
+			return sInterface;
 
 		// software has not been initialised yet
 		initSoftware(name);

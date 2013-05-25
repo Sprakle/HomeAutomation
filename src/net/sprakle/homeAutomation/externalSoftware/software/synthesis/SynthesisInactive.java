@@ -5,11 +5,6 @@ import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
 class SynthesisInactive implements Synthesis {
 
 	@Override
-	public SoftwareName getSoftwareName() {
-		return SoftwareName.SYNTHESIS;
-	}
-
-	@Override
 	public void speak(String phrase) {
 	}
 }

@@ -3,24 +3,23 @@ package net.sprakle.homeAutomation.interpretation;
 import java.util.List;
 import java.util.Stack;
 
-import net.sprakle.homeAutomation.behaviour.BehaviourManager;
 import net.sprakle.homeAutomation.events.Event;
 import net.sprakle.homeAutomation.events.EventListener;
 import net.sprakle.homeAutomation.events.EventManager;
 import net.sprakle.homeAutomation.events.EventType;
 import net.sprakle.homeAutomation.externalSoftware.ExternalSoftware;
-import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
+import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
+import net.sprakle.homeAutomation.externalSoftware.software.speechRecognition.SpeechRecognition;
+import net.sprakle.homeAutomation.externalSoftware.software.speechRecognition.supporting.SpeechRecognitionObserver;
 import net.sprakle.homeAutomation.interpretation.module.InterpretationModule;
 import net.sprakle.homeAutomation.interpretation.module.ModuleDependencies;
 import net.sprakle.homeAutomation.interpretation.module.ModuleManager;
 import net.sprakle.homeAutomation.interpretation.tagger.Tagger;
-import net.sprakle.homeAutomation.userInterface.speechInput.UserSpeechRecievedEvent;
 import net.sprakle.homeAutomation.userInterface.textInput.UserTextRecievedEvent;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
-import net.sprakle.homeAutomation.utilities.speller.Speller;
 
-public class Interpreter implements EventListener {
+public class Interpreter implements EventListener, SpeechRecognitionObserver {
 
 	private final Logger logger;
 
@@ -43,8 +42,11 @@ public class Interpreter implements EventListener {
 		phrases = new Stack<>();
 
 		EventManager em = EventManager.getInstance(logger);
-		em.addListener(EventType.USER_SPEECH_RECIEVED, this);
 		em.addListener(EventType.USER_TEXT_RECIEVED, this);
+
+		ExternalSoftware exs = dependencies.exs;
+		SpeechRecognition sRec = (SpeechRecognition) exs.getSoftware(SoftwareName.SPEECH_RECOGNITION);
+		sRec.addObserver(this);
 	}
 
 	private void recievedUserInput(String input) {
@@ -101,10 +103,6 @@ public class Interpreter implements EventListener {
 	@Override
 	public void call(EventType et, Event e) {
 		switch (et) {
-			case USER_SPEECH_RECIEVED:
-				UserSpeechRecievedEvent sre = (UserSpeechRecievedEvent) e;
-				recievedUserInput(sre.speech);
-				break;
 
 			case USER_TEXT_RECIEVED:
 				UserTextRecievedEvent utre = (UserTextRecievedEvent) e;
@@ -115,5 +113,10 @@ public class Interpreter implements EventListener {
 				// not applicable
 				break;
 		}
+	}
+
+	@Override
+	public void speechRecognized(String speech) {
+		recievedUserInput(speech);
 	}
 }

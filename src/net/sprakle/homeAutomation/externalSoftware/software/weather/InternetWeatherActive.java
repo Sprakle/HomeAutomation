@@ -101,9 +101,4 @@ class InternetWeatherActive implements InternetWeather, LogicTimerObserver {
 	public CurrentWeather getCurrentWeather() {
 		return currentWeather;
 	}
-
-	@Override
-	public SoftwareName getSoftwareName() {
-		return SoftwareName.INTERNET_WEATHER;
-	}
 }

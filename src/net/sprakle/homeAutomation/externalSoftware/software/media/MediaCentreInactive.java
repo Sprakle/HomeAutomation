@@ -17,11 +17,6 @@ class MediaCentreInactive implements MediaCentre {
 	}
 
 	@Override
-	public SoftwareName getSoftwareName() {
-		return SoftwareName.MEDIA_CENTRE;
-	}
-
-	@Override
 	public void playTrack(String title, String artist) {
 	}
 

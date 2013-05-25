@@ -12,7 +12,6 @@ import net.sprakle.homeAutomation.interaction.objectDatabase.ObjectDatabase;
 import net.sprakle.homeAutomation.interpretation.Interpreter;
 import net.sprakle.homeAutomation.interpretation.module.ModuleDependencies;
 import net.sprakle.homeAutomation.timer.MainTimer;
-import net.sprakle.homeAutomation.userInterface.speechInput.SpeechInput;
 import net.sprakle.homeAutomation.userInterface.textInput.TextInput;
 import net.sprakle.homeAutomation.utilities.logger.LogSource;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
@@ -53,7 +52,6 @@ class ApplicationFactory {
         Speller speller = new Speller(logger);
 
         TextInput textInput = new TextInput(logger);
-        SpeechInput speechInput = new SpeechInput(logger);
 
         ObjectDatabase objectDatabase = new ObjectDatabase(logger, exs);
 

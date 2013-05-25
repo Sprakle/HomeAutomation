@@ -1,5 +1,6 @@
 package net.sprakle.homeAutomation.externalSoftware.software.synthesis;
 
+import net.sprakle.homeAutomation.externalSoftware.SoftwareName;
 import net.sprakle.homeAutomation.externalSoftware.commandLine.CommandLineInterface;
 import net.sprakle.homeAutomation.externalSoftware.software.SoftwareInterface;
 import net.sprakle.homeAutomation.externalSoftware.software.SoftwareInterfaceFactory;
@@ -23,6 +24,11 @@ public class SynthesisFactory implements SoftwareInterfaceFactory {
 	@Override
 	public SoftwareInterface getInactiveSoftware() {
 		return new SynthesisInactive();
+	}
+
+	@Override
+	public SoftwareName getSoftwareName() {
+		return SoftwareName.SYNTHESIS;
 	}
 
 }

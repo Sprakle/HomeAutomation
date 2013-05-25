@@ -1,4 +1,4 @@
-package net.sprakle.homeAutomation.userInterface.speechInput;
+package net.sprakle.homeAutomation.externalSoftware.software.speechRecognition.supporting;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,7 +14,7 @@ import net.sprakle.homeAutomation.userInterface.Window.Window;
 import net.sprakle.homeAutomation.userInterface.Window.WindowPosition;
 import net.sprakle.homeAutomation.utilities.logger.Logger;
 
-class Visual {
+public class Visual {
 	private final Window window;
 
 	private JTextField txt;

@@ -50,11 +50,6 @@ class SynthesisActive implements Synthesis {
 		playSound(audioFile);
 	}
 
-	@Override
-	public SoftwareName getSoftwareName() {
-		return SoftwareName.SYNTHESIS;
-	}
-
 	// since swift cannot pronounce numbers like "-67", they must be modified to use the word "negative"
 	private String filterNegatives(String original) {
 		String filtered = original;
